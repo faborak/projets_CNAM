@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory name="">
+  <!-- local connection properties -->
+  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/exploitation_miniere</property>
+  <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+  <property name="hibernate.connection.username">Fabo</property>
+  <property name="hibernate.connection.password">Celenus</property>
+  <property name="hibernate.connection.pool_size">10</property>
+  <!-- dialect for MySQL -->
+  <property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
+  <property name="hibernate.show_sql">true</property>
+  <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+  <property name="cache.use_query_cache">false</property>
+  <mapping class="modeles.exploitminiere.Bouzon"/>
+  <mapping class="modeles.exploitminiere.Equipe"/>
+  <mapping class="modeles.exploitminiere.Gisement"/>
+  <mapping class="modeles.exploitminiere.Humain"/>
+  <mapping class="modeles.exploitminiere.Hzk2"/>
+  <mapping class="modeles.exploitminiere.Modele"/>
+  <mapping class="modeles.exploitminiere.Ouvrier"/>
+  <mapping class="modeles.exploitminiere.Robot"/>
+ </session-factory>
+</hibernate-configuration>
