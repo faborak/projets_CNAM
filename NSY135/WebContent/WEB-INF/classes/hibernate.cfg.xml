@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<!-- <!DOCTYPE hibernate-configuration SYSTEM 
+    "classpath://hibernate-configuration-3.0.dtd"> -->
+<hibernate-configuration>
+	<session-factory>
+		<!-- local connection properties -->
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/webscope</property>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.username">Fabo</property>
+		<property name="hibernate.connection.password">Celenus</property>
+		<property name="hibernate.connection.pool_size">10</property>
+		<!-- dialect for MySQL -->
+		<property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
+		<property name="hibernate.show_sql">true</property>
+		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+		<property name="cache.use_query_cache">false</property>
+		<mapping class="modeles.webscope.Pays" />
+		<mapping class="modeles.webscope.Film" />
+		<mapping class="modeles.webscope.Artiste" />
+		<mapping class="modeles.webscope.Internaute" />
+		<mapping class="modeles.webscope.Adresse" />
+		<mapping class="modeles.webscope.Genre" />
+		<mapping class="modeles.webscope.Region" />
+		<mapping class="modeles.webscope.Role" />
+		<mapping class="modeles.webscope.Video" />
+		<mapping class="modeles.webscope.FilmV" />
+		<mapping class="modeles.webscope.Reportage" />
+	</session-factory>
+</hibernate-configuration>
