@@ -8,31 +8,12 @@
  
   <jsp:attribute name="texte_principal">
    <div>
-	<h1>Exploitation minière</h1>
-	<ul>
-		<li><a href="${pageContext.request.contextPath}/accueil?action=ListeGisements">Lister les Gisements</a></li> 
-		<li><a href="${pageContext.request.contextPath}/accueil?action=ListeEquipes">Lister les Equipes</a></li>
-		<li><a href="${pageContext.request.contextPath}/accueil?action=ListeOuvriers">Lister les Ouvriers</a></li> 
-		<li><a href="${pageContext.request.contextPath}/accueil?action=ListeModeles">Lister les Modèles</a></li> 
-   </ul>
-   
-   <p>
-		<a href="${pageContext.request.contextPath}/accueil">Retour à l'accueil</a>
-	</p>
-   
-  </div>
- </jsp:attribute>
- 
-  <jsp:attribute name="colonne_1">
-   <div>
-<!-- <title>Recherche avec jointure par HQL</title> -->
-
 
 	<h1>Liste des gisements</h1>
 	
 	<ul>
 		<c:forEach items="${requestScope.listeGisement}" var="gisement">
-			  <li><c:out value="${gisement.nom}" /> mis en service le
+			  <li><c:out value="${gisement.nom}" /> a été mis en service le
 			  <c:out value="${gisement.date_mise_en_service}" />.</li>
 		</c:forEach>
 		
@@ -43,6 +24,23 @@
 	<p>
 		<a href="${pageContext.request.contextPath}/accueil">Retour à l'accueil</a>
 	</p>
+   
+  </div>
+ </jsp:attribute>
+ 
+  <jsp:attribute name="colonne_1">
+   <div>
+
+<h1>Gestion et calculs :</h1>
+	</br>
+	<ul>
+		<li><a href="${pageContext.request.contextPath}/gestion?action=TrouverHumain">Trouver un humain</a></li> 
+		<li><a href="${pageContext.request.contextPath}/gestion?action=TrouverRobot">Trouver un robot</a></li>
+		<li><a href="${pageContext.request.contextPath}/gestion?action=TrouverBouzon">Trouver un gisement de Bouzon</a></li> 
+		<li><a href="${pageContext.request.contextPath}/gestion?action=TrouverHzk2">Trouver du gaz Hzk2</a></li>  
+		<li><a href="${pageContext.request.contextPath}/gestion?action=TrouverEquipe">Trouver une équipe</a></li>  
+	</ul>
+
 
   </div>
  </jsp:attribute>

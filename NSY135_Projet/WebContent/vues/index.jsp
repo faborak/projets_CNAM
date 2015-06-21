@@ -33,12 +33,10 @@
 
  <jsp:attribute name="colonne_2">
    <div>
-	<h1>Work in progress</h1>
+	<h1>Insertions :</h1> 
+	</br>
 	<ul>
-<%-- 	<li><a href="${pageContext.request.contextPath}/Jdbc?action=connexion">Connexion</a></li>
-		<li><a href="${pageContext.request.contextPath}/Jdbc?action=requeteA">RequêteA</a></li>
-		<li><a href="${pageContext.request.contextPath}/Jdbc?action=requeteB">RequêteB</a></li>
-		<li><a href="${pageContext.request.contextPath}/Jdbc?action=requeteC">RequêteC</a></li> --%>
+		<li><a href="${pageContext.request.contextPath}/insertion?action=InsérerHumain">Insérer un humain</a></li>
 	</ul>
   </div>
  </jsp:attribute> 

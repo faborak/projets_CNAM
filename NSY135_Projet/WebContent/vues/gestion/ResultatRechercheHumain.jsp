@@ -12,8 +12,8 @@
 		action="${pageContext.request.contextPath}/Gestion">
         <c:forEach items="${requestScope.listehumains}" var="humain">
 			 <li> L'humain <c:out value="${humain.nom}" />  
-			 a comme salaire <c:out value="${humain.salaire}" /> euros
-			  et, curieusement, un cout de <c:out value="${humain.cout}" /> euros. </li>	
+			 a comme salaire <c:out value="${humain.salaire}" /> euros,
+			  et un cout de <c:out value="${humain.cout}" /> euros. </li>	
 		</c:forEach> 
         
 	</form>
