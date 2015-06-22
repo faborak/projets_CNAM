@@ -13,7 +13,8 @@
 	
 	<ul>
 		<c:forEach items="${requestScope.ListeOuvriers}" var="ouvrier">
-			 <li> L'ouvrier <c:out value="${ouvrier.nom}" />  fait partie de l'équipe <c:out value="${ouvrier.equipe.nom}" />. </li>
+			 <li> L'ouvrier <c:out value="${ouvrier.nom}" />  fait partie de l'équipe <c:out value="${ouvrier.equipe.nom}" />. 
+			 </li>
 		</c:forEach>
 	</ul>
 	
@@ -39,4 +40,15 @@
 
   </div>
  </jsp:attribute>
+ 
+  <jsp:attribute name="colonne_2">
+   <div>
+	<h1>Insertions :</h1> 
+	</br>
+	<ul>
+		<li><a href="${pageContext.request.contextPath}/insertion?action=InsertionCascade">Insertion en cascade.</a></li>
+		<li><a href="${pageContext.request.contextPath}/insertion?action=EffacerHumain">Effacer les insertions de test.</a></li>
+	</ul>
+  </div>
+ </jsp:attribute> 
 </t:layout>

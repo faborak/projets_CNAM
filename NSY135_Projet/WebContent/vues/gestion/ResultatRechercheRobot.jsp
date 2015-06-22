@@ -13,7 +13,10 @@
         <c:forEach items="${requestScope.listerobots}" var="robot">
 			 <li> Le robot <c:out value="${robot.nom}" />  
 			 a comme numéro de série <c:out value="${robot.numero_serie}" /> 
-			  et un cout de <c:out value="${robot.cout}" /> euros. </li>	
+			  et un coût de <c:out value="${robot.cout}" /> euros. 
+			  Son modèle est <c:out value="${robot.modele.nom}" />, une valeur sûre.
+			  
+			  </li>	
 		</c:forEach> 
         
 	</form>

@@ -41,9 +41,14 @@ public class insertion extends HttpServlet {
 		try {
 			if (action == null) {
 				maVue = "/vues/Exception.jsp";
-			} else if (action.equals("InsérerHumain")) {
-				maVue = VUES + "InsérerHumain.jsp";
-				redirection = "InsérerHumain";
+			} else if (action.equals("InsertionCascade")) {
+				MethodeInsertion methodeinsertion = new MethodeInsertion();
+				methodeinsertion.insérerEnCascade();
+				maVue = VUES + "InsertionCascade.jsp";
+			} else if (action.equals("EffacerHumain")) {
+				MethodeInsertion MI = new MethodeInsertion();
+				MI.deleteInsertionDeTest();
+				maVue = VUES + "EffacerCascade.jsp";
 			}
 		} catch (Exception e) {
 			maVue = "/vues/exception.jsp";
@@ -58,28 +63,28 @@ public class insertion extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String maVue = null;
-
-		try {
-			if (redirection == null){
-				maVue = VUES + "Redirection.jsp";
-			} else if (redirection == "TrouverHumain") {
-				String Nom = request.getParameter("nom");
-				String SalaireMin = request.getParameter("salaire_min");
-				String SalaireMax = request.getParameter("salaire_max");
-				String Equipe = request.getParameter("equipe");
-				MethodeInsertion methodeinsertion = new MethodeInsertion();
-				methodeinsertion.insérerHumain(Nom,
-						SalaireMin, SalaireMax, Equipe);
-				maVue = VUES + "InsertionReussie.jsp";
-	}
-		} catch (Exception e) {
-			maVue = "/vues/exception.jsp";
-			request.setAttribute("message", e.getMessage());
-		}
-		RequestDispatcher dispatcher = getServletContext()
-				.getRequestDispatcher(maVue);
-		dispatcher.forward(request, response);
+//
+//		String maVue = null;
+//
+//		try {
+//			if (redirection == null){
+//				maVue = VUES + "Redirection.jsp";
+//			} else if (redirection == "TrouverHumain") {
+//				String Nom = request.getParameter("nom");
+//				String SalaireMin = request.getParameter("salaire_min");
+//				String SalaireMax = request.getParameter("salaire_max");
+//				String Equipe = request.getParameter("equipe");
+//				MethodeInsertion methodeinsertion = new MethodeInsertion();
+//				methodeinsertion.insérerHumainEnCascade(Nom,
+//						SalaireMin, SalaireMax, Equipe);
+//				maVue = VUES + "InsertionReussie.jsp";
+//	}
+//		} catch (Exception e) {
+//			maVue = "/vues/exception.jsp";
+//			request.setAttribute("message", e.getMessage());
+//		}
+//		RequestDispatcher dispatcher = getServletContext()
+//				.getRequestDispatcher(maVue);
+//		dispatcher.forward(request, response);
 	}
 }

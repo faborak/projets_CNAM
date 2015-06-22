@@ -12,10 +12,19 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+/**
+ * La classe MéthodeAccueil utilise du HQL.
+ * 
+ */
 public class MethodeAccueil {
 
 	private Session session;
 	
+	/**
+	 * Affichage des gisements.
+	 * Aucune info supplémentaire nécéssaire.
+	 * 
+	 */
 	public List<Gisement> lectureGisement() {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
@@ -31,6 +40,11 @@ public class MethodeAccueil {
 		return ListeGisement;
 	}
 	
+	/**
+	 * Affichage des Equipes.
+	 * Tous les liens d'équipe vers les autres objets sont nécéssaires en raison du chagrement Lazy.
+	 * 
+	 */
 	public List<Equipe> lectureEquipe() {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
@@ -46,6 +60,11 @@ public class MethodeAccueil {
 		return ListeEquipe;
 	}
 	
+	/**
+	 * Affichage des Ouvriers.
+	 * Les liens vers l'équipe est nécéssaire pour l'affichage voulu.
+	 * 
+	 */
 	public List<Ouvrier> lectureOuvrier() {
 		SessionFactory sessionFactory = new Configuration().configure()
 				.buildSessionFactory();
@@ -62,6 +81,11 @@ public class MethodeAccueil {
 		return ListeOuvrier;
 	}
 	
+	/**
+	 * Affichage des Modèles.
+	 * Aucune info supplémentaire nécéssaire.
+	 * 
+	 */
 	public List<Modele> lectureModele() {
 		SessionFactory sessionFactory = new Configuration().configure()
 				.buildSessionFactory();

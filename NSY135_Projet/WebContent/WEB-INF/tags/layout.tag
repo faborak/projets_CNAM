@@ -35,7 +35,7 @@
 						title="">PhpMyAdmin</a></li>
 					<li><a href="http://orm.bdpedia.fr/projets.html" accesskey="4"
 						title="">Sujet</a></li>
-					<li><a href="http://www.outlook.fr/" accesskey="5" title="">Hotmail</a></li>
+					<li><a href="http://www.cnam.fr/" accesskey="5" title="">CNAM</a></li>
 				</ul>
 			</div>
 		</div>
@@ -51,9 +51,9 @@
 		<div id="wide-content">
 			<div>
 				<jsp:invoke fragment="texte_principal" />
-				<p class="button-style">
+				<!-- <p class="button-style">
 					<a href="#">Haut de page</a>
-				</p>
+				</p> -->
 			</div>
 		</div>
 	</div>
@@ -61,54 +61,19 @@
 		<div id="page" class="container">
 			<div id="content">
 				<div>
-					<!--<ul class="style1">  -->
-				 		<!-- <li class="first"> 
-							 <h3>Insertions :</h3>-->
-					<!-- <p>Ut vel nisl tristique justo ornare iaculis. Suspendisse suscipit, orci ac interdum viverra, nulla orci facilisis mi, a ultrices mi lectus vitae felis. Morbi suscipit adipiscing orci et blandit. Morbi a nulla ut tellus blandit placerat a quis eros.</p>
-					 
-							<p>
-								<a href="#" class="button-style">Read More</a>
-							</p>--> 
-					<!-- 	</li>  -->
 						<jsp:invoke fragment="colonne_2" />
-					<!-- 	<li>
-							 <h3>Magna phasellus etiam ultrices</h3>
-					<p>Ut vel nisl tristique justo ornare iaculis. Suspendisse suscipit, orci ac interdum viverra, nulla orci facilisis mi, a ultrices mi lectus vitae felis. Morbi suscipit adipiscing orci et blandit. Morbi a nulla ut tellus blandit placerat a quis eros.</p>
-					 
-							<p>
-								<a href="#" class="button-style">Read More</a>
-							</p>
-						</li>-->
-					<!-- </ul>  -->
 					<%-- <jsp:invoke fragment="colonne_3" /> --%>
 				</div>
 			</div>
 			<div id="sidebar">
 				 <!-- <h2>Fusce ultrices</h2> -->
 				  <ul class="style3">
-					<!-- <li class="first">
-						 <p class="date">05-04-2013</p>
-						<p>
-							<a href="#">Vestibulum laoreet lorem sed amet condimentum
-								eget ultrices et mago porttitor nequese blandit.</a>
-						</p>
-					</li>
-					<li>
-						<p class="date">04-23-2013</p>
-						<p>
-							<a href="#">Vestibulum laoreet lorem sed amet condimentum
-								eget ultrices et mago porttitor nequese blandit.</a>
-						</p>
-					</li>
-					<li>
-						<p class="date">04-17-2013</p>
-						<p>
-							<a href="#">Vestibulum laoreet lorem sed amet condimentum
-								eget ultrices et mago porttitor nequese blandit.</a>
-						</p>
-					</li>  -->
 				</ul>
 				<jsp:invoke fragment="colonne_1" />
+				
+				<p class="button-style">
+								<a href="#">Haut de page</a>
+	            </p>
 			</div>
 		</div>
 	</div>

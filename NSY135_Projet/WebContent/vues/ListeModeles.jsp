@@ -41,4 +41,15 @@
 
   </div>
  </jsp:attribute>
+ 
+  <jsp:attribute name="colonne_2">
+   <div>
+	<h1>Insertions :</h1> 
+	</br>
+	<ul>
+		<li><a href="${pageContext.request.contextPath}/insertion?action=InsertionCascade">Insertion en cascade.</a></li>
+		<li><a href="${pageContext.request.contextPath}/insertion?action=EffacerHumain">Effacer les insertions de test.</a></li>
+	</ul>
+  </div>
+ </jsp:attribute> 
 </t:layout>

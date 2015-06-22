@@ -6,6 +6,7 @@ import modeles.exploitminiere.Bouzon;
 import modeles.exploitminiere.Equipe;
 import modeles.exploitminiere.Humain;
 import modeles.exploitminiere.Hzk2;
+import modeles.exploitminiere.Modele;
 import modeles.exploitminiere.Robot;
 
 import org.hibernate.Criteria;
@@ -15,11 +16,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
+/**
+ * La classe MethodeGestion utilise du Criteria.
+ * 
+ */
 public class MethodeGestion {
 
 	private Session session;
 	
-	public List<Humain> trouverHumain(String Nom, String SalaireMin, String SalaireMax, String NomEquipe) {
+	
+	public List<Humain> trouverHumain(String Nom, String SalaireMin, String SalaireMax, String Equipe) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -40,12 +46,18 @@ public class MethodeGestion {
 				SalaireMaxNumerique = Integer.parseInt(SalaireMax);
 				criteria.add(Restrictions.le("salaire", SalaireMaxNumerique));
 			}
-			if (NomEquipe != "") {
-				Equipe equipe = new Equipe();
-				equipe.setNom(NomEquipe);
-				criteria.add(Restrictions.eqOrIsNull("equipe", equipe));
+			
+			if (Equipe != "" && Equipe != null) {
+				Criteria requeteequipe = session.createCriteria(Equipe.class)
+				               .add(Restrictions.eqOrIsNull("nom", Equipe));
+				Equipe listequipe = (Equipe) requeteequipe.uniqueResult();
+				criteria.add(Restrictions.eqOrIsNull("equipe", listequipe));
 			}
-//			criteria.setMaxResults(50);
+
+			
+//	pour la pagination, on peut ajouter	criteria.setMaxResults(10), etc, et utiliser une clé de reprise à chaque appel.
+//  inutilisé dans le cadre de ce projet.
+			
 			humain = (List<Humain>) criteria.list();
 		} catch (RuntimeException e) {
 			
@@ -55,7 +67,7 @@ public class MethodeGestion {
 		return humain;
 	}
 	
-	public List<Robot> trouverRobot(String Nom, String NumeroMin, String NumeroMax, String NomEquipe) {
+	public List<Robot> trouverRobot(String Nom, String NumeroMin, String NumeroMax, String NomModele) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -74,10 +86,13 @@ public class MethodeGestion {
 				int NumeroMaxNumerique = Integer.parseInt(NumeroMax);
 				criteria.add(Restrictions.le("numero_serie", NumeroMaxNumerique));
 			}
-			if (NomEquipe != "" && NomEquipe != null) {
-				Equipe equipe = new Equipe();
-				equipe.setNom(NomEquipe);
-				criteria.add(Restrictions.eqOrIsNull("equipe", equipe));
+			if (NomModele != "" && NomModele != null) {
+				Modele modele = new Modele();
+				modele.setNom(NomModele);
+				
+//				modele.setCout_exploitation_mensuel(null);
+				
+				criteria.add(Restrictions.eqOrIsNull("modele", modele));
 			}
 //			criteria.setMaxResults(50);
 			robot = (List<Robot>) criteria.list();

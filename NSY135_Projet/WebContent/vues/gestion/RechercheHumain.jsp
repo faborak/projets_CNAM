@@ -11,9 +11,8 @@
 	<form method="post"
 		action="${pageContext.request.contextPath}/gestion">
 		Nom : <input type="text" size="20" name="nom" /> <br/> <br/>
-		Salaire compris entre : <input type="text" size="20" name="salaire_min" /> <br/> <br/>
-		et <input type="text" size="20" name="salaire_max" /> <br /> <br/>
-		Equipe : <input type="text" size="20" name="equipe" /> <br /> <br />
+		Salaire compris entre : <input type="text" size="20" name="salaire_min" /> et <input type="text" size="20" name="salaire_max" /> <br /> <br/>
+		Nom de l'équipe : <input type="text" size="20" name="equipe" /> <br/> <br/>
 		<input type="submit" value="Rechercher un employé" />
 		
 	</form>

@@ -11,8 +11,7 @@
 	<form method="post"
 		action="${pageContext.request.contextPath}/gestion">
 		Nom du gisement : <input type="text" size="20" name="nom" /> <br/> <br/>
-		Rendement compris entre : <input type="text" size="20" name="rendement_min" /> <br/> <br/>
-		et <input type="text" size="20" name="rendement_max" /> <br /> <br/>
+		Rendement compris entre : <input type="text" size="20" name="rendement_min" /> et <input type="text" size="20" name="rendement_max" /> <br /> <br/>
 		Date de mise en service : <input type="text" size="20" name="date_mise_en_service" /> <br /> <br />
 		<input type="submit" value="Rechercher un Bouzon" />
 		

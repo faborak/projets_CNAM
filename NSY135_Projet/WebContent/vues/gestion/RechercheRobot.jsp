@@ -11,8 +11,7 @@
 	<form method="post"
 		action="${pageContext.request.contextPath}/gestion">
 		Nom : <input type="text" size="20" name="nom" /> <br/> <br/>
-		Numéro de serie compris entre : <input type="text" size="20" name="numero_min" /> <br/> <br/>
-		et <input type="text" size="20" name="numero_max" /> <br /> <br/>
+		Numéro de serie compris entre : <input type="text" size="20" name="numero_min" /> et <input type="text" size="20" name="numero_max" /> <br /> <br/>
 		Modèle : <input type="text" size="20" name="modele" /> <br /> <br />
 		<input type="submit" value="Rechercher un Robot" />
 		

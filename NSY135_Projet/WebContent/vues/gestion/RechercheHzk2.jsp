@@ -11,8 +11,7 @@
 	<form method="post"
 		action="${pageContext.request.contextPath}/gestion">
 		Nom du Hzk2 : <input type="text" size="20" name="nom" /> <br/> <br/>
-		Densité compris entre : <input type="text" size="20" name="densite_min" /> <br/> <br/>
-		et <input type="text" size="20" name="densite_max" /> <br /> <br/>
+		Densité compris entre : <input type="text" size="20" name="densite_min" /> et <input type="text" size="20" name="densite_max" /> <br /> <br/>
 		Date de mise en service : <input type="text" size="20" name="date_mise_en_service" /> <br /> <br />
 		<input type="submit" value="Rechercher un gisement de Hzk2" />
 		

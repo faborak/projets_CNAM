@@ -99,10 +99,10 @@ public class gestion extends HttpServlet {
 				String Nom = request.getParameter("nom");
 				String NumeroMin = request.getParameter("numero_min");
 				String NumeroMax = request.getParameter("numero_max");
-				String Equipe = request.getParameter("equipe");
+				String Modele = request.getParameter("modele");
 				MethodeGestion methodegestion = new MethodeGestion();
 				List<Robot> resultat = methodegestion.trouverRobot(Nom,
-						NumeroMin, NumeroMax, Equipe);
+						NumeroMin, NumeroMax, Modele);
 				for (Robot robot : resultat) {
 					robot.calculCout();
 				}

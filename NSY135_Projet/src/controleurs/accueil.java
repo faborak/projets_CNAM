@@ -23,8 +23,7 @@ import modeles.exploitminiere.Ouvrier;
 public class accueil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private static final String SERVER = "localhost", BD = "exploitation_miniere",
-			LOGIN = "Fabo", PASSWORD = "Celenus", VUES = "/vues/";
+	private static final String VUES = "/vues/";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -50,7 +49,8 @@ public class accueil extends HttpServlet {
 		
 		try {
 			if (action == null) {
-				// Rien à faire
+				// Affichage de la page d'index
+			// Somme des méthodes de l'accueil permettant de visualier la base	
 			} else if (action.equals("ListeGisements")) {
 				List<Gisement> listeGisement = methodeaccueil.lectureGisement();
 				request.setAttribute("listeGisement", listeGisement);
@@ -72,7 +72,6 @@ public class accueil extends HttpServlet {
 			maVue = VUES + "exception.jsp";
 			request.setAttribute("message", e.getMessage());
 		}
-		// On transmet à la vue
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(maVue);
 		dispatcher.forward(request, response);
 	}

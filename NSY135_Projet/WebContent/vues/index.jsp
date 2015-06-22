@@ -36,19 +36,17 @@
 	<h1>Insertions :</h1> 
 	</br>
 	<ul>
-		<li><a href="${pageContext.request.contextPath}/insertion?action=InsérerHumain">Insérer un humain</a></li>
+		<li><a href="${pageContext.request.contextPath}/insertion?action=InsertionCascade">Insertion en cascade.</a></li>
+		<li><a href="${pageContext.request.contextPath}/insertion?action=EffacerHumain">Effacer les insertions de test.</a></li>
 	</ul>
   </div>
  </jsp:attribute> 
  
   <jsp:attribute name="colonne_3">
    <div>
-	<h1>Work in progress</h1>
+	<h1>Delete :</h1>
 	<ul>
-<%-- 	<li><a href="${pageContext.request.contextPath}/Jdbc?action=connexion">Connexion</a></li>
-		<li><a href="${pageContext.request.contextPath}/Jdbc?action=requeteA">RequêteA</a></li>
-		<li><a href="${pageContext.request.contextPath}/Jdbc?action=requeteB">RequêteB</a></li>
-		<li><a href="${pageContext.request.contextPath}/Jdbc?action=requeteC">RequêteC</a></li> --%>
+
 	</ul>
   </div>
  </jsp:attribute> 

@@ -17,10 +17,10 @@
   <mapping class="modeles.exploitminiere.Bouzon"/>
   <mapping class="modeles.exploitminiere.Equipe"/>
   <mapping class="modeles.exploitminiere.Gisement"/>
-  <mapping class="modeles.exploitminiere.Humain"/>
   <mapping class="modeles.exploitminiere.Hzk2"/>
   <mapping class="modeles.exploitminiere.Modele"/>
   <mapping class="modeles.exploitminiere.Ouvrier"/>
   <mapping class="modeles.exploitminiere.Robot"/>
+  <mapping class="modeles.exploitminiere.Humain"/>
  </session-factory>
 </hibernate-configuration>
