@@ -80,7 +80,7 @@ public class gestion extends HttpServlet {
 		String maVue = null;
 
 		try {
-			if (redirection == null){
+			if (redirection == null) {
 				maVue = VUES + "Redirection.jsp";
 			} else if (redirection == "TrouverHumain") {
 				String Nom = request.getParameter("nom");
@@ -90,8 +90,10 @@ public class gestion extends HttpServlet {
 				MethodeGestion methodegestion = new MethodeGestion();
 				List<Humain> resultat = methodegestion.trouverHumain(Nom,
 						SalaireMin, SalaireMax, Equipe);
-				for (Humain humain : resultat) {
-					humain.calculCout();
+				if (resultat != null) {
+					for (Humain humain : resultat) {
+						humain.calculCout();
+					}
 				}
 				request.setAttribute("listehumains", resultat);
 				maVue = VUES + "ResultatRechercheHumain.jsp";
@@ -103,46 +105,56 @@ public class gestion extends HttpServlet {
 				MethodeGestion methodegestion = new MethodeGestion();
 				List<Robot> resultat = methodegestion.trouverRobot(Nom,
 						NumeroMin, NumeroMax, Modele);
-				for (Robot robot : resultat) {
-					robot.calculCout();
+				if (resultat != null) {
+					for (Robot robot : resultat) {
+						robot.calculCout();
+					}
 				}
 				request.setAttribute("listerobots", resultat);
 				maVue = VUES + "ResultatRechercheRobot.jsp";
-				
+
 			} else if (redirection == "TrouverBouzon") {
 				String Nom = request.getParameter("nom");
 				String RendementMin = request.getParameter("rendement_min");
 				String RendementMax = request.getParameter("rendement_max");
-				String MiseEnService = request.getParameter("date_mise_en_service");
+				String MiseEnService = request
+						.getParameter("date_mise_en_service");
 				MethodeGestion methodegestion = new MethodeGestion();
 				List<Bouzon> resultat = methodegestion.trouverBouzon(Nom,
 						RendementMin, RendementMax, MiseEnService);
-				for (Bouzon bouzon : resultat) {
-					bouzon.calculRevenu();
+				if (resultat != null) {
+					for (Bouzon bouzon : resultat) {
+						bouzon.calculRevenu();
+					}
 				}
 				request.setAttribute("listebouzons", resultat);
 				maVue = VUES + "ResultatRechercheBouzon.jsp";
-				
+
 			} else if (redirection == "TrouverHzk2") {
 				String Nom = request.getParameter("nom");
 				String RendementMin = request.getParameter("rendement_min");
 				String RendementMax = request.getParameter("rendement_max");
-				String MiseEnService = request.getParameter("date_mise_en_service");
+				String MiseEnService = request
+						.getParameter("date_mise_en_service");
 				MethodeGestion methodegestion = new MethodeGestion();
 				List<Hzk2> resultat = methodegestion.trouverHzk2(Nom,
 						RendementMin, RendementMax, MiseEnService);
-				for (Hzk2 hzk2 : resultat) {
-					hzk2.calculRevenu();
+				if (resultat != null) {
+					for (Hzk2 hzk2 : resultat) {
+						hzk2.calculRevenu();
+					}
 				}
 				request.setAttribute("listehzk2", resultat);
 				maVue = VUES + "ResultatRechercheHzk2.jsp";
-				
+
 			} else if (redirection == "TrouverEquipe") {
 				String Nom = request.getParameter("nom");
 				MethodeGestion methodegestion = new MethodeGestion();
 				List<Equipe> resultat = methodegestion.trouverEquipe(Nom);
-				for (Equipe equipe : resultat) {
-					equipe.calculCout();
+				if (resultat != null) {
+					for (Equipe equipe : resultat) {
+						equipe.calculCout();
+					}
 				}
 				request.setAttribute("listeequipes", resultat);
 				maVue = VUES + "ResultatRechercheEquipe.jsp";
