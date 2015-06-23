@@ -37,17 +37,15 @@ public class gestion extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * Méthodes get permettant l'affichage des formulaires de recherche.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		
-		// La vue par défaut
 		String maVue = null;
 		
 		try {
-			if (action == null) {
-				// Envoyer une exception ?
-			} else if (action.equals("TrouverHumain")) {
+			if (action.equals("TrouverHumain")) {
 				maVue = VUES + "RechercheHumain.jsp";
 				redirection = "TrouverHumain";
 			} else if (action.equals("TrouverRobot")) {
@@ -74,6 +72,7 @@ public class gestion extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * Méthodes post de recherches des formulaires. Appelle les méthodes de calcul de couts.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -90,7 +89,7 @@ public class gestion extends HttpServlet {
 				MethodeGestion methodegestion = new MethodeGestion();
 				List<Humain> resultat = methodegestion.trouverHumain(Nom,
 						SalaireMin, SalaireMax, Equipe);
-				if (resultat != null) {
+				if (resultat.size() != 0) {
 					for (Humain humain : resultat) {
 						humain.calculCout();
 					}
@@ -107,7 +106,7 @@ public class gestion extends HttpServlet {
 				MethodeGestion methodegestion = new MethodeGestion();
 				List<Robot> resultat = methodegestion.trouverRobot(Nom,
 						NumeroMin, NumeroMax, Modele);
-				if (resultat != null) {
+				if (resultat.size() != 0) {
 					for (Robot robot : resultat) {
 						robot.calculCout();
 					}
@@ -125,7 +124,7 @@ public class gestion extends HttpServlet {
 				MethodeGestion methodegestion = new MethodeGestion();
 				List<Bouzon> resultat = methodegestion.trouverBouzon(Nom,
 						RendementMin, RendementMax, MiseEnService);
-				if (resultat != null) {
+				if (resultat.size() != 0) {
 					for (Bouzon bouzon : resultat) {
 						bouzon.calculRevenu();
 					}
@@ -143,7 +142,7 @@ public class gestion extends HttpServlet {
 				MethodeGestion methodegestion = new MethodeGestion();
 				List<Hzk2> resultat = methodegestion.trouverHzk2(Nom,
 						RendementMin, RendementMax, MiseEnService);
-				if (resultat != null) {
+				if (resultat.size() != 0) {
 					for (Hzk2 hzk2 : resultat) {
 						hzk2.calculRevenu();
 					}
@@ -157,7 +156,7 @@ public class gestion extends HttpServlet {
 				String Nom = request.getParameter("nom");
 				MethodeGestion methodegestion = new MethodeGestion();
 				List<Equipe> resultat = methodegestion.trouverEquipe(Nom);
-				if (resultat != null) {
+				if (resultat.size() != 0) {
 					for (Equipe equipe : resultat) {
 						equipe.calculCout();
 					}

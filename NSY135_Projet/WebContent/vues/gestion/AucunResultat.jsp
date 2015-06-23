@@ -13,6 +13,8 @@
 
         Désolé, il n'existe pas de correspondance dans la base pour votre recherche.
         
+        </br> </br>
+        
         <a href="${pageContext.request.contextPath}/accueil">Retour à l'accueil</a>
         
 	</form>

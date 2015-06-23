@@ -46,24 +46,25 @@ public class accueil extends HttpServlet {
 		// La vue par défaut
 		String maVue = VUES + "index.jsp";
 		methodeaccueil = new MethodeAccueil();
-		
+
 		try {
 			if (action == null) {
 				// Affichage de la page d'index
-			// Somme des méthodes de l'accueil permettant de visualier la base	
+				// Somme des méthodes de l'accueil permettant de visualiser la
+				// base
 			} else if (action.equals("ListeGisements")) {
 				List<Gisement> listeGisement = methodeaccueil.lectureGisement();
 				request.setAttribute("listeGisement", listeGisement);
 				maVue = VUES + "ListeGisements.jsp";
-			}  else if (action.equals("ListeEquipes")) {
+			} else if (action.equals("ListeEquipes")) {
 				List<Equipe> listeEquipe = methodeaccueil.lectureEquipe();
 				request.setAttribute("ListeEquipe", listeEquipe);
 				maVue = VUES + "ListeEquipes.jsp";
-			}  else if (action.equals("ListeOuvriers")) {
+			} else if (action.equals("ListeOuvriers")) {
 				List<Ouvrier> listeOuvrier = methodeaccueil.lectureOuvrier();
 				request.setAttribute("ListeOuvriers", listeOuvrier);
 				maVue = VUES + "ListeOuvriers.jsp";
-			}  else if (action.equals("ListeModeles")) {
+			} else if (action.equals("ListeModeles")) {
 				List<Modele> listeModele = methodeaccueil.lectureModele();
 				request.setAttribute("listeModele", listeModele);
 				maVue = VUES + "ListeModeles.jsp";
@@ -72,7 +73,8 @@ public class accueil extends HttpServlet {
 			maVue = VUES + "exception.jsp";
 			request.setAttribute("message", e.getMessage());
 		}
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(maVue);
+		RequestDispatcher dispatcher = getServletContext()
+				.getRequestDispatcher(maVue);
 		dispatcher.forward(request, response);
 	}
 

@@ -25,7 +25,9 @@ public class MethodeInsertion {
 	public void insérerEnCascade(){
 			
 //	Cette méthode vise à créer plusieurs objets et les sauvegarder en cascade, via la méthode persist
-//	il est notable que Robot est sauvegardé et cascade, et sauvegarde lui-même Modèle en cascade
+//	il est notable que Robot est sauvegardé et cascade, et sauvegarde lui-même son Modèle en cascade.
+		
+		// Création de l'ensemble des éléments à rendre persistants.
 			Equipe equipe4 = new Equipe();
 			equipe4.setNom("Equipe 4");
 			Hzk2 Hzk2 = new Hzk2();
@@ -54,7 +56,7 @@ public class MethodeInsertion {
 			equipe4.addPersonnel(Humain11);
 			equipe4.addPersonnel(Robot12);
 			equipe4.addPersonnel(Humain13);
-			equipe4.setManager(Robot12);
+			equipe4.setManager(Humain11);
 
 			try {
 				SessionFactory sessionFactory = new Configuration().configure()
@@ -62,6 +64,8 @@ public class MethodeInsertion {
 				session = sessionFactory.openSession();
 
 				session.beginTransaction();
+				
+				// Utilisatin de la méthode persist.
 				session.persist(equipe4);
 				
 				session.getTransaction().commit();
@@ -76,7 +80,7 @@ public class MethodeInsertion {
 	}
 	
 	/**
-	 * Méthode pour retour sur l'insertion en cascade
+	 * Méthode pour retour sur l'insertion en cascade.
 	 *     
 	 */
 	public void deleteInsertionDeTest() {
@@ -85,42 +89,44 @@ public class MethodeInsertion {
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 
+		// Suppression un à un des éléments créés plus haut.
 		try {
-			
-		Criteria gisement = session.createCriteria(Gisement.class).add(
-				Restrictions.eqOrIsNull("nom", "Hzk2 10"));
-		for (Object f : gisement.list()) {
-			session.delete(f);
-		}
 
-		Criteria ouvriers = session.createCriteria(Ouvrier.class).add(
-				Restrictions.or(Restrictions.eqOrIsNull("nom", "Humain 11"),
-						Restrictions.eqOrIsNull("nom", "Robot 12"),
-						Restrictions.eqOrIsNull("nom", "Humain 13")));
-		for (Object f : ouvriers.list()) {
-			session.delete(f);
-		}
-		
-		Criteria modele = session.createCriteria(Modele.class).add(
-				Restrictions.eqOrIsNull("nom", "Modele 9999"));
-		for (Object f : modele.list()) {
-			session.delete(f);
-		}
-		
-		Criteria equipe = session.createCriteria(Equipe.class).add(
-				Restrictions.eqOrIsNull("nom", "Equipe 4"));
-		for (Object f : equipe.list()) {
-			session.delete(f);
-		}
+			Criteria gisement = session.createCriteria(Gisement.class).add(
+					Restrictions.eqOrIsNull("nom", "Hzk2 10"));
+			for (Object f : gisement.list()) {
+				session.delete(f);
+			}
 
-		session.getTransaction().commit();
+			Criteria ouvriers = session.createCriteria(Ouvrier.class).add(
+					Restrictions.or(
+							Restrictions.eqOrIsNull("nom", "Humain 11"),
+							Restrictions.eqOrIsNull("nom", "Robot 12"),
+							Restrictions.eqOrIsNull("nom", "Humain 13")));
+			for (Object f : ouvriers.list()) {
+				session.delete(f);
+			}
+
+			Criteria modele = session.createCriteria(Modele.class).add(
+					Restrictions.eqOrIsNull("nom", "Modele 9999"));
+			for (Object f : modele.list()) {
+				session.delete(f);
+			}
+
+			Criteria equipe = session.createCriteria(Equipe.class).add(
+					Restrictions.eqOrIsNull("nom", "Equipe 4"));
+			for (Object f : equipe.list()) {
+				session.delete(f);
+			}
+
+			session.getTransaction().commit();
 		} catch (RuntimeException e) {
 			if (session.getTransaction() != null)
 				session.getTransaction().rollback();
-			throw e; 
+			throw e;
 		} finally {
 			session.close();
 		}
-		
+
 	}
 }

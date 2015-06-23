@@ -23,10 +23,11 @@ import org.hibernate.criterion.Restrictions;
 public class MethodeGestion {
 
 	private Session session;
-	
-	
-	public List<Humain> trouverHumain(String Nom, String SalaireMin, String SalaireMax, String Equipe) {
-		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+
+	public List<Humain> trouverHumain(String Nom, String SalaireMin,
+			String SalaireMax, String Equipe) {
+		SessionFactory sessionFactory = new Configuration().configure()
+				.buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 		List<Humain> humain = null;
@@ -34,7 +35,7 @@ public class MethodeGestion {
 			Criteria criteria = session.createCriteria(Humain.class);
 			int SalaireMinNumerique = 0;
 			int SalaireMaxNumerique = 0;
-			
+
 			if (Nom != "" && Nom != null) {
 				criteria.add(Restrictions.eqOrIsNull("nom", Nom));
 			}
@@ -46,128 +47,144 @@ public class MethodeGestion {
 				SalaireMaxNumerique = Integer.parseInt(SalaireMax);
 				criteria.add(Restrictions.le("salaire", SalaireMaxNumerique));
 			}
-			
+
 			if (Equipe != "" && Equipe != null) {
 				Criteria requeteequipe = session.createCriteria(Equipe.class)
-				               .add(Restrictions.eqOrIsNull("nom", Equipe));
+						.add(Restrictions.eqOrIsNull("nom", Equipe));
 				Equipe listequipe = (Equipe) requeteequipe.uniqueResult();
 				criteria.add(Restrictions.eqOrIsNull("equipe", listequipe));
 			}
 
-			
-//	pour la pagination, on peut ajouter	criteria.setMaxResults(10), etc, et utiliser une clé de reprise à chaque appel.
-//  inutilisé dans le cadre de ce projet.
-			
+			// pour la pagination, on peut ajouter criteria.setMaxResults(10),
+			// etc, et utiliser une clé de reprise à chaque appel.
+			// inutilisé dans le cadre de ce projet.
+
 			humain = (List<Humain>) criteria.list();
 		} catch (RuntimeException e) {
-			
+
 		} finally {
 			session.close();
 		}
 		return humain;
 	}
-	
-	public List<Robot> trouverRobot(String Nom, String NumeroMin, String NumeroMax, String NomModele) {
-		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+
+	public List<Robot> trouverRobot(String Nom, String NumeroMin,
+			String NumeroMax, String NomModele) {
+		SessionFactory sessionFactory = new Configuration().configure()
+				.buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 		List<Robot> robot = null;
 		try {
 			Criteria criteria = session.createCriteria(Robot.class);
-			
+
 			if (Nom != "" && Nom != null) {
 				criteria.add(Restrictions.eqOrIsNull("nom", Nom));
 			}
 			if (NumeroMin != "" && NumeroMin != null) {
 				int NumeroMinNumerique = Integer.parseInt(NumeroMin);
-				criteria.add(Restrictions.ge("numero_serie", NumeroMinNumerique));
+				criteria.add(Restrictions
+						.ge("numero_serie", NumeroMinNumerique));
 			}
 			if (NumeroMax != "" && NumeroMax != null) {
 				int NumeroMaxNumerique = Integer.parseInt(NumeroMax);
-				criteria.add(Restrictions.le("numero_serie", NumeroMaxNumerique));
+				criteria.add(Restrictions
+						.le("numero_serie", NumeroMaxNumerique));
 			}
 			if (NomModele != "" && NomModele != null) {
 				Modele modele = new Modele();
 				modele.setNom(NomModele);
-				
-//				modele.setCout_exploitation_mensuel(null);
-				
+
 				criteria.add(Restrictions.eqOrIsNull("modele", modele));
 			}
-//			criteria.setMaxResults(50);
 			robot = (List<Robot>) criteria.list();
 		} catch (RuntimeException e) {
-			
+
 		} finally {
 			session.close();
 		}
 		return robot;
 	}
-	
-	public List<Bouzon> trouverBouzon(String Nom, String RendementMin, String RendementMax, String MiseEnService) {
-		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+
+	public List<Bouzon> trouverBouzon(String Nom, String RendementMin,
+			String RendementMax, String MiseEnService) {
+		SessionFactory sessionFactory = new Configuration().configure()
+				.buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 		List<Bouzon> bouzon = null;
 		try {
 			Criteria criteria = session.createCriteria(Bouzon.class);
-			
+
 			if (Nom != "" && Nom != null) {
 				criteria.add(Restrictions.eqOrIsNull("nom", Nom));
 			}
 			if (RendementMin != "" && RendementMin != null) {
-				float RendementMinNumerique = Float.valueOf(RendementMin.trim()).floatValue();
-				criteria.add(Restrictions.ge("rendement_mensuel", RendementMinNumerique));
+				float RendementMinNumerique = Float
+						.valueOf(RendementMin.trim()).floatValue();
+				criteria.add(Restrictions.ge("rendement_mensuel",
+						RendementMinNumerique));
 			}
 			if (RendementMax != "" && RendementMax != null) {
-				float RendementMaxNumerique = Float.valueOf(RendementMax.trim()).floatValue();
-				criteria.add(Restrictions.le("rendement_mensuel", RendementMaxNumerique));
+				float RendementMaxNumerique = Float
+						.valueOf(RendementMax.trim()).floatValue();
+				criteria.add(Restrictions.le("rendement_mensuel",
+						RendementMaxNumerique));
 			}
 			if (MiseEnService != "" && MiseEnService != null) {
-				criteria.add(Restrictions.eq("date_mise_en_service", MiseEnService));
+				criteria.add(Restrictions.eq("date_mise_en_service",
+						MiseEnService));
 			}
 			bouzon = (List<Bouzon>) criteria.list();
 		} catch (RuntimeException e) {
-			
+
 		} finally {
 			session.close();
 		}
 		return bouzon;
 	}
-	
-	public List<Hzk2> trouverHzk2(String Nom, String RendementMin, String RendementMax, String MiseEnService) {
-		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+
+	public List<Hzk2> trouverHzk2(String Nom, String RendementMin,
+			String RendementMax, String MiseEnService) {
+		SessionFactory sessionFactory = new Configuration().configure()
+				.buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 		List<Hzk2> Hzk2 = null;
 		try {
 			Criteria criteria = session.createCriteria(Hzk2.class);
-			
+
 			if (Nom != "" && Nom != null) {
 				criteria.add(Restrictions.eqOrIsNull("nom", Nom));
 			}
 			if (RendementMin != "" && RendementMin != null) {
-				float RendementMinNumerique = Float.valueOf(RendementMin.trim()).floatValue();
-				criteria.add(Restrictions.ge("rendement_mensuel", RendementMinNumerique));
+				float RendementMinNumerique = Float
+						.valueOf(RendementMin.trim()).floatValue();
+				criteria.add(Restrictions.ge("rendement_mensuel",
+						RendementMinNumerique));
 			}
 			if (RendementMax != "" && RendementMax != null) {
-				float RendementMaxNumerique = Float.valueOf(RendementMax.trim()).floatValue();
-				criteria.add(Restrictions.le("rendement_mensuel", RendementMaxNumerique));
+				float RendementMaxNumerique = Float
+						.valueOf(RendementMax.trim()).floatValue();
+				criteria.add(Restrictions.le("rendement_mensuel",
+						RendementMaxNumerique));
 			}
 			if (MiseEnService != "" && MiseEnService != null) {
-				criteria.add(Restrictions.eq("date_mise_en_service", MiseEnService));
+				criteria.add(Restrictions.eq("date_mise_en_service",
+						MiseEnService));
 			}
 			Hzk2 = (List<Hzk2>) criteria.list();
 		} catch (RuntimeException e) {
-			
+
 		} finally {
 			session.close();
 		}
 		return Hzk2;
 	}
-	
+
 	public List<Equipe> trouverEquipe(String Nom) {
-		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		SessionFactory sessionFactory = new Configuration().configure()
+				.buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 		List<Equipe> equipe = null;
@@ -178,11 +195,11 @@ public class MethodeGestion {
 			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			equipe = (List<Equipe>) criteria.list();
 		} catch (RuntimeException e) {
-			
+
 		} finally {
 			session.close();
 		}
 		return equipe;
 	}
-	
+
 }
