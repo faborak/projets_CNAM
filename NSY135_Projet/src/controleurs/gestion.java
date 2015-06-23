@@ -94,9 +94,11 @@ public class gestion extends HttpServlet {
 					for (Humain humain : resultat) {
 						humain.calculCout();
 					}
+					request.setAttribute("listehumains", resultat);
+					maVue = VUES + "ResultatRechercheHumain.jsp";
+				} else {
+					maVue = VUES + "AucunResultat.jsp";
 				}
-				request.setAttribute("listehumains", resultat);
-				maVue = VUES + "ResultatRechercheHumain.jsp";
 			} else if (redirection == "TrouverRobot") {
 				String Nom = request.getParameter("nom");
 				String NumeroMin = request.getParameter("numero_min");
@@ -109,10 +111,11 @@ public class gestion extends HttpServlet {
 					for (Robot robot : resultat) {
 						robot.calculCout();
 					}
+					request.setAttribute("listerobots", resultat);
+					maVue = VUES + "ResultatRechercheRobot.jsp";
+				} else {
+					maVue = VUES + "AucunResultat.jsp";
 				}
-				request.setAttribute("listerobots", resultat);
-				maVue = VUES + "ResultatRechercheRobot.jsp";
-
 			} else if (redirection == "TrouverBouzon") {
 				String Nom = request.getParameter("nom");
 				String RendementMin = request.getParameter("rendement_min");
@@ -126,10 +129,11 @@ public class gestion extends HttpServlet {
 					for (Bouzon bouzon : resultat) {
 						bouzon.calculRevenu();
 					}
+					request.setAttribute("listebouzons", resultat);
+					maVue = VUES + "ResultatRechercheBouzon.jsp";
+				} else {
+					maVue = VUES + "AucunResultat.jsp";
 				}
-				request.setAttribute("listebouzons", resultat);
-				maVue = VUES + "ResultatRechercheBouzon.jsp";
-
 			} else if (redirection == "TrouverHzk2") {
 				String Nom = request.getParameter("nom");
 				String RendementMin = request.getParameter("rendement_min");
@@ -143,9 +147,11 @@ public class gestion extends HttpServlet {
 					for (Hzk2 hzk2 : resultat) {
 						hzk2.calculRevenu();
 					}
+					request.setAttribute("listehzk2", resultat);
+					maVue = VUES + "ResultatRechercheHzk2.jsp";
+				} else {
+					maVue = VUES + "AucunResultat.jsp";
 				}
-				request.setAttribute("listehzk2", resultat);
-				maVue = VUES + "ResultatRechercheHzk2.jsp";
 
 			} else if (redirection == "TrouverEquipe") {
 				String Nom = request.getParameter("nom");
@@ -155,11 +161,12 @@ public class gestion extends HttpServlet {
 					for (Equipe equipe : resultat) {
 						equipe.calculCout();
 					}
+					request.setAttribute("listeequipes", resultat);
+					maVue = VUES + "ResultatRechercheEquipe.jsp";
+				} else {
+					maVue = VUES + "AucunResultat.jsp";
 				}
-				request.setAttribute("listeequipes", resultat);
-				maVue = VUES + "ResultatRechercheEquipe.jsp";
 			}
-			
 		} catch (Exception e) {
 			maVue = "/vues/exception.jsp";
 			request.setAttribute("message", e.getMessage());
