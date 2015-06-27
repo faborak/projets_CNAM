@@ -1,0 +1,1 @@
+import java.awt.*;public class Rectangle {	public Rectangle(int pX, int pY, int longueur, int largeur, Graphics g, Color c) {	g.setColor(c);	g.fillRoundRect(pX, pY, longueur, largeur, 40, 20); }}
