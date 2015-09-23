@@ -1,82 +1,106 @@
-
 public class Customer {
 
-    private String _id;
-    public String get_id() {
-		return _id;
+	private String id;
+	private String firstname;
+	private String lastname;
+	private String telephone;
+	private String street1;
+	private String street2;
+	private String city;
+	private String state;
+	private String zipcode;
+	private String country;
+	private String mail;
+
+	public String getId() {
+		return id;
 	}
-	public void set_id(String _id) {
-		this._id = _id;
+
+	public void setId(String id) {
+		this.id = id;
 	}
-	public String get_firstname() {
-		return _firstname;
+
+	public String getFirstname() {
+		return firstname;
 	}
-	public void set_firstname(String _firstname) {
-		this._firstname = _firstname;
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
-	public String get_lastname() {
-		return _lastname;
+
+	public String getLastname() {
+		return lastname;
 	}
-	public void set_lastname(String _lastname) {
-		this._lastname = _lastname;
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
-	public String get_telephone() {
-		return _telephone;
+
+	public String getTelephone() {
+		return telephone;
 	}
-	public void set_telephone(String _telephone) {
-		this._telephone = _telephone;
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
-	public String get_street1() {
-		return _street1;
+
+	public String getStreet1() {
+		return street1;
 	}
-	public void set_street1(String _street1) {
-		this._street1 = _street1;
+
+	public void setStreet1(String street1) {
+		this.street1 = street1;
 	}
-	public String get_street2() {
-		return _street2;
+
+	public String getStreet2() {
+		return street2;
 	}
-	public void set_street2(String _street2) {
-		this._street2 = _street2;
+
+	public void setStreet2(String street2) {
+		this.street2 = street2;
 	}
-	public String get_city() {
-		return _city;
+
+	public String getCity() {
+		return city;
 	}
-	public void set_city(String _city) {
-		this._city = _city;
+
+	public void setCity(String city) {
+		this.city = city;
 	}
-	public String get_state() {
-		return _state;
+
+	public String getState() {
+		return state;
 	}
-	public void set_state(String _state) {
-		this._state = _state;
+
+	public void setState(String state) {
+		this.state = state;
 	}
-	public String get_zipcode() {
-		return _zipcode;
+
+	public String getZipcode() {
+		return zipcode;
 	}
-	public void set_zipcode(String _zipcode) {
-		this._zipcode = _zipcode;
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
 	}
-	public String get_country() {
-		return _country;
+
+	public String getCountry() {
+		return country;
 	}
-	public void set_country(String _country) {
-		this._country = _country;
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
-	public String get_mail() {
-		return _mail;
+
+	public String getMail() {
+		return mail;
 	}
-	public void set_mail(String _mail) {
-		this._mail = _mail;
+
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
-	private String _firstname;
-    private String _lastname;
-    private String _telephone;
-    private String _street1;
-    private String _street2;
-    private String _city;
-    private String _state;
-    private String _zipcode;
-    private String _country;
-    private String _mail;
-	
+
+	public Customer(String st1, String st2, String st3) {
+
+	}
 }
