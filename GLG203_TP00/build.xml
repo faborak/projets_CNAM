@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+
+<project name="Yaps Petstore" default="core">
+
+    <property name="application.name" value="petstore"/>
+    <property name="tp" value="00"/>
+
+    <!-- =================================================================== -->
+    <!-- Variables                                                           -->
+    <!-- =================================================================== -->
+    <property name="yaps.dir" value="."/>
+
+    <!--YAPS Properties-->
+    <property name="yaps.home" value="${yaps.dir}"/>
+    <property name="yaps.src.dir" value="${yaps.home}/src/java"/>
+    <property name="yaps.test.src.dir" value="${yaps.home}/test/src"/>
+    <property name="yaps.classes.dir" value="${yaps.home}/classes/production"/>
+    <property name="yaps.test.classes.dir" value="${yaps.home}/classes/test"/>
+    <property name="yaps.build.dir" value="${yaps.home}/build"/>
+
+
+    <!-- =================================================================== -->
+    <!-- Fichier                                                             -->
+    <!-- =================================================================== -->
+    <property name="test.jar" value="test${tp}.jar"/>
+
+
+    <!-- =================================================================== -->
+    <!-- Utilitaires                                                         -->
+    <!-- =================================================================== -->
+    <property environment="env"/>
+    <property name="junit.home" value="${env.JUNIT_HOME}"/>
+    <property name="junit.jar.name" value="junit-4.4.jar"/>
+    <property name="junit.jar" value="${junit.home}/${junit.jar.name}"/>
+
+
+    <!-- =================================================================== -->
+    <!-- Check variable                                                      -->
+    <!-- =================================================================== -->
+    <target name="check">
+        <fail unless="env.JUNIT_HOME">
+            ####
+            #### You must install JUnit 4.4 from http://www.junit.org/
+            #### And set the JUNIT_HOME variable
+        </fail>
+        <copy file="${junit.jar}" todir="${yaps.build.dir}" />
+        <delete file="${yaps.build.dir}/${junit.jar.name}" />
+    </target>
+
+
+    <!-- =================================================================== -->
+    <!-- Classes et Jars utiliser pour compiler et tester l'application      -->
+    <!-- =================================================================== -->
+    <path id="classpath">
+        <pathelement location="${junit.jar}"/>
+    </path>
+
+    <path id="yaps-classpath">
+        <pathelement location="${yaps.classes.dir}"/>
+        <pathelement location="${yaps.test.classes.dir}"/>
+    </path>
+
+
+    <!-- =================================================================== -->
+    <!-- Suppression des repertoires de travail                              -->
+    <!-- =================================================================== -->
+    <target name="yaps-clean">
+        <echo message="Cleans the Yaps environment"/>
+        <delete dir="${yaps.home}/classes"/>
+    </target>
+
+
+    <!-- =================================================================== -->
+    <!-- Creation des repertoires de travail                                 -->
+    <!-- =================================================================== -->
+    <target name="yaps-prepare">
+        <echo message="Setup the Yaps environment"/>
+        <mkdir dir="${yaps.classes.dir}"/>
+        <mkdir dir="${yaps.test.classes.dir}"/>
+    </target>
+
+
+    <!-- =================================================================== -->
+    <!-- Compile le code source                                              -->
+    <!-- =================================================================== -->
+    <target name="yaps-compile" depends="yaps-prepare">
+        <echo message="Compile the YAPS classes"/>
+        <javac srcdir="${yaps.src.dir}"
+               destdir="${yaps.classes.dir}"
+               deprecation="on" nowarn="on">
+            <compilerarg value="-Xlint:unchecked"/>
+            <classpath refid="classpath"/>
+            <classpath refid="yaps-classpath"/>
+        </javac>
+        <echo message="Compile the YAPS test classes"/>
+        <javac srcdir="${yaps.test.src.dir}"
+               destdir="${yaps.test.classes.dir}"
+               deprecation="on">
+            <classpath refid="classpath"/>
+            <classpath refid="yaps-classpath"/>
+        </javac>
+    </target>
+
+
+    <!-- =================================================================== -->
+    <!-- Test                                                                -->
+    <!-- =================================================================== -->
+    <target name="yaps-test" depends="check, yaps-compile">
+        <echo message="Tests the application"/>
+        <junit printsummary="on" fork="yes">
+            <classpath refid="classpath"/>
+            <classpath refid="yaps-classpath"/>
+            <formatter type="plain" usefile="false"/>
+            <test name="AllTests"/>
+        </junit>
+    </target>
+
+
+    <!-- =================================================================== -->
+    <!-- Corriger                                                            -->
+    <!-- =================================================================== -->
+    <target name="yaps-mark" depends="yaps-compile">
+        <echo message="Marks the application"/>
+        <java classname="Tests" fork="yes">
+            <sysproperty key="fichierScenario" value="TP${tp}.test"/>
+            <classpath location="${test.jar}"/>
+            <classpath refid="classpath"/>
+            <classpath refid="yaps-classpath"/>
+        </java>
+    </target>
+
+
+    <!-- =================================================================== -->
+    <!-- Main                                                                -->
+    <!-- =================================================================== -->
+    <target name="core" depends="yaps-clean,yaps-compile"/>
+
+</project>
