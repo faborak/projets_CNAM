@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Customer {
 
 	private String _id;
@@ -11,6 +14,8 @@ public class Customer {
 	private String _zipcode;
 	private String _country;
 	private String _mail;
+
+	public static List<Customer> ListCustomers = new ArrayList<Customer>();
 
 	public String getId() {
 		return _id;
@@ -104,6 +109,123 @@ public class Customer {
 		this.setId(id);
 		this.setFirstname(firstname);
 		this.setLastname(lastname);
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @param firstname
+	 * @param lastname
+	 * @param telephone
+	 * @param street1
+	 * @param street2
+	 * @param city
+	 * @param state
+	 * @param zipcode
+	 * @param country
+	 * @param mail
+	 */
+	public Customer(String id, String firstname, String lastname,
+			String telephone, String street1, String street2, String city,
+			String state, String zipcode, String country, String mail) {
+		super();
+		_id = id;
+		_firstname = firstname;
+		_lastname = lastname;
+		_telephone = telephone;
+		_street1 = street1;
+		_street2 = street2;
+		_city = city;
+		_state = state;
+		_zipcode = zipcode;
+		_country = country;
+		_mail = mail;
+	}
+
+	public Customer(String id) {
+		super();
+		_id = id;
+	}
+
+	public boolean checkId(String id) {
+		if (this._id == id) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean checkData() {
+		return _id != null && !_id.equals("") && _firstname != null
+				&& !_firstname.equals("") && _lastname != null
+				&& !_lastname.equals("");
+	}
+
+	public String getCheckDataError() {
+		String message = null;
+		if (_id == null || _id.equals("")) {
+			message = "Invalid id";
+		} else if (_firstname == null || _firstname.equals("")) {
+			message = "Invalid first name";
+		} else if (_lastname == null || _lastname.equals("")) {
+			message = "Invalid last name";
+		}
+		return message;
+	}
+
+	public boolean checkMail() {
+		boolean mailok = false;
+		for (int i = 0; i < this.getMail().length(); i++) {
+			if (this.getMail().charAt(i) == '@') {
+				mailok = true;
+			}
+		}
+		if (this.getMail().length() < 7 || this.getMail().length() > 38) {
+			mailok = false;
+		}
+		if (this.getMail()
+				.subSequence(this.getMail().length() - 3,
+						this.getMail().length()).equals(".us")) {
+			mailok = false;
+		}
+		if (this.getMail()
+				.substring(this.getMail().length() - 4, this.getMail().length())
+				.equals(".com")) {
+			mailok = false;
+		}
+		return mailok;
+	}
+
+	public static Customer find(String id) {
+		Customer test = null;
+		for (int i = 0; i < ListCustomers.size() ; i++) {
+			test = ListCustomers.get(i);
+			if (test.getId().equals(id)) {
+				return test;
+			}
+		}
+		return null;
+	}
+
+	public static boolean insert(Customer customer) {
+		if (find(customer.getId()) == null) {
+			ListCustomers.add(customer);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public static boolean remove(String sid) {
+		Customer test = null;
+		for (int i = 0; i < ListCustomers.size() ; i++) {
+			test = ListCustomers.get(i);
+			if (test.getId().equals(sid)) {
+				ListCustomers.remove(i);
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
