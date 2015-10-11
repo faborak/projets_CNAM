@@ -120,7 +120,7 @@ public class Customer {
 	}
 
 	/**
-	 * Constructeur par défaut
+	 * Constructeur par defaut
 	 */
 	public Customer(){}
 	
@@ -168,6 +168,15 @@ public class Customer {
 	}
 	
 	public boolean checkData() throws CustomerCheckException{
+		if(_id == null || _id.equals("") ){
+			throw new CustomerCheckException("");
+		}
+		if (_firstname == null || _firstname.equals("")){
+			throw new CustomerCheckException("Invalid customer first name");
+		}
+		if ( _lastname == null || _lastname.equals("")){
+			throw new CustomerCheckException("Invalid customer last name");
+		}
 		return _id != null && !_id.equals("") && _firstname != null && !_firstname.equals("") && _lastname != null
 				&& !_lastname.equals("");
 	}

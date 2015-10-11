@@ -1,0 +1,108 @@
+[Classes] -5099250662965263360
+classe com/yaps/petstore/CustomerRemoveException.class 175 -4911248533192966144
+classe com/yaps/petstore/CustomerException.class 219 5167212965791793152
+classe com/yaps/petstore/CustomerFinderException.class 175 2226137049307545600
+classe com/yaps/petstore/CustomerDAO.class 1643 780060363268816896
+classe com/yaps/petstore/CustomerTest.class 1375 850237121686929408
+classe com/yaps/petstore/Menu.class 6024 -5104360306408151040
+classe com/yaps/petstore/CustomerNotFoundException.class 183 6713155659167629312
+classe com/yaps/petstore/CustomerDAOTest.class 4772 -6913970390549331968
+classe com/yaps/petstore/CustomerCreateException.class 175 -7424639881081380864
+classe com/yaps/petstore/CustomerCheckException.class 193 -3170450984182718464
+classe com/yaps/petstore/CustomerDuplicateKeyException.class 187 -6332137396846460928
+classe com/yaps/petstore/CustomerUpdateException.class 175 -5144046992502030336
+classe com/yaps/petstore/Customer.class 3059 -3367260858044250880
+[/Classes] -5335258811429027840
+[Tests] 3158652918154919936
+testUpdateUnknownCustomer(f) REUSSITE 7532486255595212800
+testUpdateCustomer(f) REUSSITE 8753720611591946240
+testCreateValidCustomer(ab) ERREUR 6912531174988447744
+testCreateCustomerWithInvalidValues(ab) ERREUR -6115356763794440192
+testCreateCustomer(f) REUSSITE 499919819609473024
+testFindCustomerWithInvalidValues(f) REUSSITE -1652779585105821696
+testDeleteUnknownCustomer(f) REUSSITE -3101938179446865920
+testUpdateCustomerWithInvalidValues(f) REUSSITE -1883414689749139456
+[/Tests] 7563869192693219328
+[DetailClasses] 5420674465606303744
+debutContenuClasse com.yaps.petstore.CustomerRemoveException 2312569240610818560
+finContenuClasse -4876822933130010624
+debutContenuClasse com.yaps.petstore.CustomerException 6665748180618969088
+finContenuClasse -4876822933130010624
+debutContenuClasse com.yaps.petstore.CustomerFinderException 3740094190982266880
+finContenuClasse -4876822933130010624
+debutContenuClasse com.yaps.petstore.CustomerDAO -5649981673142484992
+methode remove(java.lang.String) L'3-9-UKWN-0 4757403737306431488
+methode update(com.yaps.petstore.Customer) L'16-UKWN-0 51049151601582336
+methode find(java.lang.String) L'3-7-1-UKWN-0 -5722771456097517568
+methode insert(com.yaps.petstore.Customer) L'4-11-UKWN-0 8272576939714150400
+methode checkId(java.lang.String) L'1-3-6-UKWN-0 8236634005441527808
+methode getUniqueId() L'20-UKWN-0 4627162469808480256
+finContenuClasse -4876822933130010624
+debutContenuClasse com.yaps.petstore.CustomerTest -7990646733778452480
+methode testCreateCustomerWithInvalidValues() L'73-UKWN-0 -9136447780204576768
+methode suite() C'187-89-18-183-176-UKWN-0 -1791592650579640320
+methode testCreateValidCustomer() L'23-UKWN-0 1416621783681990656
+finContenuClasse -4876822933130010624
+debutContenuClasse com.yaps.petstore.Menu 8134242155478515712
+methode main([Ljava.lang.String;) C'184-177-UKWN-0 5123404714884787200
+methode clearScreen() L'4-6-UKWN-0 -1606586646474260480
+methode show() L'44-3-2-53-14-UKWN-0 8057473313259126784
+methode createCustomer() L'3-14-82-UKWN-0 4850673755300560896
+methode findCustomer() L'3-11-47-UKWN-0 4600353463019241472
+methode deleteCustomer() L'3-11-30-8-14-30-UKWN-0 9038400580996825088
+methode updateCustomer() L'3-11-30-8-14-3-11-83-UKWN-0 710829827913940992
+methode readsInputLine() L'27-UKWN-0 -3205800631679844352
+finContenuClasse -4876822933130010624
+debutContenuClasse com.yaps.petstore.CustomerNotFoundException 8993080031302361088
+finContenuClasse -4876822933130010624
+debutContenuClasse com.yaps.petstore.CustomerDAOTest -5761873226993238016
+methode testFindCustomerWithInvalidValues() L'33-UKWN-0 -8829577750068068352
+methode testUpdateCustomerWithInvalidValues() L'69-UKWN-0 -1314776015487762432
+methode suite() C'187-89-18-183-176-UKWN-0 -1791592650579640320
+methode testCreateCustomer() L'48-UKWN-0 6139926283191189504
+methode testDeleteUnknownCustomer() L'22-UKWN-0 2952919166918590464
+methode testUpdateCustomer() L'55-UKWN-0 -3620500519872626688
+methode testUpdateUnknownCustomer() L'11-UKWN-0 -8909341260088803328
+methode createCustomer(int) L'103-UKWN-0 4413249846897868800
+methode findCustomer(int) L'14-UKWN-0 6300699051209785344
+methode updateCustomer(com.yaps.petstore.Customer,int) L'95-UKWN-0 -7839921647803695104
+methode removeCustomer(int) L'14-UKWN-0 -5830132367137963456
+methode checkCustomer(com.yaps.petstore.Customer,int) L'109-UKWN-0 4440247433556393984
+finContenuClasse -4876822933130010624
+debutContenuClasse com.yaps.petstore.CustomerCreateException -8755617860698963968
+finContenuClasse -4876822933130010624
+debutContenuClasse com.yaps.petstore.CustomerCheckException 6802319751507869696
+finContenuClasse -4876822933130010624
+debutContenuClasse com.yaps.petstore.CustomerDuplicateKeyException -3259508745710862336
+finContenuClasse -4876822933130010624
+debutContenuClasse com.yaps.petstore.CustomerUpdateException 4536128089887342592
+finContenuClasse -4876822933130010624
+debutContenuClasse com.yaps.petstore.Customer -8461510349902364672
+methode getId() C'42-180-176-UKWN-0 3090737670376317440
+methode getState() C'42-180-176-UKWN-0 6348555644517220352
+methode getCountry() C'42-180-176-UKWN-0 7937267722718134272
+methode getLastname() C'42-180-176-UKWN-0 9143046161681088512
+methode getFirstname() C'42-180-176-UKWN-0 -9086750105342836736
+methode checkData() L'2-4-7-4-7-4-7-4-2-4-2-4-4-UKWN-0 8948417088581664768
+methode setFirstname(java.lang.String) C'42-43-181-177-UKWN-0 7267927982089961472
+methode setId(java.lang.String) C'42-43-181-177-UKWN-0 -1069070801421991936
+methode setLastname(java.lang.String) C'42-43-181-177-UKWN-0 -1548145424332554240
+methode setStreet1(java.lang.String) C'42-43-181-177-UKWN-0 -7390461087486902272
+methode setCity(java.lang.String) C'42-43-181-177-UKWN-0 8088872182173663232
+methode setStreet2(java.lang.String) C'42-43-181-177-UKWN-0 -7992530476080693248
+methode getStreet2() C'42-180-176-UKWN-0 -3183696092355985408
+methode setTelephone(java.lang.String) C'42-43-181-177-UKWN-0 -868596593756995584
+methode getStreet1() C'42-180-176-UKWN-0 3258833882344062976
+methode setState(java.lang.String) C'42-43-181-177-UKWN-0 579573520502072320
+methode getCity() C'42-180-176-UKWN-0 5263097772642402304
+methode getTelephone() C'42-180-176-UKWN-0 -6880210051905748992
+methode getZipcode() C'42-180-176-UKWN-0 5690516975647457280
+methode setZipcode(java.lang.String) C'42-43-181-177-UKWN-0 -4817334303951923200
+methode setCountry(java.lang.String) C'42-43-181-177-UKWN-0 -5969814627183099904
+methode getMail() C'42-180-176-UKWN-0 6235793749233893376
+methode setMail(java.lang.String) C'42-43-181-177-UKWN-0 1500033089125613568
+methode checkMail() L'8-5-8-4-15-15-4-UKWN-0 4279549265667850240
+methode checkId(java.lang.String) C'42-180-43-166-4-172-3-172-UKWN-0 958804633489244160
+methode getCheckDataError() L'4-4-5-4-5-4-4-UKWN-0 -6624412810812063744
+finContenuClasse -4876822933130010624
+[/DetailClasses] -7307084781096271872

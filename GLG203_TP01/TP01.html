@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>Détail de la correction.</title>
+<style>
+p.titre {font-weight: bold; font-family: Arial; font-size: 14pt;}
+span.titreTest {font-weight: bold; font-family: Arial; font-size: 12pt; text-decoration: underline;}
+span.verdictTest {font-family: Arial; font-size: 12pt;}
+span.titreException {font-family: Arial; font-size: 12pt; text-decoration: underline;}
+span.titreMessage {font-family: Arial; font-size: 12pt; text-decoration: underline;}
+span.titrePileAppel {font-family: Arial; font-size: 12pt; text-decoration: underline;}
+span.titreDiagnostic {font-family: Arial; font-size: 12pt; font-style: italic; color: #3300CC;}
+span.pileAppel {font-family: Arial; font-size: 11pt;}
+</style>
+</head>
+<body>
+<p class="titre">Voici les tests qui ont posé des problèmes à votre exécutable. Cette liste est vide si tous se sont déroulés sans incident.</p>
+<p><span class="titreTest">testCreateValidCustomer(ab):</span> <span class="verdictTest">Votre exécutable a échoué en levant une exception.</span></p>
+<p><span class="titreException">Exception levée:</span> java.lang.NoSuchMethodError</p>
+<p><span class="titreMessage">Message        :</span> com.yaps.petstore.Customer.checkData()V</p>
+<p><span class="titrePileAppel">Pile d'appel:</span> <br><span class="pileAppel">java.lang.NoSuchMethodError: com.yaps.petstore.Customer.checkData()V<br>	at ab.testCreateValidCustomer(Unknown Source)<br>	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br>	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)<br>	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br>	at java.lang.reflect.Method.invoke(Method.java:497)<br>	at junit.framework.TestCase.runTest(TestCase.java:168)<br>	at junit.framework.TestCase.runBare(TestCase.java:134)<br>	at junit.framework.TestResult$1.protect(TestResult.java:110)<br>	at junit.framework.TestResult.runProtected(TestResult.java:128)<br>	at junit.framework.TestResult.run(TestResult.java:113)<br>	at junit.framework.TestCase.run(TestCase.java:124)<br>	at junit.framework.TestSuite.runTest(TestSuite.java:232)<br>	at junit.framework.TestSuite.run(TestSuite.java:227)<br>	at junit.framework.TestSuite.runTest(TestSuite.java:232)<br>	at junit.framework.TestSuite.run(TestSuite.java:227)<br>	at I.tester(Unknown Source)<br>	at I.testerEtQuitter(Unknown Source)<br>	at Tests.main(Unknown Source)<br></span></p>
+<p><span class="titreDiagnostic">testCreateValidCustomer(ab): com.yaps.petstore.Customer.checkData()V</span></p>
+<br>
+<p><span class="titreTest">testCreateCustomerWithInvalidValues(ab):</span> <span class="verdictTest">Votre exécutable a échoué en levant une exception.</span></p>
+<p><span class="titreException">Exception levée:</span> java.lang.NoSuchMethodError</p>
+<p><span class="titreMessage">Message        :</span> com.yaps.petstore.Customer.checkData()V</p>
+<p><span class="titrePileAppel">Pile d'appel:</span> <br><span class="pileAppel">java.lang.NoSuchMethodError: com.yaps.petstore.Customer.checkData()V<br>	at ab.testCreateCustomerWithInvalidValues(Unknown Source)<br>	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br>	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)<br>	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br>	at java.lang.reflect.Method.invoke(Method.java:497)<br>	at junit.framework.TestCase.runTest(TestCase.java:168)<br>	at junit.framework.TestCase.runBare(TestCase.java:134)<br>	at junit.framework.TestResult$1.protect(TestResult.java:110)<br>	at junit.framework.TestResult.runProtected(TestResult.java:128)<br>	at junit.framework.TestResult.run(TestResult.java:113)<br>	at junit.framework.TestCase.run(TestCase.java:124)<br>	at junit.framework.TestSuite.runTest(TestSuite.java:232)<br>	at junit.framework.TestSuite.run(TestSuite.java:227)<br>	at junit.framework.TestSuite.runTest(TestSuite.java:232)<br>	at junit.framework.TestSuite.run(TestSuite.java:227)<br>	at I.tester(Unknown Source)<br>	at I.testerEtQuitter(Unknown Source)<br>	at Tests.main(Unknown Source)<br></span></p>
+<p><span class="titreDiagnostic">testCreateCustomerWithInvalidValues(ab): com.yaps.petstore.Customer.checkData()V</span></p>
+<br>
+</body>
+</html>

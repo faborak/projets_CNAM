@@ -6,5 +6,6 @@ package com.yaps.petstore;
 public final class CustomerCheckException extends CustomerException {
 
     public CustomerCheckException(String Message) {
+    	super(Message);
     }
 }
