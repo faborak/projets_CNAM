@@ -5,15 +5,27 @@ import java.util.Collection;
 
 import com.yaps.petstore.exception.CheckException;
 
+/**
+ * 
+ * @author fabo
+ * La classe décrit une catégorie du système.
+ *
+ */
 public class Category implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	// ======================================
+    // =             Attributes             =
+    // ======================================
 	String _id;
 	String _name;
 	String _description;
 	Collection<Product> _products;
 	
+	// ======================================
+    // =            Constructors            =
+    // ======================================
 	public Category(String id, String name, String description) {
 		this._id = id;
 		this._name =name;
@@ -27,6 +39,9 @@ public class Category implements Serializable {
 		this._id = id;
 	}
 
+    // ======================================
+    // =         Getters and Setters        =
+    // ======================================
 	public String getId() {
 		return _id;
 	}
@@ -59,11 +74,23 @@ public class Category implements Serializable {
 		_products = products;
 	}
 
+	// ======================================
+    // =           check methods          =
+    // ======================================
+	/**
+	 * 
+	 * @param id : id à tester.
+	 * @throws CheckException : Erreyr levée en cas de problème sur l'id.
+	 */
 	public void checkid(String id) throws CheckException{
 		if (_id == null || "".equals(_id))
 			throw new CheckException("Invalid id first name");
 	}
 	
+	/**
+	 * Inspection des variables du composant.
+	 * @throws CheckException : erreur levée en cas de problème sur une donnée.
+	 */
 	public void checkData() throws CheckException {
         if (_name == null || "".equals(_name))
             throw new CheckException("Invalid category name");
@@ -71,6 +98,9 @@ public class Category implements Serializable {
             throw new CheckException("Invalid category description");
     }
 	
+	/**
+	 * Méthode d'impression.
+	 */
 	public String toString() {
         final StringBuffer buf = new StringBuffer();
         buf.append("\n\tCategory {");

@@ -4,15 +4,27 @@ import java.io.Serializable;
 
 import com.yaps.petstore.exception.CheckException;
 
+/**
+ * 
+ * @author fabo
+ * La classe décrit un objet du système.
+ *
+ */
 public class Item implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	// ======================================
+    // =             Attributes             =
+    // ======================================
 	String _id;
 	String _name;
 	double unitCost;
 	Product product;
 
+	// ======================================
+    // =            Constructors            =
+    // ======================================
 	public Item(String id, String name, double unitCost, Product product) {
 		this._id = id;
 		this._name = name;
@@ -23,21 +35,10 @@ public class Item implements Serializable {
 	public Item() {
 	}
 
-	public void checkid(String id) throws CheckException {
-		if (_id == null || "".equals(_id))
-			throw new CheckException("Invalid id");
-	}
 
-	public void checkData() throws CheckException {
-        if (_name == null || "".equals(_name))
-            throw new CheckException("Invalid item name");
-//        if (unitCost == null || unitCost == 0)
-        if (unitCost == 0)
-            throw new CheckException("Invalid Cost");
-        if (product == null || product.getId() == null)
-            throw new CheckException("Invalid Product");
-	}
-
+    // ======================================
+    // =         Getters and Setters        =
+    // ======================================
 	public String getId() {
 		return _id;
 	}
@@ -66,8 +67,45 @@ public class Item implements Serializable {
 		this.product = product;
 	}
 
-	public Object getProduct() {
+	public Product getProduct() {
 		return product;
 	}
+	
+	// ======================================
+    // =           check methods          =
+    // ======================================
+	/**
+	 * 
+	 * @param id : id à tester.
+	 * @throws CheckException : Erreyr levée en cas de problème sur l'id.
+	 */
+	public void checkid(String id) throws CheckException {
+		if (_id == null || "".equals(_id))
+			throw new CheckException("Invalid id");
+	}
 
+	/**
+	 * Inspection des variables du composant.
+	 * @throws CheckException : erreur levée en cas de problème sur une donnée.
+	 */
+	public void checkData() throws CheckException {
+        if (_name == null || "".equals(_name))
+            throw new CheckException("Invalid item name");
+        if (unitCost == 0)
+            throw new CheckException("Invalid Cost");
+        if (product == null || product.getId() == null)
+            throw new CheckException("Invalid Product");
+	}
+
+	/**
+	 * Méthode d'impression.
+	 */
+	public String toString() {
+        final StringBuffer buf = new StringBuffer();
+        buf.append("\n\tCategory {");
+        buf.append("\n\t\tId=").append(_id);
+        buf.append("\n\t\tName=").append(_name);
+        buf.append("\n\t}");
+        return buf.toString();
+    }
 }

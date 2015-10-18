@@ -1,0 +1,295 @@
+[Classes] -734549418832822272
+classe com/yaps/petstore/exception/ApplicationException.class 232 -7102468353075183616
+classe com/yaps/petstore/domain/Category.class 1957 -6395532864508657664
+classe com/yaps/petstore/persistence/CustomerDAO.class 1091 -8697048155926437888
+classe com/yaps/petstore/domain/CustomerTest.class 1380 3103363150075920384
+classe com/yaps/petstore/ui/MenuCustomer.class 6119 -3510568498893946880
+classe com/yaps/petstore/domain/CategoryDAOTest.class 4806 -1365532587626070016
+classe com/yaps/petstore/exception/RemoveException.class 209 -6396264631300489216
+classe com/yaps/petstore/exception/ObjectNotFoundException.class 193 5852239469789839360
+classe com/yaps/petstore/persistence/DataAccessObject.class 2803 8092806438711459840
+classe com/yaps/petstore/domain/Customer.class 2426 4453612195900555264
+classe com/yaps/petstore/domain/CustomerDAOTest.class 5268 8109634192996319232
+classe com/yaps/petstore/persistence/ProductDAO.class 1269 -6890495578718834688
+classe com/yaps/petstore/exception/DuplicateKeyException.class 191 -3814173077928411136
+classe com/yaps/petstore/persistence/ItemDAO.class 1251 781482433660846080
+classe com/yaps/petstore/ui/MenuCatalog.class 12756 -9070541889242136576
+classe com/yaps/petstore/persistence/CategoryDAO.class 1275 6745361407040028672
+classe com/yaps/petstore/domain/Product.class 2269 -4417503913918857216
+classe com/yaps/petstore/exception/DataAccessException.class 213 5076310663532576768
+classe com/yaps/petstore/exception/FinderException.class 190 7867775740155625472
+classe com/yaps/petstore/domain/Item.class 1776 7532916949537081856
+classe com/yaps/petstore/exception/UpdateException.class 209 4622733343952207872
+classe com/yaps/petstore/domain/ProductDAOTest.class 5871 1684151837297213440
+classe com/yaps/petstore/exception/CheckException.class 208 7730402993862344704
+classe com/yaps/petstore/exception/CreateException.class 190 6223322588260259840
+classe com/yaps/petstore/domain/ItemDAOTest.class 6435 3225894769954398208
+[/Classes] -8761020532393142272
+[Tests] 3526747183265334528
+testDomainFindCategoryWithInvalidValues(V) REUSSITE 319615040951689216
+testDomainFindCustomerWithInvalidValues(N) REUSSITE -6354538816464486400
+testDomainUpdateItem(F) REUSSITE -6156274109786577920
+testCreateValidCustomer(at) REUSSITE 944160314352467968
+testDomainFindAllProducts(g) REUSSITE -1250988447351439360
+testDomainUpdateCategory(V) REUSSITE -5662577504016138240
+testDomainFindProductWithInvalidValues(g) REUSSITE -8968907860360560640
+testDomainCreateCustomer(N) REUSSITE -8796841030793035776
+testDomainUpdateUnknownCustomer(N) REUSSITE 4046516730570735616
+testDomainUpdateProduct(g) REUSSITE 1650148799592321024
+testDomainDeleteUnknownCategory(V) REUSSITE -4700931657367027712
+testDomainUpdateUnknownProduct(g) REUSSITE -4576450887887618048
+testDomainUpdateItemWithInvalidValues(F) REUSSITE 5414499566316552192
+testDomainFindItemWithInvalidValues(F) REUSSITE 7740338397146526208
+testDomainCreateItemWithInvalidValues(F) REUSSITE 1100833276651634688
+testDomainCreateCategory(V) REUSSITE -7752016066769584128
+testDomainUpdateUnknownCategory(V) REUSSITE 844694266491437056
+testDomainUpdateUnknownItem(F) REUSSITE 4365520216965251072
+testDomainDeleteUnknownItem(F) REUSSITE -8171534616109252608
+testDomainDeleteUnknownProduct(g) REUSSITE 2412571592020197376
+testDomainCreateItemWithInvalidProduct(F) REUSSITE -741578765695975424
+testDomainCreateProductWithInvalidCategory(g) REUSSITE 6060113627472396288
+testCreateCustomerWithInvalidValues(at) REUSSITE 4307754564121001984
+testDomainCreateCategoryWithInvalidValues(V) REUSSITE -7910455401095659520
+testDomainUpdateCategoryWithInvalidValues(V) REUSSITE -3117669445975605248
+testDomainFindAllItems(F) REUSSITE 1631652433208561664
+testDomainCreateProductWithInvalidValues(g) REUSSITE 6844065848369577984
+testDomainCreateProduct(g) REUSSITE -3475922171432009728
+testDomainUpdateCustomer(N) REUSSITE 2985553713418246144
+testDomainCreateCustomerWithInvalidValues(N) REUSSITE -4078495584162414592
+testDomainUpdateProductWithInvalidValues(g) REUSSITE -7829210052178214912
+testDomainUpdateCustomerWithInvalidValues(N) REUSSITE -4419232659694011904
+testDomainFindAllCategories(V) REUSSITE -4076510398000398336
+testDomainCreateItem(F) REUSSITE -6751265528590893056
+testDomainDeleteUnknownCustomer(N) REUSSITE 5416337174507749376
+[/Tests] -4667807026340429824
+[DetailClasses] 4669640263300284416
+debutContenuClasse com.yaps.petstore.exception.ApplicationException -8941009779611017216
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.domain.Category -9201088549574672384
+methode checkData() L'2-4-7-4-6-UKWN-0 -21956177407508480
+methode setId(java.lang.String) C'42-43-181-177-UKWN-0 5703817349501616128
+methode getProducts() C'42-180-176-UKWN-0 -4788091172695318528
+methode setProducts(java.util.Collection) C'42-43-181-177-UKWN-0 -4597243898836811776
+methode checkid(java.lang.String) L'2-4-6-UKWN-0 -369649797470093312
+methode getDescription() C'42-180-176-UKWN-0 -2423924084111835136
+methode setDescription(java.lang.String) C'42-43-181-177-UKWN-0 2200780874687774720
+methode toString() L'36-UKWN-0 -966687741329997824
+methode getName() C'42-180-176-UKWN-0 -8347819352719884288
+methode setName(java.lang.String) C'42-43-181-177-UKWN-0 8861810110645665792
+methode getId() C'42-180-176-UKWN-0 -5714922272193511424
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.persistence.CustomerDAO -295848256731205632
+methode remove(java.lang.String) C'42-43-183-177-UKWN-0 96498326978953216
+methode update(com.yaps.petstore.domain.Customer) L'15-UKWN-0 7912526080369623040
+methode find(java.lang.String) C'42-43-182-42-43-183-192-176-UKWN-0 5628079469090308096
+methode insert(com.yaps.petstore.domain.Customer) C'43-182-42-43-43-182-183-177-UKWN-0 -3310825912411062272
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.domain.CustomerTest 5196511411995410432
+methode suite() C'187-89-18-183-176-UKWN-0 3307937360069001216
+methode testCreateValidCustomer() L'22-UKWN-0 7373363124429651968
+methode testCreateCustomerWithInvalidValues() L'69-UKWN-0 -4020735862475063296
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.ui.MenuCustomer 8197760244982480896
+methode show() L'44-3-2-53-14-UKWN-0 532002646865739776
+methode clearScreen() L'4-6-UKWN-0 5259850209818574848
+methode createCustomer() L'3-14-82-UKWN-0 8177417876952907776
+methode findCustomer() L'3-11-47-UKWN-0 4316756054434930688
+methode deleteCustomer() L'3-11-30-8-14-30-UKWN-0 -3457839386056916992
+methode updateCustomer() L'3-11-30-8-14-3-11-83-UKWN-0 -2106860416648871936
+methode readsInputLine() L'27-UKWN-0 5933074599352401920
+methode main([Ljava.lang.String;) C'184-178-182-177-UKWN-0 -8199823348922843136
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.domain.CategoryDAOTest 7595977317441077248
+methode suite() C'187-89-18-183-176-UKWN-0 3307937360069001216
+methode getUniqueId() C'42-180-182-172-UKWN-0 49840277099118592
+methode testDomainDeleteUnknownCategory() L'14-UKWN-0 -2753136125504358400
+methode testDomainFindAllCategories() L'24-14-UKWN-0 -2026476258002468864
+methode testDomainFindCategoryWithInvalidValues() L'33-UKWN-0 -8296251429887148032
+methode testDomainUpdateCategory() L'54-UKWN-0 6147654219075682304
+methode testDomainUpdateCategoryWithInvalidValues() L'68-UKWN-0 1834458137472040960
+methode testDomainUpdateUnknownCategory() L'13-UKWN-0 8049473755091107840
+methode testDomainCreateCategory() L'47-UKWN-0 -251633320516558848
+methode testDomainCreateCategoryWithInvalidValues() L'37-UKWN-0 -2721860694327689216
+methode findCategory(int) L'14-UKWN-0 -7230305776376463360
+methode getNumberOfCategories() C'42-180-182-185-172-76-3-172-UKWN-0 8233281926343052288
+methode createCategory(int) L'33-UKWN-0 8544720235085168640
+methode updateCategory(com.yaps.petstore.domain.Category,int) L'25-UKWN-0 7064686429384998912
+methode removeCategory(int) L'18-UKWN-0 3618811337130967040
+methode checkCategory(com.yaps.petstore.domain.Category,int) L'25-UKWN-0 -1779521492777975808
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.exception.RemoveException 2662699145551790080
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.exception.ObjectNotFoundException -2529626606486421504
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.persistence.DataAccessObject -3371494280911650816
+methode getUniqueId() L'20-UKWN-0 -3885572304067788800
+methode select(java.lang.String) L'4-9-UKWN-0 -5586031669242839040
+methode checkId(java.lang.String) L'1-3-6-UKWN-0 -883673049281331200
+methode selectAll() L'3-8-UKWN-0 6256538382113964032
+methode loadHastable(java.lang.String) L'13-23-UKWN-0 246921281495105536
+methode saveHastableOnDisk(java.lang.String) L'34-UKWN-0 5461443754409328640
+methode remove(java.lang.String) L'4-10-UKWN-0 -7396769554361221120
+methode finalize() C'42-42-180-183-177-UKWN-0 -1982052670387187712
+methode update(java.lang.Object,java.lang.String) C'42-44-182-42-43-44-182-177-UKWN-0 3629645943327948800
+methode insert(java.lang.Object,java.lang.String) L'4-11-UKWN-0 2182485897243574272
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.domain.Customer -4830702171896938496
+methode checkData() L'2-4-7-4-6-UKWN-0 -21956177407508480
+methode getFirstname() C'42-180-176-UKWN-0 -714693283782656000
+methode getLastname() C'42-180-176-UKWN-0 -5080110950234587136
+methode setState(java.lang.String) C'42-43-181-177-UKWN-0 -2482524442510082048
+methode getZipcode() C'42-180-176-UKWN-0 -5088163441416339456
+methode setZipcode(java.lang.String) C'42-43-181-177-UKWN-0 -1651769106721300480
+methode setCountry(java.lang.String) C'42-43-181-177-UKWN-0 8132869974908217344
+methode setFirstname(java.lang.String) C'42-43-181-177-UKWN-0 8601355902539530240
+methode setLastname(java.lang.String) C'42-43-181-177-UKWN-0 -2981643434256941056
+methode getTelephone() C'42-180-176-UKWN-0 4658829102873726976
+methode setTelephone(java.lang.String) C'42-43-181-177-UKWN-0 -1529283869665132544
+methode getStreet1() C'42-180-176-UKWN-0 -5857722620406792192
+methode setStreet1(java.lang.String) C'42-43-181-177-UKWN-0 -50502701844332544
+methode getStreet2() C'42-180-176-UKWN-0 4410783291548631040
+methode setStreet2(java.lang.String) C'42-43-181-177-UKWN-0 -2600416315751530496
+methode getCity() C'42-180-176-UKWN-0 -3558288933342543872
+methode setCity(java.lang.String) C'42-43-181-177-UKWN-0 3487132628929216512
+methode toString() L'85-UKWN-0 6732895355782823936
+methode getId() C'42-180-176-UKWN-0 -5714922272193511424
+methode getState() C'42-180-176-UKWN-0 7970691679630458880
+methode getCountry() C'42-180-176-UKWN-0 3861832663155474432
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.domain.CustomerDAOTest 7956971246966276096
+methode suite() C'187-89-18-183-176-UKWN-0 3307937360069001216
+methode testDomainCreateCustomer() L'48-UKWN-0 8625319988478607360
+methode testDomainCreateCustomerWithInvalidValues() L'37-UKWN-0 2110508226588741632
+methode testDomainDeleteUnknownCustomer() L'14-UKWN-0 197080284636643328
+methode testDomainFindCustomerWithInvalidValues() L'33-UKWN-0 3545777518318845952
+methode testDomainUpdateCustomer() L'55-UKWN-0 -2214760015685058560
+methode testDomainUpdateCustomerWithInvalidValues() L'69-UKWN-0 -522214677922545664
+methode testDomainUpdateUnknownCustomer() L'13-UKWN-0 -1290563602696110080
+methode createCustomer(int) L'103-UKWN-0 7514229011045941248
+methode findCustomer(int) L'11-15-UKWN-0 8327518713417826304
+methode updateCustomer(com.yaps.petstore.domain.Customer,int) L'95-UKWN-0 4957171294710792192
+methode removeCustomer(int) L'18-UKWN-0 -597619875065856000
+methode checkCustomer(com.yaps.petstore.domain.Customer,int) L'109-UKWN-0 4298828298391420928
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.persistence.ProductDAO 3361407610131578880
+methode findAll() C'42-182-176-UKWN-0 -2810412844154093568
+methode remove(java.lang.String) C'42-43-183-177-UKWN-0 96498326978953216
+methode update(com.yaps.petstore.domain.Product) L'15-UKWN-0 -5215537634103515136
+methode find(java.lang.String) C'42-43-182-42-43-183-192-176-UKWN-0 5628079469090308096
+methode insert(com.yaps.petstore.domain.Product) C'43-182-42-43-43-182-183-177-UKWN-0 -1687704951368712192
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.exception.DuplicateKeyException 90855556582998016
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.persistence.ItemDAO 3492908239796469760
+methode findAll() C'42-182-176-UKWN-0 -2810412844154093568
+methode remove(java.lang.String) C'42-43-183-177-UKWN-0 96498326978953216
+methode update(com.yaps.petstore.domain.Item) L'15-UKWN-0 6840897322908566528
+methode find(java.lang.String) C'42-43-182-42-43-183-192-176-UKWN-0 5628079469090308096
+methode insert(com.yaps.petstore.domain.Item) C'43-182-42-43-43-182-183-177-UKWN-0 -2584794130739753984
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.ui.MenuCatalog 6816403359083266048
+methode show() L'41-3-2-54-1-1-1-115-14-UKWN-6 -8982540291649347584
+methode clearScreen() L'4-6-UKWN-0 5259850209818574848
+methode createProduct() L'3-14-59-UKWN-0 -4095667540068237312
+methode createItem() L'3-14-60-UKWN-0 -8602247292405219328
+methode findProduct() L'3-11-47-UKWN-0 -5627899526739656704
+methode findItem() L'3-11-47-UKWN-0 6554922993558257664
+methode findCategories() L'11-2-34-UKWN-0 -608870512942907392
+methode findProducts() L'11-2-34-UKWN-0 -2595966494093344768
+methode findItems() L'11-2-34-UKWN-0 2344804506145980416
+methode deleteCategory() L'3-11-30-8-14-30-UKWN-0 7236822123964530688
+methode deleteProduct() L'3-11-30-8-14-30-UKWN-0 -3556048107498110976
+methode deleteItem() L'3-11-30-8-14-30-UKWN-0 -9213096678937722880
+methode updateProduct() L'3-11-30-8-14-3-11-57-UKWN-0 -2200254713903710208
+methode updateItem() L'3-11-30-8-14-3-11-58-UKWN-0 764818516871348224
+methode readsInputLine() L'27-UKWN-0 5933074599352401920
+methode findCategory() L'3-11-47-UKWN-0 -7462828386382512128
+methode createCategory() L'3-14-47-UKWN-0 7374235215029338112
+methode updateCategory() L'3-11-30-8-14-3-11-48-UKWN-0 3504770042321436672
+methode main([Ljava.lang.String;) L'8-UKWN-0 -6352865924467851264
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.persistence.CategoryDAO -4167035844056383488
+methode findAll() C'42-182-176-UKWN-0 -2810412844154093568
+methode remove(java.lang.String) C'42-43-183-177-UKWN-0 96498326978953216
+methode update(com.yaps.petstore.domain.Category) L'15-UKWN-0 4884573824840439808
+methode find(java.lang.String) C'42-43-182-42-43-183-192-176-UKWN-0 5628079469090308096
+methode insert(com.yaps.petstore.domain.Category) C'43-182-42-43-43-182-183-177-UKWN-0 -6876199683207725056
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.domain.Product -8052920444158738432
+methode setCategory(com.yaps.petstore.domain.Category) C'42-43-181-177-UKWN-0 -3011274413870940160
+methode checkData() L'2-4-7-4-7-3-6-UKWN-0 -7542129337780142080
+methode getCategory() C'42-180-176-UKWN-0 1336469081950257152
+methode setId(java.lang.String) C'42-43-181-177-UKWN-0 5703817349501616128
+methode checkid(java.lang.String) L'2-4-6-UKWN-0 -369649797470093312
+methode getDescription() C'42-180-176-UKWN-0 -2423924084111835136
+methode setDescription(java.lang.String) C'42-43-181-177-UKWN-0 2200780874687774720
+methode getItems() C'42-180-176-UKWN-0 -4835683358612868096
+methode setItems(java.util.Collection) C'42-43-181-177-UKWN-0 3408699066819805184
+methode toString() L'36-UKWN-0 -966687741329997824
+methode getName() C'42-180-176-UKWN-0 -8347819352719884288
+methode setName(java.lang.String) C'42-43-181-177-UKWN-0 8861810110645665792
+methode getId() C'42-180-176-UKWN-0 -5714922272193511424
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.exception.DataAccessException -4931480923767832576
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.exception.FinderException 2365490295153360896
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.domain.Item -1729797664190496768
+methode checkData() L'2-4-8-8-3-6-UKWN-0 -2672530621380689920
+methode getProduct() C'42-180-176-UKWN-0 -6943448244954333184
+methode setId(java.lang.String) C'42-43-181-177-UKWN-0 5703817349501616128
+methode checkid(java.lang.String) L'2-4-6-UKWN-0 -369649797470093312
+methode getUnitCost() C'42-180-175-UKWN-0 2018979180355518464
+methode setProduct(com.yaps.petstore.domain.Product) C'42-43-181-177-UKWN-0 4508468649933986816
+methode setUnitCost(double) C'42-39-181-177-UKWN-0 5925478177191575552
+methode toString() L'29-UKWN-0 -8157353021500555264
+methode getName() C'42-180-176-UKWN-0 -8347819352719884288
+methode setName(java.lang.String) C'42-43-181-177-UKWN-0 8861810110645665792
+methode getId() C'42-180-176-UKWN-0 -5714922272193511424
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.exception.UpdateException -4616512720915562496
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.domain.ProductDAOTest 4871387558601949184
+methode testDomainCreateProduct() L'47-UKWN-0 -7771833425338040320
+methode suite() C'187-89-18-183-176-UKWN-0 3307937360069001216
+methode getUniqueId() C'42-180-182-172-UKWN-0 49840277099118592
+methode testDomainCreateProductWithInvalidCategory() L'80-UKWN-0 5913120475667261440
+methode testDomainCreateProductWithInvalidValues() L'39-UKWN-0 -4478962686225022976
+methode testDomainDeleteUnknownProduct() C'42-180-18-182-18-184-167-76-177-UKWN-0 6455590748716826624
+methode testDomainFindAllProducts() L'24-14-UKWN-0 6100957983396331520
+methode testDomainFindProductWithInvalidValues() L'32-UKWN-0 6030943245171687424
+methode testDomainUpdateProduct() L'54-UKWN-0 3325479376228712448
+methode testDomainUpdateProductWithInvalidValues() L'67-UKWN-0 -4662381678999633920
+methode testDomainUpdateUnknownProduct() L'11-UKWN-0 -2175766824062857216
+methode createProduct(int) L'66-UKWN-0 4501151530903011328
+methode findProduct(int) L'14-UKWN-0 -6784945616328065024
+methode updateProduct(com.yaps.petstore.domain.Product,int) L'60-UKWN-0 -5637220718842216448
+methode getNumberOflProducts() C'42-180-182-185-172-76-3-172-UKWN-0 -1826484102942302208
+methode removeProduct(int) L'23-UKWN-0 -2634583971094069248
+methode checkProduct(com.yaps.petstore.domain.Product,int) L'29-UKWN-0 -1464768508365963264
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.exception.CheckException 2158769125339168768
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.exception.CreateException 8203919949066928128
+finContenuClasse -1794209750949511168
+debutContenuClasse com.yaps.petstore.domain.ItemDAOTest -5754700339291226112
+methode suite() C'187-89-18-183-176-UKWN-0 3307937360069001216
+methode getUniqueId() C'42-180-182-172-UKWN-0 49840277099118592
+methode tearDown() L'10-UKWN-0 4420057084624633856
+methode testDomainCreateItem() L'47-UKWN-0 1785165224504983552
+methode testDomainCreateItemWithInvalidProduct() L'68-UKWN-0 1505814740140032000
+methode testDomainCreateItemWithInvalidValues() L'37-UKWN-0 3197068727125803008
+methode testDomainDeleteUnknownItem() C'42-180-18-182-18-184-167-76-177-UKWN-0 -1258295079259209728
+methode testDomainFindAllItems() L'24-14-UKWN-0 5675547252848852992
+methode testDomainFindItemWithInvalidValues() L'32-UKWN-0 1413855571156664320
+methode testDomainUpdateItem() L'54-UKWN-0 -3992110960784048128
+methode testDomainUpdateItemWithInvalidValues() L'65-UKWN-0 -1363372333187727360
+methode testDomainUpdateUnknownItem() L'11-UKWN-0 3496735234595225600
+methode createItem(int) L'93-UKWN-0 8061435399205371904
+methode findItem(int) L'14-UKWN-0 818907701506473984
+methode updateItem(com.yaps.petstore.domain.Item,int) L'87-UKWN-0 620678065659314176
+methode getNumberOfItems() C'42-180-182-185-172-76-3-172-UKWN-0 8647948948650065920
+methode checkItem(com.yaps.petstore.domain.Item,int) L'29-UKWN-0 856030684693659648
+methode removeItem(int) L'34-UKWN-0 8386177462958030848
+finContenuClasse -1794209750949511168
+[/DetailClasses] 4772108745039118336
