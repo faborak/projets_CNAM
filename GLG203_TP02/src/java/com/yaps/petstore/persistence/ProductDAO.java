@@ -12,6 +12,9 @@ public class ProductDAO extends DataAccessObject {
 
 	private static final String HASHTABLE_FILE_NAME = "persistentProduct.ser";	
 
+    // ======================================
+    // =             Attributes             =
+    // ======================================
 	public ProductDAO() {
 		super(HASHTABLE_FILE_NAME);
 	}

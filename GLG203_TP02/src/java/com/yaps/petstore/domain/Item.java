@@ -1,8 +1,12 @@
 package com.yaps.petstore.domain;
 
+import java.io.Serializable;
+
 import com.yaps.petstore.exception.CheckException;
 
-public class Item {
+public class Item implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	String _id;
 	String _name;
