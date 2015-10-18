@@ -1,0 +1,7 @@
+src/java/com/yaps/petstore/domain/Category.java
+src/java/com/yaps/petstore/domain/Item.java
+src/java/com/yaps/petstore/domain/Product.java
+src/java/com/yaps/petstore/persistence/CategoryDAO.java
+src/java/com/yaps/petstore/persistence/ItemDAO.java
+src/java/com/yaps/petstore/persistence/ProductDAO.java
+
