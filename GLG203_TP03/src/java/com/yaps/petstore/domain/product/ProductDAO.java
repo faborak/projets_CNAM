@@ -19,8 +19,8 @@ public class ProductDAO extends AbstractDataAccessObject{
     // ======================================
     // =             Attributes             =
     // ======================================
-    private static final String TABLE = "T_CATEGORY";
-    private static final String COLUMNS = "ID, NAME, DESCRIPTION, CATEGORY_FTK";
+    private static final String TABLE = "T_PRODUCT";
+    private static final String COLUMNS = "ID, NAME, DESCRIPTION, CATEGORY_FK";
 
 	
     // ======================================
@@ -161,7 +161,7 @@ public class ProductDAO extends AbstractDataAccessObject{
             statement = connection.createStatement();
 
             // Update a Row
-            final String sql = "UPDATE " + TABLE + " SET NAME = '" + product.getName() + "', DESCRIPTION = '" + product.getDescription()  + "', CATEGORY = '" + product.getCategory().getId() + "' WHERE ID = '" + product.getId() + "' ";
+            final String sql = "UPDATE " + TABLE + " SET NAME = '" + product.getName() + "', DESCRIPTION = '" + product.getDescription()  + "', CATEGORY_FK = '" + product.getCategory().getId() + "' WHERE ID = '" + product.getId() + "' ";
 
             if (statement.executeUpdate(sql) == 0)
                 throw new ObjectNotFoundException();

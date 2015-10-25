@@ -11,7 +11,7 @@ import com.yaps.petstore.exception.CheckException;
 /**
  * 
  * @author fabo
- * La classe décrit un produit du systÃ¨me.
+ * La classe decrit un produit du systeme.
  *
  */
 public class Product extends DomainObject implements Serializable{
@@ -92,8 +92,8 @@ public class Product extends DomainObject implements Serializable{
     // ======================================
 	/**
 	 * 
-	 * @param id : id Ã  tester.
-	 * @throws CheckException : Erreyr levée en cas de problÃ¨me sur l'id.
+	 * @param id : id a tester.
+	 * @throws CheckException : Erreur levee en cas de probleme sur l'id.
 	 */
 	public void checkid(String id) throws CheckException {
 		if (_id == null || "".equals(_id))
@@ -102,7 +102,7 @@ public class Product extends DomainObject implements Serializable{
 
 	/**
 	 * Inspection des variables du composant.
-	 * @throws CheckException : erreur levée en cas de problÃ¨me sur une donnée.
+	 * @throws CheckException : erreur levee en cas de probleme sur une donnee.
 	 */
 	public void checkData() throws CheckException {
         if (_name == null || "".equals(_name))
@@ -114,7 +114,7 @@ public class Product extends DomainObject implements Serializable{
 	}
 	
 	/**
-	 * Méthode d'impression.
+	 * Methode d'impression.
 	 */
 	public String toString() {
         final StringBuffer buf = new StringBuffer();

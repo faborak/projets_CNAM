@@ -76,9 +76,9 @@ public class Category extends DomainObject implements Serializable {
 	/**
 	 * 
 	 * @param id
-	 *            : id Ã  tester.
+	 *            : id a tester.
 	 * @throws CheckException
-	 *             : Erreyr levée en cas de problÃ¨me sur l'id.
+	 *             : Erreur levee en cas de probleme sur l'id.
 	 */
 	public void checkid(String id) throws CheckException {
 		if (_id == null || "".equals(_id))
@@ -89,7 +89,7 @@ public class Category extends DomainObject implements Serializable {
 	 * Inspection des variables du composant.
 	 * 
 	 * @throws CheckException
-	 *             : erreur levée en cas de problÃ¨me sur une donnée.
+	 *             : erreur levee en cas de probleme sur une donnee.
 	 */
 	public void checkData() throws CheckException {
 		if (_name == null || "".equals(_name))
@@ -99,7 +99,7 @@ public class Category extends DomainObject implements Serializable {
 	}
 
 	/**
-	 * Méthode d'impression.
+	 * Methode d'impression.
 	 */
 	public String toString() {
 		final StringBuffer buf = new StringBuffer();
