@@ -14,7 +14,7 @@ public final class OrderDAO extends AbstractDataAccessObject {
 	// = Attributes =
 	// ======================================
 	private static final String TABLE = "T_ORDER";
-	private static final String COLUMNS = "ID, ORDERDATE, FIRSTNAME, LASTNAME, TELEPHONE, STREET1, STREET2, CITY, STATE, ZIPCODE, COUNTRY, CREDITCARDNUMBER, CREDITCARDTYPE, CREDITCARDEXPIRYDATE, CUSTOMER_FK";
+	private static final String COLUMNS = "ID, ORDERDATE, FIRSTNAME, LASTNAME, STREET1, STREET2, CITY, STATE, ZIPCODE, COUNTRY, CREDITCARDNUMBER, CREDITCARDTYPE, CREDITCARDEXPIRYDATE, CUSTOMER_FK";
 	// Used to get a unique id with the UniqueIdGenerator
 	private static final String COUNTER_NAME = "Order";
 
@@ -25,10 +25,11 @@ public final class OrderDAO extends AbstractDataAccessObject {
 	protected String getInsertSqlStatement(final DomainObject object) {
 		final Order order = (Order) object;
 		final String sql;
+		java.sql.Date date_sql = new java.sql.Date(order.getOrderDate().getTime());
 		sql = "INSERT INTO " + TABLE + "(" + COLUMNS + ") VALUES ('"
-				+ order.getId() + "', '" + order.getOrderDate() + "', '"
+				+ order.getId() + "', '" + date_sql + "', '"
 				+ order.getFirstname() + "','" + order.getLastname() + "', '"
-				+ order.getTelephone() + "', '" + order.getStreet1() + "', '"
+				+ order.getStreet1() + "', '"
 				+ order.getStreet2() + "', '" + order.getCity() + "', '"
 				+ order.getState() + "', '" + order.getZipcode() + "', '"
 				+ order.getCountry() + "', '" + order.getCreditCardNumber()
@@ -48,8 +49,7 @@ public final class OrderDAO extends AbstractDataAccessObject {
 		final Order order = (Order) object;
 		final String sql;
 		sql = "UPDATE " + TABLE + " SET FIRSTNAME = '" + order.getFirstname()
-				+ "', LASTNAME = '" + order.getLastname() + "', TELEPHONE = '"
-				+ order.getTelephone() + "', STREET1 = '" + order.getStreet1()
+				+ "', LASTNAME = '" + order.getLastname() + "', STREET1 = '" + order.getStreet1()
 				+ "', STREET2 = '" + order.getStreet2() + "', CITY = '"
 				+ order.getCity() + "', STATE = '" + order.getState()
 				+ "', ZIPCODE = '" + order.getZipcode() + "', COUNTRY = '"
@@ -83,7 +83,7 @@ public final class OrderDAO extends AbstractDataAccessObject {
 				resultSet.getString(8), resultSet.getString(9),
 				resultSet.getString(10), resultSet.getString(11),
 				resultSet.getString(12), resultSet.getString(13),
-				resultSet.getString(14), new Customer(resultSet.getString(15)));
+				new Customer(resultSet.getString(14)));
 		return order;
 	}
 

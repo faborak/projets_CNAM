@@ -7,13 +7,16 @@ import com.yaps.petstore.domain.item.Item;
 import com.yaps.petstore.domain.order.Order;
 import com.yaps.petstore.exception.CheckException;
 
+/**
+ * This class represents a orderline for the YAPS company.
+ */
 public class OrderLine extends DomainObject implements Serializable {
 
 	// ======================================
 	// = Attributes =
 	// ======================================
-	private int _Quantity;
-	private double _UnitCost;
+	private int _quantity;
+	private double _unitCost;
 	private Order _order;
 	private Item _item;
 
@@ -29,8 +32,8 @@ public class OrderLine extends DomainObject implements Serializable {
 
 	public OrderLine(String id, int i, int j, Order order, Item item) {
 		_id = id;
-		_Quantity = i;
-		_UnitCost = Double.parseDouble(Integer.toString(j));
+		_quantity = i;
+		_unitCost = Double.parseDouble(Integer.toString(j));
 		_order = order;
 		_item = item;
 	}
@@ -38,15 +41,15 @@ public class OrderLine extends DomainObject implements Serializable {
 	public OrderLine(String id, int _defaultQuantity, double _defaultUnitCost,
 			Order order, Item item) {
 		_id = id;
-		_Quantity = _defaultQuantity;
-		_UnitCost = _defaultUnitCost;
+		_quantity = _defaultQuantity;
+		_unitCost = _defaultUnitCost;
 		_order = order;
 		_item = item;
 	}
 
 	public OrderLine(int parseInt, double parseDouble, Order order, Item item) {
-		_Quantity = parseInt;
-		_UnitCost = parseDouble;
+		_quantity = parseInt;
+		_unitCost = parseDouble;
 		_order = order;
 		_item = item;
 	}
@@ -61,9 +64,9 @@ public class OrderLine extends DomainObject implements Serializable {
 	 *             if data is invalid
 	 */
 	public void checkData() throws CheckException {
-		if (_Quantity == 0)
+		if (_quantity == 0)
 			throw new CheckException("Invalid orderline quantity");
-		if (_UnitCost == 0)
+		if (_unitCost == 0)
 			throw new CheckException("Invalid orderline unitcost");
 		if (_order == null)
 			throw new CheckException("Invalid orderline order");
@@ -71,20 +74,23 @@ public class OrderLine extends DomainObject implements Serializable {
 			throw new CheckException("Invalid orderline item");
 	}
 
+    // ======================================
+    // =         Getters and Setters        =
+    // ======================================
 	public int getQuantity() {
-		return _Quantity;
+		return _quantity;
 	}
 
 	public void setQuantity(int quantity) {
-		_Quantity = quantity;
+		_quantity = quantity;
 	}
 
 	public double getUnitCost() {
-		return _UnitCost;
+		return _unitCost;
 	}
 
 	public void setUnitCost(double unitCost) {
-		_UnitCost = unitCost;
+		_unitCost = unitCost;
 	}
 
 	public Order getOrder() {
@@ -99,4 +105,14 @@ public class OrderLine extends DomainObject implements Serializable {
 		return _item;
 	}
 
+    public String toString() {
+        final StringBuffer buf = new StringBuffer();
+        buf.append("\n\tCustomer {");
+        buf.append("\n\t\tId=").append(_id);
+        buf.append("\n\t\tQuantity=").append(_quantity);
+        buf.append("\n\t\tUnitCost=").append(_unitCost);
+        buf.append("\n\t}");
+        return buf.toString();
+    }
+	
 }
