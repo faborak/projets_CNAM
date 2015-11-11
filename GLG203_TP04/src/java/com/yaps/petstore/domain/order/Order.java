@@ -12,197 +12,237 @@ import com.yaps.petstore.exception.CheckException;
 public class Order extends DomainObject implements Serializable {
 
 	// ======================================
-    // =             Attributes             =
-    // ======================================
-    private String id;
-    private Date date;
-	private String firstname;
-    private String lastname;
-    private String telephone;
-    private String street1;
-    private String street2;
-    private String city;
-    private String state;
-    private String zipcode;
-    private String country;
-    private String CreditCardExpiryDate;
-    private String CreditCardNumber;
-    private String CreditCardType;
-    private Customer customer;
-    public Collection<OrderLine> orderLines;
-    
-    // ======================================
-    // =            Constructors            =
-    // ======================================
+	// = Attributes =
+	// ======================================
+	private Date _date;
+	private String _firstname;
+	private String _lastname;
+	private String _telephone;
+	private String _street1;
+	private String _street2;
+	private String _city;
+	private String _state;
+	private String _zipcode;
+	private String _country;
+	private String _creditCardExpiryDate;
+	private String _creditCardNumber;
+	private String _creditCardType;
+	private Customer _customer;
+	public Collection<OrderLine> _orderLines;
+
+	// ======================================
+	// = Constructors =
+	// ======================================
 	public Order() {
 	}
+
+	public Order(String id) {
+		this._id = id;
+	}
 	
-	public Order(String id, Date date, String firstname, String lastname, String street1, String city, String zip, String country,
-			 Object customer) {
-      this.id = id;
-      this.date = date;
-      this.firstname = firstname;
-      this.lastname = lastname;
-      this.street1 = street1;
-      this.city = city;
-      this.zipcode = zip;
-      this.country = country;
-      this.customer = (Customer) customer;
+	public Order(String id, Date date, String firstname, String lastname,
+			String street1, String city, String zipcode, String country,
+			Object customer) {
+		this._id = id;
+		this._date = date;
+		this._firstname = firstname;
+		this._lastname = lastname;
+		this._street1 = street1;
+		this._city = city;
+		this._zipcode = zipcode;
+		this._country = country;
+		this._customer = (Customer) customer;
 	}
 
+	public Order(String id, String firstname, String lastname, String street1,
+			String city, String country, Object customer) {
+		this._id = id;
+		this._firstname = firstname;
+		this._lastname = lastname;
+		this._street1 = street1;
+		this._city = city;
+		this._country = country;
+		this._customer = (Customer) customer;
+	}
 
-	public Order(String id, String lastname, String street1, String city, String zip, String country,
-			Object customer) {
-	      this.id = id;
-	      this.lastname = lastname;
-	      this.street1 = street1;
-	      this.city = city;
-	      this.zipcode = zip;
-	      this.country = country;
-	      this.customer = (Customer) customer;
+	public Order(String id, Date orderdate, String firstname, String lastname,
+			String telephone, String street1, String street2, String city,
+			String state, String zipcode, String country,
+			String creditcardnumber, String creditcardtype,
+			String creditcardexpiredate, Object customer) {
+		this._id = id;
+		this._firstname = firstname;
+		this._lastname = lastname;
+		this._telephone = telephone;
+		this._street1 = street1;
+		this._street2 = street2;
+		this._city = city;
+		this._state = state;
+		this._zipcode = zipcode;
+		this._country = country;
+		this._creditCardNumber = creditcardnumber;
+		this._creditCardExpiryDate =creditcardexpiredate;
+		this._creditCardType=creditcardtype;
+		this._customer = (Customer) customer;
 	}
 
 	// ======================================
-    // =           Business methods         =
-    // ======================================
-    /**
-     * This method checks the integrity of the object data.
-     *
-     * @throws CheckException if data is invalid
-     */
-	public void checkData() throws CheckException{
-		if (firstname == null || "".equals(firstname))
-            throw new CheckException("Invalid order first name");
-        if (lastname == null || "".equals(lastname))
-            throw new CheckException("Invalid order last name");
-        if (street1 == null || "".equals(street1))
-            throw new CheckException("Invalid order street1");
-        if (city == null || "".equals(city))
-            throw new CheckException("Invalid order city");
-        if (zipcode == null || "".equals(zipcode))
-            throw new CheckException("Invalid order zipcode");
-        if (customer == null)
-            throw new CheckException("Invalid customer");
+	// = Business methods =
+	// ======================================
+	/**
+	 * This method checks the integrity of the object data.
+	 * 
+	 * @throws CheckException
+	 *             if data is invalid
+	 */
+	public void checkData() throws CheckException {
+		if (_firstname == null || "".equals(_firstname))
+			throw new CheckException("Invalid order first name");
+		if (_lastname == null || "".equals(_lastname))
+			throw new CheckException("Invalid order last name");
+		if (_street1 == null || "".equals(_street1))
+			throw new CheckException("Invalid order street1");
+		if (_city == null || "".equals(_city))
+			throw new CheckException("Invalid order city");
+		if (_zipcode == null || "".equals(_zipcode))
+			throw new CheckException("Invalid order zipcode");
+		if (_customer == null)
+			throw new CheckException("Invalid customer");
 	}
 
 	public String getFirstname() {
-		return firstname;
+		return _firstname;
 	}
 
 	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+		this._firstname = firstname;
 	}
 
 	public String getLastname() {
-		return lastname;
+		return _lastname;
 	}
 
 	public void setLastname(String lastname) {
-		this.lastname = lastname;
+		this._lastname = lastname;
 	}
 
 	public String getTelephone() {
-		return telephone;
+		return _telephone;
 	}
 
 	public void setTelephone(String telephone) {
-		this.telephone = telephone;
+		this._telephone = telephone;
 	}
 
 	public String getStreet1() {
-		return street1;
+		return _street1;
 	}
 
 	public void setStreet1(String street1) {
-		this.street1 = street1;
+		this._street1 = street1;
 	}
 
 	public String getStreet2() {
-		return street2;
+		return _street2;
 	}
 
 	public void setStreet2(String street2) {
-		this.street2 = street2;
+		this._street2 = street2;
 	}
 
 	public String getCity() {
-		return city;
+		return _city;
 	}
 
 	public void setCity(String city) {
-		this.city = city;
+		this._city = city;
 	}
 
 	public String getState() {
-		return state;
+		return _state;
 	}
 
 	public void setState(String state) {
-		this.state = state;
+		this._state = state;
 	}
 
 	public String getZipcode() {
-		return zipcode;
+		return _zipcode;
 	}
 
 	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
+		this._zipcode = zipcode;
 	}
 
 	public String getCountry() {
-		return country;
+		return _country;
 	}
 
 	public void setCountry(String country) {
-		this.country = country;
-	}
-
-	public String getCreditCardExpiryDate() {
-		return CreditCardExpiryDate;
-	}
-
-	public void setCreditCardExpiryDate(String creditCardExpiryDate) {
-		CreditCardExpiryDate = creditCardExpiryDate;
+		this._country = country;
 	}
 
 	public String getCreditCardNumber() {
-		return CreditCardNumber;
+		return _creditCardNumber;
 	}
 
 	public void setCreditCardNumber(String creditCardNumber) {
-		CreditCardNumber = creditCardNumber;
+		this._creditCardNumber = creditCardNumber;
 	}
 
 	public String getCreditCardType() {
-		return CreditCardType;
+		return _creditCardType;
 	}
 
 	public void setCreditCardType(String creditCardType) {
-		CreditCardType = creditCardType;
+		this._creditCardType = creditCardType;
 	}
 
-	public String getId() {
-		return id;
+	public String getCreditCardExpiryDate() {
+		return _creditCardExpiryDate;
 	}
 
-	public void setCustomer(Customer customer) {
-	  this.customer = customer;	
+	public void setCreditCardExpiryDate(String creditCardExpiryDate) {
+		this._creditCardExpiryDate = creditCardExpiryDate;
 	}
 	
+	public void setCustomer(Customer customer) {
+		this._customer = customer;
+	}
+
 	public Customer getCustomer() {
-		return customer;
+		return _customer;
 	}
 
 	public Collection<OrderLine> getOrderLines() {
-		return orderLines;
+		return _orderLines;
 	}
 
-	public void setOrderLines(Collection orderLines) {
-       this.orderLines = orderLines;		
+	public void setOrderLines(Collection<OrderLine> orderLines) {
+		this._orderLines = orderLines;
 	}
 
 	public Date getOrderDate() {
-		return date;
+		return _date;
+	}
+
+	public String toString() {
+		final StringBuffer buf = new StringBuffer();
+		buf.append("\n\tCustomer {");
+		buf.append("\n\t\tId=").append(_id);
+		buf.append("\n\t\tFirst Name=").append(_firstname);
+		buf.append("\n\t\tLast Name=").append(_lastname);
+		buf.append("\n\t\tTelephone=").append(_telephone);
+		buf.append("\n\t\tStreet 1=").append(_street1);
+		buf.append("\n\t\tStreet 2=").append(_street2);
+		buf.append("\n\t\tCity=").append(_city);
+		buf.append("\n\t\tState=").append(_state);
+		buf.append("\n\t\tZipcode=").append(_zipcode);
+		buf.append("\n\t\tCreditcardnumber=").append(_creditCardNumber);
+		buf.append("\n\t\tCreditCardType=").append(_creditCardType);
+		buf.append("\n\t\tCreditCardExpiryDate=").append(_creditCardExpiryDate);
+		buf.append("\n\t}");
+		return buf.toString();
 	}
 
 }
