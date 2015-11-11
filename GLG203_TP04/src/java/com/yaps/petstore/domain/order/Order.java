@@ -9,6 +9,9 @@ import com.yaps.petstore.domain.customer.Customer;
 import com.yaps.petstore.domain.orderline.OrderLine;
 import com.yaps.petstore.exception.CheckException;
 
+/**
+ * This class represents a order for the YAPS company.
+ */
 public class Order extends DomainObject implements Serializable {
 
 	// ======================================
@@ -17,7 +20,6 @@ public class Order extends DomainObject implements Serializable {
 	private Date _date;
 	private String _firstname;
 	private String _lastname;
-	private String _telephone;
 	private String _street1;
 	private String _street2;
 	private String _city;
@@ -66,14 +68,13 @@ public class Order extends DomainObject implements Serializable {
 	}
 
 	public Order(String id, Date orderdate, String firstname, String lastname,
-			String telephone, String street1, String street2, String city,
+			String street1, String street2, String city,
 			String state, String zipcode, String country,
 			String creditcardnumber, String creditcardtype,
 			String creditcardexpiredate, Object customer) {
 		this._id = id;
 		this._firstname = firstname;
 		this._lastname = lastname;
-		this._telephone = telephone;
 		this._street1 = street1;
 		this._street2 = street2;
 		this._city = city;
@@ -110,6 +111,9 @@ public class Order extends DomainObject implements Serializable {
 			throw new CheckException("Invalid customer");
 	}
 
+    // ======================================
+    // =         Getters and Setters        =
+    // ======================================
 	public String getFirstname() {
 		return _firstname;
 	}
@@ -124,14 +128,6 @@ public class Order extends DomainObject implements Serializable {
 
 	public void setLastname(String lastname) {
 		this._lastname = lastname;
-	}
-
-	public String getTelephone() {
-		return _telephone;
-	}
-
-	public void setTelephone(String telephone) {
-		this._telephone = telephone;
 	}
 
 	public String getStreet1() {
@@ -232,7 +228,6 @@ public class Order extends DomainObject implements Serializable {
 		buf.append("\n\t\tId=").append(_id);
 		buf.append("\n\t\tFirst Name=").append(_firstname);
 		buf.append("\n\t\tLast Name=").append(_lastname);
-		buf.append("\n\t\tTelephone=").append(_telephone);
 		buf.append("\n\t\tStreet 1=").append(_street1);
 		buf.append("\n\t\tStreet 2=").append(_street2);
 		buf.append("\n\t\tCity=").append(_city);

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import com.yaps.petstore.domain.DomainObject;
+import com.yaps.petstore.domain.customer.Customer;
 import com.yaps.petstore.domain.item.Item;
 import com.yaps.petstore.domain.order.Order;
 import com.yaps.petstore.exception.DataAccessException;
@@ -15,12 +16,17 @@ import com.yaps.petstore.exception.ObjectNotFoundException;
 import com.yaps.petstore.logging.Trace;
 import com.yaps.petstore.persistence.AbstractDataAccessObject;
 
+/**
+ * This class does all the database access for the class OrderLine.
+ *
+ * @see OrderLine
+ */
 public class OrderLineDAO extends AbstractDataAccessObject {
 
 	// ======================================
 	// = Attributes =
 	// ======================================
-	private static final String TABLE = "T_ORDER";
+	private static final String TABLE = "T_ORDER_LINE";
 	private static final String COLUMNS = "ID, QUANTITY, UNITCOST, ORDER_FK, ITEM_FK";
 	// Used to get a unique id with the UniqueIdGenerator
 	private static final String COUNTER_NAME = "OrderLine";
@@ -80,10 +86,6 @@ public class OrderLineDAO extends AbstractDataAccessObject {
 		return orderLine;
 	}
 
-	protected String getCounterName() {
-		return COUNTER_NAME;
-	}
-	
     /**
      * This method return all the objects from the database.
      *
@@ -160,6 +162,8 @@ public class OrderLineDAO extends AbstractDataAccessObject {
         return objects;
     }
 
-
+	protected String getCounterName() {
+		return COUNTER_NAME;
+	}
 
 }
