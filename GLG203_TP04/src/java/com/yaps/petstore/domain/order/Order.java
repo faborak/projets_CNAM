@@ -41,10 +41,10 @@ public class Order extends DomainObject implements Serializable {
 	public Order(String id) {
 		this._id = id;
 	}
-	
+
 	public Order(String id, Date date, String firstname, String lastname,
 			String street1, String city, String zipcode, String country,
-			Object customer) {
+			Customer customer) {
 		this._id = id;
 		this._date = date;
 		this._firstname = firstname;
@@ -57,7 +57,7 @@ public class Order extends DomainObject implements Serializable {
 	}
 
 	public Order(String id, String firstname, String lastname, String street1,
-			String city, String country, Object customer) {
+			String city, String country, Customer customer) {
 		this._id = id;
 		this._firstname = firstname;
 		this._lastname = lastname;
@@ -68,11 +68,11 @@ public class Order extends DomainObject implements Serializable {
 	}
 
 	public Order(String id, Date orderdate, String firstname, String lastname,
-			String street1, String street2, String city,
-			String state, String zipcode, String country,
-			String creditcardnumber, String creditcardtype,
-			String creditcardexpiredate, Object customer) {
+			String street1, String street2, String city, String state,
+			String zipcode, String country, String creditcardnumber,
+			String creditcardtype, String creditcardexpiredate, Customer customer) {
 		this._id = id;
+		this._date = orderdate;
 		this._firstname = firstname;
 		this._lastname = lastname;
 		this._street1 = street1;
@@ -82,8 +82,8 @@ public class Order extends DomainObject implements Serializable {
 		this._zipcode = zipcode;
 		this._country = country;
 		this._creditCardNumber = creditcardnumber;
-		this._creditCardExpiryDate =creditcardexpiredate;
-		this._creditCardType=creditcardtype;
+		this._creditCardExpiryDate = creditcardexpiredate;
+		this._creditCardType = creditcardtype;
 		this._customer = (Customer) customer;
 	}
 
@@ -111,9 +111,9 @@ public class Order extends DomainObject implements Serializable {
 			throw new CheckException("Invalid customer");
 	}
 
-    // ======================================
-    // =         Getters and Setters        =
-    // ======================================
+	// ======================================
+	// = Getters and Setters =
+	// ======================================
 	public String getFirstname() {
 		return _firstname;
 	}
@@ -201,7 +201,7 @@ public class Order extends DomainObject implements Serializable {
 	public void setCreditCardExpiryDate(String creditCardExpiryDate) {
 		this._creditCardExpiryDate = creditCardExpiryDate;
 	}
-	
+
 	public void setCustomer(Customer customer) {
 		this._customer = customer;
 	}

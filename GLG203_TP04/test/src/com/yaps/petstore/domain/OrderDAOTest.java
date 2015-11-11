@@ -286,10 +286,10 @@ public final class OrderDAOTest extends AbstractTestCase {
         return order.getId();
     }
 
-    // Creates a customer and updates the order with this new customer
+    // Creates a Order and updates the order with this new customer
     private void updateOrder(final Order order, final String id) throws UpdateException, CreateException, ObjectNotFoundException {
     	String oldCustomerId = order.getCustomer().getId();
-    	// Create new Customer
+    	// Create new Order
     	String customerId = _customerDAO.getUniqueId();
         final Customer customer = new Customer("custo" + customerId, "firstname" + customerId, "lastname" + customerId);
         _customerDAO.insert(customer);
