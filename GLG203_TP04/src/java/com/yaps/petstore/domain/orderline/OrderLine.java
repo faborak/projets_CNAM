@@ -1,64 +1,102 @@
 package com.yaps.petstore.domain.orderline;
 
+import java.io.Serializable;
+
+import com.yaps.petstore.domain.DomainObject;
 import com.yaps.petstore.domain.item.Item;
 import com.yaps.petstore.domain.order.Order;
 import com.yaps.petstore.exception.CheckException;
 
-public class OrderLine {
+public class OrderLine extends DomainObject implements Serializable {
 
-	private int Quantity;
-	private double UnitCost;
-	private Order order;
-	private Item item;
-	
-	public OrderLine(String string, int i, int j, Order order, Item item) {
-		// TODO Auto-generated constructor stub
+	// ======================================
+	// = Attributes =
+	// ======================================
+	private int _Quantity;
+	private double _UnitCost;
+	private Order _order;
+	private Item _item;
+
+	// ======================================
+	// = Constructors =
+	// ======================================
+	public OrderLine() {
 	}
 
-	public OrderLine(String string, int _defaultQuantity, double _defaultUnitCost, Order order, Item item) {
-		// TODO Auto-generated constructor stub
+	public OrderLine(final String id) {
+		_id = id;
 	}
 
-	public OrderLine(int parseInt, double parseDouble, Order order2, Item item) {
-		// TODO Auto-generated constructor stub
+	public OrderLine(String id, int i, int j, Order order, Item item) {
+		_id = id;
+		_Quantity = i;
+		_UnitCost = Double.parseDouble(Integer.toString(j));
+		_order = order;
+		_item = item;
 	}
 
-	public void checkData() throws CheckException{
-		// TODO Auto-generated method stub
-		
+	public OrderLine(String id, int _defaultQuantity, double _defaultUnitCost,
+			Order order, Item item) {
+		_id = id;
+		_Quantity = _defaultQuantity;
+		_UnitCost = _defaultUnitCost;
+		_order = order;
+		_item = item;
+	}
+
+	public OrderLine(int parseInt, double parseDouble, Order order, Item item) {
+		_Quantity = parseInt;
+		_UnitCost = parseDouble;
+		_order = order;
+		_item = item;
+	}
+
+	// ======================================
+	// = Business methods =
+	// ======================================
+	/**
+	 * This method checks the integrity of the object data.
+	 * 
+	 * @throws CheckException
+	 *             if data is invalid
+	 */
+	public void checkData() throws CheckException {
+		if (_Quantity == 0)
+			throw new CheckException("Invalid orderline quantity");
+		if (_UnitCost == 0)
+			throw new CheckException("Invalid orderline unitcost");
+		if (_order == null)
+			throw new CheckException("Invalid orderline order");
+		if (_item == null)
+			throw new CheckException("Invalid orderline item");
 	}
 
 	public int getQuantity() {
-		return Quantity;
+		return _Quantity;
 	}
 
 	public void setQuantity(int quantity) {
-		Quantity = quantity;
+		_Quantity = quantity;
 	}
 
 	public double getUnitCost() {
-		return UnitCost;
+		return _UnitCost;
 	}
 
 	public void setUnitCost(double unitCost) {
-		UnitCost = unitCost;
-	}
-
-	public String getId() {
-		// TODO Auto-generated method stub
-		return null;
+		_UnitCost = unitCost;
 	}
 
 	public Order getOrder() {
-		return order;
+		return _order;
 	}
 
 	public void setOrder(Order order) {
-		this.order = order;
+		this._order = order;
 	}
-	
+
 	public Item getItem() {
-		return item;
+		return _item;
 	}
 
 }
