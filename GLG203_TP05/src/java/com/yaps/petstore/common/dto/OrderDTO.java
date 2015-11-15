@@ -41,55 +41,6 @@ public class OrderDTO implements DataTransfertObject {
 	public OrderDTO() {
 	}
 
-//	public OrderDTO(String id) {
-//		this._id = id;
-//	}
-
-//	public OrderDTO(String id, Date date, String firstname, String lastname,
-//			String street1, String city, String zipcode, String country,
-//			CustomerDTO customer) {
-//		this._id = id;
-//		this._date = date;
-//		this._firstname = firstname;
-//		this._lastname = lastname;
-//		this._street1 = street1;
-//		this._city = city;
-//		this._zipcode = zipcode;
-//		this._country = country;
-//		this._customer = (CustomerDTO) customer;
-//	}
-
-//	public OrderDTO(String id, String firstname, String lastname, String street1,
-//			String city, String country, CustomerDTO customer) {
-//		this._id = id;
-//		this._firstname = firstname;
-//		this._lastname = lastname;
-//		this._street1 = street1;
-//		this._city = city;
-//		this._country = country;
-//		this._customer = (CustomerDTO) customer;
-//	}
-
-//	public OrderDTO(String id, Date orderdate, String firstname, String lastname,
-//			String street1, String street2, String city, String state,
-//			String zipcode, String country, String creditcardnumber,
-//			String creditcardtype, String creditcardexpiredate, CustomerDTO customer) {
-//		this._id = id;
-//		this._date = orderdate;
-//		this._firstname = firstname;
-//		this._lastname = lastname;
-//		this._street1 = street1;
-//		this._street2 = street2;
-//		this._city = city;
-//		this._state = state;
-//		this._zipcode = zipcode;
-//		this._country = country;
-//		this._creditCardNumber = creditcardnumber;
-//		this._creditCardExpiryDate = creditcardexpiredate;
-//		this._creditCardType = creditcardtype;
-//		this._customer = (CustomerDTO) customer;
-//	}
-
 	public OrderDTO(String firstname, String lastname, String street1,
 			String city, String zip, String country) {
 		this._firstname = firstname;
