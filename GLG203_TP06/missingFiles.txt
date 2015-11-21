@@ -1,0 +1,5 @@
+src/java/com/yaps/petstore/client/ui/referential/ManageItemFrame.java
+src/java/com/yaps/petstore/client/ui/referential/ManageProductFrame.java
+src/java/com/yaps/petstore/common/dto/AddressDTO.java
+src/java/com/yaps/petstore/server/domain/Address.java
+src/java/com/yaps/petstore/web/servlet/CreateCustomerServlet.java
