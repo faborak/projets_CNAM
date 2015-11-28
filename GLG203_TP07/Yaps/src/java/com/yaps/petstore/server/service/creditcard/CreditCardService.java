@@ -14,7 +14,7 @@ public class CreditCardService {
 	// ======================================
 	// = Business methods =
 	// ======================================
-	public void verifyCreditCard(CreditCard creditCard) throws CheckException {
+	public void verifyCreditCard(final CreditCard creditCard) throws CheckException {
 
 		Document retour = null;
 		try {
@@ -22,10 +22,10 @@ public class CreditCardService {
 		} catch (Exception e) {
 			throw new CheckException("Invalid Card");
 		}
-		Node statut = retour.selectSingleNode("/CreditCard/status");
-		if (statut.getText() == "Invalid date")
+		String statut = retour.selectSingleNode("/CreditCard").valueOf("@status");
+		if (statut == "Invalid date")
 			throw new CheckException("Invalid date");
-		if (statut.getText() == "Invalid number")
+		if (statut == "Invalid number")
 			throw new CheckException("Invalid number");
 	}
 }

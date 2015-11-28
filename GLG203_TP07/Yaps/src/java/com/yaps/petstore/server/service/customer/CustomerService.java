@@ -18,6 +18,7 @@ import com.yaps.petstore.server.domain.category.Category;
 import com.yaps.petstore.server.domain.customer.Customer;
 import com.yaps.petstore.server.domain.customer.CustomerDAO;
 import com.yaps.petstore.server.service.AbstractRemoteService;
+import com.yaps.petstore.server.service.creditcard.CreditCardService;
 
 public class CustomerService extends AbstractRemoteService implements CustomerServiceRemote{
 
@@ -25,6 +26,7 @@ public class CustomerService extends AbstractRemoteService implements CustomerSe
     // =             Attributes             =
     // ======================================
     private static final CustomerDAO _customerDAO = new CustomerDAO();
+    private static final CreditCardService _creditCardService = new CreditCardService();	
 	
  // ======================================
     // =            Constructors            =
@@ -44,8 +46,26 @@ public class CustomerService extends AbstractRemoteService implements CustomerSe
 
         // Transforms DTO into domain object
         final Customer customer = new Customer(customerDTO.getId(), customerDTO.getFirstname(), customerDTO.getLastname());
+        // Transforms DTO into domain object
+        customer.setTelephone(customerDTO.getTelephone());
+        customer.setEmail(customerDTO.getEmail());
+        // adresse
+        customer.setStreet1(customerDTO.getStreet1());
+        customer.setStreet2(customerDTO.getStreet2());
+        customer.setCity(customerDTO.getCity());
+        customer.setState(customerDTO.getState());
+        customer.setZipcode(customerDTO.getZipcode());
+        customer.setCountry(customerDTO.getCountry());
+        // CreditCard
+        customer.setCreditCardNumber(customerDTO.getCreditCardNumber());
+        customer.setCreditCardExpiryDate(customerDTO.getCreditCardExpiryDate());
+        customer.setCreditCardType(customerDTO.getCreditCardType());  
 
         customer.checkData();
+        
+        // verify 
+        _creditCardService.verifyCreditCard(customer.getCreditCard());
+        
         // Creates the object
         _customerDAO.insert(customer);
 
@@ -124,6 +144,9 @@ public class CustomerService extends AbstractRemoteService implements CustomerSe
 	        customer.setCreditCardExpiryDate(customerDTO.getCreditCardExpiryDate());
 	        customer.setCreditCardType(customerDTO.getCreditCardType());   
 
+	        // verify 
+	        _creditCardService.verifyCreditCard(customer.getCreditCard());
+	        
 	        // Updates the object
 	        try {
 	        	_customerDAO.update(customer);
