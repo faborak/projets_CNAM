@@ -79,9 +79,18 @@ public class CustomerService extends AbstractRemoteService implements CustomerSe
 	public CustomerDTO findCustomer(final String customerId) throws FinderException,CheckException {
         final String mname = "findCustomer";
         Trace.entering(_cname, mname, customerId);
-
-        final Customer customer = (Customer) _customerDAO.findByPrimaryKey(customerId);
-
+        
+        if (customerId == null || "".equals(customerId)){
+            throw new CheckException("customerId problem");
+        }
+        
+        Customer customer = null;
+        try {
+         customer = (Customer) _customerDAO.findByPrimaryKey(customerId);
+        } catch (ObjectNotFoundException e) {
+        	throw new ObjectNotFoundException();
+        }
+        
         // Transforms domain object into DTO
         final CustomerDTO customerDTO = transformCustomer2DTO(customer);
 
