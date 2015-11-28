@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/java"/>
+	<classpathentry kind="src" path="test/src"/>
+	<classpathentry kind="lib" path="test07.jar"/>
+	<classpathentry kind="lib" path="/home/fabo/Applications/dom4j-1.6.1/dom4j-1.6.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/fabo/Applications/httpunit-1.6.2/lib/httpunit.jar"/>
+	<classpathentry kind="lib" path="/home/fabo/Applications/mysql/lib/mysql-connector-java-5.1.21-bin.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="lib" path="/home/fabo/Applications/apache-tomcat-9.0.0.M1/lib/servlet-api.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
