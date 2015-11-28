@@ -22,10 +22,10 @@ public class CreditCardService {
 		} catch (Exception e) {
 			throw new CheckException("Invalid Card");
 		}
-		String statut = retour.selectSingleNode("/CreditCard").valueOf("@status");
-		if (statut == "Invalid date")
+		String statut = retour.selectSingleNode("/CreditCard").valueOf("@Status");
+		if ("Invalid date".equals(statut))
 			throw new CheckException("Invalid date");
-		if (statut == "Invalid number")
+		if ("Invalid number".equals(statut))
 			throw new CheckException("Invalid number");
 	}
 }
