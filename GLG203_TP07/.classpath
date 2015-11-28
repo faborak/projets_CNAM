@@ -13,5 +13,7 @@
 	<classpathentry kind="lib" path="/home/fabo/Applications/httpunit-1.6.2/lib/httpunit.jar"/>
 	<classpathentry kind="lib" path="/home/fabo/Applications/mysql/lib/mysql-connector-java-5.1.21-bin.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="lib" path="/home/fabo/Applications/httpunit-1.6.2/jars/js.jar"/>
+	<classpathentry kind="lib" path="/home/fabo/Applications/httpunit-1.6.2/jars/junit.jar"/>
 	<classpathentry kind="output" path="Yaps/bin"/>
 </classpath>
