@@ -3,6 +3,7 @@ package com.barkbank.verifier;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.net.URLDecoder;
 
 import javax.servlet.ServletException;
@@ -31,49 +32,49 @@ public class VerifyCreditCardServlet extends HttpServlet {
 	// ======================================
 	// = Entry point method =
 	// ======================================
-	protected void service(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
-		final String mname = "service";
+	protected void service(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 
-		Document document = DocumentHelper.createDocument();
-		String xmlEncoded = request.getParameter("SERVLET_PARAMETER");
-		String xmlDecoded = URLDecoder.decode(xmlEncoded, "UTF-8");
-		InputStream in = new ByteArrayInputStream(xmlDecoded.getBytes());
-		SAXReader reader = new SAXReader();
-		try {
+//		 final PrintWriter tout = response.getWriter();
+
+//         tout.println("entree");
+		
+		String xmlEncoded = request.getParameter("param");
+		//tout.println("xmlEncoded : "+  xmlEncoded);
+		if ((xmlEncoded != null) && (!"".equals(xmlEncoded))) {
+			try {
+			String xmlDecoded = URLDecoder.decode(xmlEncoded, "UTF-8");
+			//tout.println("xmlDecoded : "+  xmlDecoded);
+			InputStream in = new ByteArrayInputStream(xmlDecoded.getBytes());
+			SAXReader reader = new SAXReader();
+			
+			Document document = DocumentHelper.createDocument();
+			
 			document = reader.read(in);
-		} catch (DocumentException e) {
-			e.printStackTrace();
+	
+			String creditCardNumber = document.selectSingleNode("/CreditCard/CardNumber").getText();
+			String cardType = document.selectSingleNode("/CreditCard/CardType").getText();
+			String month = document.selectSingleNode("/CreditCard/ExpiryDate").valueOf("@Month");
+			String year = document.selectSingleNode("/CreditCard/ExpiryDate").valueOf("@Year");
+			String status = VerificationAlgorithm.verify(creditCardNumber,cardType, year, month);
+			//tout.println("creditCardNumber : "+  creditCardNumber+", CardType : "+  cardType+", month : "+  month+", year : "+  year+", status : "+  status); 
+	
+	    	Document documentRetour = DocumentHelper.createDocument();
+	        // Construit un document xml
+	         Element rootRetour = documentRetour.addElement("CreditCard").addAttribute("Status", status) ;
+	
+	         rootRetour.addElement("CardNumber").addText(creditCardNumber);  
+	         rootRetour.addElement("CardType").addText(cardType); 
+	         Element CreditCardExpiryDate = rootRetour.addElement("ExpiryDate");
+	         CreditCardExpiryDate.addAttribute("Month", month)
+	                             .addAttribute("Year", year);
+	        // tout.println("documentRetour : "+  documentRetour); 
+	         
+			response.setContentType("text/xml");
+			ServletOutputStream out = response.getOutputStream();
+			out.print(documentRetour.asXML());
+			}catch (DocumentException e) {
+				e.printStackTrace();
+			}
 		}
-
-		String creditCardNumber = document.selectSingleNode("/CreditCard/CreditCardNumber").getText();
-		String creditCardExpiryDate = document.selectSingleNode("/CreditCard/CreditCardType").getText();
-		String month = document.selectSingleNode("/CreditCard/CreditCardExpiryDate").getText().valueOf("Month");
-		String year = document.selectSingleNode("/CreditCard/CreditCardExpiryDate").getText().valueOf("Year");
-		String status = VerificationAlgorithm.verify(creditCardNumber,creditCardExpiryDate, month, year);
-
-		//document.addElement("status").addText(status);
-
-    	Document documentRetour = DocumentHelper.createDocument();
-        try {
-            // Construit un document xml
-             Element rootRetour = documentRetour.addElement("CreditCard").addAttribute("status", status) ;
-
-             rootRetour.addElement("CreditCardNumber").addText(creditCardNumber);  
-             rootRetour.addElement("CreditCardType").addText(creditCardExpiryDate); 
-             Element CreditCardExpiryDate = rootRetour.addElement("CreditCardExpiryDate");
-             CreditCardExpiryDate.addAttribute("Month", month)
-                                 .addAttribute("Year", year);
-        } catch (Exception e) {
-            e.printStackTrace();
-       }    
-		response.setContentType("text/xml");
-		ServletOutputStream out = response.getOutputStream();
-		// xmlencoded = request.getParameter("param"); //La servlet de la
-		// BarkBank intercepte le flux en entrée
-		// if ((xmlencoded != null) && (!"".equals(xmlencoded))) { /*traitement
-		// si il y a quelque chose */ }
-		out.print(documentRetour.asXML());
 	}
 }

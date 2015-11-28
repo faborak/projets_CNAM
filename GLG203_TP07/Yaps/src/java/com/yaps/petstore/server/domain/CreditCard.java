@@ -42,9 +42,9 @@ public class CreditCard extends DomainObject {
             // Construit un document xml
              Element root = document.addElement("CreditCard"); 
 
-             root.addElement("CreditCardNumber").addText(getCreditCardNumber());  
-             root.addElement("CreditCardType").addText(getCreditCardType()); 
-             Element CreditCardExpiryDate = root.addElement("CreditCardExpiryDate");
+             root.addElement("CardNumber").addText(getCreditCardNumber());  
+             root.addElement("CardType").addText(getCreditCardType()); 
+             Element CreditCardExpiryDate = root.addElement("ExpiryDate");
              CreditCardExpiryDate.addAttribute("Month", getCreditCardExpiryDate().substring(0,1))
                                  .addAttribute("Year", getCreditCardExpiryDate().substring(3,4));
         } catch (Exception e) {
