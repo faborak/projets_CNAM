@@ -1,6 +1,7 @@
 package com.yaps.petstore.common.delegate;
 
 public class CatalogDelegateFactory  {
+	
 	private static CatalogDelegate instance = null;
 	
 	public CatalogDelegate createCatalogDelegate() {
