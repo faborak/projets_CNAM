@@ -1,4 +1,3 @@
-<%@ page isProductPage="true" %>
 <%@page import="java.util.Collection"%>
 <%@page import="java.util.List"%>
 <%@ page import="com.yaps.petstore.common.dto.ProductDTO"%>
