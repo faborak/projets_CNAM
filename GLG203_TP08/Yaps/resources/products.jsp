@@ -3,7 +3,7 @@
 <%@ page import="com.yaps.petstore.common.dto.ProductDTO"%>
 <html>
 <head>
-	<title>YAPS Error</title>
+	<title>YAPS PetStore</title>
 </head>
 <body>
 
@@ -26,9 +26,9 @@
 
               <%  Collection<ProductDTO> productsDTO  =  (Collection<ProductDTO>) request.getAttribute("productsDTO");%> 
               <%  for (ProductDTO productDTO : productsDTO) { %> 
-                    <%--  nom du produit : <% out.println(productDTO.getName()); %>  --%>
-                     <A href="<%= request.getContextPath() %>/finditems?productId=<% productDTO.getId(); %>">productDTO.getName()</A><BR>
-                     description :  <%   out.println(productDTO.getDescription());  %> 
+                     <A href="<%= request.getContextPath() %>/finditems?productId=<%out.println(productDTO.getId());%>"><%out.println(productDTO.getName()); %></A><BR>
+                     <%   out.println(productDTO.getDescription());  %> 
+                     </br>
                <%     } %>
                
                

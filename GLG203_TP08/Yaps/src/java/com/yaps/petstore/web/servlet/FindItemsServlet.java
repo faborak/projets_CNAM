@@ -36,6 +36,7 @@ public class FindItemsServlet extends AbstractServlet {
 
             // puts the list of items into the request
             request.setAttribute("itemsDTO", itemsDTO);
+            request.setAttribute("productDTO", productDTO);
 
             // Goes to the items page passing the request
             getServletContext().getRequestDispatcher("/items.jsp").forward(request, response);

@@ -34,7 +34,7 @@ public class FindItemServlet extends AbstractServlet {
             request.setAttribute("itemDTO", itemDTO);
 
             // Goes to the items page passing the request
-            getServletContext().getRequestDispatcher("/items.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/item.jsp").forward(request, response);
 
         } catch (ObjectNotFoundException e) {
             getServletContext().getRequestDispatcher("/error.jsp?exception=No items found for product " + itemId).forward(request, response);

@@ -1,10 +1,9 @@
 <%@page import="java.util.Collection"%>
 <%@page import="java.util.List"%>
 <%@ page import="com.yaps.petstore.common.dto.ItemDTO"%>
-<%@ page import="com.yaps.petstore.common.dto.ProductDTO"%>
 <html>
 <head>
-	<title>YAPS Error</title>
+	<title>YAPS PetStore</title>
 </head>
 <body>
 
@@ -25,10 +24,10 @@
         <td align="left" valign="top" width="60%">
         <%--CENTRAL BODY--%>
 
-              <%  ItemDTO itemDTO =  (ItemDTO) request.getAttribute("Item");%> 
-                     <% out.println(itemDTO.getName()); %> 
-                     <img src=" <%itemDTO.getImagePath();%> " /> 
-                     Unit Cost :  <%   out.println(itemDTO.getUnitCost());  %> 
+               <%  ItemDTO itemDTO =  (ItemDTO) request.getAttribute("itemDTO");%> 
+                     <B><% out.println(itemDTO.getName()); %></B> </br>
+                     <img src="images/<%out.println(itemDTO.getImagePath());%>" /> 
+                    <B> Unit Cost :</B> $<%   out.println(itemDTO.getUnitCost());  %>  
 
     <%--FOOTER--%>
     	</td>
