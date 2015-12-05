@@ -27,15 +27,15 @@ public class FindProductsServlet extends AbstractServlet {
         String categoryId = request.getParameter("categoryId");
 
         try {
-            // Gets the items for a product id
+            // Gets the products for a category id
             Trace.finest(getCname(), mname, "Category id=" + categoryId);
-            productsDTO = new CatalogDelegateFactory().createCatalogDelegate().findItems(categoryId);
+            productsDTO = new CatalogDelegateFactory().createCatalogDelegate().findProducts(categoryId);
 
             // puts the list of items into the request
             request.setAttribute("productsDTO", productsDTO);
 
             // Goes to the items page passing the request
-            getServletContext().getRequestDispatcher("/items.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/products.jsp").forward(request, response);
 
         } catch (ObjectNotFoundException e) {
             getServletContext().getRequestDispatcher("/error.jsp?exception=No items found for product " + categoryId).forward(request, response);

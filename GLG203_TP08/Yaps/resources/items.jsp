@@ -3,7 +3,7 @@
 <%@ page import="com.yaps.petstore.common.dto.ItemDTO"%>
 <html>
 <head>
-	<title>YAPS Error</title>
+	<title>YAPS PetStore</title>
 </head>
 <body>
 
@@ -24,13 +24,13 @@
         <td align="left" valign="top" width="60%">
         <%--CENTRAL BODY--%>
 
-			<%  Collection<ItemDTO> ItemsDTO  =  (Collection<ItemDTO>) request.getAttribute("ItemsDTO");%> 
-              <%  ProductDTO productDTO  =  (ProductDTO) request.getAttribute("ProductDTO");%> 
-              <%  for (ItemDTO itemDTO : ItemsDTO) { %> 
-              <A href="<%= request.getContextPath() %>/finditem?itemId=<% itemDTO.getId(); %>">itemDTO.getName();</A><BR>
-                     <%-- nom de l'item : <% out.println(itemDTO.getName()); %>  --%>
-                     description :  <%   out.println(productDTO.getDescription());  %> 
-               <%     } %>
+			<%  Collection<ItemDTO> itemsDTO  =  (Collection<ItemDTO>) request.getAttribute("itemsDTO");%> 
+              <%  ProductDTO productDTO  =  (ProductDTO) request.getAttribute("productDTO");%> 
+                <%  for (ItemDTO itemDTO : itemsDTO) { %> 
+              <A href="<%= request.getContextPath() %>/finditem?itemId=<% out.println(itemDTO.getId()); %>"><%out.println(itemDTO.getName());%></A> <font align="right"><%out.println(itemDTO.getUnitCost());%></font><BR>
+                       <%   out.println(productDTO.getDescription());  %>  
+                       </br>
+               <%     } %>  
 
               
 
