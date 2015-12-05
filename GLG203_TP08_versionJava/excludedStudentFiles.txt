@@ -1,0 +1,8 @@
+Yaps/resources/item.jsp
+Yaps/resources/items.jsp
+Yaps/src/java/com/yaps/petstore/common/delegate/CatalogDelegateFactory.java
+Yaps/src/java/com/yaps/petstore/common/delegate/CatalogLocalDelegate.java
+Yaps/src/java/com/yaps/petstore/common/delegate/CatalogRemoteDelegate.java
+Yaps/src/java/com/yaps/petstore/server/service/catalog/CatalogService.java
+Yaps/src/java/com/yaps/petstore/web/servlet/FindItemServlet.java
+Yaps/src/java/com/yaps/petstore/web/servlet/FindProductsServlet.java
