@@ -28,7 +28,7 @@
 			<%  Collection<ItemDTO> ItemsDTO  =  (Collection<ItemDTO>) request.getAttribute("ItemsDTO");%> 
               <%  ProductDTO productDTO  =  (ProductDTO) request.getAttribute("ProductDTO");%> 
               <%  for (ItemDTO itemDTO : ItemsDTO) { %> 
-              <A href="<%= request.getContextPath() %>/finditem?itemId=<% ItemsDTO.getId(); %>">out.println(itemDTO.getName());</A><BR>
+              <A href="<%= request.getContextPath() %>/finditem?itemId=<% itemDTO.getId(); %>">out.println(itemDTO.getName());</A><BR>
                      <%-- nom de l'item : <% out.println(itemDTO.getName()); %>  --%>
                      description :  <%   out.println(productDTO.getDescription());  %> 
                <%     } %>
