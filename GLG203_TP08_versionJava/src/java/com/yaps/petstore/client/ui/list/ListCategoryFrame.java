@@ -1,13 +1,11 @@
 package com.yaps.petstore.client.ui.list;
 
-import com.yaps.petstore.common.delegate.CatalogDelegate;
-import com.yaps.petstore.common.delegate.CatalogDelegateFactory;
-import com.yaps.petstore.common.dto.CategoryDTO;
-import com.yaps.petstore.common.exception.FinderException;
-
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.Iterator;
+import com.yaps.petstore.common.delegate.CatalogDelegateFactory;
+import com.yaps.petstore.common.dto.CategoryDTO;
+import com.yaps.petstore.common.exception.FinderException;
 
 /**
  * This class lists all the categories of the system.
@@ -22,7 +20,6 @@ public final class ListCategoryFrame extends AbstractListFrame {
     protected String[] getColumnNames() {
 
         final String[] columnNames = {"ID", "Name", "Description"};
-
         return columnNames;
     }
 

@@ -1,15 +1,16 @@
 package com.yaps.petstore.web.servlet;
 
-import com.yaps.petstore.common.delegate.CatalogDelegate;
-import com.yaps.petstore.common.delegate.CatalogDelegateFactory;
-import com.yaps.petstore.common.exception.ObjectNotFoundException;
-import com.yaps.petstore.common.logging.Trace;
+import java.io.IOException;
+import java.util.Collection;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Collection;
+
+import com.yaps.petstore.common.delegate.CatalogDelegateFactory;
+import com.yaps.petstore.common.dto.ProductDTO;
+import com.yaps.petstore.common.exception.ObjectNotFoundException;
+import com.yaps.petstore.common.logging.Trace;
 
 /**
  * This servlet returns the list of all items.
@@ -24,12 +25,14 @@ public class FindItemsServlet extends AbstractServlet {
         Trace.entering(getCname(), mname);
 
         final Collection itemsDTO;
+        final ProductDTO productDTO;
         String productId = request.getParameter("productId");
 
         try {
             // Gets the items for a product id
             Trace.finest(getCname(), mname, "Product id=" + productId);
             itemsDTO = new CatalogDelegateFactory().createCatalogDelegate().findItems(productId);
+            productDTO = new CatalogDelegateFactory().createCatalogDelegate().findProduct(productId);
 
             // puts the list of items into the request
             request.setAttribute("itemsDTO", itemsDTO);
