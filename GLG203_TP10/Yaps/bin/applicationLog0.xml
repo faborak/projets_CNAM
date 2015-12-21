@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2014-12-12T17:30:46</date>
+  <millis>1418401846212</millis>
+  <sequence>0</sequence>
+  <logger>sun.rmi.server.call</logger>
+  <level>FINER</level>
+  <class>sun.rmi.server.UnicastServerRef</class>
+  <method>logCall</method>
+  <thread>10</thread>
+  <message>RMI TCP Connection(1)-163.173.228.55: [163.173.228.55: sun.rmi.transport.DGCImpl[0:0:0, 2]: java.rmi.dgc.Lease dirty(java.rmi.server.ObjID[], long, java.rmi.dgc.Lease)]</message>
+</record>
+<record>
+  <date>2014-12-12T17:30:46</date>
+  <millis>1418401846254</millis>
+  <sequence>1</sequence>
+  <logger>sun.rmi.server.call</logger>
+  <level>FINER</level>
+  <class>sun.rmi.server.UnicastServerRef</class>
+  <method>logCall</method>
+  <thread>10</thread>
+  <message>RMI TCP Connection(1)-163.173.228.55: [163.173.228.55: sun.rmi.transport.DGCImpl[0:0:0, 2]: java.rmi.dgc.Lease dirty(java.rmi.server.ObjID[], long, java.rmi.dgc.Lease)]</message>
+</record>
+<record>
+  <date>2014-12-12T17:30:46</date>
+  <millis>1418401846278</millis>
+  <sequence>2</sequence>
+  <logger>sun.rmi.server.call</logger>
+  <level>FINER</level>
+  <class>sun.rmi.server.UnicastServerRef</class>
+  <method>logCall</method>
+  <thread>10</thread>
+  <message>RMI TCP Connection(1)-163.173.228.55: [163.173.228.55: sun.rmi.transport.DGCImpl[0:0:0, 2]: java.rmi.dgc.Lease dirty(java.rmi.server.ObjID[], long, java.rmi.dgc.Lease)]</message>
+</record>
+<record>
+  <date>2014-12-12T17:30:53</date>
+  <millis>1418401853927</millis>
+  <sequence>3</sequence>
+  <logger>sun.rmi.server.call</logger>
+  <level>FINER</level>
+  <class>sun.rmi.server.UnicastServerRef</class>
+  <method>logCall</method>
+  <thread>11</thread>
+  <message>RMI TCP Connection(2)-163.173.228.55: [163.173.228.55: sun.rmi.transport.DGCImpl[0:0:0, 2]: java.rmi.dgc.Lease dirty(java.rmi.server.ObjID[], long, java.rmi.dgc.Lease)]</message>
+</record>
+<record>
+  <date>2014-12-12T17:30:53</date>
+  <millis>1418401853931</millis>
+  <sequence>4</sequence>
+  <logger>sun.rmi.server.call</logger>
+  <level>FINER</level>
+  <class>sun.rmi.server.UnicastServerRef</class>
+  <method>logCall</method>
+  <thread>11</thread>
+  <message>RMI TCP Connection(2)-163.173.228.55: [163.173.228.55: com.yaps.petstore.server.service.catalog.CatalogService[42aac18:14a3f5692fc:-7fff, 8331604797529999244]: public abstract java.util.Collection com.yaps.petstore.common.delegate.CatalogServiceRemote.findProducts(java.lang.String) throws com.yaps.petstore.common.exception.FinderException,java.rmi.RemoteException]</message>
+</record>
+</log>
