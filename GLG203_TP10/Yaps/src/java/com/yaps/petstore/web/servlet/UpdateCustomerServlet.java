@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * This servlet creates a customer.
+ * This servlet udpates a customer.
  */
 public final class UpdateCustomerServlet extends AbstractServlet {
 
@@ -44,10 +44,12 @@ public final class UpdateCustomerServlet extends AbstractServlet {
         customerDTO.setCreditCardType(request.getParameter("creditCardType"));
         customerDTO.setCreditCardNumber(request.getParameter("creditCardNumber"));
         customerDTO.setCreditCardExpiryDate(request.getParameter("creditCardExpiryDate"));
+        // Password
+        customerDTO.setPassword(request.getParameter("password"));
 
         try {
-            // Creates the customer
-            customerDTO = new CustomerDelegateFactory().createCustomerDelegate().createCustomer(customerDTO);
+            // Update the customer
+            new CustomerDelegateFactory().createCustomerDelegate().updateCustomer(customerDTO);
 
             // puts the customerDTO into the session
             request.getSession().setAttribute("customerDTO", customerDTO);
@@ -55,13 +57,11 @@ public final class UpdateCustomerServlet extends AbstractServlet {
             // Goes to the index page passing the request
             getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 
-        } catch (DuplicateKeyException e) {
-            getServletContext().getRequestDispatcher("/error.jsp?exception=Customer Id already exists").forward(request, response);
         } catch (CheckException e) {
             getServletContext().getRequestDispatcher("/error.jsp?exception=" + e.getMessage()).forward(request, response);
         } catch (Exception e) {
             Trace.throwing(getCname(), mname, e);
-            getServletContext().getRequestDispatcher("/error.jsp?exception=Cannot create the customer : " + e.getMessage()).forward(request, response);
+            getServletContext().getRequestDispatcher("/error.jsp?exception=Cannot update the customer : " + e.getMessage()).forward(request, response);
         }
     }
 }

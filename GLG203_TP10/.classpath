@@ -15,5 +15,12 @@
 	<classpathentry kind="lib" path="/home/fabo/Applications/jakarta-taglibs-standard-1.1.2/lib/standard.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry kind="lib" path="/home/fabo/Applications/apache-tomcat-7.0.65/lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="/home/fabo/Applications/httpunit-1.6.2/jars/js.jar"/>
+	<classpathentry kind="lib" path="/home/fabo/Applications/httpunit-1.6.2/jars/junit.jar"/>
+	<classpathentry kind="lib" path="/home/fabo/Applications/httpunit-1.6.2/jars/nekohtml.jar"/>
+	<classpathentry kind="lib" path="/home/fabo/Applications/httpunit-1.6.2/jars/servlet.jar"/>
+	<classpathentry kind="lib" path="/home/fabo/Applications/httpunit-1.6.2/jars/Tidy.jar"/>
+	<classpathentry kind="lib" path="/home/fabo/Applications/httpunit-1.6.2/jars/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="/home/fabo/Applications/httpunit-1.6.2/jars/xmlParserAPIs.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

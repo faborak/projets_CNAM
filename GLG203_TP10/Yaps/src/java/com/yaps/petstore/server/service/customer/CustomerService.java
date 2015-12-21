@@ -53,6 +53,7 @@ public final class CustomerService extends AbstractRemoteService implements Cust
         customer.setCreditCardExpiryDate(customerDTO.getCreditCardExpiryDate());
         customer.setCreditCardNumber(customerDTO.getCreditCardNumber());
         customer.setCreditCardType(customerDTO.getCreditCardType());
+        customer.setPassword(customerDTO.getPassword());
 
         customer.checkData();
 
@@ -137,6 +138,7 @@ public final class CustomerService extends AbstractRemoteService implements Cust
         customer.setCreditCardExpiryDate(customerDTO.getCreditCardExpiryDate());
         customer.setCreditCardNumber(customerDTO.getCreditCardNumber());
         customer.setCreditCardType(customerDTO.getCreditCardType());
+        customer.setPassword(customerDTO.getPassword());
 
         customer.checkData();
         
@@ -206,6 +208,7 @@ public final class CustomerService extends AbstractRemoteService implements Cust
         customerDTO.setCreditCardNumber(customer.getCreditCardNumber());
         customerDTO.setCreditCardType(customer.getCreditCardType());
         customerDTO.setCreditCardExpiryDate(customer.getCreditCardExpiryDate());
+        customerDTO.setPassword(customer.getPassword());
         return customerDTO;
     }
 
