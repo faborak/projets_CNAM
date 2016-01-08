@@ -1,12 +1,11 @@
 package com.yaps.petstore.server.cart;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
-import org.dom4j.Document;
-
-import com.yaps.petstore.common.exception.CheckException;
+import com.yaps.petstore.server.domain.item.Item;
+import com.yaps.petstore.server.domain.item.ItemDAO;
 
 /**
  * This class manages un ShoppingCart.
@@ -20,53 +19,46 @@ public class ShoppingCartBean implements ShoppingCart {
     // ======================================
     // =             Attributes             =
     // ======================================
-    // Used for logging
-    private final transient String _cname = this.getClass().getName();
     
-    Collection items ;
-
+    private static final ItemDAO _itemDAO = new ItemDAO();
+    
+    Map<String,Integer> cart ;
+    
     // ======================================
     // =           Business methods         =
     // ======================================
 	public Map getCart() {
-		// TODO Auto-generated method stub
-		return null;
+		return cart;
 	}
 
 	public Collection getItems() {
-		return items;
+		return cart.keySet();
 	}
 
 	public void addItem(String itemId) {
-		items.add(itemId);
+		cart.put(itemId, 1);
 	}
 
 	public void removeItem(String itemId) {
-		Iterator iter=items.iterator();
-		while(iter.hasNext()){
-		    Object o=iter.next();
-		    if(o.equals(itemId)){
-		        iter.remove();
-		    }
-		}
+		cart.remove(itemId);
 	}
 
 	public void updateItemQuantity(String itemId, int newQty) {
-		// TODO Auto-generated method stub
-		
+		cart.remove(itemId);
+		cart.put(itemId, newQty);
 	}
 
 	public Double getTotal() {
-		// TODO Auto-generated method stub
-		return null;
+		double totalCost = 0;
+		for (String itemId : cart.keySet()){
+			final Item item = (Item)_itemDAO.findByPrimaryKey(itemId);
+			totalCost += (item.getUnitCost() * cart.get(itemId));
+		}
+		return totalCost;
 	}
 
 	public void empty() {
-		Iterator iter=items.iterator();
-		while(iter.hasNext()){
-		        iter.remove();
-		}
-		
+		cart.clear();	
 	}
 
 }
