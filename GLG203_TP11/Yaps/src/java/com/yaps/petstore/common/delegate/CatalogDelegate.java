@@ -1,17 +1,19 @@
 package com.yaps.petstore.common.delegate;
 
+import java.rmi.RemoteException;
+import java.util.Collection;
+
 import com.yaps.petstore.common.dto.CategoryDTO;
 import com.yaps.petstore.common.dto.ItemDTO;
 import com.yaps.petstore.common.dto.ProductDTO;
-import com.yaps.petstore.common.exception.*;
+import com.yaps.petstore.common.exception.CheckException;
+import com.yaps.petstore.common.exception.CreateException;
+import com.yaps.petstore.common.exception.FinderException;
+import com.yaps.petstore.common.exception.RemoveException;
+import com.yaps.petstore.common.exception.UpdateException;
 import com.yaps.petstore.common.locator.ServiceLocator;
 import com.yaps.petstore.server.service.catalog.CatalogService;
 import com.yaps.petstore.server.service.catalog.CatalogServiceHome;
-import com.yaps.petstore.server.service.customer.CustomerService;
-import com.yaps.petstore.server.service.customer.CustomerServiceHome;
-
-import java.rmi.RemoteException;
-import java.util.Collection;
 
 /**
  * This class follows the Delegate design pattern. It's a one to one method
