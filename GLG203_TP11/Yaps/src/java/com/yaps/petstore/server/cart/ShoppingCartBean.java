@@ -6,6 +6,9 @@ import java.util.Set;
 
 import com.yaps.petstore.server.domain.item.Item;
 import com.yaps.petstore.server.domain.item.ItemDAO;
+import com.yaps.petstore.server.service.AbstractRemoteService;
+
+import javax.ejb.Stateless;
 
 /**
  * This class manages un ShoppingCart.
@@ -13,8 +16,8 @@ import com.yaps.petstore.server.domain.item.ItemDAO;
  * @see com.barkbank.verifier.VerifyCreditCardServlet
  */
 // @Stateless (name="CreditCartServiceSB", mappedName = CreditCardServiceLocalHome.JNDI_NAME)
-@Stateless (name="CreditCartServiceSB")
-public class ShoppingCartBean implements ShoppingCart {
+@Stateless (name="ShoppingCartSB")
+public class ShoppingCartBean extends AbstractRemoteService implements ShoppingCart {
 
     // ======================================
     // =             Attributes             =

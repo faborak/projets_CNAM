@@ -40,28 +40,28 @@ public abstract class CatalogDelegate {
     /**
      * Delegates the call to the {@link CatalogServiceRemote#findCategory(String) CatalogServiceRemote().findCategory} method.
      */
-    public CategoryDTO findCategory(final String categoryId) throws FinderException, CheckException, RemoteException {
+    public static CategoryDTO findCategory(final String categoryId) throws FinderException, CheckException, RemoteException {
         return getCatalogService().findCategory(categoryId);
     }
 
     /**
      * Delegates the call to the {@link CatalogServiceRemote#deleteCategory(String) CatalogServiceRemote().deleteCategory} method.
      */
-    public void deleteCategory(final String categoryId) throws RemoveException, CheckException, RemoteException {
+    public static void deleteCategory(final String categoryId) throws RemoveException, CheckException, RemoteException {
         getCatalogService().deleteCategory(categoryId);
     }
 
     /**
      * Delegates the call to the {@link CatalogServiceRemote#updateCategory(CategoryDTO) CatalogServiceRemote().updateCategory} method.
      */
-    public void updateCategory(final CategoryDTO categoryDTO) throws UpdateException, CheckException, RemoteException {
+    public static void updateCategory(final CategoryDTO categoryDTO) throws UpdateException, CheckException, RemoteException {
         getCatalogService().updateCategory(categoryDTO);
     }
 
     /**
      * Delegates the call to the {@link CatalogServiceRemote#findCategories() CatalogServiceRemote().findCategories} method.
      */
-    public Collection findCategories() throws FinderException, RemoteException {
+    public static Collection findCategories() throws FinderException, RemoteException {
         return getCatalogService().findCategories();
     }
 
@@ -71,42 +71,42 @@ public abstract class CatalogDelegate {
     /**
      * Delegates the call to the {@link CatalogServiceRemote#createProduct(ProductDTO) CatalogServiceRemote().createProduct} method.
      */
-    public ProductDTO createProduct(final ProductDTO productDTO) throws CreateException, CheckException, RemoteException {
+    public static ProductDTO createProduct(final ProductDTO productDTO) throws CreateException, CheckException, RemoteException {
         return getCatalogService().createProduct(productDTO);
     }
 
     /**
      * Delegates the call to the {@link CatalogServiceRemote#findProduct(String) CatalogServiceRemote().findProduct} method.
      */
-    public ProductDTO findProduct(final String productId) throws FinderException, CheckException, RemoteException {
+    public static ProductDTO findProduct(final String productId) throws FinderException, CheckException, RemoteException {
         return getCatalogService().findProduct(productId);
     }
 
     /**
      * Delegates the call to the {@link CatalogServiceRemote#deleteProduct(String) CatalogServiceRemote().deleteProduct} method.
      */
-    public void deleteProduct(final String productId) throws RemoveException, CheckException, RemoteException {
+    public static void deleteProduct(final String productId) throws RemoveException, CheckException, RemoteException {
         getCatalogService().deleteProduct(productId);
     }
 
     /**
      * Delegates the call to the {@link CatalogServiceRemote#updateProduct(ProductDTO) CatalogServiceRemote().updateProduct} method.
      */
-    public void updateProduct(final ProductDTO productDTO) throws UpdateException, CheckException, RemoteException {
+    public static void updateProduct(final ProductDTO productDTO) throws UpdateException, CheckException, RemoteException {
         getCatalogService().updateProduct(productDTO);
     }
 
     /**
      * Delegates the call to the {@link CatalogServiceRemote#findProducts() CatalogServiceRemote().findProducts} method.
      */
-    public Collection findProducts() throws FinderException, RemoteException {
+    public static Collection findProducts() throws FinderException, RemoteException {
         return getCatalogService().findProducts();
     }
 
     /**
      * Delegates the call to the {@link CatalogServiceRemote#findProducts(String) CatalogServiceRemote().findProducts} method.
      */
-    public Collection findProducts(String categoryId) throws FinderException, RemoteException {
+    public static Collection findProducts(String categoryId) throws FinderException, CheckException, RemoteException {
         return getCatalogService().findProducts(categoryId);
     }
 
@@ -116,49 +116,49 @@ public abstract class CatalogDelegate {
     /**
      * Delegates the call to the {@link CatalogServiceRemote#createItem(ItemDTO) CatalogServiceRemote().createItem} method.
      */
-    public ItemDTO createItem(final ItemDTO item) throws CreateException, CheckException, RemoteException {
+    public static ItemDTO createItem(final ItemDTO item) throws CreateException, CheckException, RemoteException {
         return getCatalogService().createItem(item);
     }
 
     /**
      * Delegates the call to the {@link CatalogServiceRemote#findItem(String) CatalogServiceRemote().findItem} method.
      */
-    public ItemDTO findItem(final String itemId) throws FinderException, CheckException, RemoteException {
+    public static ItemDTO findItem(final String itemId) throws FinderException, CheckException, RemoteException {
         return getCatalogService().findItem(itemId);
     }
 
     /**
      * Delegates the call to the {@link CatalogServiceRemote#deleteItem(String) CatalogServiceRemote().deleteItem} method.
      */
-    public void deleteItem(final String itemId) throws RemoveException, CheckException, RemoteException {
+    public static void deleteItem(final String itemId) throws RemoveException, CheckException, RemoteException {
         getCatalogService().deleteItem(itemId);
     }
 
     /**
      * Delegates the call to the {@link CatalogServiceRemote#updateItem(ItemDTO) CatalogServiceRemote().updateItem} method.
      */
-    public void updateItem(final ItemDTO item) throws UpdateException, CheckException, RemoteException {
+    public static void updateItem(final ItemDTO item) throws UpdateException, CheckException, RemoteException {
         getCatalogService().updateItem(item);
     }
 
     /**
      * Delegates the call to the {@link CatalogServiceRemote#findItems() CatalogServiceRemote().findItems} method.
      */
-    public Collection findItems() throws FinderException, RemoteException {
+    public static Collection findItems() throws FinderException, RemoteException {
         return getCatalogService().findItems();
     }
 
     /**
      * Delegates the call to the {@link CatalogServiceRemote#findItems(String) CatalogServiceRemote().findItems} method.
      */
-    public Collection findItems(String productId) throws FinderException, RemoteException {
+    public static Collection findItems(String productId) throws FinderException, CheckException, RemoteException {
         return getCatalogService().findItems(productId);
     }
 
     /**
      * Delegates the call to the {@link CatalogServiceRemote#searchItems(String) CatalogServiceRemote().searchItems} method.
      */
-    public Collection searchItems(String keyword) throws FinderException, RemoteException {
+    public static Collection searchItems(String keyword) throws FinderException, RemoteException {
         return getCatalogService().searchItems(keyword);
     }
     
