@@ -273,10 +273,13 @@ public class CatalogServiceBean extends AbstractRemoteService implements Catalog
         return productsDTO;
     }
 
-    public Collection findProducts(String categoryId) throws FinderException {
+    public Collection findProducts(String categoryId) throws FinderException, CheckException {
         final String mname = "findProducts";
         Trace.entering(getCname(), mname, categoryId);
 
+        if (categoryId == null)
+        	throw new CheckException("Invalid Category id");
+        
         // Finds all the products
         final Collection products = _productDAO.findAll(categoryId);
 
@@ -420,10 +423,13 @@ public class CatalogServiceBean extends AbstractRemoteService implements Catalog
         return itemsDTO;
     }
 
-    public Collection findItems(final String productId) throws FinderException {
+    public Collection findItems(final String productId) throws FinderException, CheckException {
         final String mname = "findItems";
         Trace.entering(getCname(), mname, productId);
 
+        if (productId == null)
+        	throw new CheckException("Invalid Category id");
+        
         // Finds all the items
         final Collection items = _itemDAO.findAll(productId);
 

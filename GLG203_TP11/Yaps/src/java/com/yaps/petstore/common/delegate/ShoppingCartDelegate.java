@@ -1,24 +1,19 @@
 package com.yaps.petstore.common.delegate;
 
-import com.yaps.petstore.common.dto.CategoryDTO;
-import com.yaps.petstore.common.dto.ItemDTO;
-import com.yaps.petstore.common.dto.ProductDTO;
-import com.yaps.petstore.common.exception.*;
-import com.yaps.petstore.common.locator.ServiceLocator;
-import com.yaps.petstore.server.service.catalog.CatalogService;
-import com.yaps.petstore.server.service.catalog.CatalogServiceHome;
-import com.yaps.petstore.server.service.customer.CustomerService;
-import com.yaps.petstore.server.service.customer.CustomerServiceHome;
-
 import java.rmi.RemoteException;
 import java.util.Collection;
+import java.util.Map;
+
+import com.yaps.petstore.common.locator.ServiceLocator;
+import com.yaps.petstore.server.cart.ShoppingCart;
+import com.yaps.petstore.server.cart.ShoppingCartHome;
 
 /**
  * This class follows the Delegate design pattern. It's a one to one method
- * with the CatalogService class. Each method delegates the call to the
- * CatalogService class
+ * with the ShoppingCart class. Each method delegates the call to the
+ * ShoppingCart class
  */
-public abstract class ShoppingCartDelegate {
+public final class ShoppingCartDelegate {
 
     // ======================================
     // =             Attributes             =
@@ -29,27 +24,58 @@ public abstract class ShoppingCartDelegate {
     // =      Category Business methods     =
     // ======================================
   
-    /**
-     * Delegates the call to the {@link CatalogServiceRemote#findProducts(String) CatalogServiceRemote().findProducts} method.
+    public ShoppingCartDelegate(String sessionId1) {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+     * Delegates the call to the {@link ShoppingCart#getCart() ShoppingCart().getCart} method.
      */
-//    public Collection findProducts(String categoryId) throws FinderException, RemoteException {
-//        return getCatalogService().findProducts(categoryId);
-//    }
+	public Map getCart() {
+        return getShoppingCart().getCart();
+    }
+	
+	public Collection getItems() {
+		return getShoppingCart().getItems();
+	}
+
+	public void addItem(String itemId) {
+		getShoppingCart().addItem(itemId);
+	}
+
+	public void removeItem(String itemId) {
+		getShoppingCart().removeItem(itemId);
+	}
+
+	public void updateItemQuantity(String itemId, int newQty) {
+		getShoppingCart().updateItemQuantity(itemId, newQty);
+	}
+
+	public Double getTotal() {
+		return getShoppingCart().getTotal();
+	}
+
+	public void empty() {
+		getShoppingCart().empty();	
+	}
     
     // ======================================
     // =            Private methods         =
     // ======================================
-    private static CatalogService getCatalogService() throws RemoteException {
-    	CatalogService catalogServiceRemote = null;
+    private static ShoppingCart getShoppingCart() /*throws RemoteException*/ {
+    	ShoppingCart ShoppingCart = null;
         try {
             // Looks up for the home interface
-        	catalogServiceRemote = (CatalogService) ServiceLocator.getInstance().getHome(CatalogServiceHome.JNDI_NAME);
-            // customerServiceRemote = (CustomerService) ServiceLocator.getInstance().getHome(CustomerServiceHome.JNDI_NAME_FOR_REMOTE_CLIENTS);
+        	ShoppingCart = (ShoppingCart) ServiceLocator.getInstance().getHome(ShoppingCartHome.JNDI_NAME);
         } catch (Exception e) {
-            throw new RemoteException("Lookup or Create exception", e);
+//            throw new RemoteException("Lookup or Create exception", e);
         }
 
-        return catalogServiceRemote;
+        return ShoppingCart;
     }
-    
+
+	public String getSessionId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
