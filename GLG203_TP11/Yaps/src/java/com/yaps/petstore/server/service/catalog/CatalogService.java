@@ -13,7 +13,7 @@ import com.yaps.petstore.common.exception.FinderException;
 import com.yaps.petstore.common.exception.ObjectNotFoundException;
 import com.yaps.petstore.common.exception.RemoveException;
 import com.yaps.petstore.common.exception.UpdateException;
-import com.yaps.petstore.server.service.catalog.Remote;
+import javax.ejb.Remote;
 
 @Remote
 public interface CatalogService {

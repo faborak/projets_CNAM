@@ -26,6 +26,8 @@ import com.yaps.petstore.server.domain.item.ItemDAO;
 import com.yaps.petstore.server.domain.product.Product;
 import com.yaps.petstore.server.domain.product.ProductDAO;
 import com.yaps.petstore.server.service.AbstractRemoteService;
+import javax.ejb.Stateless;
+
 
 /**
  * This class is a session facade for all catalog services.
