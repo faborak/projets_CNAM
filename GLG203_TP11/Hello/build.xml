@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+
+<project name="Hello PetStore" default="core" basedir=".">
+
+    <!-- =================================================================== -->
+    <!-- Variables                                                           -->
+    <!-- =================================================================== -->
+    <property name="home.dir" value="."/>
+    <property name="classes.dir" value="${home.dir}/classes"/>
+    <property name="src.dir" value="${home.dir}"/>
+    <property name="build.dir" value="${home.dir}/build"/>
+
+    <!-- =================================================================== -->
+    <!-- Fichiers jar, war, ...                                              -->
+    <!-- =================================================================== -->
+    <property name="ejb.jar" value="${build.dir}/hello-ejb.jar"/>
+    <property name="hello.ear" value="${build.dir}/hello.ear"/>
+
+    <!-- =================================================================== -->
+    <!-- Utilitaires                                                         -->
+    <!-- =================================================================== -->
+    <property environment="env"/>
+    <property name="glassfish.home" value="${env.GLASSFISH_HOME}"/>
+    <property name="mysql.home" value="${env.MYSQL_HOME}"/>
+    <property name="mysql.jar.name" value="mysql-connector-java-5.1.21-bin.jar"/>
+    <property name="mysql.jar" value="${mysql.home}/lib/${mysql.jar.name}"/>
+
+    <property name="ejb-api.jar" value="${glassfish.home}/modules/javax.ejb-api.jar"/>
+
+    <property name="glassfish-client.jar" value="${glassfish.home}/lib/gf-client.jar"/>
+
+    <property name="glassfish.deploy.dir" value="${glassfish.home}/domains/domain1/autodeploy"/>  <!--TODO use asadmin? -->
+
+    <!-- =================================================================== -->
+    <!-- Check variable                                                      -->
+    <!-- =================================================================== -->
+    <target name="check">
+        <fail unless="env.GLASSFISH_HOME">
+            ####
+            #### You must install GLASSFISH 3 or 4
+            #### And set the GLASSFISH_HOME variable
+        </fail>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Classes et Jars utiliser pour compiler et tester l'application      -->
+    <!-- =================================================================== -->
+    <path id="classpath">
+        <pathelement location="${classes.dir}"/>
+        <pathelement location="${ejb-api.jar}"/>
+    </path>
+	
+    <path id="client-classpath">
+        <pathelement location="${classes.dir}"/>
+        <pathelement location="${glassfish-client.jar}"/>
+    </path>
+
+    <!-- =================================================================== -->
+    <!-- Suppression des repertoires de travail                              -->
+    <!-- =================================================================== -->
+    <target name="clean">
+        <echo message="Cleans the environment"/>
+        <delete dir="${build.dir}"/>
+        <delete dir="${classes.dir}"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Creation des repertoires de travail                                 -->
+    <!-- =================================================================== -->
+    <target name="prepare" depends="check">
+        <echo message="Setup the Yaps environment"/>
+        <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${build.dir}"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Compile le code source                                              -->
+    <!-- =================================================================== -->
+    <target name="compile"  depends="prepare">
+        <echo message="Compiles java classes"/>
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}"
+            destdir="${classes.dir}">
+            <classpath refid="classpath"/>
+        </javac>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Package les fichiers dans des archives                              -->
+    <!-- =================================================================== -->
+    <target name="build" depends="compile" >
+        <echo message="Creates the Hello PetStore EJB Jar"/>
+        <jar jarfile="${ejb.jar}" >
+        	<fileset dir="${classes.dir}">
+                <exclude name="Main*.class"/>
+                <include name="*.class"/>
+            </fileset>
+        </jar>
+        <ear destfile="${hello.ear}" appxml="${src.dir}/application.xml" >
+            <fileset dir="${build.dir}">
+                <include name="hello-ejb.jar"/>
+            </fileset>
+        </ear>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Deploy                                                                -->
+    <!-- =================================================================== -->
+    <target name="deploy" depends="build">
+        <copy file="${hello.ear}" todir="${glassfish.deploy.dir}"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Run                                                                -->
+    <!-- =================================================================== -->
+    <target name="run-client" depends="compile">
+        <echo message="Runs the application"/>
+        <java classname="Main" fork="yes">
+        	<classpath location="${classes.dir}"/>
+        	<classpath location="${glassfish-client.jar}"/>
+        </java>
+    </target>
+	
+    <target name="run-client2" depends="compile">
+        <echo message="Runs the application"/>
+        <java classname="Main2" fork="yes">
+        	<classpath location="${classes.dir}"/>
+        	<classpath location="${glassfish-client.jar}"/>
+        </java>
+    </target>
+
+	<!-- Main targets -->
+    <target name="core" depends="clean,deploy"/>
+
+</project>
