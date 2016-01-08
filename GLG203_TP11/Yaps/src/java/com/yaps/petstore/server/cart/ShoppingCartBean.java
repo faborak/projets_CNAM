@@ -15,21 +15,22 @@ import javax.ejb.Stateless;
  *
  * @see com.barkbank.verifier.VerifyCreditCardServlet
  */
-// @Stateless (name="CreditCartServiceSB", mappedName = CreditCardServiceLocalHome.JNDI_NAME)
-@Stateless (name="ShoppingCartSB")
+// @Stateless (name="CreditCartServiceSB", mappedName =
+// CreditCardServiceLocalHome.JNDI_NAME)
+@Stateless(name = "ShoppingCartSB")
 public class ShoppingCartBean extends AbstractRemoteService implements ShoppingCart {
 
-    // ======================================
-    // =             Attributes             =
-    // ======================================
-    
-    private static final ItemDAO _itemDAO = new ItemDAO();
-    
-    Map<String,Integer> cart ;
-    
-    // ======================================
-    // =           Business methods         =
-    // ======================================
+	// ======================================
+	// = Attributes =
+	// ======================================
+
+	private static final ItemDAO _itemDAO = new ItemDAO();
+
+	Map<String, Integer> cart;
+
+	// ======================================
+	// = Business methods =
+	// ======================================
 	public Map getCart() {
 		return cart;
 	}
@@ -53,15 +54,20 @@ public class ShoppingCartBean extends AbstractRemoteService implements ShoppingC
 
 	public Double getTotal() {
 		double totalCost = 0;
-		for (String itemId : cart.keySet()){
-			final Item item = (Item)_itemDAO.findByPrimaryKey(itemId);
+		Item item = null;
+		for (String itemId : cart.keySet()) {
+			try {
+				item = (Item) _itemDAO.findByPrimaryKey(itemId);
+			} catch (Exception e){
+				
+			}
 			totalCost += (item.getUnitCost() * cart.get(itemId));
 		}
 		return totalCost;
 	}
 
 	public void empty() {
-		cart.clear();	
+		cart.clear();
 	}
 
 }

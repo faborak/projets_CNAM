@@ -27,6 +27,7 @@ import com.yaps.petstore.server.domain.order.OrderDAO;
 import com.yaps.petstore.server.domain.orderline.OrderLine;
 import com.yaps.petstore.server.domain.orderline.OrderLineDAO;
 import com.yaps.petstore.server.service.AbstractRemoteService;
+import javax.ejb.Stateless;
 
 /**
  * This class is a session facade for all orderService services.

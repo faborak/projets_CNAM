@@ -1,8 +1,8 @@
 package com.yaps.petstore.server.service.creditcard;
 
 import com.yaps.petstore.common.exception.CheckException;
-import com.yaps.petstore.common.exception.FinderException;
 import com.yaps.petstore.server.domain.CreditCard;
+import javax.ejb.Remote;
 
 /**
  * This interface gives a remote view of the CreditCardServiceBean. Any distant client that wants to call
