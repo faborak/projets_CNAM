@@ -18,7 +18,7 @@ import java.util.Collection;
  * with the CatalogService class. Each method delegates the call to the
  * CatalogService class
  */
-public abstract class ShoppingCardDelegate {
+public abstract class ShoppingCartDelegate {
 
     // ======================================
     // =             Attributes             =
