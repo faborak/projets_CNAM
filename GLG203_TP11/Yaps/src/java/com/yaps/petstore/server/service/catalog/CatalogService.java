@@ -5,97 +5,59 @@ import java.util.Collection;
 import com.yaps.petstore.common.dto.CategoryDTO;
 import com.yaps.petstore.common.dto.ItemDTO;
 import com.yaps.petstore.common.dto.ProductDTO;
+import com.yaps.petstore.common.exception.CheckException;
+import com.yaps.petstore.common.exception.CreateException;
+import com.yaps.petstore.common.exception.FinderException;
+import com.yaps.petstore.common.exception.RemoveException;
+import com.yaps.petstore.common.exception.UpdateException;
+import com.yaps.petstore.server.service.catalog.Remote;
 
-public class CatalogService {
+@Remote
+public interface CatalogService {
 
-	public CategoryDTO createCategory(CategoryDTO categoryDTO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    /**
+     * Given an Category, this method creates the category.
+     *
+     * @param categoryDTO
+     * @return CategoryDTO category data
+     * @throws CreateException is thrown if a DomainException is caught
+     *                         or a system failure is occurs
+     * @throws CheckException  is thrown if a invalid data or password is found
+     */
+	CategoryDTO createCategory(CategoryDTO categoryDTO) throws CreateException, CheckException;
+	
+	CategoryDTO findCategory(String categoryId) throws FinderException, CheckException;
 
-	public CategoryDTO findCategory(String categoryId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	void deleteCategory(String categoryId) throws RemoveException, CheckException;
 
-	public void deleteCategory(String categoryId) {
-		// TODO Auto-generated method stub
-		
-	}
+	void updateCategory(CategoryDTO categoryDTO) throws UpdateException, CheckException;
 
-	public void updateCategory(CategoryDTO categoryDTO) {
-		// TODO Auto-generated method stub
-		
-	}
+	Collection findCategories() throws FinderException;
 
-	public Collection findCategories() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	ProductDTO createProduct(ProductDTO productDTO) throws CreateException, CheckException;
 
-	public ProductDTO createProduct(ProductDTO productDTO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	ProductDTO findProduct(String productId) throws FinderException, CheckException;
 
-	public ProductDTO findProduct(String productId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	void deleteProduct(String productId) throws RemoveException, CheckException;
 
-	public void deleteProduct(String productId) {
-		// TODO Auto-generated method stub
-		
-	}
+	void updateProduct(ProductDTO productDTO) throws UpdateException, CheckException;
 
-	public void updateProduct(ProductDTO productDTO) {
-		// TODO Auto-generated method stub
-		
-	}
+	Collection findProducts() throws FinderException;
 
-	public Collection findProducts() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	Collection findProducts(String categoryId) throws FinderException;
+	 
+	ItemDTO createItem(ItemDTO item) throws CreateException, CheckException;
 
-	public Collection findProducts(String categoryId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	ItemDTO findItem(String itemId) throws FinderException, CheckException;
 
-	public ItemDTO createItem(ItemDTO item) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	void deleteItem(String itemId) throws RemoveException, CheckException;
+	
+	void updateItem(ItemDTO item) throws UpdateException, CheckException;
 
-	public ItemDTO findItem(String itemId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Collection findItems() throws FinderException;
 
-	public void deleteItem(String itemId) {
-		// TODO Auto-generated method stub
-		
-	}
+	public Collection findItems(String productId) throws FinderException;
 
-	public void updateItem(ItemDTO item) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public Collection findItems() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Collection findItems(String productId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Collection searchItems(String keyword) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Collection searchItems(String keyword) throws FinderException;
 
 }

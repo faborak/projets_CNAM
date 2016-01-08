@@ -1,0 +1,6 @@
+<Context>
+ 
+  <Resource name="jdbc/petstoreDS11" auth="Container" type="javax.sql.DataSource"
+               />
+ 
+</Context>
