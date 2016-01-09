@@ -1,12 +1,14 @@
 package com.yaps.petstore.common.delegate;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.yaps.petstore.common.locator.ServiceLocator;
 import com.yaps.petstore.server.cart.ShoppingCart;
 import com.yaps.petstore.server.cart.ShoppingCartBean;
 import com.yaps.petstore.server.cart.ShoppingCartHome;
+import com.yaps.petstore.server.domain.item.ItemDAO;
 
 /**
  * This class follows the Delegate design pattern. It's a one to one method
@@ -20,14 +22,14 @@ public final class ShoppingCartDelegate {
     // ======================================
     public ShoppingCartDelegate(String sessionId) {
     	this.sessionId = sessionId;
-    	shoppingCart = getShoppingCart();
+    	ShoppingCart = getShoppingCart();
 	}
 	
     // ======================================
     // =             Attributes             =
     // ======================================
     String sessionId;
-    ShoppingCart shoppingCart;
+    ShoppingCart ShoppingCart;
 
     // ======================================
     // =      Category Business methods     =
@@ -37,31 +39,49 @@ public final class ShoppingCartDelegate {
      * Delegates the call to the {@link ShoppingCart#getCart() ShoppingCart().getCart} method.
      */
 	public Map getCart() {
-        return shoppingCart.getCart();
+        return ShoppingCart.getCart();
     }
 	
+	/**
+     * Delegates the call to the {@link ShoppingCart#getItems() ShoppingCart().getItems} method.
+     */
 	public Collection getItems() {
-		return shoppingCart.getItems();
+		return ShoppingCart.getItems();
 	}
 
+	/**
+     * Delegates the call to the {@link ShoppingCart#addItem() ShoppingCart().addItem} method.
+     */
 	public void addItem(String itemId) {
-		shoppingCart.addItem(itemId);
+		ShoppingCart.addItem(itemId);
 	}
 
+	/**
+     * Delegates the call to the {@link ShoppingCart#removeItem() ShoppingCart().removeItem} method.
+     */
 	public void removeItem(String itemId) {
-		shoppingCart.removeItem(itemId);
+		ShoppingCart.removeItem(itemId);
 	}
 
+	/**
+     * Delegates the call to the {@link ShoppingCart#updateItemQuantity() ShoppingCart().updateItemQuantity} method.
+     */
 	public void updateItemQuantity(String itemId, int newQty) {
-		shoppingCart.updateItemQuantity(itemId, newQty);
+		ShoppingCart.updateItemQuantity(itemId, newQty);
 	}
 
+	/**
+     * Delegates the call to the {@link ShoppingCart#getTotal() ShoppingCart().getTotal} method.
+     */
 	public Double getTotal() {
-		return shoppingCart.getTotal();
+		return ShoppingCart.getTotal();
 	}
 
+	/**
+     * Delegates the call to the {@link ShoppingCart#empty() ShoppingCart().empty} method.
+     */
 	public void empty() {
-		shoppingCart.empty();	
+		ShoppingCart.empty();	
 	}
 	
 	public String getSessionId() {

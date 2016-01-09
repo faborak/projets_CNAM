@@ -22,12 +22,13 @@ public class ShoppingCartBean extends AbstractRemoteService implements ShoppingC
 	// = Attributes =
 	// ======================================
 	private static final ItemDAO _itemDAO = new ItemDAO();
-	private Map<String, Integer> cart = new HashMap<String, Integer>(); 
+	private Map<String, Integer> cart;
 	
     // ======================================
     // =            Constructors            =
     // ======================================
 	public ShoppingCartBean(){
+		cart = new HashMap<String, Integer>(); 
     }
 	
 	// ======================================
