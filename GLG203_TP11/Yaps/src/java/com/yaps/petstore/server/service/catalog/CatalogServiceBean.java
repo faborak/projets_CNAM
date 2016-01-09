@@ -216,7 +216,7 @@ public class CatalogServiceBean extends AbstractRemoteService implements Catalog
         try {
             _productDAO.findByPrimaryKey(productId);
         } catch (FinderException e) {
-            throw new RemoveException("Product must exist to be deleted");
+            throw new CheckException("Product must exist to be deleted");
         }
 
         // Deletes the object
@@ -367,7 +367,7 @@ public class CatalogServiceBean extends AbstractRemoteService implements Catalog
         try {
         	_itemDAO.findByPrimaryKey(itemId);
         } catch (FinderException e) {
-            throw new RemoveException("Item must exist to be deleted");
+            throw new CheckException("Item must exist to be deleted");
         }
 
         // Deletes the object
