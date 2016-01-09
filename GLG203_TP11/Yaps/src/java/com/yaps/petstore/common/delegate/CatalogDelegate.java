@@ -170,7 +170,6 @@ public abstract class CatalogDelegate {
         try {
             // Looks up for the home interface
         	catalogServiceRemote = (CatalogService) ServiceLocator.getInstance().getHome(CatalogServiceHome.JNDI_NAME);
-            // customerServiceRemote = (CustomerService) ServiceLocator.getInstance().getHome(CustomerServiceHome.JNDI_NAME_FOR_REMOTE_CLIENTS);
         } catch (Exception e) {
             throw new RemoteException("Lookup or Create exception", e);
         }

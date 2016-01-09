@@ -5,5 +5,5 @@ package com.yaps.petstore.server.service.catalog;
  */
 public interface CatalogServiceHome {
     // https://glassfish.java.net/javaee5/ejb/EJB_FAQ.html#What_is_the_syntax_for_portable_global_
-    static final String JNDI_NAME = "java:global/yapswtp11/CustomerSB!com.yaps.petstore.server.service.catalog.CatalogService";
+    static final String JNDI_NAME = "java:global/yapswtp11/CatalogSB!com.yaps.petstore.server.service.catalog.CatalogService";
 }
