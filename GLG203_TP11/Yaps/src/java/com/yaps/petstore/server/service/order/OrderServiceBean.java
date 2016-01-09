@@ -1,5 +1,6 @@
 package com.yaps.petstore.server.service.order;
 
+import java.rmi.RemoteException;
 /* Do not check credit cart data here anymore
 import com.yaps.petstore.common.locator.ejb.ServiceLocator;
 import com.yaps.petstore.server.service.creditcard.CreditCardServiceLocal;
@@ -19,6 +20,7 @@ import com.yaps.petstore.common.exception.CreateException;
 import com.yaps.petstore.common.exception.FinderException;
 import com.yaps.petstore.common.exception.ObjectNotFoundException;
 import com.yaps.petstore.common.exception.RemoveException;
+import com.yaps.petstore.common.locator.ServiceLocator;
 import com.yaps.petstore.common.logging.Trace;
 import com.yaps.petstore.server.domain.customer.Customer;
 import com.yaps.petstore.server.domain.customer.CustomerDAO;
@@ -29,6 +31,8 @@ import com.yaps.petstore.server.domain.order.OrderDAO;
 import com.yaps.petstore.server.domain.orderline.OrderLine;
 import com.yaps.petstore.server.domain.orderline.OrderLineDAO;
 import com.yaps.petstore.server.service.AbstractRemoteService;
+import com.yaps.petstore.server.service.catalog.CatalogService;
+import com.yaps.petstore.server.service.catalog.CatalogServiceHome;
 import com.yaps.petstore.server.service.creditcard.CreditCardServiceBean;
 
 /**
@@ -123,6 +127,8 @@ public class OrderServiceBean extends AbstractRemoteService implements OrderServ
 		final String mname = "findOrder";
 		Trace.entering(getCname(), mname, orderId);
 
+		checkId(orderId);
+		
 		// Finds the object
 		Order order = (Order) _orderDAO.findByPrimaryKey(orderId);
 
@@ -145,6 +151,8 @@ public class OrderServiceBean extends AbstractRemoteService implements OrderServ
 		final String mname = "deleteOrder";
 		Trace.entering(getCname(), mname, orderId);
 
+		checkId(orderId);
+		
 		final Order order = new Order();
 
 		// Checks if the object exists
@@ -215,5 +223,5 @@ public class OrderServiceBean extends AbstractRemoteService implements OrderServ
     private CreditCardServiceBean getCreditCardService() {
         return new CreditCardServiceBean();
     }
-
+    
 }

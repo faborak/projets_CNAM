@@ -1,33 +1,35 @@
 package com.yaps.petstore.server.cart;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
+
+import javax.ejb.Stateful;
 
 import com.yaps.petstore.server.domain.item.Item;
 import com.yaps.petstore.server.domain.item.ItemDAO;
 import com.yaps.petstore.server.service.AbstractRemoteService;
 
-import javax.ejb.Stateless;
-
 /**
  * This class manages un ShoppingCart.
  *
- * @see com.barkbank.verifier.VerifyCreditCardServlet
  */
-// @Stateless (name="CreditCartServiceSB", mappedName =
-// CreditCardServiceLocalHome.JNDI_NAME)
-@Stateless(name = "ShoppingCartSB")
+@Stateful(name = "ShoppingCartSB")
 public class ShoppingCartBean extends AbstractRemoteService implements ShoppingCart {
 
 	// ======================================
 	// = Attributes =
 	// ======================================
-
 	private static final ItemDAO _itemDAO = new ItemDAO();
-
-	Map<String, Integer> cart;
-
+	private Map<String, Integer> cart = new HashMap<String, Integer>(); 
+	
+    // ======================================
+    // =            Constructors            =
+    // ======================================
+	public ShoppingCartBean(){
+    }
+	
 	// ======================================
 	// = Business methods =
 	// ======================================
@@ -36,7 +38,11 @@ public class ShoppingCartBean extends AbstractRemoteService implements ShoppingC
 	}
 
 	public Collection getItems() {
-		return cart.keySet();
+		Collection<String> itemsId = new HashSet();
+		for (String itemId : cart.keySet()){
+			itemsId.add(itemId);
+		}
+		return itemsId;
 	}
 
 	public void addItem(String itemId) {
@@ -69,5 +75,5 @@ public class ShoppingCartBean extends AbstractRemoteService implements ShoppingC
 	public void empty() {
 		cart.clear();
 	}
-
+	
 }
