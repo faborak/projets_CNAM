@@ -1,6 +1,5 @@
 package com.yaps.petstore.server.service.order;
 
-import java.rmi.RemoteException;
 /* Do not check credit cart data here anymore
 import com.yaps.petstore.common.locator.ejb.ServiceLocator;
 import com.yaps.petstore.server.service.creditcard.CreditCardServiceLocal;
@@ -8,6 +7,7 @@ import com.yaps.petstore.server.service.creditcard.CreditCardServiceLocalHome;
 */
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -20,7 +20,6 @@ import com.yaps.petstore.common.exception.CreateException;
 import com.yaps.petstore.common.exception.FinderException;
 import com.yaps.petstore.common.exception.ObjectNotFoundException;
 import com.yaps.petstore.common.exception.RemoveException;
-import com.yaps.petstore.common.locator.ServiceLocator;
 import com.yaps.petstore.common.logging.Trace;
 import com.yaps.petstore.server.domain.customer.Customer;
 import com.yaps.petstore.server.domain.customer.CustomerDAO;
@@ -31,8 +30,6 @@ import com.yaps.petstore.server.domain.order.OrderDAO;
 import com.yaps.petstore.server.domain.orderline.OrderLine;
 import com.yaps.petstore.server.domain.orderline.OrderLineDAO;
 import com.yaps.petstore.server.service.AbstractRemoteService;
-import com.yaps.petstore.server.service.catalog.CatalogService;
-import com.yaps.petstore.server.service.catalog.CatalogServiceHome;
 import com.yaps.petstore.server.service.creditcard.CreditCardServiceBean;
 
 /**
@@ -61,7 +58,57 @@ public class OrderServiceBean extends AbstractRemoteService implements OrderServ
 	// = Business methods =
 	// ======================================
 	public String createOrder(String customerId, Map shoppingCart) throws CreateException, CheckException {
-		return null;
+		final String mname = "createOrder";
+		Trace.entering(getCname(), mname, customerId);
+
+		if (customerId == null || customerId.equals(""))
+			throw new CheckException("Order object is null");
+
+		// Finds the customer
+		Customer customer = null;
+		try {
+			customer = (Customer) _customerDAO.findByPrimaryKey(customerId);
+		} catch (FinderException e) {
+			throw new CreateException("Customer must exist to create an order");
+		}
+
+		// Checks if the credit card is valid
+		getCreditCardService().verifyCreditCard(customer.getCreditCard());
+
+		String orderId = getUniqueId("order");
+
+		final Order order = new Order(orderId, new Date(), customer.getFirstname(), customer.getLastname(),
+				customer.getStreet1(), customer.getCity(), customer.getZipcode(), customer.getCountry(), customer);
+		order.setStreet2(customer.getStreet2());
+		order.setState(customer.getState());
+		order.setCreditCardExpiryDate(customer.getCreditCardExpiryDate());
+		order.setCreditCardNumber(customer.getCreditCardNumber());
+		order.setCreditCardType(customer.getCreditCardType());
+
+		// Creates the order
+		_orderDAO.insert(order);
+
+		// Creates all the orderLines linked with the order
+		Collection orderLines = new ArrayList();
+		for (Object itemIdO : shoppingCart.keySet()) {
+			// Finds the item
+			Item item = null;
+			String itemId = (String) itemIdO;
+			try {
+				item = (Item) _itemDAO.findByPrimaryKey(itemId);
+			} catch (FinderException e) {
+				throw new CreateException("Item must exist to create an order line");
+			}
+			final OrderLine orderLine = new OrderLine((Integer )shoppingCart.get(itemIdO), item.getUnitCost(), order,
+					item);
+			// Creates the order line
+			_orderLineDAO.insert(orderLine);
+			//orderLines.add(orderLine);
+		}
+		// Sets orderLines into the order
+		// order.setOrderLines(orderLines);
+
+		return orderId;
 	}
 
 	public OrderDTO createOrder(final OrderDTO orderDTO) throws CreateException, CheckException {
@@ -128,7 +175,7 @@ public class OrderServiceBean extends AbstractRemoteService implements OrderServ
 		Trace.entering(getCname(), mname, orderId);
 
 		checkId(orderId);
-		
+
 		// Finds the object
 		Order order = (Order) _orderDAO.findByPrimaryKey(orderId);
 
@@ -152,7 +199,7 @@ public class OrderServiceBean extends AbstractRemoteService implements OrderServ
 		Trace.entering(getCname(), mname, orderId);
 
 		checkId(orderId);
-		
+
 		final Order order = new Order();
 
 		// Checks if the object exists
@@ -219,9 +266,9 @@ public class OrderServiceBean extends AbstractRemoteService implements OrderServ
 	public final String getUniqueId(final String domainClassName) {
 		return _orderDAO.getUniqueId(domainClassName);
 	}
-	
-    private CreditCardServiceBean getCreditCardService() {
-        return new CreditCardServiceBean();
-    }
-    
+
+	private CreditCardServiceBean getCreditCardService() {
+		return new CreditCardServiceBean();
+	}
+
 }
