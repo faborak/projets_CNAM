@@ -10,6 +10,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.ejb.Stateless;
+
 import com.yaps.petstore.common.dto.OrderDTO;
 import com.yaps.petstore.common.dto.OrderLineDTO;
 import com.yaps.petstore.common.exception.CheckException;
@@ -27,14 +29,14 @@ import com.yaps.petstore.server.domain.order.OrderDAO;
 import com.yaps.petstore.server.domain.orderline.OrderLine;
 import com.yaps.petstore.server.domain.orderline.OrderLineDAO;
 import com.yaps.petstore.server.service.AbstractRemoteService;
-import javax.ejb.Stateless;
+import com.yaps.petstore.server.service.creditcard.CreditCardServiceBean;
 
 /**
  * This class is a session facade for all orderService services.
  */
-// @Stateless (name="OrderServiceSB",
-// mappedName=OrderServiceServiceHome.JNDI_NAME)
-@Stateless(name = "OrderServiceSB")
+// @Stateless (name="OrderSB",
+// mappedName=OrderServiceHome.JNDI_NAME)
+@Stateless(name = "OrderSB")
 public class OrderServiceBean extends AbstractRemoteService implements OrderService {
 
 	// ======================================
@@ -86,7 +88,7 @@ public class OrderServiceBean extends AbstractRemoteService implements OrderServ
 		order.setCreditCardType(orderDTO.getCreditCardType());
 
 		// Checks if the credit card is valid
-		// getCreditCardService().verifyCreditCard(order.getCreditCard());
+		getCreditCardService().verifyCreditCard(order.getCreditCard());
 
 		// Creates the order
 		_orderDAO.insert(order);
@@ -209,5 +211,9 @@ public class OrderServiceBean extends AbstractRemoteService implements OrderServ
 	public final String getUniqueId(final String domainClassName) {
 		return _orderDAO.getUniqueId(domainClassName);
 	}
+	
+    private CreditCardServiceBean getCreditCardService() {
+        return new CreditCardServiceBean();
+    }
 
 }

@@ -17,9 +17,13 @@
 	<classpathentry kind="lib" path="/home/fabo/Applications/dom4j-1.6.1/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="/home/fabo/Applications/dom4j-1.6.1/jaxen.jar"/>
 	<classpathentry kind="lib" path="/home/fabo/glassfish-4.1.1/javadb/lib/derby.jar"/>
-	<classpathentry kind="lib" path="/home/fabo/workspace/GLG203_TP11/eclipselink-2.0.0.jar"/>
-	<classpathentry kind="lib" path="/home/fabo/workspace/GLG203_TP11/eclipselink-2.2.1.jar"/>
-	<classpathentry kind="lib" path="/home/fabo/workspace/GLG203_TP11/javax.persistence-2.0.0.jar"/>
-	<classpathentry kind="lib" path="/home/fabo/workspace/GLG203_TP11/javax.persistence-2.0.3.jar"/>
+	<classpathentry kind="lib" path="/home/fabo/Applications/EJB/javaee-api-7.0.jar"/>
+	<classpathentry kind="lib" path="/home/fabo/Applications/httpunit-1.6.2/jars/Tidy.jar"/>
+	<classpathentry kind="lib" path="/home/fabo/Applications/glassfish4/pkg/lib/pkg-bootstrap.jar"/>
+	<classpathentry kind="lib" path="/home/fabo/Applications/glassfish4/pkg/lib/pkg-client.jar"/>
+	<classpathentry kind="lib" path="/home/fabo/Applications/glassfish4/glassfish/lib/appserv-rt.jar"/>
+	<classpathentry kind="lib" path="/home/fabo/Applications/glassfish4/glassfish/lib/gf-client.jar"/>
+	<classpathentry kind="lib" path="/home/fabo/Applications/glassfish4/glassfish/lib/javaee.jar"/>
+	<classpathentry kind="lib" path="/home/fabo/Applications/glassfish4/glassfish/lib/jndi-properties.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
