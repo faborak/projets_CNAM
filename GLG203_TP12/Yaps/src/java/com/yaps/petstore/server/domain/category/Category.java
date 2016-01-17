@@ -1,8 +1,5 @@
 package com.yaps.petstore.server.domain.category;
 
-import com.yaps.petstore.server.domain.DomainObject;
-import com.yaps.petstore.common.exception.CheckException;
-
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -17,6 +14,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+
+import com.yaps.petstore.common.exception.CheckException;
+import com.yaps.petstore.server.domain.DomainObject;
+import com.yaps.petstore.server.domain.orderline.OrderLine;
+import com.yaps.petstore.server.domain.product.Product;
 
 /**
  * This class represents a Category in the catalog of the YAPS company.
@@ -33,7 +35,7 @@ public final class Category extends DomainObject implements Serializable {
     // ======================================
 	@Id
     @Column(name = "id", length = 10)
-    @TableGenerator(name="TABLE_GEN_ORDER", table="T_COUNTER", pkColumnName="name",
+    @TableGenerator(name="TABLE_GEN_CATEGORY", table="T_COUNTER", pkColumnName="name",
         valueColumnName="value", pkColumnValue="Category")
     @GeneratedValue(strategy=GenerationType.TABLE, generator="TABLE_GEN_ORDER") 
     // see http://en.wikibooks.org/wiki/Java_Persistence/Identity_and_Sequencing#Table_sequencing
@@ -44,8 +46,8 @@ public final class Category extends DomainObject implements Serializable {
 	@Column(name = "description", nullable = false, length = 255)
     private String _description;
 	@OneToMany (mappedBy ="_category", fetch =FetchType.EAGER, cascade =CascadeType.ALL)
-    private Collection _products;
-
+    private Collection<Product> _products;
+	
     // ======================================
     // =            Constructors            =
     // ======================================

@@ -47,8 +47,8 @@ public final class ProductDAO extends AbstractDataAccessObject<String, Product> 
      * @throws ObjectNotFoundException is thrown if the collection is empty
      */
 	public Collection<Product> findAllInCategory(String categoryId) throws ObjectNotFoundException {
-		Query query = _em.createNamedQuery("OrderLine.findAllInCategory");
-		query.setParameter("orderId", categoryId);
+		Query query = _em.createNamedQuery("Product.findAllInCategory");
+		query.setParameter("categoryId", categoryId);
 		List<Product> entities = query.getResultList();
 		if (entities.isEmpty())
             throw new ObjectNotFoundException();
