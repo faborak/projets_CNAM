@@ -1,9 +1,5 @@
 package com.yaps.petstore.server.domain.product;
 
-import com.yaps.petstore.server.domain.DomainObject;
-import com.yaps.petstore.server.domain.category.Category;
-import com.yaps.petstore.common.exception.CheckException;
-
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -15,12 +11,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+
+import com.yaps.petstore.common.exception.CheckException;
+import com.yaps.petstore.server.domain.DomainObject;
+import com.yaps.petstore.server.domain.category.Category;
+import com.yaps.petstore.server.domain.item.Item;
 
 /**
  * This class represents a Product in the catalog of the YAPS company.
@@ -40,8 +42,8 @@ public final class Product extends DomainObject implements Serializable {
     // ======================================
 	@Id
     @Column(name = "id", length = 10)
-    @TableGenerator(name="TABLE_GEN_ORDER", table="T_COUNTER", pkColumnName="name",
-        valueColumnName="value", pkColumnValue="Order")
+    @TableGenerator(name="TABLE_GEN_PRODUCT", table="T_COUNTER", pkColumnName="name",
+        valueColumnName="value", pkColumnValue="Product")
     @GeneratedValue(strategy=GenerationType.TABLE, generator="TABLE_GEN_ORDER") 
     // see http://en.wikibooks.org/wiki/Java_Persistence/Identity_and_Sequencing#Table_sequencing
     private String _id;
@@ -49,11 +51,11 @@ public final class Product extends DomainObject implements Serializable {
     private String _name;
 	@Column(name = "description", nullable = false, length = 255)
     private String _description;
-	@OneToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name ="category_fk", nullable = false)
     private Category _category;
-    @OneToMany (mappedBy ="_item", fetch =FetchType.EAGER, cascade =CascadeType.ALL)
-    private Collection _items;
+    @OneToMany (mappedBy ="_product", fetch =FetchType.EAGER, cascade =CascadeType.ALL)
+    private Collection<Item> _items;
 
     // ======================================
     // =            Constructors            =

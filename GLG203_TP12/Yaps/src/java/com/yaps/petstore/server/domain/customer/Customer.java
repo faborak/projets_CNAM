@@ -30,7 +30,7 @@ public class Customer extends DomainObject implements Serializable {
     // ======================================
 	@Id
     @Column(name = "id", length = 10)
-    @TableGenerator(name="TABLE_GEN_ORDER", table="T_COUNTER", pkColumnName="name",
+    @TableGenerator(name="TABLE_GEN_CUSTOMER", table="T_COUNTER", pkColumnName="name",
         valueColumnName="value", pkColumnValue="Customer")
     @GeneratedValue(strategy=GenerationType.TABLE, generator="TABLE_GEN_ORDER") 
     // see http://en.wikibooks.org/wiki/Java_Persistence/Identity_and_Sequencing#Table_sequencing

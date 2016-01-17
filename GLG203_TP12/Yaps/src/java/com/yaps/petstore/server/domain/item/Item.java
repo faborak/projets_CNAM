@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -38,8 +39,8 @@ public final class Item extends DomainObject implements Serializable {
     // ======================================
 	@Id
     @Column(name = "id", length = 10)
-    @TableGenerator(name="TABLE_GEN_ORDER", table="T_COUNTER", pkColumnName="name",
-        valueColumnName="value", pkColumnValue="Order")
+    @TableGenerator(name="TABLE_GEN_ITEM", table="T_COUNTER", pkColumnName="name",
+        valueColumnName="value", pkColumnValue="Item")
     @GeneratedValue(strategy=GenerationType.TABLE, generator="TABLE_GEN_ORDER") 
     // see http://en.wikibooks.org/wiki/Java_Persistence/Identity_and_Sequencing#Table_sequencing
     private String _id;
@@ -49,7 +50,7 @@ public final class Item extends DomainObject implements Serializable {
     private double _unitCost;
 	@Column(name = "imagePath", nullable = true, length = 255)
     private String _imagePath;
-	@OneToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name ="product_fk", nullable = false)
     private Product _product;
 
