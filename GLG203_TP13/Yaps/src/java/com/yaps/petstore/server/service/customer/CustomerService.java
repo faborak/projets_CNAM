@@ -6,6 +6,7 @@ import com.yaps.petstore.common.exception.*;
 import com.yaps.petstore.common.logging.Trace;
 import com.yaps.petstore.server.domain.customer.Customer;
 import com.yaps.petstore.server.domain.customer.CustomerDAO;
+import com.yaps.petstore.server.domain.item.Item;
 import com.yaps.petstore.server.service.AbstractRemoteService;
 import com.yaps.petstore.server.service.creditcard.CreditCardService;
 
@@ -206,16 +207,17 @@ public final class CustomerService extends AbstractRemoteService implements Cust
 	}
 
 	public Collection findCustomersByAge(int minAge, int maxAge)throws FinderException, RemoteException {
-		final String mname = "findCustomersWithNameStartingWith";
+		final String mname = "findCustomersByAge";
         Trace.entering(getCname(), mname, minAge);
         
-        // Search all the customers
-        final Collection customers = findCustomers();
+        // Finds all the objects
+        final Collection customers = _dao.selectAll();
 
         Iterator<Object> iterator = customers.iterator();
         while ( iterator.hasNext() ) {
             Customer customer = (Customer) iterator.next();
             if (customer.getAge() < minAge || customer.getAge() > maxAge) {
+                // On supprime l'élément courant de la liste
                 iterator.remove();
             }
         }

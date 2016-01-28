@@ -56,6 +56,8 @@ public final class Customer extends DomainObject implements Serializable {
             throw new CheckException("Invalid customer first name");
         if (getLastname() == null || "".equals(getLastname()))
             throw new CheckException("Invalid customer last name");
+        if (getYearOfBirth() > 2016 )
+            throw new CheckException("Invalid customer year of birth");
     }
     
 	public void matchPassword(String password) throws CheckException{
