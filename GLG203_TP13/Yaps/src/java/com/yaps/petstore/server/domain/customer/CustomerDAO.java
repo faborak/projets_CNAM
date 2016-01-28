@@ -1,19 +1,18 @@
 package com.yaps.petstore.server.domain.customer;
 
-import com.yaps.petstore.common.exception.CheckException;
-import com.yaps.petstore.common.exception.DataAccessException;
-import com.yaps.petstore.common.exception.FinderException;
-import com.yaps.petstore.common.exception.ObjectNotFoundException;
-import com.yaps.petstore.common.logging.Trace;
-import com.yaps.petstore.server.domain.DomainObject;
-import com.yaps.petstore.server.util.persistence.AbstractDataAccessObject;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import com.yaps.petstore.common.exception.DataAccessException;
+import com.yaps.petstore.common.exception.FinderException;
+import com.yaps.petstore.common.exception.ObjectNotFoundException;
+import com.yaps.petstore.common.logging.Trace;
+import com.yaps.petstore.server.domain.DomainObject;
+import com.yaps.petstore.server.util.persistence.AbstractDataAccessObject;
 
 /**
  * This class does all the database access for the class Customer.
@@ -80,51 +79,7 @@ public final class CustomerDAO extends AbstractDataAccessObject {
 	            statement = connection.createStatement();
 
 	            // Select a Row
-	            final String sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE FIRSTNAME like '%" + nameLikePattern + "%' ";
-	            resultSet = statement.executeQuery(sql);
-
-	            while (resultSet.next()) {
-	                // Set data to the collection
-	            	customers.add(transformResultset2DomainObject(resultSet));
-	            }
-
-	            if (customers.isEmpty())
-	                throw new ObjectNotFoundException();
-
-	        } catch (SQLException e) {
-	            // A Severe SQL Exception is caught
-	            displaySqlException(e);
-	            throw new DataAccessException("Cannot get data from the database: " + e.getMessage(), e);
-	        } finally {
-	            // Close
-	            try {
-	                if (resultSet != null) resultSet.close();
-	                if (statement != null) statement.close();
-	                if (connection != null) connection.close();
-	            } catch (SQLException e) {
-	                displaySqlException("Cannot close connection", e);
-	                throw new DataAccessException("Cannot close the database connection", e);
-	            }
-	        }
-	        return customers;		
-	}
-	
-	public Collection findCustomersByAge(int minAge, int maxAge) throws FinderException {
-	       final String mname = "findCustomersByAge";
-	        Trace.entering(getCname(), mname, minAge);
-
-	        Connection connection = null;
-	        Statement statement = null;
-	        ResultSet resultSet = null;
-	        final Collection customers = new ArrayList();
-
-	        try {
-	            // Gets a database connection
-	            connection = getConnection();
-	            statement = connection.createStatement();
-
-	            // Select a Row
-	            final String sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE AGE > '" + minAge + "' AND AGE < '" + maxAge +"' ";
+	            final String sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE LASTNAME like '%" + nameLikePattern + "%' ";
 	            resultSet = statement.executeQuery(sql);
 
 	            while (resultSet.next()) {
