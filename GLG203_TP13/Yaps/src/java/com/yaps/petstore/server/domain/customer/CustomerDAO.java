@@ -25,7 +25,7 @@ public final class CustomerDAO extends AbstractDataAccessObject {
     // =             Attributes             =
     // ======================================
     private static final String TABLE = "T_CUSTOMER";
-    private static final String COLUMNS = "ID, FIRSTNAME, LASTNAME, PASSWORD, TELEPHONE, EMAIL, STREET1, STREET2, CITY, STATE, ZIPCODE, COUNTRY, CREDITCARDNUMBER, CREDITCARDTYPE, CREDITCARDEXPIRYDATE";
+    private static final String COLUMNS = "ID, FIRSTNAME, LASTNAME, PASSWORD, TELEPHONE, EMAIL, STREET1, STREET2, CITY, STATE, ZIPCODE, COUNTRY, CREDITCARDNUMBER, CREDITCARDTYPE, CREDITCARDEXPIRYDATE, YEAROFBIRTH";
     // Used to get a unique id with the UniqueIdGenerator
     private static final String COUNTER_NAME = "Customer";
 
@@ -35,7 +35,7 @@ public final class CustomerDAO extends AbstractDataAccessObject {
     protected String getInsertSqlStatement(final DomainObject object) {
         final Customer customer = (Customer) object;
         final String sql;
-        sql = "INSERT INTO " + TABLE + "(" + COLUMNS + ") VALUES ('" + customer.getId() + "', '" + customer.getFirstname() + "','" + customer.getLastname() + "','" + customer.getPassword() + "', '" + customer.getTelephone() + "', '" + customer.getEmail() + "', '" + customer.getStreet1() + "', '" + customer.getStreet2() + "', '" + customer.getCity() + "', '" + customer.getState() + "', '" + customer.getZipcode() + "', '" + customer.getCountry() + "', '" + customer.getCreditCardNumber() + "', '" + customer.getCreditCardType() + "', '" + customer.getCreditCardExpiryDate() + "' )";
+        sql = "INSERT INTO " + TABLE + "(" + COLUMNS + ") VALUES ('" + customer.getId() + "', '" + customer.getFirstname() + "','" + customer.getLastname() + "','" + customer.getPassword() + "', '" + customer.getTelephone() + "', '" + customer.getEmail() + "', '" + customer.getStreet1() + "', '" + customer.getStreet2() + "', '" + customer.getCity() + "', '" + customer.getState() + "', '" + customer.getZipcode() + "', '" + customer.getCountry() + "', '" + customer.getCreditCardNumber() + "', '" + customer.getCreditCardType() + "', '" + customer.getCreditCardExpiryDate() + "', '" + customer.getYearOfBirth() +"' )";
         return sql;
     }
 
@@ -48,7 +48,7 @@ public final class CustomerDAO extends AbstractDataAccessObject {
     protected String getUpdateSqlStatement(final DomainObject object) {
         final Customer customer = (Customer) object;
         final String sql;
-        sql = "UPDATE " + TABLE + " SET FIRSTNAME = '" + customer.getFirstname() + "', LASTNAME = '" + customer.getLastname() + "', PASSWORD = '" + customer.getPassword() + "', TELEPHONE = '" + customer.getTelephone() + "', EMAIL = '" + customer.getEmail() + "', STREET1 = '" + customer.getStreet1() + "', STREET2 = '" + customer.getStreet2() + "', CITY = '" + customer.getCity() + "', STATE = '" + customer.getState() + "', ZIPCODE = '" + customer.getZipcode() + "', COUNTRY = '" + customer.getCountry() + "', CREDITCARDNUMBER = '" + customer.getCreditCardNumber() + "', CREDITCARDTYPE = '" + customer.getCreditCardType() + "', CREDITCARDEXPIRYDATE = '" + customer.getCreditCardExpiryDate() + "' WHERE ID = '" + customer.getId() + "' ";
+        sql = "UPDATE " + TABLE + " SET FIRSTNAME = '" + customer.getFirstname() + "', LASTNAME = '" + customer.getLastname() + "', PASSWORD = '" + customer.getPassword() + "', TELEPHONE = '" + customer.getTelephone() + "', EMAIL = '" + customer.getEmail() + "', STREET1 = '" + customer.getStreet1() + "', STREET2 = '" + customer.getStreet2() + "', CITY = '" + customer.getCity() + "', STATE = '" + customer.getState() + "', ZIPCODE = '" + customer.getZipcode() + "', COUNTRY = '" + customer.getCountry() + "', CREDITCARDNUMBER = '" + customer.getCreditCardNumber() + "', CREDITCARDTYPE = '" + customer.getCreditCardType() + "', CREDITCARDEXPIRYDATE = '" + customer.getCreditCardExpiryDate() + "', YEAROFBIRTH = '" + customer.getYearOfBirth() + "' WHERE ID = '" + customer.getId() + "' ";
         return sql;
     }
 
@@ -123,6 +123,7 @@ public final class CustomerDAO extends AbstractDataAccessObject {
         customer.setCreditCardNumber(resultSet.getString(13));
         customer.setCreditCardType(resultSet.getString(14));
         customer.setCreditCardExpiryDate(resultSet.getString(15));
+        customer.setYearOfBirth(resultSet.getInt(16));
         return customer;
     }
 

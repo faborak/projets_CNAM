@@ -349,7 +349,8 @@ public final class CustomerDAOTest extends AbstractTestCase {
     }
 
     private void createCustomer(final String id) throws CreateException, CheckException {
-    	createCustomer(id, null, -1);
+    	createCustomer(id, null, Integer.parseInt(id));
+    	//createCustomer(id, null, -1);
     }
 
     private void createCustomer(final String id, String lastName, int yearOfBirth) throws CreateException, CheckException {
