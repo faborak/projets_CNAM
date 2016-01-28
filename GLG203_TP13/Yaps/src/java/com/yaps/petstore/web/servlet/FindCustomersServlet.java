@@ -24,15 +24,15 @@ public class FindCustomersServlet extends AbstractServlet {
         Trace.entering(getCname(), mname);
 
         final Collection customersDTO;
-        String nameLikePattern = request.getParameter("nameLikePattern");
+        String lastNameFirstChars = request.getParameter("lastNameFirstChars");
 
         try {
             // Gets the customers for a name
-            Trace.finest(getCname(), mname, "name Like Pattern=" + nameLikePattern);
-            if (nameLikePattern == null || nameLikePattern.equals("")){
+            Trace.finest(getCname(), mname, "lastName First Chars Pattern=" + lastNameFirstChars);
+            if (lastNameFirstChars == null || lastNameFirstChars.equals("")){
             	customersDTO = new CustomerDelegateFactory().createCustomerDelegate().findCustomers();
             } else {
-            	customersDTO = new CustomerDelegateFactory().createCustomerDelegate().findCustomersWithNameStartingWith(nameLikePattern);
+            	customersDTO = new CustomerDelegateFactory().createCustomerDelegate().findCustomersWithNameStartingWith(lastNameFirstChars);
             }
 
             // puts the list of items into the request
@@ -42,7 +42,7 @@ public class FindCustomersServlet extends AbstractServlet {
             getServletContext().getRequestDispatcher("/customers.jsp").forward(request, response);
 
         } catch (ObjectNotFoundException e) {
-            getServletContext().getRequestDispatcher("/error.jsp?exception=No customers found for letters " + nameLikePattern).forward(request, response);
+            getServletContext().getRequestDispatcher("/error.jsp?exception=No customers found for letters " + lastNameFirstChars).forward(request, response);
         } catch (Exception e) {
             Trace.throwing(getCname(), mname, e);
             getServletContext().getRequestDispatcher("/error.jsp?exception=Cannot get the customer list").forward(request, response);
