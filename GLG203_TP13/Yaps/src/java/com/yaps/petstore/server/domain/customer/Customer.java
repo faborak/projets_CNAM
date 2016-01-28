@@ -227,6 +227,7 @@ public final class Customer extends DomainObject implements Serializable {
         buf.append(",creditCardNumber=").append(getCreditCardNumber());
         buf.append(",creditCardType=").append(getCreditCardType());
         buf.append(",creditCardExpiryDate=").append(getCreditCardExpiryDate());
+        buf.append(",YearOfBirth=").append(getYearOfBirth());
         buf.append('}');
         return buf.toString();
     }

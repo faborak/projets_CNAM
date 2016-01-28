@@ -54,6 +54,7 @@ public final class CustomerService extends AbstractRemoteService implements Cust
         customer.setCreditCardNumber(customerDTO.getCreditCardNumber());
         customer.setCreditCardType(customerDTO.getCreditCardType());
         customer.setPassword(customerDTO.getPassword());
+        customer.setYearOfBirth(customerDTO.getYearOfBirth());
 
         customer.checkData();
 
@@ -139,6 +140,7 @@ public final class CustomerService extends AbstractRemoteService implements Cust
         customer.setCreditCardNumber(customerDTO.getCreditCardNumber());
         customer.setCreditCardType(customerDTO.getCreditCardType());
         customer.setPassword(customerDTO.getPassword());
+        customer.setYearOfBirth(customerDTO.getYearOfBirth());
 
         customer.checkData();
         
@@ -193,7 +195,7 @@ public final class CustomerService extends AbstractRemoteService implements Cust
 		final String mname = "findCustomersWithNameStartingWith";
         Trace.entering(getCname(), mname, lastNameFirstChars);
 
-        // Search all the items
+        // Search all the customers
         final Collection customers = _dao.findCustomersWithNameLike(lastNameFirstChars);
 
         // Transforms domain objects into DTOs
@@ -206,10 +208,18 @@ public final class CustomerService extends AbstractRemoteService implements Cust
 	public Collection findCustomersByAge(int minAge, int maxAge)throws FinderException, RemoteException {
 		final String mname = "findCustomersWithNameStartingWith";
         Trace.entering(getCname(), mname, minAge);
+        
+        // Search all the customers
+        final Collection customers = findCustomers();
 
-        // Search all the items
-        final Collection customers = _dao.findCustomersByAge(minAge, maxAge);
-
+        Iterator<Object> iterator = customers.iterator();
+        while ( iterator.hasNext() ) {
+            Customer customer = (Customer) iterator.next();
+            if (customer.getAge() < minAge || customer.getAge() > maxAge) {
+                iterator.remove();
+            }
+        }
+        
         // Transforms domain objects into DTOs
         final Collection customersDTO = transformCustomers2DTOs(customers);
 
@@ -238,6 +248,7 @@ public final class CustomerService extends AbstractRemoteService implements Cust
         customerDTO.setCreditCardType(customer.getCreditCardType());
         customerDTO.setCreditCardExpiryDate(customer.getCreditCardExpiryDate());
         customerDTO.setPassword(customer.getPassword());
+        customerDTO.setYearOfBirth(customer.getYearOfBirth());
         return customerDTO;
     }
 

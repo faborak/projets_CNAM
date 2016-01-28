@@ -181,6 +181,7 @@ public final class CustomerDTO implements DataTransfertObject {
         buf.append(",creditCardNumber=").append(getCreditCardNumber());
         buf.append(",creditCardType=").append(getCreditCardType());
         buf.append(",creditCardExpiryDate=").append(getCreditCardExpiryDate());
+        buf.append(",YearOfBirth=").append(getYearOfBirth());
         buf.append('}');
         return buf.toString();
     }

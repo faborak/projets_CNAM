@@ -27,69 +27,31 @@
 
             <jsp:useBean id="customerDTO" class="com.yaps.petstore.common.dto.CustomerDTO" scope="session" />
 
-            <h2>Your Account Information</h2>
+           <c:if test="${nameLikePattern == null}">
+                <P><strong>All Customer</strong></P>
+            </c:if>
+            <%-- Else --%>
+            <c:if test="${nameLikePattern != null}">
+                <P><strong>Search Results:</strong></P>
+                <P>Customers matching last name: ${nameLikePattern}</P>
+            </c:if>
 
-            <table border="0" cellspacing="4">
+            <TABLE cellSpacing=0 cellPadding=1 width="100%" border=1>
+                <TR>
+                    <TD>
+                        <TABLE cellSpacing=0 cellPadding=2 width="100%" border=0>
 
-                <!-- Personal information -->
-                <tr>
-                    <td colspan="2"><strong>Personal information</strong></td>
-	            </tr>
-	            <tr>
-		            <td>Firstname :</td><td>${customerDTO.firstname}</td>
-	            </tr>
-	            <tr>
-		            <td>Lastname :</td><td>${customerDTO.lastname}</td>
-	            </tr>
-	            <tr>
-		            <td>Year of birth :</td><td>${customerDTO.yearOfBirth}</td>
-	            </tr>
-	            <tr>
-		            <td>Email :</td><td>${customerDTO.email}</td>
-	            </tr>
-	            <tr>
-		            <td>Telephone :</td><td>${customerDTO.telephone}</td>
-	            </tr>
+                            <c:forEach items="${customersDTO}" var="customerDTO">
+                                <TR>
+                                    <TD>${customerDTO.lastName}</TD> <TD>${customerDTO.firstName}</TD>
+                                    <TD>${customerDTO.creditCardNumber}</TD> <TD>${customerDTO.Yearofbirth}</TD>
+                                </TR>
+                            </c:forEach>
 
-                	<!-- Address -->
-	            <tr>
-		            <td colspan="2"><strong>Address</strong></td>
-	            </tr>
-	            <tr>
-		            <td>Street1 :</td><td>${customerDTO.street1}</td>
-	            </tr>
-	            <tr>
-		            <td>Street2 :</td><td>${customerDTO.street2}</td>
-	            </tr>
-	            <tr>
-		            <td>City :</td><td>${customerDTO.city}</td>
-	            </tr>
-	            <tr>
-		            <td>State :</td><td>${customerDTO.state}</td>
-	            </tr>
-	            <tr>
-		            <td>Zipcode :</td><td>${customerDTO.zipcode}</td>
-	            </tr>
-	            <tr>
-		            <td>Country :</td><td>${customerDTO.country}</td>
-	            </tr>
-
-	            <!-- Credit card -->
-	            <tr>
-		            <td colspan="2"><strong>Credit Card Information</strong></td>
-	            </tr>
-	            <tr>
-		            <td>Type :</td><td>${customerDTO.creditCardType}</td>
-	            </tr>
-	            <tr>
-		            <td>Number :</td><td>${customerDTO.creditCardNumber}</td>
-	            </tr>
-	            <tr>
-		            <td>Expiry Date (<small>MM/YY</small>):</td><td>${customerDTO.creditCardExpiryDate}</td>
-	            </tr>
-            </table>
-            <p><a href="updatecustomer.jsp">Edit Your Account Information</a></p>
-
+                        </TABLE>
+                    </TD>
+                </TR>
+            </TABLE>
 
     <%--FOOTER--%>
     	</td>
