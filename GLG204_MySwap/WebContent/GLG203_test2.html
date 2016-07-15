@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="WEB-INF/lib/angular.min.js"></script>
+<script>
+var app = angular.module("AppGLG", []); 
+var controller = app.controller("GLGController", function($scope) { 
+                 $scope.personne= {nom: "Lovelace", prenom: "Ada"
+				}; 
+}); 
+</script>
+</head>
+<body ng-app="AppGLG">
+	<div ng-controller="GLGController">
+		<fieldset>
+			<input ng-model="personne.nom" /> <input ng-model="personne.prenom" />
+			{{personne.prenom}} {{personne.nom}}
+		</fieldset>
+	</div>
+</body>
+</html>
