@@ -2,9 +2,14 @@ package services;
 
 import java.util.Set;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -26,10 +31,22 @@ public class DealService {
 
 	private static Logger logger = Logger.getLogger(DealService.class);
 	private Session session;
+	
+	/**
+	 * UserService.
+	 */
+	private UserService userService;
+	public void setUserService(UserService userService){this.userService = userService;}
+	
+	/**
+	 * ItemService.
+	 */
+	private ItemService itemService;
+	public void setItemService(ItemService itemService){this.itemService = itemService;}
 
 	@GET
-	@Path("{id}")
-	@Produces({ "application/json" })	
+	@Path("/get/{id}")
+	@Produces({ "application/json" })
 	public Deal findDeal(long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
@@ -38,7 +55,7 @@ public class DealService {
 		try {
 			Criteria criteria = session.createCriteria(Deal.class);
 
-			criteria.add(Restrictions.eqOrIsNull("id", id));
+			criteria.add(Restrictions.eqOrIsNull("id_deal", id));
 
 			// pour la pagination, on peut ajouter criteria.setMaxResults(10),
 			// etc, et utiliser une cl� de reprise � chaque appel.
@@ -50,22 +67,38 @@ public class DealService {
 		} finally {
 			session.close();
 		}
+
 		return deal;
+
+		// faire un retour via Response ?
+//		 return Response.status(200).entity(deal).build();
 	}
 
 	/**
 	 * Insertion d'un nouveau Deal.
 	 * 
 	 */
-	public long insertDeal(User initator, User proposed, Integer status, Set<SwapObject> swapObjects) {
+	@POST
+	@Path("/insert/{initator}/{proposed}/{status}/{swapObjects}")
+	@Consumes({ "application/json" })
+	public long insertDeal(@PathParam("initator") String initatorId, @PathParam("proposed") String proposedId,
+			@PathParam("status") Integer status, @PathParam("swapObjects") Set<String> swapObjectsId) {
 
 		Deal deal = new Deal();
+		
+		User initator = new User();
+		initator = userService.findUser(initatorId);
+		User proposed = new User();
+		proposed = userService.findUser(proposedId);
 		deal.setInitiator(initator);
 		deal.setProposed(proposed);
 		deal.setStatus(status);
-		for (SwapObject so : swapObjects){
+		
+		for (String soId : swapObjectsId) {
+			SwapObject so = new SwapObject();
+			so = itemService.findItem(Long.parseLong(soId));
 			deal.addSwapObjects(so);
-		}	
+		}
 
 		try {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -87,14 +120,16 @@ public class DealService {
 		}
 
 		return deal.getIdDeal();
-		
 	}
 
 	/**
 	 * M�thode pour retour sur l'insertion en cascade.
 	 * 
 	 */
-	public void deleteDeal(long id) {
+	@DELETE
+	@Path("/delete/{id}")
+	public void deleteDeal(@PathParam("id") long id) {
+
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -121,13 +156,19 @@ public class DealService {
 	/**
 	 * Update de la classe deal.
 	 */
-	public void updateDeal(Long id, Integer status, Set<SwapObject> swapObjects) {
+	@POST
+	@Path("/update/{id}/{initator}/{proposed}/{status}/{swapObjects}")
+	@Consumes({ "application/json" })
+	public void updateDeal(@PathParam("id") Long id, @PathParam("status") Integer status,
+			@PathParam("swapObjects") Set<String> swapObjectsId) {
 
 		Deal deal = findDeal(id);
 		deal.setStatus(status);
-		for (SwapObject so : swapObjects){
+		for (String soId : swapObjectsId) {
+			SwapObject so = new SwapObject();
+			so = itemService.findItem(Long.parseLong(soId));
 			deal.addSwapObjects(so);
-		}	
+		}
 
 		try {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();

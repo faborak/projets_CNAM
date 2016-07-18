@@ -1,27 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>GLG204_MySwap</display-name>
- <!--  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list> -->
-  
-  <servlet>
-        <servlet-name>Jersey Web Application</servlet-name>
-        <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Jersey Web Application</servlet-name>
-        <url-pattern>/rest/*</url-pattern>
-    </servlet-mapping>
-    <!-- <persistence-context-ref>
-        <persistence-context-ref-name>persistence/em</persistence-context-ref-name>
-        <persistence-unit-name>CustomerService</persistence-unit-name>
-    </persistence-context-ref> -->
-  
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+                        http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	<display-name>GLG204_MySwap</display-name>
+
+	<!-- avec Jersey -->
+
+	<servlet>
+		<servlet-name>jersey-serlvet</servlet-name>
+		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+		<init-param>
+			<param-name>jersey.config.server.provider.classnames</param-name>
+			<param-value>services.CommentService</param-value>
+		</init-param>
+		<init-param>
+			<param-name>jersey.config.server.provider.classnames</param-name>
+			<param-value>services.ItemService</param-value>
+		</init-param>
+		<init-param>
+			<param-name>jersey.config.server.provider.classnames</param-name>
+			<param-value>services.DealService</param-value>
+		</init-param>
+		<init-param>
+			<param-name>jersey.config.server.provider.classnames</param-name>
+			<param-value>services.UserService</param-value>
+		</init-param>
+
+		<load-on-startup>1</load-on-startup>
+
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>jersey-serlvet</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- <servlet> <servlet-name>HelloWorldServletAdaptor</servlet-name> <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class> 
+		<init-param> <param-name>com.sun.jersey.config.property.packages</param-name> 
+		<param-value>service.ItemService</param-value> </init-param> <load-on-startup>1</load-on-startup> 
+		</servlet> <servlet-mapping> <servlet-name>HelloWorldServletAdaptor</servlet-name> 
+		<url-pattern>/*</url-pattern> </servlet-mapping> -->
+
+
+	<!-- avec fichier de configuration -->
+	<!-- <servlet> <servlet-name>ApplicationConfig</servlet-name> <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class> 
+		<init-param> <param-name>javax.ws.rs.Application</param-name> <param-value>GLG204_MySwap</param-value> 
+		</init-param> </servlet> <servlet-mapping> <servlet-name>ApplicationConfig</servlet-name> 
+		<url-pattern>/*</url-pattern> </servlet-mapping> -->
+
 </web-app>
+
+
+
+

@@ -1,7 +1,6 @@
 package services;
 
 import java.io.File;
-import java.sql.SQLException;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -33,7 +32,7 @@ public class UserService {
 	private Session session;
 
 	@GET
-	@Path("{email}")
+	@Path("/getByEmail/{email}")
 	@Produces({ "application/json" })
 	public User findUser(@PathParam("email") String email) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -59,7 +58,7 @@ public class UserService {
 	}
 
 	@GET
-	@Path("{id}")
+	@Path("/getById/{id}")
 	@Produces({ "application/json" })
 	public User findUser(@PathParam("id") long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -89,7 +88,7 @@ public class UserService {
 	 * 
 	 */
 	@POST
-	@Path("{name}/{lastname}/{email}/{phoneNumber}/{street}/{state}/{zipcode}/{city}/{pic}")
+	@Path("{/insert/name}/{lastname}/{email}/{phoneNumber}/{street}/{state}/{zipcode}/{city}/{pic}")
 	@Consumes({ "application/json" })
 	public long insertUser(@PathParam("name") String name, @PathParam("lastname") String lastname,
 			@PathParam("email") String email, @PathParam("phoneNumber") String phoneNumber, @PathParam("street") String street,
@@ -154,7 +153,7 @@ public class UserService {
 	 * 
 	 */
 	@DELETE
-	@Path("{id}")
+	@Path("/delete/{id}")
 	public void deleteUser(long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
@@ -218,7 +217,7 @@ public class UserService {
 	 * sur account et adress est possible.
 	 */
 	@POST
-	@Path("{name}/{lastname}/{email}/{phoneNumber}/{street}/{state}/{zipcode}/{city}/{pic}")
+	@Path("/update/{name}/{lastname}/{email}/{phoneNumber}/{street}/{state}/{zipcode}/{city}/{pic}")
 	@Consumes({ "application/json" })
 	public void updateUser(@PathParam("name") String name, @PathParam("lastname") String lastname,
 			@PathParam("email") String email, @PathParam("phoneNumber") String phoneNumber, @PathParam("street") String street,
