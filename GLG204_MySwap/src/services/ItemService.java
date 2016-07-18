@@ -1,7 +1,11 @@
 package services;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.ws.rs.Consumes;
@@ -32,9 +36,21 @@ public class ItemService {
 
 	private Session session;
 	private static Logger logger = Logger.getLogger(ItemService.class);
+	
+	/**
+	 * UserService.
+	 */
+	private UserService userService;
+	public void setUserService(UserService userService){this.userService = userService;}
 
+	/**
+	 * DealService.
+	 */
+	private DealService dealService;
+	public void setDealService(DealService dealService){this.dealService = dealService;}
+	
 	@GET
-	@Path("{id}")
+	@Path("/get/{id}")
 	@Produces({ "application/json" })
 	public Item findItem(@PathParam("id") long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -64,21 +80,37 @@ public class ItemService {
 	 * 
 	 */
 	@POST
-	@Path("{name}/{dateCreation}/{dateModification}/{description}/{cost}/{user}/{pic}/{deals}")
+	@Path("/insert/{name}/{dateCreation}/{dateModification}/{description}/{cost}/{user}/{pic}/{deals}")
 	@Consumes({ "application/json" })
-	public long insertItem(@PathParam("name") String name, @PathParam("dateCreation") Date dateCreation,
-			@PathParam("dateModification") Date dateModification, @PathParam("description") String description, @PathParam("cost") Float cost,
-			@PathParam("user") User user, @PathParam("pic") File pic, @PathParam("deals") Set<Deal> deals) {
+	public long insertItem(@PathParam("name") String name, @PathParam("dateCreation") String dateCreation,
+			@PathParam("dateModification") String dateModification, @PathParam("description") String description,
+			@PathParam("cost") String cost, @PathParam("user") String userId, @PathParam("pic") File pic,
+			@PathParam("deals") Set<String> dealsId) {
 
 		Item item = new Item();
+		
+		DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
+		
 		item.setName(name);
-		item.setDateCreation(dateCreation);
-		item.setDateModification(dateModification);
+		try {
+			item.setDateCreation(df.parse(dateCreation));
+			item.setDateModification(df.parse(dateModification));
+		} catch (ParseException pe) {
+			logger.error("ParseException in ItemService/insertItem : " + pe.getMessage());
+		}
+		
 		item.setDescription(description);
-		item.setCost(cost);
+		item.setCost(Float.parseFloat(cost));
+		
+		User user = new User();
+		user = userService.findUser(userId);
+		
 		item.setOwner(user);
-		for (Deal d : deals) {
-			item.addDeal(d);
+		
+		for (String dealId : dealsId) {
+			Deal deal = new Deal();
+			deal = dealService.findDeal(Long.parseLong(dealId));
+			item.addDeal(deal);
 		}
 
 		try {
@@ -99,7 +131,7 @@ public class ItemService {
 		} finally {
 			session.close();
 		}
-		
+
 		// est-ce que Hibernate valorise l'id de l'item après son insertion ?
 		return item.getIdSwapObjet();
 
@@ -113,7 +145,7 @@ public class ItemService {
 	 * 
 	 */
 	@DELETE
-	@Path("{id}")
+	@Path("/delete/{id}")
 	public void deleteItem(@PathParam("id") long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
@@ -145,20 +177,37 @@ public class ItemService {
 	 * Update de la classe item.
 	 */
 	@POST
-	@Path("{id}/{name}/{dateCreation}/{dateModification}/{description}/{cost}/{user}/{pic}/{deals}")
+	@Path("/update/{id}/{name}/{dateCreation}/{dateModification}/{description}/{cost}/{user}/{pic}/{deals}")
 	@Consumes({ "application/json" })
-	public void updateItem(@PathParam("id") Long id, @PathParam("name") String name, @PathParam("dateCreation") Date dateCreation,
-			@PathParam("dateModification") Date dateModification, @PathParam("description") String description, @PathParam("cost") Float cost,
-			@PathParam("user") User user, @PathParam("pic") File pic, @PathParam("deals") Set<Deal> deals) {
+	public void updateItem(@PathParam("id") Long id, @PathParam("name") String name, @PathParam("dateCreation") String dateCreation,
+			@PathParam("dateModification") String dateModification, @PathParam("description") String description,
+			@PathParam("cost") String cost, @PathParam("user") String userId, @PathParam("pic") File pic,
+			@PathParam("deals") Set<String> dealsId) {
 
 		Item item = findItem(id);
 
+		DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.FRENCH);
+		
 		item.setName(name);
-		item.setDateModification(dateModification);
+		try {
+			item.setDateCreation(df.parse(dateCreation));
+			item.setDateModification(df.parse(dateModification));
+		} catch (ParseException pe) {
+			logger.error("ParseException in ItemService/insertItem : " + pe.getMessage());
+		}
+		
 		item.setDescription(description);
-		item.setCost(cost);
-		for (Deal d : deals) {
-			item.addDeal(d);
+		item.setCost(Float.parseFloat(cost));
+		
+		User user = new User();
+		user = userService.findUser(userId);
+		
+		item.setOwner(user);
+		
+		for (String dealId : dealsId) {
+			Deal deal = new Deal();
+			deal = dealService.findDeal(Long.parseLong(dealId));
+			item.addDeal(deal);
 		}
 
 		try {

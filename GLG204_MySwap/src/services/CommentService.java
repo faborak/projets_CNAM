@@ -27,9 +27,15 @@ public class CommentService {
 
 	private Session session;
 	private static Logger logger = Logger.getLogger(CommentService.class);
+	
+	/**
+	 * UserService.
+	 */
+	private UserService userService;
+	public void setUserService(UserService userService){this.userService = userService;}
 
 	@GET
-	@Path("{id}")
+	@Path("/get/{id}")
 	@Produces({ "application/json" })
 	public Comment findComment(@PathParam("id") long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -59,14 +65,19 @@ public class CommentService {
 	 * 
 	 */
 	@POST
-	@Path("{label}/{mark}/{noting}/{noted}")
+	@Path("/insert/{label}/{mark}/{noting}/{noted}")
 	@Consumes({ "application/json" })
 	public long insertComment(@PathParam("label") String label, @PathParam("mark") Integer mark,
-			@PathParam("noting") User noting, @PathParam("noted") User noted) {
+			@PathParam("noting") String notingId, @PathParam("noted") String notedId) {
 
 		Comment comment = new Comment();
 		comment.setLabel(label);
 		comment.setMark(mark);
+		
+		User noting = new User();
+		noting = userService.findUser(notingId);
+		User noted = new User();
+		noted = userService.findUser(notedId);
 		comment.setNoting(noting);
 		comment.setNoted(noted);
 
@@ -98,7 +109,7 @@ public class CommentService {
 	 * 
 	 */
 	@DELETE
-	@Path("{id}")
+	@Path("/delete/{id}")
 	public void deleteComment(@PathParam("id") long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
@@ -127,17 +138,21 @@ public class CommentService {
 	 * Update de la classe comment.
 	 */
 	@POST
-	@Path("{id}/{label}/{mark}/{noting}/{noted}")
+	@Path("/update/{id}/{label}/{mark}/{noting}/{noted}")
 	@Consumes({ "application/json" })
 	public void updateComment(@PathParam("id") Long id, @PathParam("label") String label, @PathParam("mark") Integer mark,
-			@PathParam("noting") User noting, @PathParam("noted") User noted) {
+			@PathParam("noting") String notingId, @PathParam("noted") String notedId) {
 
 		Comment comment = findComment(id);
 		comment.setLabel(label);
 		comment.setMark(mark);
+		User noting = new User();
+		noting = userService.findUser(notingId);
+		User noted = new User();
+		noted = userService.findUser(notedId);
 		comment.setNoting(noting);
 		comment.setNoted(noted);
-
+		
 		try {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
