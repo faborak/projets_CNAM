@@ -46,7 +46,7 @@ public class DealService {
 	@GET
 	@Path("/get/{id}")
 	@Produces({ "application/json" })
-	public Deal findDeal(long id) {
+	public Deal findDeal(@PathParam("id") long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
