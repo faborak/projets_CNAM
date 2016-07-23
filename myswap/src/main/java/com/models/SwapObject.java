@@ -79,7 +79,7 @@ public class SwapObject {
 	 * Toutes les cascades sont sous la responsabilité de l'objet équipe
 	 * 
 	 */
-    @ManyToOne (fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
+    @ManyToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_user")
 	private User owner;
 	public void setOwner(User u) {owner = u;}

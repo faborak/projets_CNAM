@@ -37,7 +37,7 @@ public class Deal {
 	/**
 	 * user Initiateur du Deal.
 	 */
-    @ManyToOne (fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
+    @ManyToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_first_user")
 	private User initiator;
 	public void setInitiator(User u) {initiator = u;}
@@ -46,7 +46,7 @@ public class Deal {
 	/**
 	 * user propos� pour le Deal.
 	 */
-    @ManyToOne (fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
+    @ManyToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_second_user")
 	private User proposed;
 	public void setProposed(User u) {proposed = u;}

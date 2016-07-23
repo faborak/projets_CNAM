@@ -31,7 +31,7 @@ public class CommentService {
 	/**
 	 * UserService.
 	 */
-	private UserService userService;
+	private UserService userService = new UserService();
 	public void setUserService(UserService userService){this.userService = userService;}
 
 	@GET
@@ -51,7 +51,7 @@ public class CommentService {
 			// etc, et utiliser une cl� de reprise � chaque appel.
 			// inutilis� dans le cadre de ce projet.
 
-			comment = (Comment) criteria.list();
+			comment = (Comment) criteria.uniqueResult();
 		} catch (RuntimeException e) {
 			logger.error("RuntimeException in CommentService/findComment : " + e.getMessage());
 		} finally {
