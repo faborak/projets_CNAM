@@ -39,7 +39,7 @@ public class ItemService {
 	/**
 	 * UserService.
 	 */
-	private UserService userService;
+	private UserService userService = new UserService();
 	public void setUserService(UserService userService){this.userService = userService;}
 
 	/**
@@ -65,7 +65,7 @@ public class ItemService {
 			// etc, et utiliser une cl� de reprise � chaque appel.
 			// inutilis� dans le cadre de ce projet.
 
-			item = (Item) criteria.list();
+			item = (Item) criteria.uniqueResult();
 		} catch (RuntimeException e) {
 			logger.error("RuntimeException in ItemService/findItem : " + e.getMessage());
 		} finally {

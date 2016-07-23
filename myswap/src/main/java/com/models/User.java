@@ -24,11 +24,6 @@ public class User {
 	public void setId(Long i) {id_user = i;}
 	public Long getId() {return id_user;}
 	  
-	  @Column
-      private String email;
-      public void setEmail(String e) {email = e;}
-	   public String getEmail() {return email;}
-
       @Column
       private String name;
       public void setName(String n) {name = n;}
@@ -51,7 +46,7 @@ public class User {
 	 * Les objets de l'utilisateur.
 	 * La responsabilité du mappage est confié à swapObject, via l'annotation mappedBy.  
 	 */
-	@OneToMany(mappedBy="owner")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="owner")
 	private Set<SwapObject> wholeOfItems = new HashSet<SwapObject>();
 	public void addWholeOfItems(SwapObject f) {f.setOwner(this); wholeOfItems.add(f);}
 	public Set<SwapObject> getWholeOfItems() {return wholeOfItems;}
@@ -96,7 +91,7 @@ public class User {
 	 /**
 	 * Le compte de l'utilisateur.   
 	 */ 
-	 @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+	 @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	 private Account account;
 	 public void setAccount(Account a) {account = a;}
 	 public Account getAccount() {return this.account;}
@@ -104,7 +99,7 @@ public class User {
 	  /**
 	 * L'adresse de l'utilisateur.   
 	 */  
-	 @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+	 @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	 private Adress adress;
 	 public void setAdress(Adress a) {adress = a;}
 	 public Adress getAdress() {return this.adress;} 

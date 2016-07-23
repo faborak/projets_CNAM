@@ -36,7 +36,7 @@ public class Account {
 	/**
 	 * user auquel est rattaché l'account.
 	 */
-    @OneToOne (fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
+    @OneToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_user")
 	private User user;
 	public void setUser(User u) {user = u;}

@@ -34,13 +34,13 @@ public class DealService {
 	/**
 	 * UserService.
 	 */
-	private UserService userService;
+	private UserService userService = new UserService();
 	public void setUserService(UserService userService){this.userService = userService;}
 	
 	/**
 	 * ItemService.
 	 */
-	private ItemService itemService;
+	private ItemService itemService = new ItemService();
 	public void setItemService(ItemService itemService){this.itemService = itemService;}
 
 	@GET
@@ -54,13 +54,13 @@ public class DealService {
 		try {
 			Criteria criteria = session.createCriteria(Deal.class);
 
-			criteria.add(Restrictions.eqOrIsNull("id_deal", id));
+			criteria.add(Restrictions.eqOrIsNull("id", id));
 
 			// pour la pagination, on peut ajouter criteria.setMaxResults(10),
 			// etc, et utiliser une cl� de reprise � chaque appel.
 			// inutilis� dans le cadre de ce projet.
 
-			deal = (Deal) criteria.list();
+			deal = (Deal) criteria.uniqueResult();
 		} catch (RuntimeException e) {
 			logger.error("RuntimeException in DealService/findDeal : " + e.getMessage());
 		} finally {

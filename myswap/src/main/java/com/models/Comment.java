@@ -42,7 +42,7 @@ public class Comment {
 	/**
 	 * user noté par le commentaire.
 	 */
-    @ManyToOne (fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
+    @ManyToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_noted_user")
 	private User noted;
 	public void setNoted(User g) {noted = g;}
@@ -51,7 +51,7 @@ public class Comment {
 	/**
 	 * user notant le commentaire.
 	 */
-    @ManyToOne (fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
+    @ManyToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_noting_user")
 	private User noting;
 	public void setNoting(User g) {noting = g;}

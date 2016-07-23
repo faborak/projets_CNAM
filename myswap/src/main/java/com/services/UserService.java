@@ -1,6 +1,7 @@
 package com.services;
 
 import java.io.File;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -48,7 +49,7 @@ public class UserService {
 			// etc, et utiliser une cl� de reprise � chaque appel.
 			// inutilis� dans le cadre de ce projet.
 
-			user = (User) criteria.list();
+			user = (User) criteria.uniqueResult();
 		} catch (RuntimeException e) {
 			logger.error("RuntimeException in UserService/findUser : " + e.getMessage());
 		} finally {
@@ -74,7 +75,7 @@ public class UserService {
 			// etc, et utiliser une cl� de reprise � chaque appel.
 			// inutilis� dans le cadre de ce projet.
 
-			user = (User) criteria.list();
+			user = (User) criteria.uniqueResult();
 		} catch (RuntimeException e) {
 			logger.error("RuntimeException in UserService/findUser : " + e.getMessage());
 		} finally {
