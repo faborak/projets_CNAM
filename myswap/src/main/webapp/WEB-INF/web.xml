@@ -5,37 +5,23 @@
 	version="3.0">
 	<display-name>MySwap</display-name>
 
-	<!-- avec Jersey -->
+	<!-- avec Jersey 1 -->
 
-	<!-- <servlet> <servlet-name>jersey-serlvet</servlet-name> <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class> 
-		<init-param> <param-name>jersey.config.server.provider.classnames</param-name> 
-		<param-value>services.CommentService</param-value> </init-param> <init-param> 
-		<param-name>jersey.config.server.provider.classnames</param-name> <param-value>services.ItemService</param-value> 
-		</init-param> <init-param> <param-name>jersey.config.server.provider.classnames</param-name> 
-		<param-value>services.DealService</param-value> </init-param> <init-param> 
-		<param-name>jersey.config.server.provider.classnames</param-name> <param-value>services.UserService</param-value> 
-		</init-param> <load-on-startup>1</load-on-startup> </servlet> -->
-
-	<servlet>
+<!-- 	<servlet>
 		<servlet-name>jersey-serlvet</servlet-name>
 		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
 		<init-param>
 			<param-name>com.sun.jersey.config.property.packages</param-name>
-			<param-value>com.services</param-value>
+			<param-value>com.myswap.services</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-
-	<servlet-mapping>
+	
+	 <servlet-mapping>
 		<servlet-name>jersey-serlvet</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
 
-	<!-- avec fichier de configuration en jersey 2-->
-	<!-- <servlet> <servlet-name>ApplicationConfig</servlet-name> <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class> 
-		<init-param> <param-name>javax.ws.rs.Application</param-name> <param-value>GLG204_MySwap</param-value> 
-		</init-param> </servlet> <servlet-mapping> <servlet-name>ApplicationConfig</servlet-name> 
-		<url-pattern>/*</url-pattern> </servlet-mapping> -->
 
 </web-app>
 
