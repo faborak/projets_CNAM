@@ -6,6 +6,18 @@
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>myswap Maven Webapp</name>
+	   <!--  <repositories>
+        <repository>
+            <id>maven2-repository.java.net</id>
+            <name>Java.net Repository for Maven</name>
+            <url>http://download.java.net/maven/2/</url>
+            <layout>default</layout>
+        </repository> 
+    </repositories>-->
+	<properties>
+		<jersey2.version>2.19</jersey2.version>
+		<version.oltu>1.0.2</version.oltu>
+	</properties>
 	<url>http://maven.apache.org</url>
 	<!-- The Basics -->
 	<dependencies>
@@ -14,11 +26,11 @@
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>javax.ws.rs-api</artifactId>
 			<version>2.0</version>
-			<scope>provided</scope>
+			<!-- <scope>provided</scope> -->
 		</dependency>
 
-		<!-- the implementation of JAX-RS -->
-		<dependency>
+		<!-- the implementation of JAX-RS : Jersey 1 -->
+	<!-- 	<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-server</artifactId>
 			<version>1.4</version>
@@ -33,11 +45,35 @@
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-multipart</artifactId>
 			<version>2.17</version>
-		</dependency>
+		</dependency> -->
+		
+		<!-- Jersey 2 -->
+		
+		<dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>${jersey2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>${jersey2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>${jersey2.version}</version>
+        </dependency>
+        <dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-multipart</artifactId>
+			<version>2.23.1</version>
+			 <scope>runtime</scope>
+		</dependency> 
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
+			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -53,24 +89,33 @@
 			<artifactId>jackson-jaxrs-json-provider</artifactId>
 			<version>2.2.3</version>
 		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.11</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jettison</groupId>
+			<artifactId>jettison</artifactId>
+			<version>1.3.7</version>
+			<scope>test</scope>
+		</dependency>
 
-		<!-- test Tomcat -->
-		<!--<dependency> <groupId>org.glassfish.jersey.containers</groupId> <artifactId>jersey-container-servlet</artifactId> 
-			<version>2.23.1</version> </dependency> <dependency> <groupId>org.glassfish.jersey.core</groupId> 
-			<artifactId>jersey-client</artifactId> <version>2.23.1</version> </dependency> -->
+		<!-- J2EE -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-web-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
 
-
-		<!-- autre serveur d'application -->
-		<!-- <dependency> <groupId>org.glassfish.jersey.containers</groupId> <artifactId>jersey-container-servlet</artifactId> 
-			<version>2.22</version> </dependency> -->
-		<!-- persistance et autres modules -->
+		<!-- persistance -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>4.3.11.Final</version>
 		</dependency>
-		<!-- <dependency> <groupId>javax.persistence</groupId> <artifactId>persistence-api</artifactId> 
-			<version>1.0.2</version> </dependency> -->
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.1-api</artifactId>
@@ -98,7 +143,24 @@
 			<version>1.0</version>
 		</dependency>
 
-		<!-- Spring -->
+		<!-- Oauth2 -->
+		<dependency>
+			<groupId>org.apache.oltu.oauth2</groupId>
+			<artifactId>org.apache.oltu.oauth2.common</artifactId>
+			<version>${version.oltu}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.oltu.oauth2</groupId>
+			<artifactId>org.apache.oltu.oauth2.authzserver</artifactId>
+			<version>${version.oltu}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.oltu.oauth2</groupId>
+			<artifactId>org.apache.oltu.oauth2.resourceserver</artifactId>
+			<version>${version.oltu}</version>
+		</dependency>
+
+		<!-- Spring : finalement inutilisé ? -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
@@ -125,7 +187,7 @@
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap</artifactId>
 			<version>3.2.0</version>
-		</dependency>
+		</dependency> 
 
 	</dependencies>
 	<build>
