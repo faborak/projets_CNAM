@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -61,6 +62,8 @@ public class DealService {
 			// inutilis� dans le cadre de ce projet.
 
 			deal = (Deal) criteria.uniqueResult();
+			// load the items
+			deal.getSwapObjects().size();
 		} catch (RuntimeException e) {
 			logger.error("RuntimeException in DealService/findDeal : " + e.getMessage());
 		} finally {
@@ -78,10 +81,11 @@ public class DealService {
 	 * 
 	 */
 	@POST
-	@Path("/insert/{initator}/{proposed}/{status}/{swapObjects}")
+//	@Path("/insert/{initator}/{proposed}/{status}/{swapObjects}")
+	@Path("/insert")
 	@Consumes({ "application/json" })
-	public long insertDeal(@PathParam("initator") String initatorId, @PathParam("proposed") String proposedId,
-			@PathParam("status") Integer status, @PathParam("swapObjects") Set<String> swapObjectsId) {
+	public long insertDeal(@FormParam("initator") String initatorId, @FormParam("proposed") String proposedId,
+			@FormParam("status") Integer status, @FormParam("swapObjects") Set<String> swapObjectsId) {
 
 		Deal deal = new Deal();
 		
@@ -156,10 +160,11 @@ public class DealService {
 	 * Update de la classe deal.
 	 */
 	@POST
-	@Path("/update/{id}/{initator}/{proposed}/{status}/{swapObjects}")
+//	@Path("/update/{id}/{initator}/{proposed}/{status}/{swapObjects}")
+	@Path("/update")
 	@Consumes({ "application/json" })
-	public void updateDeal(@PathParam("id") Long id, @PathParam("status") Integer status,
-			@PathParam("swapObjects") Set<String> swapObjectsId) {
+	public void updateDeal(@FormParam("id") Long id, @FormParam("status") Integer status,
+			@FormParam("swapObjects") Set<String> swapObjectsId) {
 
 		Deal deal = findDeal(id);
 		deal.setStatus(status);

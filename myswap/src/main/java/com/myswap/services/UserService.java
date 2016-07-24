@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -75,6 +76,11 @@ public class UserService {
 			// inutilis� dans le cadre de ce projet.
 
 			user = (User) criteria.uniqueResult();
+			user.getWholeOfItems().size();
+			user.getCommentsOnUser().size();
+			user.getCommentsWriteds().size();
+			user.getDealsInitator().size();
+			user.getDealsProposed().size();
 		} catch (RuntimeException e) {
 			logger.error("RuntimeException in UserService/findUser : " + e.getMessage());
 		} finally {
@@ -88,12 +94,13 @@ public class UserService {
 	 * 
 	 */
 	@POST
-	@Path("/insert/{name}/{lastname}/{email}/{phoneNumber}/{street}/{state}/{zipcode}/{city}/{pic}")
+//	@Path("/insert/{name}/{lastname}/{email}/{phoneNumber}/{street}/{state}/{zipcode}/{city}/{pic}")
+	@Path("/insert")
 	@Consumes({ "application/json" })
-	public long insertUser(@PathParam("name") String name, @PathParam("lastname") String lastname,
-			@PathParam("email") String email, @PathParam("phoneNumber") String phoneNumber, @PathParam("street") String street,
-			@PathParam("state") String state, @PathParam("zipcode") String zipcode, @PathParam("city") String city,
-			@PathParam("pic") File pic) {
+	public long insertUser(@FormParam("name") String name, @FormParam("lastname") String lastname,
+			@FormParam("email") String email, @FormParam("phoneNumber") String phoneNumber, @FormParam("street") String street,
+			@FormParam("state") String state, @FormParam("zipcode") String zipcode, @FormParam("city") String city,
+			@FormParam("pic") File pic) {
 
 		Account account = new Account();
 		account.setPhoneNumber(phoneNumber);
@@ -217,12 +224,12 @@ public class UserService {
 	 * sur account et adress est possible.
 	 */
 	@POST
-	@Path("/update/{name}/{lastname}/{email}/{phoneNumber}/{street}/{state}/{zipcode}/{city}/{pic}")
+	@Path("/update")
 	@Consumes({ "application/json" })
-	public void updateUser(@PathParam("name") String name, @PathParam("lastname") String lastname,
-			@PathParam("email") String email, @PathParam("phoneNumber") String phoneNumber, @PathParam("street") String street,
-			@PathParam("state") String state, @PathParam("zipcode") String zipcode, @PathParam("city") String city,
-			@PathParam("pic") File pic) {
+	public void updateUser(@FormParam("name") String name, @FormParam("lastname") String lastname,
+			@FormParam("email") String email, @FormParam("phoneNumber") String phoneNumber, @FormParam("street") String street,
+			@FormParam("state") String state,@FormParam("zipcode") String zipcode, @FormParam("city") String city,
+			@FormParam("pic") File pic) {
 
 		User user = findUser(email);
 

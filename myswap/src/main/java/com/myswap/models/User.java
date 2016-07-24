@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 @Entity
 public class User {
 
@@ -43,20 +45,10 @@ public class User {
       public File getPic() {return pic;}
 	  
 	/**
-	 * Les objets de l'utilisateur.
-	 * La responsabilité du mappage est confié à swapObject, via l'annotation mappedBy.  
-	 */
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="owner")
-	private Set<SwapObject> wholeOfItems = new HashSet<SwapObject>();
-	public void addWholeOfItems(SwapObject f) {f.setOwner(this); wholeOfItems.add(f);}
-	public Set<SwapObject> getWholeOfItems() {return wholeOfItems;}
-	
-
-	/**
 	 * Les commentaire écrits par l'utilisateur.
 	 * La responsabilité du mappage est confié à comment, via l'annotation mappedBy.  
 	 */
-	@OneToMany(mappedBy="noting")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="noting")
 	private Set<Comment> commentsWrited = new HashSet<Comment>();
 	public void addCommentsWrited(Comment f) {f.setNoting(this); commentsWrited.add(f);}
 	public Set<Comment> getCommentsWriteds() {return commentsWrited;}
@@ -65,16 +57,25 @@ public class User {
 	 * Les commentaire qui concernent l'utilisateur.
 	 * La responsabilité du mappage est confié à comment, via l'annotation mappedBy.  
 	 */
-	@OneToMany(mappedBy="noted")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="noted")
 	private Set<Comment> commentsOnUser = new HashSet<Comment>();
 	public void addCommentsOnUser(Comment f) {f.setNoted(this); commentsOnUser.add(f);}
 	public Set<Comment> getCommentsOnUser() {return commentsOnUser;}
 	
 	/**
+	 * Les objets de l'utilisateur.
+	 * La responsabilité du mappage est confié à swapObject, via l'annotation mappedBy.  
+	 */
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="owner")
+	private Set<SwapObject> wholeOfItems = new HashSet<SwapObject>();
+	public void addWholeOfItems(SwapObject f) {f.setOwner(this); wholeOfItems.add(f);}
+	public Set<SwapObject> getWholeOfItems() {return wholeOfItems;}
+	
+	/**
 	 * Les Deals initiés par l'utilisateur.
 	 * La responsabilité du mappage est confiée à Deal, via l'annotation mappedBy.  
 	 */
-	@OneToMany(mappedBy="initiator")
+	@OneToMany(fetch = FetchType.LAZY,mappedBy="initiator")
 	private Set<Deal> dealsInitator = new HashSet<Deal>();
 	public void addDealsInitator(Deal f) {f.setInitiator(this); dealsInitator.add(f);}
 	public Set<Deal> getDealsInitator() {return dealsInitator;}
@@ -83,7 +84,7 @@ public class User {
 	 * Les Deals proposés à l'utilisateur.
 	 * La responsabilité du mappage est confiée à Deal, via l'annotation mappedBy.  
 	 */
-	@OneToMany(mappedBy="proposed")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="proposed")
 	private Set<Deal> dealsProposed = new HashSet<Deal>();
 	public void addDealsProposed(Deal f) {f.setProposed(this); dealsProposed.add(f);}
 	public Set<Deal> getDealsProposed() {return dealsProposed;}

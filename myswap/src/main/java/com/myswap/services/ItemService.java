@@ -9,6 +9,7 @@ import java.util.Set;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -66,6 +67,8 @@ public class ItemService {
 			// inutilis� dans le cadre de ce projet.
 
 			item = (Item) criteria.uniqueResult();
+			// load the deals
+			item.getDeals().size();
 		} catch (RuntimeException e) {
 			logger.error("RuntimeException in ItemService/findItem : " + e.getMessage());
 		} finally {
@@ -79,12 +82,13 @@ public class ItemService {
 	 * 
 	 */
 	@POST
-	@Path("/insert/{name}/{dateCreation}/{dateModification}/{description}/{cost}/{user}/{pic}/{deals}")
+//	@Path("/insert/{name}/{dateCreation}/{dateModification}/{description}/{cost}/{user}/{pic}/{deals}")
+	@Path("/insert")
 	@Consumes({ "application/json" })
-	public long insertItem(@PathParam("name") String name, @PathParam("dateCreation") String dateCreation,
-			@PathParam("dateModification") String dateModification, @PathParam("description") String description,
-			@PathParam("cost") String cost, @PathParam("user") String userId, @PathParam("pic") File pic,
-			@PathParam("deals") Set<String> dealsId) {
+	public long insertItem(@FormParam("name") String name, @FormParam("dateCreation") String dateCreation,
+			@FormParam("dateModification") String dateModification, @FormParam("description") String description,
+			@FormParam("cost") String cost, @FormParam("user") String userId, @FormParam("pic") File pic,
+			@FormParam("deals") Set<String> dealsId) {
 
 		Item item = new Item();
 		
@@ -176,12 +180,13 @@ public class ItemService {
 	 * Update de la classe item.
 	 */
 	@POST
-	@Path("/update/{id}/{name}/{dateCreation}/{dateModification}/{description}/{cost}/{user}/{pic}/{deals}")
+//	@Path("/update/{id}/{name}/{dateCreation}/{dateModification}/{description}/{cost}/{user}/{pic}/{deals}")
+	@Path("/update")
 	@Consumes({ "application/json" })
-	public void updateItem(@PathParam("id") Long id, @PathParam("name") String name, @PathParam("dateCreation") String dateCreation,
-			@PathParam("dateModification") String dateModification, @PathParam("description") String description,
-			@PathParam("cost") String cost, @PathParam("user") String userId, @PathParam("pic") File pic,
-			@PathParam("deals") Set<String> dealsId) {
+	public void updateItem(@FormParam("id") Long id, @FormParam("name") String name, @FormParam("dateCreation") String dateCreation,
+			@FormParam("dateModification") String dateModification, @FormParam("description") String description,
+			@FormParam("cost") String cost, @FormParam("user") String userId, @FormParam("pic") File pic,
+			@FormParam("deals") Set<String> dealsId) {
 
 		Item item = findItem(id);
 
