@@ -6,12 +6,12 @@ package com.myswap.oauth2;
 
 import java.util.HashSet;
 import java.util.Set;
-import javax.enterprise.context.ApplicationScoped;
+//import javax.enterprise.context.ApplicationScoped;
 
 /**
  *
  */
-@ApplicationScoped
+//@ApplicationScoped
 public class Database {
 
     private Set<String> authCodes = new HashSet<>();

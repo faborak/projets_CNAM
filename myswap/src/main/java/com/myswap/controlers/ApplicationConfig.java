@@ -12,7 +12,6 @@ import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 public class ApplicationConfig extends Application {
 
 //	Pour Jersey V2
-	
 	@Override
 	public Set<Class<?>> getClasses() {
 		Set<Class<?>> resources = new java.util.HashSet<>();
@@ -34,11 +33,14 @@ public class ApplicationConfig extends Application {
 	 * populated with all resources defined in the project. If required, comment
 	 * out calling this method in getClasses().
 	 */
-	//supprimer le contenu ci-dessous apres avior résolu les erreurs authent
 	private void addRestResourceClasses(Set<Class<?>> resources) {
 		resources.add(com.myswap.services.UserService.class);
 		resources.add(com.myswap.services.ItemService.class);
 		resources.add(com.myswap.services.DealService.class);
 		resources.add(com.myswap.services.CommentService.class);
+		resources.add(com.myswap.oauth2.endpoints.AuthzEndpoint.class);
+		resources.add(com.myswap.oauth2.endpoints.RedirectEndpoint.class);
+		resources.add(com.myswap.oauth2.endpoints.ResourceEndpoint.class);
+		resources.add(com.myswap.oauth2.endpoints.TokenEndpoint.class);
 	}
 }

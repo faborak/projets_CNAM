@@ -1,8 +1,8 @@
 package com.myswap.services;
 
 import javax.ws.rs.Consumes;
-
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -66,10 +66,11 @@ public class CommentService {
 	 * 
 	 */
 	@POST
-	@Path("/insert/{label}/{mark}/{noting}/{noted}")
-	@Consumes({ "application/json" })
-	public long insertComment(@PathParam("label") String label, @PathParam("mark") Integer mark,
-			@PathParam("noting") String notingId, @PathParam("noted") String notedId) {
+//	@Path("/insert/{label}/{mark}/{noting}/{noted}")
+	@Path("/insert")
+	@Consumes({"application/json"})
+	public long insertComment(@FormParam("label") String label, @FormParam("mark") Integer mark,
+			@FormParam("noting") String notingId, @FormParam("noted") String notedId) {
 
 		Comment comment = new Comment();
 		comment.setLabel(label);
@@ -139,11 +140,14 @@ public class CommentService {
 	 * Update de la classe comment.
 	 */
 	@POST
-	@Path("/update/{id}/{label}/{mark}/{noting}/{noted}")
+//	@Path("/update/{id}/{label}/{mark}/{noting}/{noted}")
+	@Path("/update")
 	@Consumes({ "application/json" })
-	public void updateComment(@PathParam("id") Long id, @PathParam("label") String label, @PathParam("mark") Integer mark,
-			@PathParam("noting") String notingId, @PathParam("noted") String notedId) {
+	public void updateComment(@FormParam("id") Long id, @FormParam("label") String label, @FormParam("mark") Integer mark,
+			@FormParam("noting") String notingId, @FormParam("noted") String notedId) {
 
+		
+		
 		Comment comment = findComment(id);
 		comment.setLabel(label);
 		comment.setMark(mark);

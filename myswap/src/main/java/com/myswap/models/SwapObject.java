@@ -66,13 +66,13 @@ public class SwapObject {
 	public void setDescription(String n) {description = n;}
 	public String getDescription() {return description;}
 	
-	  /**
-	  *  Photos de l'objet à troquer.
-	  */
-	  @Transient
-	  private Set<File> pic = new HashSet<File>();
-      public void addPic(File f) {pic.add(f);}
-      public Set<File> getPic() {return pic;}
+	/**
+	*  Photos de l'objet à troquer.
+	*/
+	@Transient
+	private Set<File> pic = new HashSet<File>();
+    public void addPic(File f) {pic.add(f);}
+    public Set<File> getPic() {return pic;}
 	
 	/**
 	 * pour la sauvegarde en cascade, on utilise JPA (javax.peristance) et non pas hibernate
