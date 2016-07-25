@@ -38,9 +38,9 @@ public class ApplicationConfig extends Application {
 		resources.add(com.myswap.services.ItemService.class);
 		resources.add(com.myswap.services.DealService.class);
 		resources.add(com.myswap.services.CommentService.class);
-		resources.add(com.myswap.oauth2.endpoints.AuthzEndpoint.class);
-		resources.add(com.myswap.oauth2.endpoints.RedirectEndpoint.class);
-		resources.add(com.myswap.oauth2.endpoints.ResourceEndpoint.class);
-		resources.add(com.myswap.oauth2.endpoints.TokenEndpoint.class);
+//		resources.add(com.myswap.oauth2.endpoints.AuthzEndpoint.class);
+//		resources.add(com.myswap.oauth2.endpoints.RedirectEndpoint.class);
+//		resources.add(com.myswap.oauth2.endpoints.ResourceEndpoint.class);
+//		resources.add(com.myswap.oauth2.endpoints.TokenEndpoint.class);
 	}
 }

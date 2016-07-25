@@ -3,14 +3,22 @@ package com.myswap.models;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 @Entity
+@JsonIgnoreProperties ({"hibernateLazyInitializer", "handler", "fieldHandler"}) 
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id_comment")
+@JsonAutoDetect
 public class Comment {
 
 	/**
@@ -32,7 +40,7 @@ public class Comment {
 	public String getLabel() {return label;}
 	
 	/**
-	 * Libellé du commentaire. 
+	 * Note. 
 	 */
 	@Column
 	Integer mark;
@@ -44,8 +52,11 @@ public class Comment {
 	 */
     @ManyToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_noted_user")
+    @JsonManagedReference
 	private User noted;
 	public void setNoted(User g) {noted = g;}
+	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//	 @JsonIgnore
 	public User getNoted() {return noted;}
 	
 	/**
@@ -53,7 +64,10 @@ public class Comment {
 	 */
     @ManyToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_noting_user")
+    @JsonManagedReference
 	private User noting;
 	public void setNoting(User g) {noting = g;}
+	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//	 @JsonIgnore
 	public User getNoting() {return noting;}
 }	

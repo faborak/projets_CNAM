@@ -2,6 +2,7 @@ package com.myswap.services;
 
 import java.io.File;
 
+import javax.json.Json;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -18,9 +19,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myswap.models.Account;
 import com.myswap.models.Adress;
 import com.myswap.models.User;
+import com.myswap.utilitaires.HibernateAwareObjectMapper;
 
 /**
  * La classe MethodeGestion utilise du Criteria.
@@ -55,6 +60,7 @@ public class UserService {
 		} finally {
 			session.close();
 		}
+		
 		return user;
 	}
 
@@ -86,7 +92,8 @@ public class UserService {
 		} finally {
 			session.close();
 		}
-		return user;
+		
+			return user;
 	}
 
 	/**

@@ -5,14 +5,22 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
+@JsonIgnoreProperties ({"hibernateLazyInitializer", "handler", "fieldHandler"}) 
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id_deal")
 public class Deal {
 
 	/**
@@ -39,8 +47,10 @@ public class Deal {
 	 */
     @ManyToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_first_user")
+    @JsonManagedReference
 	private User initiator;
 	public void setInitiator(User u) {initiator = u;}
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	public User getInitiator() {return initiator;}
 	
 	/**
@@ -48,8 +58,10 @@ public class Deal {
 	 */
     @ManyToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_second_user")
+    @JsonManagedReference
 	private User proposed;
 	public void setProposed(User u) {proposed = u;}
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	public User getProposed() {return proposed;}
 	
 	/**
@@ -58,8 +70,10 @@ public class Deal {
 	 *  la responsabilit� est port�e par SwapObject, qui porte l'inverseJoinColomn
 	 */
 	@ManyToMany(mappedBy = "deals")
+	@JsonBackReference
 	private Set<SwapObject> swapObjects;
 	public void addSwapObjects(SwapObject so) {so.addDeal(this); swapObjects.add(so);}
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	public Set<SwapObject> getSwapObjects() {return swapObjects;}
 	
 	public Deal() {
