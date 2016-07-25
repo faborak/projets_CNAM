@@ -19,9 +19,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
+@JsonIgnoreProperties ({"hibernateLazyInitializer", "handler", "fieldHandler"}) 
 public class SwapObject {
 
 	/**
@@ -81,8 +85,10 @@ public class SwapObject {
 	 */
     @ManyToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_user")
+    @JsonManagedReference
 	private User owner;
 	public void setOwner(User u) {owner = u;}
+//	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	public User getOwner() {return owner;}
 	
 	/**
@@ -92,7 +98,9 @@ public class SwapObject {
 	@ManyToMany()
 	@JoinTable(name = "Dealswap", joinColumns = @JoinColumn(name = "id_swap_object"),
               inverseJoinColumns = @JoinColumn(name = "id_deal"))
+	@JsonManagedReference
 	private Set<Deal> deals = new HashSet<Deal>();
+//	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	public Set<Deal> getDeals() {return deals;}
 	public void addDeal(Deal d) {deals.add(d);}
 }	

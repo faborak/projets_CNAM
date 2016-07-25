@@ -69,6 +69,8 @@ public class ItemService {
 			item = (Item) criteria.uniqueResult();
 			// load the deals
 			item.getDeals().size();
+//			item.getOwner().getCommentsWriteds().size();
+//			item.getOwner().getCommentsOnUser().size();
 		} catch (RuntimeException e) {
 			logger.error("RuntimeException in ItemService/findItem : " + e.getMessage());
 		} finally {

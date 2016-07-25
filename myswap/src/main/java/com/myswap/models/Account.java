@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Account {
 
@@ -38,6 +40,7 @@ public class Account {
 	 */
     @OneToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_user")
+    @JsonManagedReference
 	private User user;
 	public void setUser(User u) {user = u;}
 	public User getUser() {return user;}
