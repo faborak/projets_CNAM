@@ -34,11 +34,11 @@ public class ApplicationConfig extends Application {
 	 * out calling this method in getClasses().
 	 */
 	private void addRestResourceClasses(Set<Class<?>> resources) {
-		resources.add(com.myswap.services.UserService.class);
-		resources.add(com.myswap.services.ItemService.class);
-		resources.add(com.myswap.services.DealService.class);
-		resources.add(com.myswap.services.CommentService.class);
-		resources.add(com.myswap.services.AuthenticationService.class);
+		resources.add(com.myswap.ressources.UserRessource.class);
+		resources.add(com.myswap.ressources.ItemRessource.class);
+		resources.add(com.myswap.ressources.DealRessource.class);
+		resources.add(com.myswap.ressources.CommentRessource.class);
+		resources.add(com.myswap.ressources.AuthenticationRessource.class);
 		resources.add(com.myswap.utilitaires.AuthenticationFilter.class);
 	}
 }

@@ -2,15 +2,6 @@ package com.myswap.services;
 
 import java.io.File;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -19,31 +10,32 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
 import com.myswap.models.Account;
+import com.myswap.models.Activity;
 import com.myswap.models.Adress;
 import com.myswap.models.User;
-import com.myswap.utilitaires.Secured;
 
 /**
  * La classe MethodeGestion utilise du Criteria.
  * 
  */
-@Path("user")
-//@Secured
+// @Path("user")
+// @Secured
 public class UserService {
 
 	private static Logger logger = Logger.getLogger(UserService.class);
 	private Session session;
 
-	@GET
-	@Path("/getByEmail/{email}")
-	@Produces({ "application/json" })
-	public User findUser(@PathParam("email") String email) {
+	// @GET
+	// @Path("/getByEmail/{email}")
+	// @Produces({ "application/json" })
+	public User findUser(String email) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 		User user = null;
+		Account account = null;
 		try {
-			Criteria criteria = session.createCriteria(User.class);
+			Criteria criteria = session.createCriteria(Account.class);
 
 			criteria.add(Restrictions.eqOrIsNull("email", email));
 
@@ -51,20 +43,21 @@ public class UserService {
 			// etc, et utiliser une cl� de reprise � chaque appel.
 			// inutilis� dans le cadre de ce projet.
 
-			user = (User) criteria.uniqueResult();
+			account = (Account) criteria.uniqueResult();
+			user = account.getUser();
 		} catch (RuntimeException e) {
 			logger.error("RuntimeException in UserService/findUser : " + e.getMessage());
 		} finally {
 			session.close();
 		}
-		
+
 		return user;
 	}
 
-	@GET
-	@Path("/getById/{id}")
-	@Produces({ "application/json" })
-	public User findUser(@PathParam("id") long id) {
+	// @GET
+	// @Path("/getById/{id}")
+	// @Produces({ "application/json" })
+	public User findUser(long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -89,22 +82,19 @@ public class UserService {
 		} finally {
 			session.close();
 		}
-		
-			return user;
+
+		return user;
 	}
 
 	/**
 	 * M�thode de test d'insertion en cascade via cascade=CascadeType.PERSIST
 	 * 
 	 */
-	@POST
-//	@Path("/insert/{name}/{lastname}/{email}/{phoneNumber}/{street}/{state}/{zipcode}/{city}/{pic}")
-	@Path("/insert")
-	@Consumes({ "application/json" })
-	public long insertUser(@FormParam("name") String name, @FormParam("lastname") String lastname,
-			@FormParam("email") String email, @FormParam("phoneNumber") String phoneNumber, @FormParam("street") String street,
-			@FormParam("state") String state, @FormParam("zipcode") String zipcode, @FormParam("city") String city,
-			@FormParam("pic") File pic) {
+	// @POST
+	// @Path("/insert")
+	// @Consumes({ "application/json" })
+	public long insertUser(String name, String lastname, String email, String phoneNumber, String street, String state,
+			String zipcode, String city, File pic) {
 
 		Account account = new Account();
 		account.setPhoneNumber(phoneNumber);
@@ -163,8 +153,8 @@ public class UserService {
 	 * M�thode pour retour sur l'insertion en cascade.
 	 * 
 	 */
-	@DELETE
-	@Path("/delete/{id}")
+	// @DELETE
+	// @Path("/delete/{id}")
 	public void deleteUser(long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
@@ -227,13 +217,11 @@ public class UserService {
 	 * Update de la classe user. TODO : un update en cascade via la classe User
 	 * sur account et adress est possible.
 	 */
-	@POST
-	@Path("/update")
-	@Consumes({ "application/json" })
-	public void updateUser(@FormParam("name") String name, @FormParam("lastname") String lastname,
-			@FormParam("email") String email, @FormParam("phoneNumber") String phoneNumber, @FormParam("street") String street,
-			@FormParam("state") String state,@FormParam("zipcode") String zipcode, @FormParam("city") String city,
-			@FormParam("pic") File pic) {
+	// @POST
+	// @Path("/update")
+	// @Consumes({ "application/json" })
+	public void updateUser(String name, String lastname, String email, String phoneNumber, String street, String state,
+			String zipcode, String city, File pic) {
 
 		User user = findUser(email);
 
@@ -277,14 +265,15 @@ public class UserService {
 		// Ici, il faut cr�er le dossier sur le serveur pour d�poser sa photo
 
 	}
-	
+
 	public User findUserByToken(String token) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 		User user = null;
+		Activity activity = null;
 		try {
-			Criteria criteria = session.createCriteria(User.class);
+			Criteria criteria = session.createCriteria(Activity.class);
 
 			criteria.add(Restrictions.eqOrIsNull("token", token));
 
@@ -292,18 +281,20 @@ public class UserService {
 			// etc, et utiliser une cl� de reprise � chaque appel.
 			// inutilis� dans le cadre de ce projet.
 
-			user = (User) criteria.uniqueResult();
+			activity = (Activity) criteria.uniqueResult();
+			user = activity.getUser();
 		} catch (RuntimeException e) {
 			logger.error("RuntimeException in UserService/findUser : " + e.getMessage());
 		} finally {
 			session.close();
 		}
-		
+
 		return user;
 	}
-	
+
 	/**
 	 * Update of the user last activity in database.
+	 * 
 	 * @param user
 	 * @return
 	 */
@@ -327,7 +318,7 @@ public class UserService {
 		} finally {
 			session.close();
 		}
-		
+
 		return user;
 	}
 

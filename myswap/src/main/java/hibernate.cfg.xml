@@ -2,24 +2,25 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
                                          "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
- <session-factory>
-  <!-- local connection properties -->
-  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/myswap</property>
-  <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-  <property name="hibernate.connection.username">root</property>
-  <property name="hibernate.connection.password">Celenus83*</property>
-  <property name="hibernate.connection.pool_size">10</property>
-  <!-- dialect for MySQL -->
-  <property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
-  <property name="hibernate.show_sql">true</property>
-  <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
-  <property name="cache.use_query_cache">false</property>
-  <mapping class="com.myswap.models.Account"/>
-  <mapping class="com.myswap.models.Adress"/>
-  <mapping class="com.myswap.models.Comment"/>
-  <mapping class="com.myswap.models.Deal"/>
-  <mapping class="com.myswap.models.Item"/>
-  <mapping class="com.myswap.models.SwapObject"/>
-  <mapping class="com.myswap.models.User"/>
- </session-factory>
+	<session-factory>
+		<!-- local connection properties -->
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/myswap</property>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">Celenus83*</property>
+		<property name="hibernate.connection.pool_size">10</property>
+		<!-- dialect for MySQL -->
+		<property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
+		<property name="hibernate.show_sql">true</property>
+		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+		<property name="cache.use_query_cache">false</property>
+		<mapping class="com.myswap.models.Account" />
+		<mapping class="com.myswap.models.Adress" />
+		<mapping class="com.myswap.models.Activity" />
+		<mapping class="com.myswap.models.Comment" />
+		<mapping class="com.myswap.models.Deal" />
+		<mapping class="com.myswap.models.Item" />
+		<mapping class="com.myswap.models.SwapObject" />
+		<mapping class="com.myswap.models.User" />
+	</session-factory>
 </hibernate-configuration>

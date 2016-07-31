@@ -1,14 +1,5 @@
 package com.myswap.services;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -18,14 +9,13 @@ import org.hibernate.criterion.Restrictions;
 
 import com.myswap.models.Comment;
 import com.myswap.models.User;
-import com.myswap.utilitaires.Secured;
 
 /**
  * Classe effectuant le CRUD pour les objets de type Comment.
  * 
  */
-@Path("comment")
-@Secured
+//@Path("comment")
+//@Secured
 public class CommentService {
 
 	private Session session;
@@ -37,10 +27,10 @@ public class CommentService {
 	private UserService userService = new UserService();
 	public void setUserService(UserService userService){this.userService = userService;}
 
-	@GET
-	@Path("/get/{id}")
-	@Produces({ "application/json" })
-	public Comment findComment(@PathParam("id") long id) {
+//	@GET
+//	@Path("/get/{id}")
+//	@Produces({ "application/json" })
+	public Comment findComment(long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -67,12 +57,11 @@ public class CommentService {
 	 * M�thode de test d'insertion en cascade via cascade=CascadeType.PERSIST
 	 * 
 	 */
-	@POST
-//	@Path("/insert/{label}/{mark}/{noting}/{noted}")
-	@Path("/insert")
-	@Consumes({"application/json"})
-	public long insertComment(@FormParam("label") String label, @FormParam("mark") Integer mark,
-			@FormParam("noting") String notingId, @FormParam("noted") String notedId) {
+//	@POST
+//	@Path("/insert")
+//	@Consumes({"application/json"})
+	public long insertComment(String label, Integer mark,
+			 String notingId, String notedId) {
 
 		Comment comment = new Comment();
 		comment.setLabel(label);
@@ -112,9 +101,9 @@ public class CommentService {
 	 * M�thode pour retour sur l'insertion en cascade.
 	 * 
 	 */
-	@DELETE
-	@Path("/delete/{id}")
-	public void deleteComment(@PathParam("id") long id) {
+//	@DELETE
+//	@Path("/delete/{id}")
+	public void deleteComment(long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -141,15 +130,12 @@ public class CommentService {
 	/**
 	 * Update de la classe comment.
 	 */
-	@POST
-//	@Path("/update/{id}/{label}/{mark}/{noting}/{noted}")
-	@Path("/update")
-	@Consumes({ "application/json" })
-	public void updateComment(@FormParam("id") Long id, @FormParam("label") String label, @FormParam("mark") Integer mark,
-			@FormParam("noting") String notingId, @FormParam("noted") String notedId) {
+//	@POST
+//	@Path("/update")
+//	@Consumes({ "application/json" })
+	public void updateComment(Long id, String label, Integer mark,
+			String notingId, String notedId) {
 
-		
-		
 		Comment comment = findComment(id);
 		comment.setLabel(label);
 		comment.setMark(mark);
