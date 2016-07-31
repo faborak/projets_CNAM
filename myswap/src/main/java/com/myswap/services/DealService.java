@@ -2,15 +2,6 @@ package com.myswap.services;
 
 import java.util.Set;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -21,14 +12,13 @@ import org.hibernate.criterion.Restrictions;
 import com.myswap.models.Deal;
 import com.myswap.models.SwapObject;
 import com.myswap.models.User;
-import com.myswap.utilitaires.Secured;
 
 /**
  * Classe effectuant le CRUD pour les objets de type Deal.
  * 
  */
-@Path("deal")
-@Secured
+//@Path("deal")
+//@Secured
 public class DealService {
 
 	private static Logger logger = Logger.getLogger(DealService.class);
@@ -46,10 +36,10 @@ public class DealService {
 	private ItemService itemService = new ItemService();
 	public void setItemService(ItemService itemService){this.itemService = itemService;}
 
-	@GET
-	@Path("/get/{id}")
-	@Produces({ "application/json" })
-	public Deal findDeal(@PathParam("id") long id) {
+//	@GET
+//	@Path("/get/{id}")
+//	@Produces({ "application/json" })
+	public Deal findDeal(long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -74,20 +64,17 @@ public class DealService {
 
 		return deal;
 
-		// faire un retour via Response ?
-//		 return Response.status(200).entity(deal).build();
 	}
 
 	/**
 	 * Insertion d'un nouveau Deal.
 	 * 
 	 */
-	@POST
-//	@Path("/insert/{initator}/{proposed}/{status}/{swapObjects}")
-	@Path("/insert")
-	@Consumes({ "application/json" })
-	public long insertDeal(@FormParam("initator") String initatorId, @FormParam("proposed") String proposedId,
-			@FormParam("status") Integer status, @FormParam("swapObjects") Set<String> swapObjectsId) {
+//	@POST
+//	@Path("/insert")
+//	@Consumes({ "application/json" })
+	public long insertDeal(String initatorId, String proposedId,
+			Integer status, Set<String> swapObjectsId) {
 
 		Deal deal = new Deal();
 		
@@ -131,9 +118,9 @@ public class DealService {
 	 * M�thode pour retour sur l'insertion en cascade.
 	 * 
 	 */
-	@DELETE
-	@Path("/delete/{id}")
-	public void deleteDeal(@PathParam("id") long id) {
+//	@DELETE
+//	@Path("/delete/{id}")
+	public void deleteDeal(long id) {
 
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
@@ -161,12 +148,11 @@ public class DealService {
 	/**
 	 * Update de la classe deal.
 	 */
-	@POST
-//	@Path("/update/{id}/{initator}/{proposed}/{status}/{swapObjects}")
-	@Path("/update")
-	@Consumes({ "application/json" })
-	public void updateDeal(@FormParam("id") Long id, @FormParam("status") Integer status,
-			@FormParam("swapObjects") Set<String> swapObjectsId) {
+//	@POST
+//	@Path("/update")
+//	@Consumes({ "application/json" })
+	public void updateDeal(Long id, Integer status,
+			Set<String> swapObjectsId) {
 
 		Deal deal = findDeal(id);
 		deal.setStatus(status);

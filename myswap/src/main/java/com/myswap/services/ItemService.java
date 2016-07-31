@@ -7,15 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Set;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -26,35 +17,40 @@ import org.hibernate.criterion.Restrictions;
 import com.myswap.models.Deal;
 import com.myswap.models.Item;
 import com.myswap.models.User;
-import com.myswap.utilitaires.Secured;
 
 /**
  * La classe MethodeGestion utilise du Criteria.
  * 
  */
-@Path("item")
-@Secured
+// @Path("item")
+// @Secured
 public class ItemService {
 
 	private Session session;
 	private static Logger logger = Logger.getLogger(ItemService.class);
-	
+
 	/**
 	 * UserService.
 	 */
 	private UserService userService = new UserService();
-	public void setUserService(UserService userService){this.userService = userService;}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 
 	/**
 	 * DealService.
 	 */
 	private DealService dealService;
-	public void setDealService(DealService dealService){this.dealService = dealService;}
-	
-	@GET
-	@Path("/get/{id}")
-	@Produces({ "application/json" })
-	public Item findItem(@PathParam("id") long id) {
+
+	public void setDealService(DealService dealService) {
+		this.dealService = dealService;
+	}
+
+	// @GET
+	// @Path("/get/{id}")
+	// @Produces({ "application/json" })
+	public Item findItem(long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -71,8 +67,8 @@ public class ItemService {
 			item = (Item) criteria.uniqueResult();
 			// load the deals
 			item.getDeals().size();
-//			item.getOwner().getCommentsWriteds().size();
-//			item.getOwner().getCommentsOnUser().size();
+			// item.getOwner().getCommentsWriteds().size();
+			// item.getOwner().getCommentsOnUser().size();
 		} catch (RuntimeException e) {
 			logger.error("RuntimeException in ItemService/findItem : " + e.getMessage());
 		} finally {
@@ -85,19 +81,16 @@ public class ItemService {
 	 * Insertion d'un nouvel Item.
 	 * 
 	 */
-	@POST
-//	@Path("/insert/{name}/{dateCreation}/{dateModification}/{description}/{cost}/{user}/{pic}/{deals}")
-	@Path("/insert")
-	@Consumes({ "application/json" })
-	public long insertItem(@FormParam("name") String name, @FormParam("dateCreation") String dateCreation,
-			@FormParam("dateModification") String dateModification, @FormParam("description") String description,
-			@FormParam("cost") String cost, @FormParam("user") String userId, @FormParam("pic") File pic,
-			@FormParam("deals") Set<String> dealsId) {
+	// @POST
+	// @Path("/insert")
+	// @Consumes({ "application/json" })
+	public long insertItem(String name, String dateCreation, String dateModification, String description, String cost,
+			String userId, File pic, Set<String> dealsId) {
 
 		Item item = new Item();
-		
+
 		DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
-		
+
 		item.setName(name);
 		try {
 			item.setDateCreation(df.parse(dateCreation));
@@ -105,15 +98,15 @@ public class ItemService {
 		} catch (ParseException pe) {
 			logger.error("ParseException in ItemService/insertItem : " + pe.getMessage());
 		}
-		
+
 		item.setDescription(description);
 		item.setCost(Float.parseFloat(cost));
-		
+
 		User user = new User();
 		user = userService.findUser(userId);
-		
+
 		item.setOwner(user);
-		
+
 		for (String dealId : dealsId) {
 			Deal deal = new Deal();
 			deal = dealService.findDeal(Long.parseLong(dealId));
@@ -151,9 +144,9 @@ public class ItemService {
 	 * Suppression d'un Item en base.
 	 * 
 	 */
-	@DELETE
-	@Path("/delete/{id}")
-	public void deleteItem(@PathParam("id") long id) {
+	// @DELETE
+	// @Path("/delete/{id}")
+	public void deleteItem(long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -183,19 +176,16 @@ public class ItemService {
 	/**
 	 * Update de la classe item.
 	 */
-	@POST
-//	@Path("/update/{id}/{name}/{dateCreation}/{dateModification}/{description}/{cost}/{user}/{pic}/{deals}")
-	@Path("/update")
-	@Consumes({ "application/json" })
-	public void updateItem(@FormParam("id") Long id, @FormParam("name") String name, @FormParam("dateCreation") String dateCreation,
-			@FormParam("dateModification") String dateModification, @FormParam("description") String description,
-			@FormParam("cost") String cost, @FormParam("user") String userId, @FormParam("pic") File pic,
-			@FormParam("deals") Set<String> dealsId) {
+	// @POST
+	// @Path("/update")
+	// @Consumes({ "application/json" })
+	public void updateItem(Long id, String name, String dateCreation, String dateModification, String description,
+			String cost, String userId, File pic, Set<String> dealsId) {
 
 		Item item = findItem(id);
 
 		DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.FRENCH);
-		
+
 		item.setName(name);
 		try {
 			item.setDateCreation(df.parse(dateCreation));
@@ -203,15 +193,15 @@ public class ItemService {
 		} catch (ParseException pe) {
 			logger.error("ParseException in ItemService/insertItem : " + pe.getMessage());
 		}
-		
+
 		item.setDescription(description);
 		item.setCost(Float.parseFloat(cost));
-		
+
 		User user = new User();
 		user = userService.findUser(userId);
-		
+
 		item.setOwner(user);
-		
+
 		for (String dealId : dealsId) {
 			Deal deal = new Deal();
 			deal = dealService.findDeal(Long.parseLong(dealId));
