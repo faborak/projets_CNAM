@@ -21,12 +21,14 @@ import org.hibernate.criterion.Restrictions;
 import com.myswap.models.Deal;
 import com.myswap.models.SwapObject;
 import com.myswap.models.User;
+import com.myswap.utilitaires.Secured;
 
 /**
  * Classe effectuant le CRUD pour les objets de type Deal.
  * 
  */
 @Path("deal")
+@Secured
 public class DealService {
 
 	private static Logger logger = Logger.getLogger(DealService.class);

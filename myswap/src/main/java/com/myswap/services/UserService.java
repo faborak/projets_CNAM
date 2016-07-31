@@ -2,7 +2,6 @@ package com.myswap.services;
 
 import java.io.File;
 
-import javax.json.Json;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -19,19 +18,17 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myswap.models.Account;
 import com.myswap.models.Adress;
 import com.myswap.models.User;
-import com.myswap.utilitaires.HibernateAwareObjectMapper;
+import com.myswap.utilitaires.Secured;
 
 /**
  * La classe MethodeGestion utilise du Criteria.
  * 
  */
 @Path("user")
+//@Secured
 public class UserService {
 
 	private static Logger logger = Logger.getLogger(UserService.class);
@@ -279,6 +276,59 @@ public class UserService {
 		// TODO
 		// Ici, il faut cr�er le dossier sur le serveur pour d�poser sa photo
 
+	}
+	
+	public User findUserByToken(String token) {
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		User user = null;
+		try {
+			Criteria criteria = session.createCriteria(User.class);
+
+			criteria.add(Restrictions.eqOrIsNull("token", token));
+
+			// pour la pagination, on peut ajouter criteria.setMaxResults(10),
+			// etc, et utiliser une cl� de reprise � chaque appel.
+			// inutilis� dans le cadre de ce projet.
+
+			user = (User) criteria.uniqueResult();
+		} catch (RuntimeException e) {
+			logger.error("RuntimeException in UserService/findUser : " + e.getMessage());
+		} finally {
+			session.close();
+		}
+		
+		return user;
+	}
+	
+	/**
+	 * Update of the user last activity in database.
+	 * @param user
+	 * @return
+	 */
+	public User updateActivity(User user) {
+		try {
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+
+			session.beginTransaction();
+
+			session.saveOrUpdate(user);
+			session.saveOrUpdate(user.getActivity());
+
+			session.getTransaction().commit();
+
+		} catch (RuntimeException e) {
+			if (session.getTransaction() != null) {
+				session.getTransaction().rollback();
+			}
+			logger.error("RuntimeException in UserService.updateActivity : " + e.getMessage());
+		} finally {
+			session.close();
+		}
+		
+		return user;
 	}
 
 }
