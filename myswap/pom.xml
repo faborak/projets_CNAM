@@ -10,15 +10,13 @@
 		Repository for Maven</name> <url>http://download.java.net/maven/2/</url> 
 		<layout>default</layout> </repository> </repositories> -->
 	<properties>
-		<jersey2.version>2.19</jersey2.version>
+		<jersey2.version>2.23.1</jersey2.version>
 		<version.oltu>1.0.2</version.oltu>
 		<version.spring>4.3.1.RELEASE</version.spring>
 		<version.jackson>2.8.1</version.jackson>
 	</properties>
 	<url>http://maven.apache.org</url>
-	<!-- The Basics -->
 	<dependencies>
-		<!-- dépendance avec Glassfish -->
 		<dependency>
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>javax.ws.rs-api</artifactId>
@@ -26,15 +24,7 @@
 			<!-- <scope>provided</scope> -->
 		</dependency>
 
-		<!-- the implementation of JAX-RS : Jersey 1 -->
-		<!-- <dependency> <groupId>com.sun.jersey</groupId> <artifactId>jersey-server</artifactId> 
-			<version>1.4</version> </dependency> <dependency> <groupId>com.sun.jersey</groupId> 
-			<artifactId>jersey-client</artifactId> <version>1.19.1</version> <scope>test</scope> 
-			</dependency> <dependency> <groupId>org.glassfish.jersey.media</groupId> 
-			<artifactId>jersey-media-multipart</artifactId> <version>2.17</version> </dependency> -->
-
 		<!-- Jersey 2 -->
-
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-servlet</artifactId>
@@ -64,18 +54,28 @@
 		</dependency>
 
 		<!-- gestion Oauth2 avec jersey -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.glassfish.jersey.security</groupId>
 			<artifactId>oauth2-client</artifactId>
-			<version>2.23.1</version>
+			<version>${jersey2.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.ext</groupId>
+			<artifactId>jersey-mvc-bean-validation</artifactId>
+			<version>${jersey2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.ext</groupId>
+			<artifactId>jersey-mvc-mustache</artifactId>
+			<version>${jersey2.version}</version>
+		</dependency> -->
 
 		<!-- JSON -->
-		 <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-jackson</artifactId>
-            <version>${jersey2.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+			<version>${jersey2.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
@@ -90,25 +90,11 @@
 			<groupId>com.fasterxml.jackson.jaxrs</groupId>
 			<artifactId>jackson-jaxrs-base</artifactId>
 			<version>${version.jackson}</version>
-		</dependency> 
+		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-hibernate4</artifactId>
 			<version>${version.jackson}</version>
-		</dependency> 
-
-		<!-- tests Oauth2 -->
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.11</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.jettison</groupId>
-			<artifactId>jettison</artifactId>
-			<version>1.3.7</version>
-			<!-- <scope>test</scope> -->
 		</dependency>
 
 		<!-- J2EE -->
@@ -117,6 +103,11 @@
 			<artifactId>javaee-web-api</artifactId>
 			<version>7.0</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>jsr250-api</artifactId>
+			<version>1.0</version>
 		</dependency>
 
 		<!-- persistance -->
@@ -141,35 +132,27 @@
 			<version>5.1.37</version>
 		</dependency>
 
+		<!-- log -->
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
 		</dependency>
+		
+
+		<!-- google api pour Oauth2 -->
 		<dependency>
-			<groupId>javax.annotation</groupId>
-			<artifactId>jsr250-api</artifactId>
-			<version>1.0</version>
+			<groupId>com.google.api-client</groupId>
+			<artifactId>google-api-client</artifactId>
+			<version>1.22.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.apis</groupId>
+			<artifactId>google-api-services-oauth2</artifactId>
+			<version>v2-rev114-1.22.0</version>
 		</dependency>
 
-		<!-- Oauth2 -->
-		<dependency>
-			<groupId>org.apache.oltu.oauth2</groupId>
-			<artifactId>org.apache.oltu.oauth2.common</artifactId>
-			<version>${version.oltu}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.oltu.oauth2</groupId>
-			<artifactId>org.apache.oltu.oauth2.authzserver</artifactId>
-			<version>${version.oltu}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.oltu.oauth2</groupId>
-			<artifactId>org.apache.oltu.oauth2.resourceserver</artifactId>
-			<version>${version.oltu}</version>
-		</dependency>
-
-		<!-- Spring : finalement inutilisé ? -->
+		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>

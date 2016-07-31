@@ -18,12 +18,14 @@ import org.hibernate.criterion.Restrictions;
 
 import com.myswap.models.Comment;
 import com.myswap.models.User;
+import com.myswap.utilitaires.Secured;
 
 /**
  * Classe effectuant le CRUD pour les objets de type Comment.
  * 
  */
 @Path("comment")
+@Secured
 public class CommentService {
 
 	private Session session;

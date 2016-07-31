@@ -41,6 +41,12 @@ public class User {
     private String lastname;
     public void setLastname(String p) {lastname = p;}
     public String getLastname() {return lastname;}
+    
+    @Column
+    @JsonIgnore
+    private String password;
+    public void setPassword(String p) {password = p;}
+    public String getPassword() {return password;}
 	  
 	/**
 	*  Photo de profil de l'utilisateur.
@@ -71,7 +77,6 @@ public class User {
 	private Set<Comment> commentsOnUser = new HashSet<Comment>();
 	public void addCommentsOnUser(Comment f) {f.setNoted(this); commentsOnUser.add(f);}
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//	@JsonIgnore
 	public Set<Comment> getCommentsOnUser() {return commentsOnUser;}
 	
 	/**
@@ -83,7 +88,6 @@ public class User {
 	private Set<SwapObject> wholeOfItems = new HashSet<SwapObject>();
 	public void addWholeOfItems(SwapObject f) {f.setOwner(this); wholeOfItems.add(f);}
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//	@JsonIgnore
 	public Set<SwapObject> getWholeOfItems() {return wholeOfItems;}
 	
 	/**
@@ -95,7 +99,6 @@ public class User {
 	private Set<Deal> dealsInitator = new HashSet<Deal>();
 	public void addDealsInitator(Deal f) {f.setInitiator(this); dealsInitator.add(f);}
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//	@JsonIgnore
 	public Set<Deal> getDealsInitator() {return dealsInitator;}
 	
 	/**
@@ -107,7 +110,6 @@ public class User {
 	private Set<Deal> dealsProposed = new HashSet<Deal>();
 	public void addDealsProposed(Deal f) {f.setProposed(this); dealsProposed.add(f);}
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//	@JsonIgnore
 	public Set<Deal> getDealsProposed() {return dealsProposed;}
 	  
 	 /**
@@ -118,7 +120,6 @@ public class User {
 	 private Account account;
 	 public void setAccount(Account a) {account = a;}
 	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//	 @JsonIgnore
 	 public Account getAccount() {return this.account;}
       
 	  /**
@@ -129,8 +130,17 @@ public class User {
 	 private Adress adress;
 	 public void setAdress(Adress a) {adress = a;}
 	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//	 @JsonIgnore
 	 public Adress getAdress() {return this.adress;} 
 	  
+	 /**
+	 * L'activité de l'utilisateur.   
+	 */ 
+	 @OneToOne(mappedBy = "user")
+	 @JsonBackReference
+	 private Activity activity;
+	 public void setActivity(Activity a) {activity = a;}
+	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	 public Activity getActivity() {return this.activity;}
+	 
 	 public  User() {} 
 }

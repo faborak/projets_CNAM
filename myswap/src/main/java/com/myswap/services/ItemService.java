@@ -26,12 +26,14 @@ import org.hibernate.criterion.Restrictions;
 import com.myswap.models.Deal;
 import com.myswap.models.Item;
 import com.myswap.models.User;
+import com.myswap.utilitaires.Secured;
 
 /**
  * La classe MethodeGestion utilise du Criteria.
  * 
  */
 @Path("item")
+@Secured
 public class ItemService {
 
 	private Session session;
