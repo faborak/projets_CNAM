@@ -34,6 +34,22 @@ public class Account {
     private String email;
     public void setEmail(String n) {email = n;}
     public String getEmail() {return email;}
+    
+	/**
+	 * Email verifié par le user ou non.
+	 */
+	@Column
+    private boolean emailchecked;
+    public void setEmailChecked(boolean ec) {emailchecked = ec;}
+    public boolean getEmailChecked() {return emailchecked;}
+    
+	/**
+	 * Telephone verifié par le user ou non.
+	 */
+	@Column
+    private boolean phonechecked;
+    public void setPhoneChecked(boolean pc) {phonechecked = pc;}
+    public boolean getPhoneChecked() {return phonechecked;}
 	
 	/**
 	 * user auquel est rattaché l'account.

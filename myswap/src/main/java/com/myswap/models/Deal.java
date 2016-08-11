@@ -1,5 +1,6 @@
 package com.myswap.models;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,7 +14,6 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -41,6 +41,22 @@ public class Deal {
 	private Integer status;
 	public void setStatus(Integer n) {status = n;}
 	public Integer getStatus() {return status;}
+	
+	/** Propri�t� du Deal.
+	 * 
+	 */
+	@Column(name = "date_creation")
+	private Date dateCreation;
+	public void setDateCreation(Date d) {dateCreation = d;}
+	public Date getDateCreation() {return dateCreation;}
+	
+	/** Propri�t� du Deal.
+	 * 
+	 */
+	@Column(name = "date_modification")
+	private Date dateModification;
+	public void setDateModification(Date d) {dateModification = d;}
+	public Date getDateModification() {return dateModification;}
 
 	/**
 	 * user Initiateur du Deal.

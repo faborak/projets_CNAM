@@ -1,0 +1,49 @@
+package com.myswap.models;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+@Entity
+@Inheritance(strategy=InheritanceType.JOINED)
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id_picture")
+@JsonAutoDetect
+public abstract class Picture implements Serializable{
+	/**
+	 * Id du Comment. ClÃ© primaire dans la table Comment. 
+	 */
+	@Id
+	@GeneratedValue
+	@Column(name = "id_picture")
+	private Long IdComment;
+	public void setIdComment(Long i) {IdComment = i;}
+	public Long getIdComment() {return IdComment;}
+
+	/**
+	 * Nom de la photo. 
+	 */
+	@Column
+	String name;
+	public void setName(String n) {name= n;}
+	public String getName() {return name;}
+
+
+	/**
+	 * lien de la photo. 
+	 */
+	@Column
+	String link;
+	public void setLink(String n) {link= n;}
+	public String getLink() {return link;}
+
+
+}

@@ -65,7 +65,6 @@ public class User {
 	private Set<Comment> commentsWrited = new HashSet<Comment>();
 	public void addCommentsWrited(Comment f) {f.setNoting(this); commentsWrited.add(f);}
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//	@JsonIgnore
 	public Set<Comment> getCommentsWriteds() {return commentsWrited;}
 	
 	/**
@@ -142,5 +141,27 @@ public class User {
 	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	 public Activity getActivity() {return this.activity;}
 	 
+	 /**
+	 * Les infos de l'utilisateur.   
+	 */ 
+	 @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	 @JsonBackReference
+	 private Info info;
+	 public void setInfo(Info a) {info = a;}
+	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	 public Info getInfo() {return this.info;}
+		
+	 /**
+	  * Les Pictures de l'utilisateur.
+	  * La responsabilitÃ© du mappage est confiÃ©e Ã  Picture, via l'annotation mappedBy.  
+	  */
+	 @OneToMany(fetch = FetchType.EAGER, mappedBy="owner")
+	 @JsonBackReference
+	 private Set<UserPicture> userPictures = new HashSet<UserPicture>();
+	 public void addUserPictures(UserPicture f) {f.setOwner(this); userPictures.add(f);}
+ 	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	 public Set<UserPicture> getUserPictures () {return userPictures ;}
+		
 	 public  User() {} 
+	 
 }
