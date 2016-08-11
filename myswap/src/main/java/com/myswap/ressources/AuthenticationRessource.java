@@ -22,7 +22,7 @@ public class AuthenticationRessource {
 
 	@POST
 	@Produces("application/json")
-	@Consumes("application/x-www-form-urlencoded")
+	@Consumes("application/json")
 	@Path("/authenticate")
 	public Response authenticateUser(@FormParam("mail") String mail, @FormParam("password") String password) {
 

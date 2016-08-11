@@ -17,8 +17,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -88,7 +90,7 @@ public class SwapObject {
     @JsonManagedReference
 	private User owner;
 	public void setOwner(User u) {owner = u;}
-//	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	public User getOwner() {return owner;}
 	
 	/**
@@ -100,7 +102,18 @@ public class SwapObject {
               inverseJoinColumns = @JoinColumn(name = "id_deal"))
 	@JsonManagedReference
 	private Set<Deal> deals = new HashSet<Deal>();
-//	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	public Set<Deal> getDeals() {return deals;}
 	public void addDeal(Deal d) {deals.add(d);}
+	
+	/**
+	 * Les Pictures de l'item.
+	 * La responsabilitÃ© du mappage est confiÃ©e Ã  ItemPicture, via l'annotation mappedBy.  
+	 */
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="itemRepresented")
+	@JsonBackReference
+	private Set<ItemPicture> itemPictures = new HashSet<ItemPicture>();
+	public void addItemPictures(ItemPicture f) {f.setItemRepresented(this); itemPictures.add(f);}
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	public Set<ItemPicture> getItemPictures () {return itemPictures ;}
 }	
