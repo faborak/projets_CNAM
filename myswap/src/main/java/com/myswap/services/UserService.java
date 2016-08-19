@@ -65,7 +65,7 @@ public class UserService {
 		try {
 			Criteria criteria = session.createCriteria(User.class);
 
-			criteria.add(Restrictions.eqOrIsNull("id", id));
+			criteria.add(Restrictions.eqOrIsNull("id_user", id));
 
 			// pour la pagination, on peut ajouter criteria.setMaxResults(10),
 			// etc, et utiliser une cl� de reprise � chaque appel.

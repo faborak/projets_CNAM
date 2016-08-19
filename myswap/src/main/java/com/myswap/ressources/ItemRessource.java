@@ -13,6 +13,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import com.myswap.models.Item;
+import com.myswap.services.ItemService;
 import com.myswap.utilitaires.Secured;
 
 /**
@@ -20,14 +21,13 @@ import com.myswap.utilitaires.Secured;
  * 
  */
 @Path("item")
-@Secured
 public class ItemRessource {
 
 	/**
 	 * ItemService.
 	 */
-	private ItemRessource itemService = new ItemRessource();
-	public void setItemService(ItemRessource itemService){this.itemService = itemService;}
+	private ItemService itemService = new ItemService();
+	public void setItemService(ItemService itemService){this.itemService = itemService;}
 
 	@GET
 	@Path("/get/{id}")
@@ -44,6 +44,7 @@ public class ItemRessource {
 	@POST
 	@Path("/insert")
 	@Consumes({ "application/json" })
+	@Secured
 	public long insertItem(@FormParam("name") String name, @FormParam("dateCreation") String dateCreation,
 			@FormParam("dateModification") String dateModification, @FormParam("description") String description,
 			@FormParam("cost") String cost, @FormParam("user") String userId, @FormParam("pic") File pic,
@@ -59,6 +60,7 @@ public class ItemRessource {
 	 */
 	@DELETE
 	@Path("/delete/{id}")
+	@Secured
 	public void deleteItem(@PathParam("id") long id) {
 		itemService.deleteItem(id);
 
@@ -70,6 +72,7 @@ public class ItemRessource {
 	@POST
 	@Path("/update")
 	@Consumes({ "application/json" })
+	@Secured
 	public void updateItem(@FormParam("id") Long id, @FormParam("name") String name, @FormParam("dateCreation") String dateCreation,
 			@FormParam("dateModification") String dateModification, @FormParam("description") String description,
 			@FormParam("cost") String cost, @FormParam("user") String userId, @FormParam("pic") File pic,

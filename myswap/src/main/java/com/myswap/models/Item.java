@@ -18,5 +18,6 @@ public class Item extends SwapObject {
 	public void setCost(Float c) {cost = c;}
 	public Float getCost() {return cost;}
 	
+	public Item() {}
 
 }

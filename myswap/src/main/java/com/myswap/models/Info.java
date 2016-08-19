@@ -46,7 +46,6 @@ public class Info {
 	* user auquel sont rattachées les infos.
 	*/
     @OneToOne (cascade=CascadeType.PERSIST)
-
 	@JoinColumn (name="id_user")
     @JsonManagedReference
 	private User user;

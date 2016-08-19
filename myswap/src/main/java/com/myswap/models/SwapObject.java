@@ -116,4 +116,6 @@ public class SwapObject {
 	public void addItemPictures(ItemPicture f) {f.setItemRepresented(this); itemPictures.add(f);}
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	public Set<ItemPicture> getItemPictures () {return itemPictures ;}
+	
+	public  SwapObject() {} 
 }	

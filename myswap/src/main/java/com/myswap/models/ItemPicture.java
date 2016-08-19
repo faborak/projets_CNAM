@@ -9,7 +9,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@PrimaryKeyJoinColumn(name="id")
+@PrimaryKeyJoinColumn(name="id_picture")
 public class ItemPicture extends Picture {
 
 /**

@@ -12,15 +12,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Restrictions;
 
 import com.myswap.models.Deal;
-import com.myswap.models.SwapObject;
-import com.myswap.models.User;
+import com.myswap.services.DealService;
 import com.myswap.utilitaires.Secured;
 
 /**
@@ -37,8 +32,8 @@ public class DealRessource {
 	/**
 	 * DealService.
 	 */
-	private DealRessource dealService = new DealRessource();
-	public void setDealService(DealRessource dealService){this.dealService = dealService;}
+	private DealService dealService = new DealService();
+	public void setDealService(DealService dealService){this.dealService = dealService;}
 	
 	@GET
 	@Path("/get/{id}")

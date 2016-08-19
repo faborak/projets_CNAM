@@ -144,7 +144,7 @@ public class User {
 	 /**
 	 * Les infos de l'utilisateur.   
 	 */ 
-	 @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	 @OneToOne(mappedBy = "user")
 	 @JsonBackReference
 	 private Info info;
 	 public void setInfo(Info a) {info = a;}

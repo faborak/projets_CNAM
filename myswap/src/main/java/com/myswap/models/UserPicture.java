@@ -9,14 +9,14 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@PrimaryKeyJoinColumn(name="id")
+@PrimaryKeyJoinColumn(name="id_picture")
 public class UserPicture extends Picture {
+	
 
-/**
+	/**
 	 * pour la sauvegarde en cascade, on utilise JPA (javax.peristance) et non pas hibernate
-	 * Toutes les cascades sont sous la responsabilitÃ© de l'objet Ã©quipe
 	 * 
-*/
+	 */
     @ManyToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_user")
     @JsonManagedReference
