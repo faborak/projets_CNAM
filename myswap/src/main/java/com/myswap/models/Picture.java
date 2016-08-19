@@ -24,9 +24,9 @@ public abstract class Picture implements Serializable{
 	@Id
 	@GeneratedValue
 	@Column(name = "id_picture")
-	private Long IdComment;
-	public void setIdComment(Long i) {IdComment = i;}
-	public Long getIdComment() {return IdComment;}
+	private Long idPicture;
+	public void setIdPicture(Long i) {idPicture = i;}
+	public Long getIdPicture() {return idPicture;}
 
 	/**
 	 * Nom de la photo. 
@@ -41,9 +41,9 @@ public abstract class Picture implements Serializable{
 	 * lien de la photo. 
 	 */
 	@Column
-	String link;
-	public void setLink(String n) {link= n;}
-	public String getLink() {return link;}
+	String path;
+	public void setPath(String n) {path= n;}
+	public String getPath() {return path;}
 
 
 }

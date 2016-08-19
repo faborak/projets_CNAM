@@ -1,12 +1,9 @@
 package com.myswap.services;
 
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.Date;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
@@ -16,9 +13,8 @@ import org.hibernate.cfg.Configuration;
 
 import com.myswap.models.Activity;
 import com.myswap.models.User;
-import com.myswap.ressources.UserRessource;
 
-@Path("/authentication")
+//@Path("/authentication")
 public class AuthenticationService{
 
 	public static final String CLIENT_ID = "853972608044-m14mdhc3q2k437nfqbob5hti7div33u6.apps.googleusercontent.com";
@@ -27,15 +23,15 @@ public class AuthenticationService{
 	/**
 	 * Le UserService.
 	 */
-	UserRessource userRessource = new UserRessource();
+	UserService userService = new UserService();
 	Session session;
 
 	private static Logger logger = Logger.getLogger(AuthenticationService.class);
 
-	 @POST
-	 @Produces("application/json")
-	 @Consumes("application/x-www-form-urlencoded")
-	 @Path("/authenticate")
+//	 @POST
+//	 @Produces("application/json")
+//	 @Consumes("application/x-www-form-urlencoded")
+//	 @Path("/authenticate")
 	public Response authenticateUser(String mail, String password) {
 
 		try {
@@ -57,7 +53,7 @@ public class AuthenticationService{
 	}
 
 	private User authenticate(String mail, String password, User user) throws Exception {
-		user = userRessource.findUser(mail);
+		user = userService.findUser(mail);
 		if (user == null) {
 			logger.debug("User non trouve à l'authentication par mail/password : ");
 			throw new Exception();
@@ -126,12 +122,12 @@ public class AuthenticationService{
 	 * @return la chaine, qui sert de token simple.
 	 */
 	private static String generateToken() {
-		String chars = "a";
-		StringBuilder pass = new StringBuilder(30);
-		for (int x = 0; x < 30; x++) {
-			int i = (int) (Math.random() * chars.length());
-			pass.append(chars.charAt(i));
-		}
-		return pass.toString();
+		final String AB = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+		SecureRandom rnd = new SecureRandom();
+		StringBuilder sb = new StringBuilder(30);
+		   for( int i = 0; i < 30; i++ ) 
+			      sb.append( AB.charAt( rnd.nextInt(AB.length()) ) );
+			   return sb.toString();
+//		return UUID.randomUUID().toString();
 	}
 }

@@ -11,9 +11,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import org.apache.log4j.Logger;
-import org.hibernate.Session;
-
 import com.myswap.models.User;
 import com.myswap.services.UserService;
 import com.myswap.utilitaires.Secured;
@@ -23,7 +20,6 @@ import com.myswap.utilitaires.Secured;
  * 
  */
 @Path("user")
-@Secured
 public class UserRessource {
 
 	UserService userService = new UserService();
@@ -52,6 +48,7 @@ public class UserRessource {
 	// @Path("/insert/{name}/{lastname}/{email}/{phoneNumber}/{street}/{state}/{zipcode}/{city}/{pic}")
 	@Path("/insert")
 	@Consumes({ "application/json" })
+	@Secured
 	public long insertUser(@FormParam("name") String name, @FormParam("lastname") String lastname,
 			@FormParam("email") String email, @FormParam("phoneNumber") String phoneNumber,
 			@FormParam("street") String street, @FormParam("state") String state, @FormParam("zipcode") String zipcode,
@@ -66,6 +63,7 @@ public class UserRessource {
 	 */
 	@DELETE
 	@Path("/delete/{id}")
+	@Secured
 	public void deleteUser(long id) {
 		
 		userService.deleteUser(id);
@@ -78,6 +76,7 @@ public class UserRessource {
 	@POST
 	@Path("/update")
 	@Consumes({ "application/json" })
+	@Secured
 	public void updateUser(@FormParam("name") String name, @FormParam("lastname") String lastname,
 			@FormParam("email") String email, @FormParam("phoneNumber") String phoneNumber,
 			@FormParam("street") String street, @FormParam("state") String state, @FormParam("zipcode") String zipcode,

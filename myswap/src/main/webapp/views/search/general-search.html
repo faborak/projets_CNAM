@@ -1,0 +1,39 @@
+<p>ng-view general-search .</p>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="input-group">
+          <input type="text" class="form-control" aria-label="..." placeholder="Chercher un objet">
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catégorie <span class="caret"></span></button>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><a href="#">Catégorie</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Separated link</a></li>
+            </ul>
+          </div>
+          <!-- /btn-group -->
+        </div>
+        <!-- /input-group -->
+      </div>
+      <!-- /.col-lg-6 -->
+    </div>
+    <!-- /.row -->
+
+<!--<fieldset>
+  <input ng-model="data.keyword" />
+</fieldset>
+<select ng-model="data.selectedCategory" ng-options="category.name for category in categories">
+  <option value="">Sélectionnez une catégorie</option>
+</select>
+<td><button ng-click="rechercher()" ng-disabled="data.selectedCategory.$invalid || data.keyword.$invalid">Rechercher</button></td>-->
+
+        <table>
+            <tr ng-repeat="a in itemsfinal()" id="listeItems">
+                <td><label>{{a.name}} </label>
+                    <label>{{a.description}} {{a.cost}} {{a.owner.name}}</label></td>
+                <td><button ng-click="detail(a.IdSwapObjet)">Afficher detail</button></td>
+            </tr>
+        </table>

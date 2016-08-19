@@ -9,9 +9,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import org.apache.log4j.Logger;
-import org.hibernate.Session;
-
 import com.myswap.models.Comment;
 import com.myswap.services.CommentService;
 import com.myswap.utilitaires.Secured;

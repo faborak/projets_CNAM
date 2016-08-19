@@ -1,0 +1,32 @@
+<div ng-controller="SwapListCtrl">
+
+    <p>Suivez vos Swaps en cours.</p>
+
+    <div class="row">
+        <!-- /.col-lg-6 -->
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="text" ng-model="data.search" name="rechercheSwaps" class="form-control" placeholder="Entrer votre recherche ici">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Go!</button>
+                </span>
+            </div>
+            <!-- /input-group -->
+        </div>
+        <!-- /.col-lg-6 -->
+    </div>
+
+    <table>
+        <tr ng-repeat="a in swapsfinal()" id="listeSwaps">
+            <td><strong>{{a.status}}</strong></td>
+            </br>
+            <td><label>{{a.initiateur.name}} {{a.initiateur.lastname}} </label>
+                <!--<span>{{a.initiateur.pic}}-->
+                <!--<img ng-src="{{a.listItems.get[1].pics[1]}}" border="0" /> -->
+                <!--<span>{{a.proposed.pic}}-->
+                <label>{{a.proposed.name}} {{a.proposed.lastname}}</label></td>
+            <td><button ng-click="detail(a.id)">Afficher detail</button></td>
+        </tr>
+    </table>
+
+</div>

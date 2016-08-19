@@ -1,0 +1,35 @@
+<div ng-controller="PicsCtrl">
+
+    <section id="menu" class="div-top-left">
+        <div class="list-group">
+            <a href="#!/profile-self" class="list-group-item active">
+                <h4 class="list-group-item-heading">Modifier le profil</h4>
+                <p class="list-group-item-text"></p>
+            </a>
+            <a href="#!/profile-pics" class="list-group-item active">
+                <h4 class="list-group-item-heading">Photos et vidéos</h4>
+                <p class="list-group-item-text"></p>
+            </a>
+            <a href="#!/profile-comments" class="list-group-item active">
+                <h4 class="list-group-item-heading">Commentaires</h4>
+                <p class="list-group-item-text"></p>
+            </a>
+        </div>
+    </section>
+
+
+    <section id="form_user_pics" class="div-center-content">
+
+        <table>
+            <tr ng-repeat="src in pics()" id="listeItems">
+                <img ng-src="{{src}}" alt="Description" />
+                <td><button ng-click="supprimer(src)">Supprimer</button></td>
+            </tr>
+        </table>
+
+        <input type=file id=fichier name=fichier/>
+        <button ng-click=ajouter()>Ajouter</button>
+
+    </section>
+
+</div>

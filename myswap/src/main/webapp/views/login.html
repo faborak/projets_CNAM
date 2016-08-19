@@ -1,0 +1,50 @@
+<div ng-controller="loginCtrl">
+
+    <div id="loginview" ng-if="data.login">
+        <div class="g-signin2" data-onsuccess="onSignIn">bouton connection Google</div>
+        </br>
+        <label>OR</label>
+        </br>
+        <tr>
+            <td><input ng-model="data.user.mail" type="email" name="user_email" placeholder=" Email " /></td>
+            <td><span ng-show="data.user.mail.$invalid ">Le format de l'email n'est pas valide.</span> </td>
+            <br>
+            <td><input ng-model="data.user.password " type="password " placeholder="Mot de passe" /></td>
+            </br>
+            <td><button ng-click="authorize()" ng-disabled="data.user.mail.$invalid ">login</button></td>
+
+            </br>
+            <td><label>Vous n'avez pas de compte ?</label></td></br>
+            <td><button ng-click="pageInscription()">Inscription</button></td>
+        </tr>
+    </div>
+    <div id="creationview" ng-if="data.inscription">
+        <tr>
+            <td>Inscription par Google. </td>
+            <br>
+            </br>
+            <td>Inscription par Facebook</td>
+            <br>
+            <td><button ng-click="pageCreation()">Inscription par mail</button></td>
+        </tr>
+    </div>
+        <div id="inscription" ng-if="data.creation">
+        <tr>
+            <td><input ng-model="data.user.nom" type="name" name="user_name" placeholder="Nom"/></td>
+            <td><input ng-model="data.user.prenom" type="lastname" name="user_lastname" placeholder="Prenom" ></td>
+            <td><input ng-model="data.user.street" type="name" name="user_name" placeholder="N° de rue et rue" ></td>
+            <td><input ng-model="data.user.state" type="prenom" name="user_prenom" placeholder="région" ></td>
+            <td><input ng-model="data.user.zipcode" type="prenom" name="user_prenom" placeholder="code postal" ></td>
+            <td><input ng-model="data.user.city" type="prenom" name="user_prenom" placeholder="ville" ></td>
+            <td><input ng-model="data.user.mail" type="email" name="user_email" placeholder="Email"/></td>
+            <td><span ng-show="data.user.mail.$invalid ">Le format de l'email n'est pas valide.</span> </td>
+            <br>
+            <td><input ng-model="data.user.password " type="password " placeholder="Mot de passe" /></td>
+            </br>
+            <td><button ng-click="authorize()" ng-disabled="data.user.mail.$invalid ">login</button></td>
+            </br>
+            <td><button ng-click="creationUser()">Inscription</button></td></br>
+            <td><span ng-show="data.creation.error.existingmail">Impossible de creer un nouveau compte avec mail.</span> </td>
+        </tr>
+    </div>
+</div>
