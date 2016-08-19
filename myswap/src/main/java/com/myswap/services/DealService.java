@@ -10,6 +10,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
 import com.myswap.models.Deal;
+import com.myswap.models.Status;
 import com.myswap.models.SwapObject;
 import com.myswap.models.User;
 
@@ -17,8 +18,6 @@ import com.myswap.models.User;
  * Classe effectuant le CRUD pour les objets de type Deal.
  * 
  */
-//@Path("deal")
-//@Secured
 public class DealService {
 
 	private static Logger logger = Logger.getLogger(DealService.class);
@@ -36,9 +35,6 @@ public class DealService {
 	private ItemService itemService = new ItemService();
 	public void setItemService(ItemService itemService){this.itemService = itemService;}
 
-//	@GET
-//	@Path("/get/{id}")
-//	@Produces({ "application/json" })
 	public Deal findDeal(long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
@@ -70,11 +66,8 @@ public class DealService {
 	 * Insertion d'un nouveau Deal.
 	 * 
 	 */
-//	@POST
-//	@Path("/insert")
-//	@Consumes({ "application/json" })
-	public long insertDeal(String initatorId, String proposedId,
-			Integer status, Set<String> swapObjectsId) {
+	public Deal insertDeal(String initatorId, String proposedId,
+			Status status, Set<String> swapObjectsId) {
 
 		Deal deal = new Deal();
 		
@@ -111,15 +104,13 @@ public class DealService {
 			session.close();
 		}
 
-		return deal.getIdDeal();
+		return deal;
 	}
 
 	/**
 	 * M�thode pour retour sur l'insertion en cascade.
 	 * 
 	 */
-//	@DELETE
-//	@Path("/delete/{id}")
 	public void deleteDeal(long id) {
 
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -142,17 +133,12 @@ public class DealService {
 		} finally {
 			session.close();
 		}
-
 	}
 
 	/**
 	 * Update de la classe deal.
 	 */
-//	@POST
-//	@Path("/update")
-//	@Consumes({ "application/json" })
-	public void updateDeal(Long id, Integer status,
-			Set<String> swapObjectsId) {
+	public Deal updateDeal(Long id, Status status,Set<String> swapObjectsId) {
 
 		Deal deal = findDeal(id);
 		deal.setStatus(status);
@@ -181,6 +167,7 @@ public class DealService {
 			session.close();
 		}
 
+		return deal;
 	}
 
 }

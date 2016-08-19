@@ -1,7 +1,5 @@
 package com.myswap.ressources;
 
-import java.io.File;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -10,8 +8,10 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.Response;
 
-import com.myswap.models.User;
 import com.myswap.services.UserService;
 import com.myswap.utilitaires.Secured;
 
@@ -20,6 +20,7 @@ import com.myswap.utilitaires.Secured;
  * 
  */
 @Path("user")
+@Secured
 public class UserRessource {
 
 	UserService userService = new UserService();
@@ -27,17 +28,26 @@ public class UserRessource {
 	@GET
 	@Path("/getByEmail/{email}")
 	@Produces({ "application/json" })
-	public User findUser(@PathParam("email") String email) {
+	public Response findUser(@PathParam("email") String email) {
 
-		return userService.findUser(email);
+		return Response.ok(userService.findUser(email)).build();
 	}
 
 	@GET
 	@Path("/getById/{id}")
 	@Produces({ "application/json" })
-	public User findUser(@PathParam("id") long id) {
+	public Response findUser(@PathParam("id") long id) {
 
-		return userService.findUser(id);
+		return Response.ok(userService.findUser(id)).build();
+	}
+	
+	@GET
+	@Path("/getCurrentUser")
+	@Consumes("application/x-www-form-urlencoded")
+	@Produces({ "application/json" })
+	public Response findUserByToken(@FormParam("token") String token) {
+	
+		return Response.ok(userService.findUserByToken(token)).build();
 	}
 
 	/**
@@ -45,16 +55,14 @@ public class UserRessource {
 	 * 
 	 */
 	@POST
-	// @Path("/insert/{name}/{lastname}/{email}/{phoneNumber}/{street}/{state}/{zipcode}/{city}/{pic}")
 	@Path("/insert")
 	@Consumes({ "application/json" })
-	@Secured
-	public long insertUser(@FormParam("name") String name, @FormParam("lastname") String lastname,
+	public Response insertUser(@FormParam("name") String name, @FormParam("lastname") String lastname,
 			@FormParam("email") String email, @FormParam("phoneNumber") String phoneNumber,
 			@FormParam("street") String street, @FormParam("state") String state, @FormParam("zipcode") String zipcode,
-			@FormParam("city") String city, @FormParam("pic") File pic) {
+			@FormParam("city") String city) {
 
-		return userService.insertUser(name, lastname, email, phoneNumber, street, state, zipcode, city, pic);
+		return Response.ok(userService.insertUser(name, lastname, email, phoneNumber, street, state, zipcode, city)).build();
 	}
 
 	/**
@@ -63,7 +71,6 @@ public class UserRessource {
 	 */
 	@DELETE
 	@Path("/delete/{id}")
-	@Secured
 	public void deleteUser(long id) {
 		
 		userService.deleteUser(id);
@@ -76,13 +83,38 @@ public class UserRessource {
 	@POST
 	@Path("/update")
 	@Consumes({ "application/json" })
-	@Secured
-	public void updateUser(@FormParam("name") String name, @FormParam("lastname") String lastname,
+	public Response updateUser(@FormParam("name") String name, @FormParam("lastname") String lastname,
 			@FormParam("email") String email, @FormParam("phoneNumber") String phoneNumber,
 			@FormParam("street") String street, @FormParam("state") String state, @FormParam("zipcode") String zipcode,
-			@FormParam("city") String city, @FormParam("pic") File pic) {
+			@FormParam("city") String city) {
 
-		userService.updateUser(name, lastname, email, phoneNumber, street, state, zipcode, city, pic);
+		return Response.ok(userService.updateUser(name, lastname, email, phoneNumber, street, state, zipcode, city)).build();
+	}
+	
+		/**
+	 * Insertion d'une nouvelle Picture.
+	 * 
+	 */
+	@POST
+	@Path("/insertPicture")
+	@Consumes({ "application/json" })
+	@Secured
+	public Response insertItem(@FormParam("picName") String picName, @FormParam("picPath") String picPath,
+			@FormParam("userId") long userId) {
+
+		return Response.ok(userService.addPicture(picName, picPath, userId)).build();
+
+	}
+	
+	/**
+	 * Suppression d'une Picture en base.
+	 * 
+	 */
+	@DELETE
+	@Path("/deletePicture/{id}")
+	@Secured
+	public void deletePicture(@PathParam("id") long pictureId) {
+		userService.deletePicture(pictureId);
 	}
 
 }

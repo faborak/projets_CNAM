@@ -1,9 +1,10 @@
 package com.myswap.services;
 
-import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -14,16 +15,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
+import com.myswap.models.Category;
 import com.myswap.models.Deal;
 import com.myswap.models.Item;
+import com.myswap.models.ItemPicture;
 import com.myswap.models.User;
 
 /**
  * La classe MethodeGestion utilise du Criteria.
  * 
  */
-// @Path("item")
-// @Secured
 public class ItemService {
 
 	private Session session;
@@ -47,9 +48,9 @@ public class ItemService {
 		this.dealService = dealService;
 	}
 
-	// @GET
-	// @Path("/get/{id}")
-	// @Produces({ "application/json" })
+	/**
+	* Methode de recherche par Id.
+	*/
 	public Item findItem(long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
@@ -59,10 +60,6 @@ public class ItemService {
 			Criteria criteria = session.createCriteria(Item.class);
 
 			criteria.add(Restrictions.eqOrIsNull("id", id));
-
-			// pour la pagination, on peut ajouter criteria.setMaxResults(10),
-			// etc, et utiliser une cl� de reprise � chaque appel.
-			// inutilis� dans le cadre de ce projet.
 
 			item = (Item) criteria.uniqueResult();
 			// load the deals
@@ -81,11 +78,8 @@ public class ItemService {
 	 * Insertion d'un nouvel Item.
 	 * 
 	 */
-	// @POST
-	// @Path("/insert")
-	// @Consumes({ "application/json" })
-	public long insertItem(String name, String dateCreation, String dateModification, String description, String cost,
-			String userId, File pic, Set<String> dealsId) {
+	public Item insertItem(String name, String dateCreation, String dateModification, String description, String cost,
+			String userId, Set<String> dealsId) {
 
 		Item item = new Item();
 
@@ -107,12 +101,13 @@ public class ItemService {
 
 		item.setOwner(user);
 
+		// normalement, un nouvel objet n'est dans aucun Deal !
 		for (String dealId : dealsId) {
 			Deal deal = new Deal();
 			deal = dealService.findDeal(Long.parseLong(dealId));
 			item.addDeal(deal);
 		}
-
+		
 		try {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
@@ -132,20 +127,16 @@ public class ItemService {
 			session.close();
 		}
 
-		// est-ce que Hibernate valorise l'id de l'item après son insertion ?
-		return item.getIdSwapObjet();
-
-		// TODO
-		// Ici, il faut cr�er le dossier sur le serveur pour d�poser sa photo
-
+		// Image 
+		//	addPicture(picName, picPath, item.getId);
+			
+		return item;
 	}
 
 	/**
 	 * Suppression d'un Item en base.
 	 * 
 	 */
-	// @DELETE
-	// @Path("/delete/{id}")
 	public void deleteItem(long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
@@ -168,19 +159,13 @@ public class ItemService {
 			session.close();
 		}
 
-		// TODO
-		// Suppression de l'image sur le serveur.
-
 	}
 
 	/**
 	 * Update de la classe item.
 	 */
-	// @POST
-	// @Path("/update")
-	// @Consumes({ "application/json" })
-	public void updateItem(Long id, String name, String dateCreation, String dateModification, String description,
-			String cost, String userId, File pic, Set<String> dealsId) {
+	public Item updateItem(Long id, String name, String dateCreation, String dateModification, String description,
+			String cost, String userId, Set<String> dealsId) {
 
 		Item item = findItem(id);
 
@@ -207,6 +192,9 @@ public class ItemService {
 			deal = dealService.findDeal(Long.parseLong(dealId));
 			item.addDeal(deal);
 		}
+		
+		// Image 
+		// addPicture(picName, picPath, itemId);
 
 		try {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -226,10 +214,146 @@ public class ItemService {
 		} finally {
 			session.close();
 		}
-
-		// TODO
-		// Ici, il faut modifier la photo en fonction de l'id
-
+		
+		return item;
+		
 	}
+	
+	/**
+	 * Remont�e des cat�gories d'Item.
+	 * 
+	 */
+	public List<Category> findCategories() {
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+
+		List<Category> categories = new ArrayList<Category>();
+		
+		try {
+			Criteria categoryList = session.createCriteria(Category.class);
+			for (Object category : categoryList.list()) {
+				categories.add((Category) category);
+			}
+
+		} catch (RuntimeException e) {
+			logger.error("RuntimeException in ItemService/getCategories : " + e.getMessage());
+		} finally {
+			session.close();
+		}
+
+		return categories;
+	}
+	
+	/**
+	 * Remont�e des cat�gories d'Item.
+	 * 
+	 */
+	public List<Item> findItemsByCriterias(String category, String costMin, String costMax, String name, long idReprise) {
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+
+		List<Item> items = new ArrayList<Item>();
+		
+		try {
+			Criteria criteria = session.createCriteria(Item.class);
+
+			if (category != null && category != "") {
+				criteria.add(Restrictions.eqOrIsNull("code", category));
+			}
+			
+			if (costMin != null && costMin != "") {
+				float costMinNumerique = Float.valueOf(costMin.trim()).floatValue();
+				criteria.add(Restrictions.ge("cost",costMinNumerique));
+			}
+			
+			if (costMax != null && costMax != "") {
+				float costMaxNumerique = Float.valueOf(costMax.trim()).floatValue();
+				criteria.add(Restrictions.le("cost", costMaxNumerique));
+			}
+			
+			if (name != null && name != "") {
+				criteria.add(Restrictions.eqOrIsNull("name", name));
+			}
+			
+			// limite le nombre de r�sultat par page
+			// criteria.setMaxResults(15);
+
+			items = (List<Item>) criteria.list();
+
+		} catch (RuntimeException e) {
+			logger.error("RuntimeException in ItemService/getCategories : " + e.getMessage());
+		} finally {
+			session.close();
+		}
+
+		return items;
+	}
+	
+	/**
+	 * Remont�e des cat�gories d'Item.
+	 * 
+	 */
+	public ItemPicture addPicture(String picName, String picPath, long itemId){
+	
+		Item item = new Item();
+		item = findItem(itemId);
+	
+		ItemPicture itemPicture = new ItemPicture();
+		itemPicture.setItemRepresented(item);
+		itemPicture.setName(picName);
+		itemPicture.setPath(picPath);
+		
+		try {
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+
+			session.beginTransaction();
+
+			session.saveOrUpdate(item);
+			session.save(itemPicture);
+
+			session.getTransaction().commit();
+
+		} catch (RuntimeException e) {
+			if (session.getTransaction() != null) {
+				session.getTransaction().rollback();
+			}
+			logger.error("RuntimeException in ItemService/updateItem : " + e.getMessage());
+		} finally {
+			session.close();
+		}
+		
+		return itemPicture;
+	}	
+	
+	/**
+	 * Delete des images dans la base.
+	 * 
+	 */
+	public void deletePicture(long pictureId){
+	
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+
+		// Suppression de la picture en base (delete en cascade sur Item)
+		try {
+
+			Criteria itemPicList = session.createCriteria(ItemPicture.class).add(Restrictions.eqOrIsNull("id_picture", pictureId));
+			for (Object itemPicture : itemPicList.list()) {
+				session.delete(itemPicture);
+			}
+
+			session.getTransaction().commit();
+		} catch (RuntimeException e) {
+			if (session.getTransaction() != null)
+				session.getTransaction().rollback();
+			logger.error("RuntimeException in ItemService/deleteItem : " + e.getMessage());
+		} finally {
+			session.close();
+		}
+	}	
 
 }

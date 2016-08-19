@@ -2,6 +2,9 @@ package com.myswap.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
 
@@ -18,6 +21,10 @@ public class Item extends SwapObject {
 	public void setCost(Float c) {cost = c;}
 	public Float getCost() {return cost;}
 	
-	public Item() {}
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn (name="category")
+	private Category category;
+	public void setCategory(Category g) {category = g;}
+	public Category getCategory() {return category;} 
 
 }

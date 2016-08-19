@@ -10,12 +10,11 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
-import com.myswap.models.Deal;
-import com.myswap.services.DealService;
 import com.myswap.utilitaires.Secured;
 
 /**
@@ -32,15 +31,15 @@ public class DealRessource {
 	/**
 	 * DealService.
 	 */
-	private DealService dealService = new DealService();
-	public void setDealService(DealService dealService){this.dealService = dealService;}
+	private DealRessource dealService = new DealRessource();
+	public void setDealService(DealRessource dealService){this.dealService = dealService;}
 	
 	@GET
 	@Path("/get/{id}")
 	@Produces({ "application/json" })
-	public Deal findDeal(@PathParam("id") long id) {
+	public Response findDeal(@PathParam("id") long id) {
 		
-		return dealService.findDeal(id);
+		return Response.ok(dealService.findDeal(id)).build();
 
 	}
 
@@ -51,10 +50,10 @@ public class DealRessource {
 	@POST
 	@Path("/insert")
 	@Consumes({ "application/json" })
-	public long insertDeal(@FormParam("initator") String initatorId, @FormParam("proposed") String proposedId,
+	public Response insertDeal(@FormParam("initator") String initatorId, @FormParam("proposed") String proposedId,
 			@FormParam("status") Integer status, @FormParam("swapObjects") Set<String> swapObjectsId) {
 
-		return dealService.insertDeal(initatorId, proposedId, status, swapObjectsId);
+		return Response.ok(dealService.insertDeal(initatorId, proposedId, status, swapObjectsId)).build();
 	}
 
 	/**
@@ -75,10 +74,10 @@ public class DealRessource {
 	@POST
 	@Path("/update")
 	@Consumes({ "application/json" })
-	public void updateDeal(@FormParam("id") Long id, @FormParam("status") Integer status,
+	public Response updateDeal(@FormParam("id") Long id, @FormParam("status") Integer status,
 			@FormParam("swapObjects") Set<String> swapObjectsId) {
 
-		dealService.updateDeal(id, status, swapObjectsId);
+		return Response.ok(dealService.updateDeal(id, status, swapObjectsId)).build();
 
 	}
 
