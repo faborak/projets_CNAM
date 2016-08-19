@@ -1,7 +1,5 @@
 package com.myswap.services;
 
-import java.io.File;
-
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -13,21 +11,17 @@ import com.myswap.models.Account;
 import com.myswap.models.Activity;
 import com.myswap.models.Adress;
 import com.myswap.models.User;
+import com.myswap.models.UserPicture;
 
 /**
  * La classe MethodeGestion utilise du Criteria.
  * 
  */
-// @Path("user")
-// @Secured
 public class UserService {
 
 	private static Logger logger = Logger.getLogger(UserService.class);
 	private Session session;
 
-	// @GET
-	// @Path("/getByEmail/{email}")
-	// @Produces({ "application/json" })
 	public User findUser(String email) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
@@ -38,10 +32,6 @@ public class UserService {
 			Criteria criteria = session.createCriteria(Account.class);
 
 			criteria.add(Restrictions.eqOrIsNull("email", email));
-
-			// pour la pagination, on peut ajouter criteria.setMaxResults(10),
-			// etc, et utiliser une cl� de reprise � chaque appel.
-			// inutilis� dans le cadre de ce projet.
 
 			account = (Account) criteria.uniqueResult();
 			user = account.getUser();
@@ -54,9 +44,6 @@ public class UserService {
 		return user;
 	}
 
-	// @GET
-	// @Path("/getById/{id}")
-	// @Produces({ "application/json" })
 	public User findUser(long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
@@ -65,11 +52,7 @@ public class UserService {
 		try {
 			Criteria criteria = session.createCriteria(User.class);
 
-			criteria.add(Restrictions.eqOrIsNull("id_user", id));
-
-			// pour la pagination, on peut ajouter criteria.setMaxResults(10),
-			// etc, et utiliser une cl� de reprise � chaque appel.
-			// inutilis� dans le cadre de ce projet.
+			criteria.add(Restrictions.eqOrIsNull("id", id));
 
 			user = (User) criteria.uniqueResult();
 			user.getWholeOfItems().size();
@@ -90,11 +73,8 @@ public class UserService {
 	 * M�thode de test d'insertion en cascade via cascade=CascadeType.PERSIST
 	 * 
 	 */
-	// @POST
-	// @Path("/insert")
-	// @Consumes({ "application/json" })
-	public long insertUser(String name, String lastname, String email, String phoneNumber, String street, String state,
-			String zipcode, String city, File pic) {
+	public User insertUser(String name, String lastname, String email, String phoneNumber, String street, String state,
+			String zipcode, String city) {
 
 		Account account = new Account();
 		account.setPhoneNumber(phoneNumber);
@@ -142,10 +122,7 @@ public class UserService {
 			session.close();
 		}
 
-		return account.getId();
-
-		// TODO
-		// Ici, il faut cr�er le dossier sur le serveur pour d�poser sa photo
+		return user;
 
 	}
 
@@ -153,8 +130,6 @@ public class UserService {
 	 * M�thode pour retour sur l'insertion en cascade.
 	 * 
 	 */
-	// @DELETE
-	// @Path("/delete/{id}")
 	public void deleteUser(long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
@@ -217,11 +192,8 @@ public class UserService {
 	 * Update de la classe user. TODO : un update en cascade via la classe User
 	 * sur account et adress est possible.
 	 */
-	// @POST
-	// @Path("/update")
-	// @Consumes({ "application/json" })
-	public void updateUser(String name, String lastname, String email, String phoneNumber, String street, String state,
-			String zipcode, String city, File pic) {
+	public User updateUser(String name, String lastname, String email, String phoneNumber, String street, String state,
+			String zipcode, String city) {
 
 		User user = findUser(email);
 
@@ -260,9 +232,8 @@ public class UserService {
 		} finally {
 			session.close();
 		}
-
-		// TODO
-		// Ici, il faut cr�er le dossier sur le serveur pour d�poser sa photo
+		
+		return user;
 
 	}
 
@@ -276,10 +247,6 @@ public class UserService {
 			Criteria criteria = session.createCriteria(Activity.class);
 
 			criteria.add(Restrictions.eqOrIsNull("token", token));
-
-			// pour la pagination, on peut ajouter criteria.setMaxResults(10),
-			// etc, et utiliser une cl� de reprise � chaque appel.
-			// inutilis� dans le cadre de ce projet.
 
 			activity = (Activity) criteria.uniqueResult();
 			user = activity.getUser();
@@ -321,5 +288,70 @@ public class UserService {
 
 		return user;
 	}
+	
+	/**
+	 * Remont�e des cat�gories d'Item.
+	 * 
+	 */
+	public UserPicture addPicture(String picName, String picPath, long userId){
+	
+		User user = new User();
+		user = findUser(userId);
+	
+		UserPicture userPicture = new UserPicture();
+		userPicture.setOwner(user);
+		userPicture.setName(picName);
+		userPicture.setPath(picPath);
+		
+		try {
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+
+			session.beginTransaction();
+
+			session.saveOrUpdate(user);
+			session.save(userPicture);
+
+			session.getTransaction().commit();
+
+		} catch (RuntimeException e) {
+			if (session.getTransaction() != null) {
+				session.getTransaction().rollback();
+			}
+			logger.error("RuntimeException in UserService/updateUser : " + e.getMessage());
+		} finally {
+			session.close();
+		}
+		
+		return userPicture;
+	}	
+	
+	/**
+	 * Delete des images dans la base.
+	 * 
+	 */
+	public void deletePicture(long pictureId){
+	
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+
+		// Suppression de la picture en base (delete en cascade sur User)
+		try {
+
+			Criteria userPicList = session.createCriteria(UserPicture.class).add(Restrictions.eqOrIsNull("id_picture", pictureId));
+			for (Object userPicture : userPicList.list()) {
+				session.delete(userPicture);
+			}
+
+			session.getTransaction().commit();
+		} catch (RuntimeException e) {
+			if (session.getTransaction() != null)
+				session.getTransaction().rollback();
+			logger.error("RuntimeException in UserService/deleteUser : " + e.getMessage());
+		} finally {
+			session.close();
+		}
+	}	
 
 }
