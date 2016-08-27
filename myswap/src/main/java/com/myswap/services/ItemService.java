@@ -1,9 +1,9 @@
 package com.myswap.services;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -15,6 +15,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
+import com.myswap.exceptions.AddPictureException;
+import com.myswap.exceptions.DealNotFoundException;
+import com.myswap.exceptions.ItemInsertException;
+import com.myswap.exceptions.ItemNotFoundException;
+import com.myswap.exceptions.ItemUpdateException;
+import com.myswap.exceptions.UserNotFoundException;
 import com.myswap.models.Category;
 import com.myswap.models.Deal;
 import com.myswap.models.Item;
@@ -51,7 +57,7 @@ public class ItemService {
 	/**
 	* Methode de recherche par Id.
 	*/
-	public Item findItem(long id) {
+	public Item findItem(long id) throws ItemNotFoundException {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -71,6 +77,11 @@ public class ItemService {
 		} finally {
 			session.close();
 		}
+		
+		if (item == null){
+			throw new ItemNotFoundException("no item for this id");
+		}
+		
 		return item;
 	}
 
@@ -78,33 +89,37 @@ public class ItemService {
 	 * Insertion d'un nouvel Item.
 	 * 
 	 */
-	public Item insertItem(String name, String dateCreation, String dateModification, String description, String cost,
-			String userId, Set<String> dealsId) {
+	public Item insertItem(String name, String description, String cost,
+			String userId, Set<String> dealsId) throws ItemInsertException {
 
 		Item item = new Item();
 
 		DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
 
 		item.setName(name);
-		try {
-			item.setDateCreation(df.parse(dateCreation));
-			item.setDateModification(df.parse(dateModification));
-		} catch (ParseException pe) {
-			logger.error("ParseException in ItemService/insertItem : " + pe.getMessage());
-		}
-
+		Date date = new Date();
+		item.setDateCreation(date);
+		item.setDateModification(date);
 		item.setDescription(description);
 		item.setCost(Float.parseFloat(cost));
 
 		User user = new User();
-		user = userService.findUser(userId);
+		try {
+			user = userService.findUser(userId);
+		} catch (UserNotFoundException e1) {
+			throw new ItemInsertException("User id is not found in database.");
+		}
 
 		item.setOwner(user);
 
 		// normalement, un nouvel objet n'est dans aucun Deal !
 		for (String dealId : dealsId) {
 			Deal deal = new Deal();
-			deal = dealService.findDeal(Long.parseLong(dealId));
+			try {
+				deal = dealService.findDeal(Long.parseLong(dealId));
+			} catch (NumberFormatException | DealNotFoundException e) {
+				throw new ItemInsertException("Deal id problem.");
+			}
 			item.addDeal(deal);
 		}
 		
@@ -127,9 +142,6 @@ public class ItemService {
 			session.close();
 		}
 
-		// Image 
-		//	addPicture(picName, picPath, item.getId);
-			
 		return item;
 	}
 
@@ -164,38 +176,42 @@ public class ItemService {
 	/**
 	 * Update de la classe item.
 	 */
-	public Item updateItem(Long id, String name, String dateCreation, String dateModification, String description,
-			String cost, String userId, Set<String> dealsId) {
+	public Item updateItem(Long id, String name, String description,
+			String cost, String userId, Set<String> dealsId) throws ItemUpdateException {
 
-		Item item = findItem(id);
-
-		DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.FRENCH);
-
-		item.setName(name);
+		Item item;
 		try {
-			item.setDateCreation(df.parse(dateCreation));
-			item.setDateModification(df.parse(dateModification));
-		} catch (ParseException pe) {
-			logger.error("ParseException in ItemService/insertItem : " + pe.getMessage());
+			item = findItem(id);
+		} catch (ItemNotFoundException e1) {
+			throw new ItemUpdateException("No item found for this id.");
 		}
 
+//		DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.FRENCH);
+
+		item.setName(name);
+		item.setDateModification(new Date());
 		item.setDescription(description);
 		item.setCost(Float.parseFloat(cost));
 
 		User user = new User();
-		user = userService.findUser(userId);
+		try {
+			user = userService.findUser(userId);
+		} catch (UserNotFoundException e1) {
+			throw new ItemUpdateException("No user found for this id.");
+		}
 
 		item.setOwner(user);
 
 		for (String dealId : dealsId) {
 			Deal deal = new Deal();
-			deal = dealService.findDeal(Long.parseLong(dealId));
+			try {
+				deal = dealService.findDeal(Long.parseLong(dealId));
+			} catch (NumberFormatException | DealNotFoundException e) {
+				throw new ItemUpdateException("Deal id problem.");
+			}
 			item.addDeal(deal);
 		}
 		
-		// Image 
-		// addPicture(picName, picPath, itemId);
-
 		try {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
@@ -220,7 +236,7 @@ public class ItemService {
 	}
 	
 	/**
-	 * Remontï¿½e des catï¿½gories d'Item.
+	 * Remontée des catégories d'Item.
 	 * 
 	 */
 	public List<Category> findCategories() {
@@ -246,10 +262,10 @@ public class ItemService {
 	}
 	
 	/**
-	 * Remontï¿½e des catï¿½gories d'Item.
+	 * Recherche par critères.
 	 * 
 	 */
-	public List<Item> findItemsByCriterias(String category, String costMin, String costMax, String name, long idReprise) {
+	public List<Item> findItemsByCriterias(String category, String costMin, String costMax, String keyword, long idReprise, int maxResult) throws ItemNotFoundException{
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -259,8 +275,11 @@ public class ItemService {
 		try {
 			Criteria criteria = session.createCriteria(Item.class);
 
+			Category categoryObject = new Category();
+			categoryObject.setCode(category);
+			
 			if (category != null && category != "") {
-				criteria.add(Restrictions.eqOrIsNull("code", category));
+				criteria.add(Restrictions.eqOrIsNull("category", categoryObject));
 			}
 			
 			if (costMin != null && costMin != "") {
@@ -273,33 +292,65 @@ public class ItemService {
 				criteria.add(Restrictions.le("cost", costMaxNumerique));
 			}
 			
-			if (name != null && name != "") {
-				criteria.add(Restrictions.eqOrIsNull("name", name));
+			if (keyword != null && keyword != "") {
+				criteria.add(Restrictions.like("name", "%" + keyword + "%"));
 			}
 			
-			// limite le nombre de rï¿½sultat par page
-			// criteria.setMaxResults(15);
+			// limite le nombre de résultat par page
+			criteria.setMaxResults(maxResult);
 
 			items = (List<Item>) criteria.list();
+			for (Item item : items){
+			  item.getDeals().size();
+			}
 
 		} catch (RuntimeException e) {
-			logger.error("RuntimeException in ItemService/getCategories : " + e.getMessage());
+			logger.error("RuntimeException in ItemService/findItemsByCriterias : " + e.getMessage());
 		} finally {
 			session.close();
+		}
+		
+		if (items == null) {
+			throw new ItemNotFoundException("No item for theses criterias.");
 		}
 
 		return items;
 	}
 	
+	public List<Item> findTendances() throws ItemNotFoundException {
+		// TODO table de mémorisation des tendances
+		List<Item> items = new ArrayList<Item>();
+		
+		items = findItemsByCriterias("Informatique", "","", "", 1, 3);
+		
+		return items;
+	}
+	
 	/**
-	 * Remontï¿½e des catï¿½gories d'Item.
+	 * Methode non appelee desormais.
+	 */
+	public List<Item> findProposed() throws ItemNotFoundException {
+		List<Item> items = new ArrayList<Item>();
+		
+		items = findItemsByCriterias("Informatique", "","", "", 1, 9);
+		
+//		return items;
+		return null;
+	}
+	
+	/**
+	 * Remontée des catégories d'Item.
 	 * 
 	 */
-	public ItemPicture addPicture(String picName, String picPath, long itemId){
+	public ItemPicture addPicture(String picName, String picPath, long itemId) throws AddPictureException {
 	
 		Item item = new Item();
-		item = findItem(itemId);
-	
+		try {
+			item = findItem(itemId);
+		} catch (ItemNotFoundException e1) {
+			throw new AddPictureException("No item found for this id.");
+		}
+		
 		ItemPicture itemPicture = new ItemPicture();
 		itemPicture.setItemRepresented(item);
 		itemPicture.setName(picName);

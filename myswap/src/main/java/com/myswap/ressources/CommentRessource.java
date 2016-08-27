@@ -8,7 +8,11 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
+import com.myswap.exceptions.CommentInsertException;
+import com.myswap.exceptions.CommentNotFoundException;
+import com.myswap.exceptions.CommentUpdateException;
 import com.myswap.models.Comment;
 import com.myswap.services.CommentService;
 import com.myswap.utilitaires.Secured;
@@ -30,9 +34,18 @@ public class CommentRessource {
 	@GET
 	@Path("/get/{id}")
 	@Produces({ "application/json" })
-	public Comment findComment(@PathParam("id") long id) {
+	public Response findComment(@PathParam("id") long id) {
 		
-		return commentService.findComment(id);
+		Comment comment = null;
+		
+		try {
+			comment = commentService.findComment(id);
+		} catch (CommentNotFoundException e) {
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+		
+		return Response.ok(comment).build();
+		
 	}
 
 	/**
@@ -42,11 +55,19 @@ public class CommentRessource {
 	@POST
 	@Path("/insert")
 	@Consumes({"application/json"})
-	public long insertComment(@FormParam("label") String label, @FormParam("mark") Integer mark,
+	public Response insertComment(@FormParam("label") String label, @FormParam("mark") Integer mark,
 			@FormParam("noting") String notingId, @FormParam("noted") String notedId) {
 
-		return commentService.insertComment(label, mark, notingId, notedId);
-
+		Comment comment = null;
+		
+		try {
+			comment = commentService.insertComment(label, mark, notingId, notedId);
+		} catch (CommentInsertException e) {
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+		
+		return Response.ok(comment).build();
+		
 	}
 
 	/**
@@ -67,10 +88,20 @@ public class CommentRessource {
 	@POST
 	@Path("/update")
 	@Consumes({ "application/json" })
-	public void updateComment(@FormParam("id") Long id, @FormParam("label") String label, @FormParam("mark") Integer mark,
+	public Response updateComment(@FormParam("id") Long id, @FormParam("label") String label, @FormParam("mark") Integer mark,
 			@FormParam("noting") String notingId, @FormParam("noted") String notedId) {
 
-		commentService.updateComment(id, label, mark, notingId, notedId);
+		Comment comment = null;
+		
+		try {
+			comment = commentService.updateComment(id, label, mark, notingId, notedId);
+		} catch (CommentUpdateException e) {
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+		
+		return Response.ok(comment).build();
+		
+		
 
 	}
 

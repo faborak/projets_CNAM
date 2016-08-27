@@ -1,10 +1,32 @@
 <div ng-controller="DashboardCtrl">
 
+   <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#!/dashboard">Tableau de bord<span class="sr-only">(current)</span></a></li>
+          <li><a href="#!/followswap">Suivre un echange</a></li>
+          <li><a href="#!/swaps">Swaps</a></li>
+          <li><a href="#!/items">Mes objets</a></li>
+          <li><a href="#!/profile-self">Profil</a></li>
+          <li><a href="#!/account">Compte</a></li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+
     <img src="data.user.pic" name="user_pic" id="user_pic" /> {{data.user.name}}
     <td><button ng-click="detailUser(data.user.id)">Voir le profil</button></td>
     <td><button ng-click="modifierUser(data.user.id)">Modifier le profil</button></td>
 
-    <p>Vérifications</p>
+    <p>Verifications</p>
     <p>{{data.mailchecked}}</p>
     <p>{{data.phonechecked}}</p>
 

@@ -1,0 +1,61 @@
+<div ng-controller="CommentsCtrl">
+
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="#!/dashboard">Tableau de bord</a></li>
+          <li><a href="#!/followswap">Suivre un echange<</a></li>
+          <li><a href="#!/swaps">Swaps</a></li>
+          <li><a href="#!/items">Mes objets</a></li>
+          <li class="active"><a href="#!/profile-self">Profil</a><span class="sr-only">(current)</span></li>
+          <li><a href="#!/account">Compte</a></li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+
+    <section id="menu" class="user-left-panel">
+        <div class="list-group">
+            <a href="#!/profile-self" class="list-group-item active">
+                <h4 class="list-group-item-heading">Modifier le profil</h4>
+                <p class="list-group-item-text"></p>
+            </a>
+            <a href="#!/profile-pics" class="list-group-item active">
+                <h4 class="list-group-item-heading">Photos et vidéos</h4>
+                <p class="list-group-item-text"></p>
+            </a>
+            <a href="#!/profile-comments" class="list-group-item active">
+                <h4 class="list-group-item-heading">Commentaires</h4>
+                <p class="list-group-item-text"></p>
+            </a>
+        </div>
+    </section>
+
+
+    <section id="form_user_comments" class="user-right-panel">
+
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">Commentaires reçus</h3>
+            </div>
+            <div class="panel-body">
+                <table>
+                    <tr ng-repeat="a in data.user.commentsOnUser" id="commentsList">
+                        <td>{{a.mark}} : </td>
+                        <td>{{a.label}} </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+</div>

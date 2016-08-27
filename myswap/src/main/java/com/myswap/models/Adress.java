@@ -51,7 +51,7 @@ public class Adress {
     public String getCity() {return city;}
 	
 	/**
-	 * user auquel est rattachÃ©e l'adresse.
+	 * user auquel est rattachée l'adresse.
 	 */
     @OneToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_user")

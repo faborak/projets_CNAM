@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('searchControllers', ['ngRoute'])
+angular.module('searchControllers', ['ngRoute', 'requeteur'])
 
-.controller("GeneralSearchCtrl", function($scope, $http) {
+.controller('GeneralSearchCtrl', function($scope, $http, data, $location) {
 
   $scope.data = {};
   $scope.data.keyword = "";
@@ -11,88 +11,94 @@ angular.module('searchControllers', ['ngRoute'])
   $scope.data.listeItemsProposed = [];
   $scope.data.selectedCategory = "";
 
-  var loadTendances = function() {
-    var keyword = $scope.data.keyword;
-
-    $http({
-      method: 'get',
-      url: 'http://92.90.70.23:12345/myswap/rest/item/findTendances'
-    }).success(function(resultat) {
-      $scope.data.listeItemsTendances = resultat.data.listeItems;
-    });
+  $scope.setCategories = function(data){
+	  $scope.data.categories = data;
+  }
+  
+  $scope.setTendances = function(data){
+	  $scope.data.listeItemsTendances = data;
+  }
+  
+  $scope.setProposed = function(data){
+	  $scope.data.listeItemsProposed = data;
+  }
+  
+  var startPage = function() {
+	 var params = {
+		 keyword : window.sessionStorage.getItem("keywordCookie")
+	 }
+	  
+	 data.get('item/getCategories', '', $scope.setCategories);
+	 data.post('item/getItemsByCriterias', params,$scope.setProposed); 
+	 data.get('item/getTendances', params, $scope.setTendances);
   };
-
-  var loadPropositions = function() {
-    /* Propositions par cookies */
-    $http({
-      method: 'post',
-      url: 'http://92.90.70.23:12345/myswap/rest/item/findPropositions',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      params : {
-        keyword: getCookie("keywordCookie")
-      }
-    }).success(function(resultat) {
-      $scope.data.listeItemsProposed = resultat.data.listeItems;
-    });
+  
+  $scope.tendancesfinal = function() {
+	    return $scope.data.listeItemsTendances;
   };
-
+  
+  $scope.proposedfinal = function() {
+	    return $scope.data.listeItemsProposed;
+  };
+   
+  $scope.categoriesFinal = function() {
+	    return $scope.data.categories;
+  };
+  
+  $scope.itemDetail = function(itemId){
+	  $location.path('item/'+itemId);
+  }
+  
   $scope.rechercher = function() {
-    /* Propositions sotckées dans le serveur, pas de param en entrée */
-    $http({
-      method: 'get',
-      url: 'http://92.90.70.23:12345/myswap/rest/item/findItems',
-      params: {
-        keyword: $scope.data.keyword,
-        category: $scope.data.selectedCategory
-      }
-    }).success(function(resultat) {
-      $scope.data.listeItemsProposed = resultat;
-      setCookie("keywordCookie", $scope.data.keyword);
-    });
+	  window.sessionStorage.setItem("keywordCookie", $scope.data.keyword);
+	  if ($scope.data.selectedCategory !== ""){
+		  $location.path('/searchresult/' + $scope.data.keyword + '/'+$scope.data.selectedCategory) ;
+	  } else {
+		  $location.path('/searchresult/' + $scope.data.keyword) ;
+	  }
   };
 
-  function setCookie(sName, sValue) {
-    var today = new Date(),
-      expires = new Date();
-    expires.setTime(today.getTime() + (365 * 24 * 60 * 60 * 1000));
-    document.cookie = sName + "=" + encodeURIComponent(sValue) + ";expires=" + expires.toGMTString();
+  startPage();
+})
+
+.controller('SearchResultCtrl', function($scope, $routeParams, $location, data) {
+	
+  $scope.data = {};
+  $scope.data.result = false;
+  $scope.data.items = [];
+  $scope.data.keyword = $routeParams.keyword;
+  $scope.data.selectedCategory = $routeParams.category;
+  
+  $scope.setItems = function(data){
+	  if (data.length !== 0){
+		  $scope.data.result = true;
+		  $scope.data.items = data;
+	  }	  
   }
-
-  function getCookie(sName) {
-    var cookContent = document.cookie,
-      cookEnd, i, j;
-    var sName = sName + "=";
-
-    for (i = 0; i < cookContent.length; i++) {
-      j = i + sName.length;
-      if (cookContent.substring(i, j) == sName) {
-        cookEnd = cookContent.indexOf(";", j);
-        if (cookEnd == -1) {
-          cookEnd = cookContent.length;
-        }
-        return decodeURIComponent(cookContent.substring(j, cookEnd));
-      }
-    }
-    return null;
+  
+  $scope.itemsFinal = function() {
+	  return $scope.data.items;
+  };
+  
+  $scope.itemDetail = function(itemId){
+	  $location.path('item/'+itemId);
   }
+  
+  var startPage = function() {
+	  
+	var params = {
+		 keyword: $scope.data.keyword,
+		 category: $scope.data.selectedCategory
+	};
+	data.post('item/getItemsByCriterias', params, $scope.setItems);  
+	  		
+  };
 
-  /* lancement des fonctions au départ de l'application */
-  /*loadTendances();
-  loadPropositions(); */
-
-  /* Sorte de mock en attendant mieux  */
-  /*$scope.data.categories.ajouter(new Category("cat1"));
-  $scope.data.categories.ajouter(new Category("cat2"));
-  $scope.data.categories.ajouter(new Category("cat3"));
-  $scope.data.listeItemsTendances.ajouter(new Item(1, "tendance1", "01-08-2016", "01-08-2016", "tendance 1 mec", 0.5, ["test", "test"]));
-  $scope.data.listeItemsTendances.ajouter(new Item(2, "tendance2", "01-08-2016", "01-08-2016", "tendance 2 mec", 1), ["test", "test"]);
-  $scope.data.listeItemsTendances.ajouter(new Item(2, "tendance2", "01-08-2016", "01-08-2016", "tendance 3 mec", 1.5), ["test", "test"]);
-*/
+  startPage();
+  
 });
 
-/* Modèles  */
+/* Mod�les  */
 /*
 function ListeItems() {
   var list = [];

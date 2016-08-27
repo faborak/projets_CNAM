@@ -13,7 +13,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 public class Item extends SwapObject {
 
 	/**
-	 * Coorespond Ã  la colonne du mÃªme nom en base.
+	 * Coorespond à la colonne du même nom en base.
 	 * 
 	 */
 	@Column

@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 public class Deal {
 
 	/**
-	 * Id du Deal. ClÃ© primaire dans la table Deal. 
+	 * Id du Deal. Clé primaire dans la table Deal. 
 	 */
 	@Id
 	@GeneratedValue
@@ -45,7 +45,7 @@ public class Deal {
 	public void setStatus(Status n) {status = n;}
 	public Status getStatus() {return status;}
 		
-	/** PropriÃ©tÃ© du Deal.
+	/** Propriété du Deal.
 	 * 
 	 */
 	@Column(name = "date_creation")
@@ -53,7 +53,7 @@ public class Deal {
 	public void setDateCreation(Date d) {dateCreation = d;}
 	public Date getDateCreation() {return dateCreation;}
 	
-	/** PropriÃ©tÃ© du Deal.
+	/** Propriété du Deal.
 	 * 
 	 */
 	@Column(name = "date_modification")
@@ -81,7 +81,7 @@ public class Deal {
 				balance = balance - item.getCost();
 			} else {
 			System.out.println("Exception a definir");
-				//throws new BalanceException("ProblÃ¨me de calcul de balance");
+				//throws new BalanceException("Problème de calcul de balance");
 		
 			}
 		}	
@@ -99,7 +99,7 @@ public class Deal {
 	public User getInitiator() {return initiator;}
 	
 	/**
-	 * user proposÃ© pour le Deal.
+	 * user proposé pour le Deal.
 	 */
     @ManyToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_second_user")
@@ -110,9 +110,9 @@ public class Deal {
 	public User getProposed() {return proposed;}
 	
 	/**
-	 *  Lien avec la table deals : pas de propriÃ©tÃ© portÃ©e par la table DealSwap,
-	 *  donc pas d'objet Java correspondant Ã  la table
-	 *  la responsabilitÃ© est portÃ©e par SwapObject, qui porte l'inverseJoinColomn
+	 *  Lien avec la table deals : pas de propriété portée par la table DealSwap,
+	 *  donc pas d'objet Java correspondant à la table
+	 *  la responsabilité est portée par SwapObject, qui porte l'inverseJoinColomn
 	 */
 	@ManyToMany(mappedBy = "deals")
 	@JsonBackReference
@@ -124,12 +124,11 @@ public class Deal {
 	/**
 	 * Le Swap en cours, s'il existe.   
 	 */ 
-	 @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	 @OneToOne(mappedBy = "deal", cascade = CascadeType.ALL)
 	 @JsonBackReference
-	 private Account account;
-	 public void setAccount(Account a) {account = a;}
-	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	 public Account getAccount() {return this.account;}
+	 private Swap swap;
+	 public void setSwap(Swap a) {swap = a;}
+	 public Swap getSwap() {return this.swap;}
 	
 	public Deal() {
 	}

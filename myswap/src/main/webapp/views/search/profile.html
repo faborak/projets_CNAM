@@ -1,21 +1,14 @@
 <div ng-controller="ProfileCtrl">
 
-    <img src="data.user.pic" name="user_pic" id="user_pic" /> {{data.user.name}}
+<!--     <img src="data.user.pic" name="user_pic" id="user_pic" /> {{data.user.name}}
     <td><button ng-click="detailUser(data.user.id)">Voir le profil</button></td>
     <td><button ng-click="modifierUser(data.user.id)">Modifier le profil</button></td>
 
     <p>Vérifications</p>
     <p>{{data.mailchecked}}</p>
-    <p>{{data.phonechecked}}</p>
+    <p>{{data.phonechecked}}</p> -->
 
-    Transactions ({{data.news}} nouveautés)
-    <table>
-        <tr ng-repeat="a in data.trades" id="listetrades">
-            <img src="a.pic" name="user_pic" id="user_pic" />
-            <td><label>{{a.othername}} </label>
-                <label>{{a.dateModifcation}} {{a.balance}} {{a.statusfinal}}</label></td>
-            <td><button ng-click="detailTrade(a.id)">Afficher detail</button></td>
-        </tr>
-    </table>
+     <img src={{data.user.userPicture[1].path}} name="user_pic" id="user_pic" />
+     <label>{{data.user.name}} {{data.user.lastname}} </label>
 
 </div>

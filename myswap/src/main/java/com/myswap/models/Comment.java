@@ -16,13 +16,13 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 @Entity
-@JsonIgnoreProperties ({"hibernateLazyInitializer", "handler", "fieldHandler"}) 
+//@JsonIgnoreProperties ({"hibernateLazyInitializer", "handler", "fieldHandler"}) 
 @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id_comment")
-@JsonAutoDetect
+//@JsonAutoDetect
 public class Comment {
 
 	/**
-	 * Id du Comment. ClÃ© primaire dans la table Comment. 
+	 * Id du Comment. Clé primaire dans la table Comment. 
 	 */
 	@Id
 	@GeneratedValue
@@ -32,7 +32,7 @@ public class Comment {
 	public Long getIdComment() {return IdComment;}
 	
 	/**
-	 * LibellÃ© du commentaire. 
+	 * Libellé du commentaire. 
 	 */
 	@Column
 	String label;
@@ -48,14 +48,14 @@ public class Comment {
 	public Integer getMark() {return mark;}
 	
 	/**
-	 * user notÃ© par le commentaire.
+	 * user noté par le commentaire.
 	 */
     @ManyToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_noted_user")
     @JsonManagedReference
 	private User noted;
 	public void setNoted(User g) {noted = g;}
-	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 //	 @JsonIgnore
 	public User getNoted() {return noted;}
 	
@@ -67,7 +67,7 @@ public class Comment {
     @JsonManagedReference
 	private User noting;
 	public void setNoting(User g) {noting = g;}
-	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 //	 @JsonIgnore
 	public User getNoting() {return noting;}
 }	

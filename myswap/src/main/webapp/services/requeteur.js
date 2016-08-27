@@ -1,43 +1,95 @@
 angular.module('requeteur', [])
 
-.service('requeteur', ['$http', function($http) {
+.service('data', ['$http', function($http, $location) {
+    "use strict";
 
-    "use strict"
-
-    var baseUrl = "https://92.90.70.23:12345/myswap/rest/";
-
-    this.get = function(url, callback) {
+    this.get = function(url, params, callback) {
         $http({
             method: 'GET',
-            url: baseUrl + url
+            url: 'http://www.localhost:8080/myswap/rest/' + url,
+            params : params
         }).
         success(function(data, status, headers, config) {
-            callback(data);
+        	callback(data);
         }).
         error(function(data, status, headers, config) {
-            throw "No data returned from " + url;
+        	throw "Probleme dans l'appel à " + url + ", status : " + status;
         });
     };
-
-    this.post = function(url, callback, data) {
+    
+    this.getAuthorized = function(url, params, callback) {
+    	var baseUrl = "http://www.localhost:8080/myswap/rest/";	
         $http({
-            method: 'POST',
+            method: 'GET',
             url: baseUrl + url,
             headers: {
                 'Accept': 'application/json',
                 'Content-type': 'application/x-www-form-urlencoded',
                 'authorization': localStorage.getItem("token")
             },
-            params: data,
-            paramSerializer: '$httpParamSerializerJQLike'
+            params : params
+        }).
+        success(function(data, status, headers, config) {
+            callback(data);
+        }).
+        error(function(data, status, headers, config) {
+        	throw "Probleme dans l'appel à " + url + ", status : " + status;
+        	if(status == '401'){
+        		$location.path('/disconnected') ;
+        	}
+        });
+    };
+
+    this.post = function(url, params, callback) {
+    	 var baseUrl = "http://www.localhost:8080/myswap/rest/";	
+        $http({
+            method: 'POST',
+            url: baseUrl + url,
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Bearer '+ window.sessionStorage.getItem("token")
+            },
+            transformRequest:function(obj) {
+	            var str = [];
+	            for(var p in obj)
+	            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+	            return str.join("&");}, 
+            params: params,
         }).
         success(function(data, status, headers, config) {
             callback(data);
         }).
         error(function(data, status, headers, config) {
 
-            throw "No data returned from " + url;
+        	throw "Probleme dans l'appel à " + url + ", status : " + status;
         });
     };
+    
+    this.postAuthorize = function(url, params, callback) {
+   	 var baseUrl = "http://www.localhost:8080/myswap/rest/";	
+       $http({
+           method: 'POST',
+           url: baseUrl + url,
+           headers: {
+               'Accept': 'application/json',
+               'Content-type': 'application/x-www-form-urlencoded',
+               'authorization': localStorage.getItem("token")
+           },
+           transformRequest:function(obj) {
+	            var str = [];
+	            for(var p in obj)
+	            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+	            return str.join("&");}, 
+           params: params,
+       }).
+       success(function(data, status, headers, config) {
+           callback(data);
+       }).
+       error(function(data, status, headers, config) {
+
+       	throw "Probleme dans l'appel à " + url + ", status : " + status;
+       });
+   };
 
 }]);

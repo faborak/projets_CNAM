@@ -11,6 +11,7 @@
 		<layout>default</layout> </repository> </repositories> -->
 	<properties>
 		<jersey2.version>2.23.1</jersey2.version>
+		<hibernate.version>4.3.11.Final</hibernate.version>
 		<version.oltu>1.0.2</version.oltu>
 		<version.spring>4.3.1.RELEASE</version.spring>
 		<version.jackson>2.8.1</version.jackson>
@@ -54,21 +55,11 @@
 		</dependency>
 
 		<!-- gestion Oauth2 avec jersey -->
-		<!-- <dependency>
-			<groupId>org.glassfish.jersey.security</groupId>
-			<artifactId>oauth2-client</artifactId>
-			<version>${jersey2.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.ext</groupId>
-			<artifactId>jersey-mvc-bean-validation</artifactId>
-			<version>${jersey2.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.ext</groupId>
-			<artifactId>jersey-mvc-mustache</artifactId>
-			<version>${jersey2.version}</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.glassfish.jersey.security</groupId> <artifactId>oauth2-client</artifactId> 
+			<version>${jersey2.version}</version> </dependency> <dependency> <groupId>org.glassfish.jersey.ext</groupId> 
+			<artifactId>jersey-mvc-bean-validation</artifactId> <version>${jersey2.version}</version> 
+			</dependency> <dependency> <groupId>org.glassfish.jersey.ext</groupId> <artifactId>jersey-mvc-mustache</artifactId> 
+			<version>${jersey2.version}</version> </dependency> -->
 
 		<!-- JSON -->
 		<dependency>
@@ -109,12 +100,20 @@
 			<artifactId>jsr250-api</artifactId>
 			<version>1.0</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax/javaee-api -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+		</dependency>
+
 
 		<!-- persistance -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>4.3.11.Final</version>
+			<!-- <version>4.3.11.Final</version> -->
+			<version>${hibernate.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
@@ -124,7 +123,8 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>4.3.5.Final</version>
+			<!-- <version>4.3.5.Final</version> -->
+			<version>${hibernate.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -138,7 +138,7 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
 		</dependency>
-		
+
 
 		<!-- google api pour Oauth2 -->
 		<dependency>
@@ -195,8 +195,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 		</plugins>

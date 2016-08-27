@@ -8,7 +8,6 @@ import javax.ws.rs.core.Application;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
-//@Secured => securiser tout l'application
 @ApplicationPath("/rest")
 public class ApplicationConfig extends Application {
 
@@ -24,7 +23,8 @@ public class ApplicationConfig extends Application {
 	public Set<Object> getSingletons() {
 	    final Set<Object> instances = new HashSet<Object>();
 
-	    instances.add(new JacksonJsonProvider());
+	    //instances.add(new JacksonJsonProvider());
+	    instances.add(new JacksonJsonProvider(ObjectMapperFactory.create()));
 	    return instances;
 	}
 
@@ -40,5 +40,6 @@ public class ApplicationConfig extends Application {
 		resources.add(com.myswap.ressources.CommentRessource.class);
 		resources.add(com.myswap.ressources.AuthenticationRessource.class);
 		resources.add(com.myswap.utilitaires.AuthenticationFilter.class);
+//		resources.add(com.myswap.utilitaires.ObjectMapperFactory.class);
 	}
 }

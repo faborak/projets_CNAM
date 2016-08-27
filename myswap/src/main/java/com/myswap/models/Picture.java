@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @JsonAutoDetect
 public abstract class Picture implements Serializable{
 	/**
-	 * Id du Comment. ClÃ© primaire dans la table Comment. 
+	 * Id de la picture. Cl� primaire dans la table Picture. 
 	 */
 	@Id
 	@GeneratedValue

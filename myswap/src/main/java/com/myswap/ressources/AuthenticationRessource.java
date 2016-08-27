@@ -1,5 +1,8 @@
 package com.myswap.ressources;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
@@ -26,7 +29,32 @@ public class AuthenticationRessource {
 	@Path("/authenticate")
 	public Response authenticateUser(@FormParam("mail") String mail, @FormParam("password") String password) {
 
-		return authenticationService.authenticateUser(mail, password);
+		Map<String, Object> reponse =new HashMap<>();
+		String token = authenticationService.authenticateUser(mail, password);
+		
+		if (token == null){
+			return Response.status(Response.Status.UNAUTHORIZED).build();
+		} else {
+			reponse.put("token", token);
+			return Response.ok(reponse).build();
+		}
+	}
+	
+	@POST
+	@Produces("application/json")
+	@Consumes("application/x-www-form-urlencoded")
+	@Path("/islogged")
+	public Response isLogged(@FormParam("token") String token) {
+
+		boolean isLogged = authenticationService.isLogged(token);
+		
+		if (isLogged == false){
+			return Response.status(Response.Status.UNAUTHORIZED).build();
+		} else {
+			Map<String, Object> reponse =new HashMap<>();
+			reponse.put("isLogged", isLogged);
+			return Response.ok(reponse).build();
+		}
 	}
 
 }
