@@ -12,9 +12,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import org.apache.log4j.Logger;
-import org.hibernate.Session;
-
+import com.myswap.exceptions.DealInsertException;
+import com.myswap.exceptions.DealNotFoundException;
+import com.myswap.exceptions.DealUpdateException;
+import com.myswap.models.Deal;
+import com.myswap.services.DealService;
 import com.myswap.utilitaires.Secured;
 
 /**
@@ -25,21 +27,26 @@ import com.myswap.utilitaires.Secured;
 @Secured
 public class DealRessource {
 
-	private static Logger logger = Logger.getLogger(DealRessource.class);
-	private Session session;
-	
 	/**
 	 * DealService.
 	 */
-	private DealRessource dealService = new DealRessource();
-	public void setDealService(DealRessource dealService){this.dealService = dealService;}
+	private DealService dealService = new DealService();
+	public void setDealService(DealService dealService){this.dealService = dealService;}
 	
 	@GET
 	@Path("/get/{id}")
 	@Produces({ "application/json" })
 	public Response findDeal(@PathParam("id") long id) {
 		
-		return Response.ok(dealService.findDeal(id)).build();
+		Deal deal = null;
+		
+		try {
+			deal = dealService.findDeal(id);
+		} catch (DealNotFoundException e) {
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+		
+		return Response.ok(deal).build();
 
 	}
 
@@ -51,9 +58,18 @@ public class DealRessource {
 	@Path("/insert")
 	@Consumes({ "application/json" })
 	public Response insertDeal(@FormParam("initator") String initatorId, @FormParam("proposed") String proposedId,
-			@FormParam("status") Integer status, @FormParam("swapObjects") Set<String> swapObjectsId) {
+			 @FormParam("swapObjects") Set<String> swapObjectsId) {
 
-		return Response.ok(dealService.insertDeal(initatorId, proposedId, status, swapObjectsId)).build();
+		Deal deal = null;
+		String status = "En cours de création";
+		
+		try {
+			deal = dealService.insertDeal(initatorId, proposedId, status, swapObjectsId);
+		} catch (DealInsertException e) {
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+		
+		return Response.ok(deal).build();
 	}
 
 	/**
@@ -74,11 +90,19 @@ public class DealRessource {
 	@POST
 	@Path("/update")
 	@Consumes({ "application/json" })
-	public Response updateDeal(@FormParam("id") Long id, @FormParam("status") Integer status,
+	public Response updateDeal(@FormParam("id") Long id, @FormParam("status") String status,
 			@FormParam("swapObjects") Set<String> swapObjectsId) {
 
-		return Response.ok(dealService.updateDeal(id, status, swapObjectsId)).build();
-
+		Deal deal = null;
+		
+		try {
+			deal = dealService.updateDeal(id, status, swapObjectsId);
+		} catch (DealUpdateException e) {
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+		
+		return Response.ok(deal).build();		
+		
 	}
 
 }

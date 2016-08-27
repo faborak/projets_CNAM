@@ -1,0 +1,35 @@
+<div ng-controller="ItemDetailCtrl">
+
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="#!/dashboard">Tableau de bord</a></li>
+          <li><a href="#!/followswap">Suivre un echange</a></li>
+          <li><a href="#!/swaps">Swaps</a></li>
+          <li class="active"><a href="#!/items">Mes objets<span class="sr-only">(current)</span></a></li>
+          <li><a href="#!/profile-self">Profil</a></li>
+          <li><a href="#!/account">Compte</a></li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+
+    <p>Detail de l'objet.</p>
+    <table>
+        <tr>
+            <td><label>Nom :</label> {{data.item.name}}</td>
+            <td><label>Date de creation :</label> {{data.item.dateCreation}}</td>
+            <td><label>Date de modification :</label> {{data.item.dateModification}}</td>
+        </tr>
+
+    </table>
+    <button ng-click="retour()">Retour</button>
+</div>

@@ -1,6 +1,5 @@
 package com.myswap.models;
 
-import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -47,29 +45,22 @@ public class User {
     private String password;
     public void setPassword(String p) {password = p;}
     public String getPassword() {return password;}
-	  
+	   
 	/**
-	*  Photo de profil de l'utilisateur.
-	*/
-	@Transient
-	private File pic;
-    public void setPic(File f) {pic = f;}
-    public File getPic() {return pic;}
-	  
-	/**
-	 * Les commentaire Ã©crits par l'utilisateur.
-	 * La responsabilitÃ© du mappage est confiÃ© Ã  comment, via l'annotation mappedBy.  
+	 * Les commentaire écrits par l'utilisateur.
+	 * La responsabilité du mappage est confié Ã  comment, via l'annotation mappedBy.  
 	 */
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="noting")
 	@JsonBackReference
+//	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private Set<Comment> commentsWrited = new HashSet<Comment>();
 	public void addCommentsWrited(Comment f) {f.setNoting(this); commentsWrited.add(f);}
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	public Set<Comment> getCommentsWriteds() {return commentsWrited;}
 	
 	/**
 	 * Les commentaire qui concernent l'utilisateur.
-	 * La responsabilitÃ© du mappage est confiÃ© Ã  comment, via l'annotation mappedBy.  
+	 * La responsabilité du mappage est confié Ã  comment, via l'annotation mappedBy.  
 	 */
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="noted")
 	@JsonBackReference
@@ -80,7 +71,7 @@ public class User {
 	
 	/**
 	 * Les objets de l'utilisateur.
-	 * La responsabilitÃ© du mappage est confiÃ© Ã  swapObject, via l'annotation mappedBy.  
+	 * La responsabilité du mappage est confié Ã  swapObject, via l'annotation mappedBy.  
 	 */
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="owner")
 	@JsonBackReference
@@ -90,8 +81,8 @@ public class User {
 	public Set<SwapObject> getWholeOfItems() {return wholeOfItems;}
 	
 	/**
-	 * Les Deals initiÃ©s par l'utilisateur.
-	 * La responsabilitÃ© du mappage est confiÃ©e Ã  Deal, via l'annotation mappedBy.  
+	 * Les Deals initiés par l'utilisateur.
+	 * La responsabilité du mappage est confiée Ã  Deal, via l'annotation mappedBy.  
 	 */
 	@OneToMany(fetch = FetchType.EAGER,mappedBy="initiator")
 	@JsonBackReference
@@ -101,8 +92,8 @@ public class User {
 	public Set<Deal> getDealsInitator() {return dealsInitator;}
 	
 	/**
-	 * Les Deals proposÃ©s Ã  l'utilisateur.
-	 * La responsabilitÃ© du mappage est confiÃ©e Ã  Deal, via l'annotation mappedBy.  
+	 * Les Deals proposés Ã  l'utilisateur.
+	 * La responsabilité du mappage est confiée Ã  Deal, via l'annotation mappedBy.  
 	 */
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="proposed")
 	@JsonBackReference
@@ -132,7 +123,7 @@ public class User {
 	 public Adress getAdress() {return this.adress;} 
 	  
 	 /**
-	 * L'activitÃ© de l'utilisateur.   
+	 * L'activité de l'utilisateur.   
 	 */ 
 	 @OneToOne(mappedBy = "user")
 	 @JsonBackReference
@@ -153,7 +144,7 @@ public class User {
 		
 	 /**
 	  * Les Pictures de l'utilisateur.
-	  * La responsabilitÃƒÂ© du mappage est confiÃƒÂ©e Ãƒ  Picture, via l'annotation mappedBy.  
+	  * La responsabilité du mappage est confiée à Picture, via l'annotation mappedBy.  
 	  */
 	 @OneToMany(fetch = FetchType.EAGER, mappedBy="owner")
 	 @JsonBackReference

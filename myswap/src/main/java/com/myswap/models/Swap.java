@@ -5,32 +5,22 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@JsonIgnoreProperties ({"hibernateLazyInitializer", "handler", "fieldHandler"}) 
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id_deal")
 public class Swap {
 
-	/**
-	 * Id du Swap. Cl√© primaire dans la table Deal. 
-	 */
 	@Id
-	@GeneratedValue
 	@Column(name = "id_deal")
-	private Long idDeal;
-	public void setIdDeal(Long i) {idDeal = i;}
-	public Long getIdDeal() {return idDeal;}
+	private Long id_deal;
+	public void setId(Long i) {id_deal = i;}
+	public Long getId() {return id_deal;}
 		
-	/** Propri√©t√© du Swap.
+	/** PropriÈtÈ du Swap.
 	 * 
 	 */
 	@Column(name = "date_reception_initiator")
@@ -38,7 +28,7 @@ public class Swap {
 	public void setDateReceptionInitiator(Date d) {dateReceptionInitiator = d;}
 	public Date getDateReceptionInitiator() {return dateReceptionInitiator;}
 	
-	/** Propri√©t√© du Swap.
+	/** PropriÈtÈ du Swap.
 	 * 
 	 */
 	@Column(name = "date_reception_proposed")
@@ -47,7 +37,7 @@ public class Swap {
 	public Date getDateReceptionProposed() {return dateReceptionProposed;}
 	
 	/** 
-	 * Propri√©t√© du Swap.
+	 * PropriÈtÈ du Swap.
 	 */
 	@Column(name = "date_envoi_initiator")
 	private Date dateEnvoiInitiator;
@@ -55,7 +45,7 @@ public class Swap {
 	public Date getDateEnvoiInitiator() {return dateEnvoiInitiator;}
 	
 	/** 
-	 * Propri√©t√© du Swap.
+	 * PropriÈtÈ du Swap.
 	 */
 	@Column(name = "date_envoi_proposed")
 	private Date dateEnvoiProposed;
@@ -80,15 +70,14 @@ public class Swap {
 	public Date getDateFinalProposed() {return dateFinalProposed;}
 	
 	/**
-	 * Deal auquel est rattach√© l'account.
+	 * Deal auquel est rattachÈ le swap.
 	 */
     @OneToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_deal")
     @JsonManagedReference
 	private Deal deal;
-	public void setDeal(Deal u) {deal = u;}
+	public void setDeal(Deal d) {deal = d;}
 	public Deal getDeal() {return deal;}
 	
-	public Swap() {
-	}
+	public Swap() {}
 }

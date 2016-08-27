@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class SwapObject {
 
 	/**
-	 * Id du SwapObject. ClÃ© primaire dans la table Swapobject. 
+	 * Id du SwapObject. Clé primaire dans la table Swapobject. 
 	 */
 	@Id
 	@GeneratedValue
@@ -73,16 +73,8 @@ public class SwapObject {
 	public String getDescription() {return description;}
 	
 	/**
-	*  Photos de l'objet Ã  troquer.
-	*/
-	@Transient
-	private Set<File> pic = new HashSet<File>();
-    public void addPic(File f) {pic.add(f);}
-    public Set<File> getPic() {return pic;}
-	
-	/**
 	 * pour la sauvegarde en cascade, on utilise JPA (javax.peristance) et non pas hibernate
-	 * Toutes les cascades sont sous la responsabilitÃ© de l'objet Ã©quipe
+	 * Toutes les cascades sont sous la responsabilité de l'objet équipe
 	 * 
 	 */
     @ManyToOne (cascade=CascadeType.PERSIST)
@@ -94,7 +86,7 @@ public class SwapObject {
 	public User getOwner() {return owner;}
 	
 	/**
-	 * SwapObject porte la responsabilitÃ© de la liaison avec les deals
+	 * SwapObject porte la responsabilité de la liaison avec les deals
 	 * 
 	 */
 	@ManyToMany()
@@ -108,7 +100,7 @@ public class SwapObject {
 	
 	/**
 	 * Les Pictures de l'item.
-	 * La responsabilitÃƒÂ© du mappage est confiÃƒÂ©e Ãƒ  ItemPicture, via l'annotation mappedBy.  
+	 * La responsabilité du mappage est confiée à ItemPicture, via l'annotation mappedBy.  
 	 */
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="itemRepresented")
 	@JsonBackReference

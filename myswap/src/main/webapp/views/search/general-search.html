@@ -1,39 +1,47 @@
-<p>ng-view general-search .</p>
+<div class="home-search-bar">
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="input-group">
+				<input type="text" class="form-control" aria-label="Text input with segmented button dropdown" placeholder="Chercher un objet" ng-model="data.keyword">
+				<div class="input-group-btn">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button>
+					<ul class="dropdown-menu dropdown-menu-right" ng-repeat="a in categoriesFinal()"> 
+						<li>{{a.code}} test</li>
+					</ul>
+					<button type="button" class="btn btn-default" ng-click="rechercher()">Rechercher !</button>
+				</div>
+				<!-- /btn-group -->
+			</div>
+			<!-- /input-group -->
+		</div>
+		<!-- /.col-lg-6 -->
+	</div>
+	<!-- /.row -->
+</div>
 
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="input-group">
-          <input type="text" class="form-control" aria-label="..." placeholder="Chercher un objet">
-          <div class="input-group-btn">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catégorie <span class="caret"></span></button>
-            <ul class="dropdown-menu dropdown-menu-right">
-              <li><a href="#">Catégorie</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="#">Separated link</a></li>
-            </ul>
-          </div>
-          <!-- /btn-group -->
-        </div>
-        <!-- /input-group -->
-      </div>
-      <!-- /.col-lg-6 -->
-    </div>
-    <!-- /.row -->
 
-<!--<fieldset>
-  <input ng-model="data.keyword" />
-</fieldset>
-<select ng-model="data.selectedCategory" ng-options="category.name for category in categories">
-  <option value="">Sélectionnez une catégorie</option>
-</select>
-<td><button ng-click="rechercher()" ng-disabled="data.selectedCategory.$invalid || data.keyword.$invalid">Rechercher</button></td>-->
+<div class="home-panel">
+	<p class="text-center">Tendances du moment</p>
+	<div class="row">
+		<div ng-repeat="a in tendancesfinal()">
+			<div class="col-md-4">
+				<img width="167" height="110" src={{a.itemPictures[1].path}}
+					 alt={{a.name}} ng-click="itemDetail(a.idSwapObjet)"> <!-- class="img-responsive" -->{{a.idSwapObjet}} {{a.cost}}
+				{{a.owner.name}}
+			</div>
+		</div>
+	</div>
+</div>
 
-        <table>
-            <tr ng-repeat="a in itemsfinal()" id="listeItems">
-                <td><label>{{a.name}} </label>
-                    <label>{{a.description}} {{a.cost}} {{a.owner.name}}</label></td>
-                <td><button ng-click="detail(a.IdSwapObjet)">Afficher detail</button></td>
-            </tr>
-        </table>
+<div class="home-panel">
+	<p class="text-center">Specialement pour vous</p>
+	<div class="row">
+		<div ng-repeat="a in proposedfinal()">
+			<div class="col-md-4">
+				<img width="167" height="110"  alt={{a.name}}
+					src={{a.itemPictures[1].path}} ng-click="itemDetail(a.idSwapObjet)"> {{a.IdSwapObjet}} {{a.cost}}
+				
+			</div>
+		</div>
+	</div>
+</div>

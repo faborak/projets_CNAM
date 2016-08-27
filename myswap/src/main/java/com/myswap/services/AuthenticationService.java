@@ -4,21 +4,22 @@ import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.Date;
 
-import javax.ws.rs.core.Response;
-
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import com.myswap.exceptions.UserNotFoundException;
 import com.myswap.models.Activity;
 import com.myswap.models.User;
 
-//@Path("/authentication")
 public class AuthenticationService{
 
 	public static final String CLIENT_ID = "853972608044-m14mdhc3q2k437nfqbob5hti7div33u6.apps.googleusercontent.com";
 	public static final String SECRET_ID = "W0q5CJb7tSqSMmeK4hHPLeBF";
+	
+	static final long ONE_MINUTE_IN_MILLIS=60000;//millisecs
+	static final long LOGGING_TIME= 7 * ONE_MINUTE_IN_MILLIS;
 
 	/**
 	 * Le UserService.
@@ -28,11 +29,7 @@ public class AuthenticationService{
 
 	private static Logger logger = Logger.getLogger(AuthenticationService.class);
 
-//	 @POST
-//	 @Produces("application/json")
-//	 @Consumes("application/x-www-form-urlencoded")
-//	 @Path("/authenticate")
-	public Response authenticateUser(String mail, String password) {
+	public String authenticateUser(String mail, String password) {
 
 		try {
 
@@ -45,18 +42,18 @@ public class AuthenticationService{
 			String token = issueToken(user);
 
 			// Return the token on the response
-			return Response.ok(token).build();
+			return token;
 
-		} catch (Exception e) {
-			return Response.status(Response.Status.UNAUTHORIZED).build();
+		} catch (UserNotFoundException | IOException e) {
+			return null;
 		}
 	}
 
-	private User authenticate(String mail, String password, User user) throws Exception {
+	private User authenticate(String mail, String password, User user) throws UserNotFoundException {
 		user = userService.findUser(mail);
 		if (user == null) {
-			logger.debug("User non trouve Ã  l'authentication par mail/password : ");
-			throw new Exception();
+			logger.debug("User non trouve à l'authentication par mail/password : ");
+			throw new UserNotFoundException("No usr for this mail.");
 		}
 
 		return user;
@@ -91,7 +88,7 @@ public class AuthenticationService{
 		return user.getActivity().getToken();
 	}
 
-	// VÃ©rification token Google
+	// Vérification token Google
 	// private String issueToken(User user) throws IOException {
 	// JsonFactory jsonFactory = new JacksonFactory();
 	// HttpTransport httpTransport = new NetHttpTransport();
@@ -115,14 +112,35 @@ public class AuthenticationService{
 	// // notes : retour des infos user au format JSON
 	// return oauth2.userinfo().get().execute().toString();
 	// }
+	
+	/**
+	 * 
+	 * @param token : token send from client
+	 * @return
+	 */
+	public boolean isLogged(String token) {
+		
+		User user = new User();
+		try {
+			user = userService.findUserByToken(token);
+		} catch (UserNotFoundException e) {
+			return false;
+		}
+		
+		if (new Date(user.getActivity().getDateDerniereActivite().getTime() + LOGGING_TIME).before(new Date())){
+			return false;
+		}
+		
+		return true;
+	}
 
 	/**
-	 * gÃ©nÃ¨re une chaine de 30 caractÃ¨res alÃ©atoires
+	 * génère une chaine de 30 caractères aléatoires
 	 * 
 	 * @return la chaine, qui sert de token simple.
 	 */
 	private static String generateToken() {
-		final String AB = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+		final String AB = "abcdefghijklmnopqrstuvwxyz";
 		SecureRandom rnd = new SecureRandom();
 		StringBuilder sb = new StringBuilder(30);
 		   for( int i = 0; i < 30; i++ ) 

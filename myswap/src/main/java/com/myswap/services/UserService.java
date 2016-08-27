@@ -7,6 +7,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
+import com.myswap.exceptions.UserNotFoundException;
+import com.myswap.exceptions.UserUpdateException;
+import com.myswap.exceptions.AddPictureException;
 import com.myswap.models.Account;
 import com.myswap.models.Activity;
 import com.myswap.models.Adress;
@@ -19,10 +22,16 @@ import com.myswap.models.UserPicture;
  */
 public class UserService {
 
-	private static Logger logger = Logger.getLogger(UserService.class);
+	private static final Logger logger = Logger.getLogger(UserService.class);
 	private Session session;
 
-	public User findUser(String email) {
+	/**
+	 * 
+	 * @param email
+	 * @return
+	 * @throws UserNotFoundException
+	 */
+	public User findUser(String email) throws UserNotFoundException {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -40,11 +49,21 @@ public class UserService {
 		} finally {
 			session.close();
 		}
+		
+		if(user == null){
+			throw new UserNotFoundException("no user for this token");
+		}
 
 		return user;
 	}
 
-	public User findUser(long id) {
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws UserNotFoundException
+	 */
+	public User findUser(long id) throws UserNotFoundException {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -62,16 +81,29 @@ public class UserService {
 			user.getDealsProposed().size();
 		} catch (RuntimeException e) {
 			logger.error("RuntimeException in UserService/findUser : " + e.getMessage());
+			//throw new UserNotFoundException("RuntimeException in UserService/findUser");
 		} finally {
 			session.close();
+		}
+		
+		if(user == null){
+			throw new UserNotFoundException("no user for this token");
 		}
 
 		return user;
 	}
 
 	/**
-	 * M�thode de test d'insertion en cascade via cascade=CascadeType.PERSIST
 	 * 
+	 * @param name
+	 * @param lastname
+	 * @param email
+	 * @param phoneNumber
+	 * @param street
+	 * @param state
+	 * @param zipcode
+	 * @param city
+	 * @return
 	 */
 	public User insertUser(String name, String lastname, String email, String phoneNumber, String street, String state,
 			String zipcode, String city) {
@@ -127,8 +159,8 @@ public class UserService {
 	}
 
 	/**
-	 * M�thode pour retour sur l'insertion en cascade.
 	 * 
+	 * @param id
 	 */
 	public void deleteUser(long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -189,13 +221,26 @@ public class UserService {
 	}
 
 	/**
-	 * Update de la classe user. TODO : un update en cascade via la classe User
-	 * sur account et adress est possible.
+	 * 
+	 * @param name
+	 * @param lastname
+	 * @param email
+	 * @param phoneNumber
+	 * @param street
+	 * @param state
+	 * @param zipcode
+	 * @param city
+	 * @return
 	 */
 	public User updateUser(String name, String lastname, String email, String phoneNumber, String street, String state,
-			String zipcode, String city) {
+			String zipcode, String city) throws UserUpdateException{
 
-		User user = findUser(email);
+		User user = null;
+		try {
+			user = findUser(email);
+		} catch (UserNotFoundException e) {
+			throw new UserUpdateException("Aucun user a updater");
+		}
 
 		Account account = user.getAccount();
 		account.setPhoneNumber(phoneNumber);
@@ -229,15 +274,21 @@ public class UserService {
 				session.getTransaction().rollback();
 			}
 			logger.error("RuntimeException in UserService/updateUser : " + e.getMessage());
+			throw new UserUpdateException("RuntimeException in UserService/updateUser");
 		} finally {
 			session.close();
 		}
 		
 		return user;
-
 	}
 
-	public User findUserByToken(String token) {
+	/**
+	 * 
+	 * @param token
+	 * @return
+	 * @throws NotFoundException
+	 */
+	public User findUserByToken(String token) throws UserNotFoundException {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -256,6 +307,9 @@ public class UserService {
 			session.close();
 		}
 
+		if(user == null){
+			throw new UserNotFoundException("no user for this token");
+		}
 		return user;
 	}
 
@@ -290,13 +344,20 @@ public class UserService {
 	}
 	
 	/**
-	 * Remont�e des cat�gories d'Item.
 	 * 
+	 * @param picName
+	 * @param picPath
+	 * @param userId
+	 * @return
 	 */
-	public UserPicture addPicture(String picName, String picPath, long userId){
+	public UserPicture addPicture(String picName, String picPath, long userId)throws AddPictureException{
 	
 		User user = new User();
-		user = findUser(userId);
+		try {
+			user = findUser(userId);
+		} catch (UserNotFoundException e1) {
+			throw new AddPictureException("user not found for this picture");
+		}
 	
 		UserPicture userPicture = new UserPicture();
 		userPicture.setOwner(user);
@@ -319,6 +380,7 @@ public class UserService {
 				session.getTransaction().rollback();
 			}
 			logger.error("RuntimeException in UserService/updateUser : " + e.getMessage());
+			throw new AddPictureException("user not found for this picture");
 		} finally {
 			session.close();
 		}

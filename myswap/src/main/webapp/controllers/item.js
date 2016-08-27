@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('itemCatControllers', ['ngRoute'])
+angular.module('itemCatControllers', ['ngRoute', 'requeteur'])
 
 .controller("ItemListCtrl", function($scope, $http, $location) {
 
@@ -46,15 +46,19 @@ angular.module('itemCatControllers', ['ngRoute'])
   $scope.$watch($scope.search, filterItems);
 
   $scope.detail = function(itemId) {
-    $location.path('/items/' + itemId)
+    $location.path('/items/' + itemId);
+  };
+  
+  $scope.newItem = function() {
+	  $location.path('/new-item');
   };
 
 
-
   /* lancement de la recherche au départ de l'application */
-  /*loadItems();
-
-  /* Mock  */
+  /*
+	 * loadItems();
+	 *  /* Mock
+	 */
   $scope.data.items = [{
     "IdSwapObjet": 1,
     "name": "guitare acoustique",
@@ -123,11 +127,11 @@ angular.module('itemCatControllers', ['ngRoute'])
   };
 
   $scope.retour = function() {
-    $location.path('/items')
+    $location.path('/items');
   }
 
   // a enelever pour democker
-  /*detail();*/
+  /* detail(); */
 
   $scope.data.item = {
     "IdSwapObjet": 1,
@@ -146,4 +150,90 @@ angular.module('itemCatControllers', ['ngRoute'])
       "id": 2
     }]
   }
+})
+
+.controller("SearchItemDetailCtrl", function($scope, $routeParams, $location, data) {
+
+  $scope.data = {};
+  $scope.data.result = false;
+  $scope.data.item = [];
+  $scope.userLogged = false;
+  
+  $scope.setItem = function(data){
+	  if (data.length !== 0){
+		  $scope.data.result = true;
+		  $scope.data.item = data;
+	  }	  
+  }
+  
+  $scope.setLogged = function(data){
+	  $scope.userLogged = data.isLogged;
+  }
+  
+  $scope.data.itemFinal = function() {
+	  return $scope.data.item;
+  };
+  
+  var startPage = function() {
+	  
+	data.get('item/get/' +$routeParams.itemId, '', $scope.setItem);
+	var params= {
+			token:sessionStorage.getItem("token")
+	}
+	data.post('authentication/islogged', params, $scope.setLogged);
+	  		
+  };
+
+  startPage();
+  
+  $scope.startDeal = function() {
+	  if($scope.userLogged){
+        $location.path('/deal/newdeal/'+$scope.data.item.idSwapObjet);
+	  } else {
+	    $location.path('/disconnected') ;
+	  }
+  };
+
+})
+
+.controller("NewItemCtrl", function($scope, $location, data) {
+	
+	$scope.data = {};
+	$scope.data.name = '';
+	$scope.data.description = '';
+	$scope.data.cost=0;
+	$scope.data.currentuser={};
+	
+	$scope.createItem = function(){
+		var today = new Date();
+		var params={
+			name:$scope.data.name,
+//			dateCreation:today,	
+//			dateModification:today,
+			description:$scope.data.description,
+			cost:$scope.data.cost,
+			userId:$scope.data.currentuser.id,
+			deals : []
+		};
+		data.post('item/insert',params,$scope.changePage);
+	}
+	
+	$scope.changePage = function(data){
+		// retour a la page d'affichage des items
+		$location.path('items');
+	}
+	
+    $scope.setCurrentUser = function(data){
+	   $scope.data.currentuser = data;
+    }
+
+    var startPage = function() {
+		var params = {
+			"token": window.sessionStorage.getItem("token")
+		};
+		data.post('user/getCurrentUser', params, $scope.setCurrentUser);
+    };
+
+    startPage();
+	
 });

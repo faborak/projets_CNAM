@@ -7,6 +7,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
+import com.myswap.exceptions.CommentInsertException;
+import com.myswap.exceptions.CommentNotFoundException;
+import com.myswap.exceptions.CommentUpdateException;
+import com.myswap.exceptions.UserNotFoundException;
 import com.myswap.models.Comment;
 import com.myswap.models.User;
 
@@ -14,7 +18,6 @@ import com.myswap.models.User;
  * Classe effectuant le CRUD pour les objets de type Comment.
  * 
  */
-//@Path("comment")
 //@Secured
 public class CommentService {
 
@@ -27,10 +30,7 @@ public class CommentService {
 	private UserService userService = new UserService();
 	public void setUserService(UserService userService){this.userService = userService;}
 
-//	@GET
-//	@Path("/get/{id}")
-//	@Produces({ "application/json" })
-	public Comment findComment(long id) {
+	public Comment findComment(long id) throws CommentNotFoundException {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -40,37 +40,48 @@ public class CommentService {
 
 			criteria.add(Restrictions.eqOrIsNull("id", id));
 
-			// pour la pagination, on peut ajouter criteria.setMaxResults(10),
-			// etc, et utiliser une cl� de reprise � chaque appel.
-			// inutilis� dans le cadre de ce projet.
-
 			comment = (Comment) criteria.uniqueResult();
 		} catch (RuntimeException e) {
 			logger.error("RuntimeException in CommentService/findComment : " + e.getMessage());
 		} finally {
 			session.close();
 		}
+		
+		if (comment == null){
+			throw new CommentNotFoundException("no comment found for this id.");
+		}
+		
 		return comment;
 	}
 
-	/**
-	 * M�thode de test d'insertion en cascade via cascade=CascadeType.PERSIST
-	 * 
-	 */
-//	@POST
-//	@Path("/insert")
-//	@Consumes({"application/json"})
-	public long insertComment(String label, Integer mark,
-			 String notingId, String notedId) {
+    /**
+     * 
+     * @param label
+     * @param mark
+     * @param notingId
+     * @param notedId
+     * @return
+     * @throws CommentInsertException
+     */
+	public Comment insertComment(String label, Integer mark,
+			 String notingId, String notedId) throws CommentInsertException{
 
 		Comment comment = new Comment();
 		comment.setLabel(label);
 		comment.setMark(mark);
 		
 		User noting = new User();
-		noting = userService.findUser(notingId);
+		try {
+			noting = userService.findUser(notingId);
+		} catch (UserNotFoundException e1) {
+			throw new CommentInsertException("No user for this id.");
+		}
 		User noted = new User();
-		noted = userService.findUser(notedId);
+		try {
+			noted = userService.findUser(notedId);
+		} catch (UserNotFoundException e1) {
+			throw new CommentInsertException("No user for this id.");
+		}
 		comment.setNoting(noting);
 		comment.setNoted(noted);
 
@@ -93,16 +104,14 @@ public class CommentService {
 			session.close();
 		}
 
-		return comment.getIdComment();
+		return comment;
 
 	}
 
 	/**
-	 * M�thode pour retour sur l'insertion en cascade.
 	 * 
+	 * @param id
 	 */
-//	@DELETE
-//	@Path("/delete/{id}")
 	public void deleteComment(long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
@@ -127,22 +136,34 @@ public class CommentService {
 
 	}
 
-	/**
-	 * Update de la classe comment.
-	 */
-//	@POST
-//	@Path("/update")
-//	@Consumes({ "application/json" })
-	public void updateComment(Long id, String label, Integer mark,
-			String notingId, String notedId) {
+    /**
+     * 
+     * @param id
+     * @param label
+     * @param mark
+     * @param notingId
+     * @param notedId
+     * @throws CommentUpdateException
+     */
+	public Comment updateComment(Long id, String label, Integer mark,
+			String notingId, String notedId) throws CommentUpdateException {
 
-		Comment comment = findComment(id);
+		Comment comment;
+		try {
+			comment = findComment(id);
+		} catch (CommentNotFoundException e1) {
+			throw new CommentUpdateException("No comment for this Id.");
+		}
 		comment.setLabel(label);
 		comment.setMark(mark);
 		User noting = new User();
-		noting = userService.findUser(notingId);
 		User noted = new User();
-		noted = userService.findUser(notedId);
+		try {
+			noting = userService.findUser(notingId);
+			noted = userService.findUser(notedId);
+		} catch (UserNotFoundException e1) {
+			throw new CommentUpdateException("No user for this Id.");
+		}
 		comment.setNoting(noting);
 		comment.setNoted(noted);
 		
@@ -165,6 +186,8 @@ public class CommentService {
 			session.close();
 		}
 
+		return comment;
+		
 	}
 
 }

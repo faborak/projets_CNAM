@@ -16,7 +16,7 @@ angular.module('postImgur', [])
                'image' : pic
             },
             success: function() {
-                console.log('cool');
+                console.log('image uploaded');
             }
         });
 

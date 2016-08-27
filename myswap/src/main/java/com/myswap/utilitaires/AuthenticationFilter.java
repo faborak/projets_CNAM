@@ -32,10 +32,11 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 	private static Logger logger = Logger.getLogger(AuthenticationFilter.class);
 	
 	static final long ONE_MINUTE_IN_MILLIS=60000;//millisecs
+	static final long LOGGING_TIME= 7 * ONE_MINUTE_IN_MILLIS;
 	
     @Override
     /**
-     * RecupÃ¨re toutes les requÃªtes au serveur, et les valides avant l'accÃ¨s aux web services.
+     * Recupère toutes les requêtes au serveur, et les valides avant l'accès aux web services.
      */
     public void filter(ContainerRequestContext requestContext) throws IOException {
 
@@ -73,7 +74,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
     	User user = new User();
     	user = userService.findUserByToken(token);
     	
-    	Date userActivityPlusSevenMinutes = new Date(user.getActivity().getDateDerniereActivite().getTime() + (7 * ONE_MINUTE_IN_MILLIS));
+    	Date userActivityPlusSevenMinutes = new Date(user.getActivity().getDateDerniereActivite().getTime() + LOGGING_TIME);
     	
     	if (userActivityPlusSevenMinutes.compareTo(new Date()) == -1){
     	    throw new Exception("Le user n'est plus authentifiÃ©");	

@@ -1,95 +1,80 @@
 <html lang="en" ng-app="myApp" class="no-js">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Echanges de biens entre particuliers</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
-  <link rel="stylesheet" href="content/css/app.css">
-  <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog.css">
-  <link rel="stylesheet" href="content/css/bootstrap.min.css">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Echanges de biens entre particuliers</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="bower_components/html5-boilerplate/dist/css/normalize.css">
+<link rel="stylesheet"
+	href="bower_components/html5-boilerplate/dist/css/main.css">
+<link rel="stylesheet" href="content/css/app.css">
+<link rel="stylesheet"
+	href="bower_components/ng-dialog/css/ngDialog.css">
+<link rel="stylesheet" href="content/css/bootstrap.min.css">
 
-  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="bower_components/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
-  <script src="bower_components/angular-material/angular-material.min.js"></script>
-  <script src="bower_components/angular-animate/angular-animate.min.js"></script>
-  <script src="bower_components/ng-dialog/js/ngDialog.js"></script>
-  <!--<script src="bower_components/angular-aria/angular-aria.min.js"></script>
+<script
+	src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+<script src="bower_components/angular-material/angular-material.min.js"></script>
+<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+<script src="bower_components/ng-dialog/js/ngDialog.js"></script>
+<!--<script src="bower_components/angular-aria/angular-aria.min.js"></script>
   <script src="bower_components/angular-messages/angular-messages.min.js"></script>
   <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js"></script>-->
 
-  <script src="controllers/app-search.js"></script>
-  <script src="controllers/popup-dialog.js"></script>
-  <script src="controllers/login.js"></script>
-  <script src="controllers/search/search.js"></script>
+<script src="controllers/app-search.js"></script>
+<script src="controllers/popup-dialog.js"></script>
+<script src="controllers/login.js"></script>
+<script src="controllers/search/search.js"></script>
+<script src="controllers/search/profile.js"></script>
+<script src="controllers/item.js"></script>
+<script src="controllers/deal.js"></script>
 
-  <script src="services/swapStatus.js"></script>
+<script src="services/requeteur.js"></script>
+<script src="services/swapStatus.js"></script>
 
-  <script src="components/version/version.js"></script>
-  <script src="components/version/version-directive.js"></script>
-  <script src="components/version/interpolate-filter.js"></script>
+<script src="components/version/version.js"></script>
+<script src="components/version/version-directive.js"></script>
+<script src="components/version/interpolate-filter.js"></script>
 </head>
 
-<header>
+<header id="header" role="banner">
+	<a href="#menu" class="nav-trigger"></a>
+	<div class="header-container">
+		<h1>
+			<a href="#!/index"> <img width="167" id="logo" height="110"
+				alt="My Swap" src="/content/images/logo-Swap.gif">
+			</a>
+			<span ng-controller="popup-dialogCtrl" class="pos-log-button">
+				<button type="button" ng-hide="data.isLogged" class="btn btn-default"
+				ng-click="clickToOpen()" aria-label="Right Align">
+					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+				</button> <span ng-show="data.isLogged" ng-click="clickToOpen()">Connecté</span>
+			</span>
+		</h1>
+	</div>
+</header>
 
+<body>
 
-  <header id="header" role="banner">
-    <a href="#menu" class="nav-trigger"></a>
-    <div class="container">
-      <!-- <h1><a href="/index"> <img width="167" id="logo" height="110" alt="My Swap" src="/content/images/logo-Swap.gif"> </a></h1>-->
-      <h1><a href="#!/index"> <img width="167" id="logo" height="110" alt="My Swap" src="/content/images/logo-Swap.gif"> </a></h1>
-    </div>
-
-    <!-- ng-if="listConnexionButton"-->
-    <div ng-controller="popup-dialogCtrl">
-      <!-- <md-button class="md-primary md-raised"  ng-if="listConnexionButton" ng-click="showAdvanced($event)">
-      Connexion
-    </md-button>-->
-      <button type="button" class="btn btn-default" ng-click="clickToOpen()" aria-label="Left Align">
-      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-    </button>
-
-      <<!--a ng-click="clickToOpen()" class="div-connexion">Connexion</a>-->
-    </div>
-
-
-  </header>
-
-  <body>
-
-    <!--<fieldset>
-  <input ng-model="data.keyword" />
-</fieldset>
-<select ng-model="data.selectedCategory" ng-options="category.name for category in categories">
-  <option value="">Sélectionnez une catégorie</option>
-</select>
-<td><button ng-click="rechercher()" ng-disabled="data.selectedCategory.$invalid || data.keyword.$invalid">Rechercher</button></td>-->
-
-
-
-
-
-    <!--[if lt IE 7]>
+	<!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
+<section class="main-content">
+	<div ng-view></div>
+</section>
 
-    <div ng-view></div>
-
-    <!--<div>Angular seed app: v<span app-version></span></div>-->
-
-    <!-- In production use:
+	<!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
   -->
+</body>
 
-  </body>
-
-  <footer>
-    <!-- Placez ici le contenu du pied de page -->
-  </footer>
-
+<footer>
+	<p class="footer-panel">Mentions legales</p>
+</footer>
 </html>

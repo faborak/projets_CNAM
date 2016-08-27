@@ -38,6 +38,7 @@
   <script src="controllers/item.js"></script>
   <script src="controllers/profile.js"></script>
 
+  <script src="services/requeteur.js"></script>
   <script src="services/swapStatus.js"></script>
 
   <script src="components/version/version.js"></script>
@@ -48,67 +49,27 @@
 
 
 <header id="header" role="banner">
-  <a href="#menu" class="nav-trigger"></a>
-  <div class="container">
-    <!-- <h1><a href="/index"> <img width="167" id="logo" height="110" alt="My Swap" src="/content/images/logo-Swap.gif"> </a></h1>-->
-    <h1><a href="#!/index"> <img width="167" id="logo" height="110" alt="My Swap" src="/content/images/logo-Swap.gif"> </a></h1>
-  </div>
-
-  <!-- ng-if="listConnexionButton"-->
-  <div ng-controller="popup-dialogCtrl">
-    <!-- <md-button class="md-primary md-raised"  ng-if="listConnexionButton" ng-click="showAdvanced($event)">
-      Connexion
-    </md-button>-->
-    <button type="button" class="btn btn-default" ng-click="clickToOpen()" aria-label="Left Align">
-      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-    </button>
-
-    <<!--a ng-click="clickToOpen()" class="div-connexion">Connexion</a>-->
-  </div>
-
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-      </div>
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#!/dashboard">Tableau de bord<span class="sr-only">(current)</span></a></li>
-          <li><a href="#!/followswap">Suivre un echange</a></li>
-          <li><a href="#!/swaps">Swaps</a></li>
-          <li><a href="#!/items">Mes objets</a></li>
-          <li><a href="#!/profile-self">Profil</a></li>
-          <li><a href="#!/account">Compte</a></li>
-        </ul>
-      </div>
-      <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
-  </nav>
-
-  <!--  <ul class="menu">
-    <li><a href="#!/dashboard">Tableau de bord</a></li>
-    <li><a href="#!/followswap">Suivre un echange</a></li>
-    <li><a href="#!/swaps">Swaps</a></li>
-    <li><a href="#!/items">Mes objets</a></li>
-    <li><a href="#!/profile-self">Profil</a></li>
-    <li><a href="#!/account">Compte</a></li>
-  </ul>-->
-
+	<a href="#menu" class="nav-trigger"></a>
+	<div class="header-container">
+		<h1>
+			<a href="#!/index"> <img width="167" id="logo" height="110"
+				alt="My Swap" src="/content/images/logo-Swap.gif">
+			</a>
+			<span ng-controller="popup-dialogCtrl" class="pos-log-button">
+				<button type="button" ng-hide="data.isLogged" class="btn btn-default"
+				ng-click="clickToOpen()" aria-label="Right Align">
+					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+				</button> <span ng-show="data.isLogged" ng-click="clickToOpen()">Connecté</span>
+			</span>
+		</h1>
+	</div>
 </header>
-
 
 <body>
 
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
+<section class="main-content">
 
   <div ng-view></div>
-
-  <!--<div>Angular seed app: v<span app-version></span></div>-->
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
@@ -116,8 +77,10 @@
 
 </body>
 
+</section>
+
 <footer>
-  <!-- Placez ici le contenu du pied de page -->
+  <p class="footer-panel">Mentions legales</p>
 </footer>
 
 </html>

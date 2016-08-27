@@ -58,7 +58,7 @@ angular.module('profileControllers', ['ngRoute'])
     }
   };
 
-  /* lancement de la recherche au dÃ©part de l'application */
+  /* lancement de la recherche au départ de l'application */
   /*getCurrentUser();
 
   /* Mock  */
@@ -74,7 +74,7 @@ angular.module('profileControllers', ['ngRoute'])
       "phoneChecked": true
     },
     "adress": {
-      "street": "9 place des mystÃ¨res",
+      "street": "9 place des mystères",
       "zipcode": "77184",
       "city": "Courbevoie",
       "state": "Ile-de-France",
@@ -82,11 +82,11 @@ angular.module('profileControllers', ['ngRoute'])
     },
     "commentsOnUser": [{
       "id": 1,
-      "label": "Bonne rÃ©ception, rÃ©actif et agrÃ©able Ã  l'Ã©crit. TrÃ¨s bien !",
+      "label": "Bonne réception, réactif et agréable à l'écrit. Très bien !",
       "mark": 5
     }, {
       "id": 2,
-      "label": "RÃ©ceptionnÃ© ce matin ! Top !",
+      "label": "Réceptionné ce matin ! Top !",
       "mark": 4
     }],
     "commentsWrited": [{
@@ -95,7 +95,7 @@ angular.module('profileControllers', ['ngRoute'])
       "mark": 5
     }, {
       "id": 2,
-      "label": "Bien, mais un petit retard Ã  signaler dans la livraison.",
+      "label": "Bien, mais un petit retard à signaler dans la livraison.",
       "mark": 3
     }]
   }
@@ -140,7 +140,7 @@ angular.module('profileControllers', ['ngRoute'])
       "phoneChecked": true
     },
     "adress": {
-      "street": "9 place des mystÃ¨res",
+      "street": "9 place des mystères",
       "zipcode": "77184",
       "city": "Courbevoie",
       "state": "Ile-de-France",
@@ -148,11 +148,11 @@ angular.module('profileControllers', ['ngRoute'])
     },
     "commentsOnUser": [{
       "id": 1,
-      "label": "Bonne rÃ©ception, rÃ©actif et agrÃ©able Ã  l'Ã©crit. TrÃ¨s bien !",
+      "label": "Bonne réception, réactif et agréable à l'écrit. Très bien !",
       "mark": 5
     }, {
       "id": 2,
-      "label": "RÃ©ceptionnÃ© ce matin ! Top !",
+      "label": "Réceptionné ce matin ! Top !",
       "mark": 4
     }],
     "commentsWrited": [{
@@ -161,7 +161,7 @@ angular.module('profileControllers', ['ngRoute'])
       "mark": 5
     }, {
       "id": 2,
-      "label": "Bien, mais un petit retard Ã  signaler dans la livraison.",
+      "label": "Bien, mais un petit retard à signaler dans la livraison.",
       "mark": 3
     }]
   }
@@ -192,7 +192,7 @@ angular.module('profileControllers', ['ngRoute'])
     var lecture = new FileReader();
     lecture.onloadend = function(evenement) {
       var donnees = evenement.target.result;
-      //Traitez ici vos donnÃ©es binaires. Vous pouvez par exemple les envoyer Ã  un autre niveau du framework avec $http ou $ressource
+      //Traitez ici vos données binaires. Vous pouvez par exemple les envoyer à un autre niveau du framework avec $http ou $ressource
     }
     lecture.readAsBinaryString(fichier);
   }
@@ -248,7 +248,7 @@ angular.module('profileControllers', ['ngRoute'])
       "phoneChecked": true
     },
     "adress": {
-      "street": "9 place des mystÃ¨res",
+      "street": "9 place des mystères",
       "zipcode": "77184",
       "city": "Courbevoie",
       "state": "Ile-de-France",
@@ -256,11 +256,11 @@ angular.module('profileControllers', ['ngRoute'])
     },
     "commentsOnUser": [{
       "id": 1,
-      "label": "Bonne rÃ©ception, rÃ©actif et agrÃ©able Ã  l'Ã©crit. TrÃ¨s bien !",
+      "label": "Bonne réception, réactif et agréable à l'écrit. Très bien !",
       "mark": 5
     }, {
       "id": 2,
-      "label": "RÃ©ceptionnÃ© ce matin ! Top !",
+      "label": "Réceptionné ce matin ! Top !",
       "mark": 4
     }],
     "commentsWrited": [{
@@ -269,7 +269,7 @@ angular.module('profileControllers', ['ngRoute'])
       "mark": 5
     }, {
       "id": 2,
-      "label": "Bien, mais un petit retard Ã  signaler dans la livraison.",
+      "label": "Bien, mais un petit retard à signaler dans la livraison.",
       "mark": 3
     }]
   }

@@ -5,31 +5,31 @@ angular.module('swapStatus', [])
     "use strict";
 
     this.getLabelStatus = function(code) {
-        var libellé = {};
+        var libelle = {};
         switch (code) {
             case 0:
-                libellé = "En attente de réponse de votre interlocuteur";
+                libelle = "En attente de r�ponse de votre interlocuteur";
                 break;
             case 1:
-                libellé = "En attente de réponse de votre part";
+                libelle = "En attente de r�ponse de votre part";
                 break;
             case 2:
-                libellé = "Nouvelle proposition à étudier";
+                libelle = "Nouvelle proposition à �tudier";
                 break;
             case 3:
-                libellé = "Proposition acceptée par les deux parties";
+                libelle = "Proposition accept�e par les deux parties";
                 break;
             case 4:
-                libellé = "En attente d'envoi des objets";
+                libelle = "En attente d'envoi des objets";
                 break;
             case 5:
-                libellé = "En cours d'acheminement, c'ets pour bientôt !";
+                libelle = "En cours d'acheminement, c'ets pour bientot !";
                 break;
             default:
-                libellé = "Erreur de statut merci de contacter le service clientèle";
+                libelle = "Erreur de statut merci de contacter le service client�le";
         }
 
-        return libellé;
+        return libelle;
 
     };
 

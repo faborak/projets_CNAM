@@ -9,6 +9,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
+import com.myswap.exceptions.DealInsertException;
+import com.myswap.exceptions.DealNotFoundException;
+import com.myswap.exceptions.DealUpdateException;
+import com.myswap.exceptions.ItemNotFoundException;
+import com.myswap.exceptions.UserNotFoundException;
 import com.myswap.models.Deal;
 import com.myswap.models.Status;
 import com.myswap.models.SwapObject;
@@ -35,7 +40,7 @@ public class DealService {
 	private ItemService itemService = new ItemService();
 	public void setItemService(ItemService itemService){this.itemService = itemService;}
 
-	public Deal findDeal(long id) {
+	public Deal findDeal(long id) throws DealNotFoundException {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -58,6 +63,10 @@ public class DealService {
 			session.close();
 		}
 
+		if (deal == null){
+			throw new DealNotFoundException("No deal found for this id.");
+		}
+		
 		return deal;
 
 	}
@@ -67,21 +76,35 @@ public class DealService {
 	 * 
 	 */
 	public Deal insertDeal(String initatorId, String proposedId,
-			Status status, Set<String> swapObjectsId) {
+			String statusString, Set<String> swapObjectsId) throws DealInsertException {
 
 		Deal deal = new Deal();
 		
 		User initator = new User();
-		initator = userService.findUser(initatorId);
+		try {
+			initator = userService.findUser(initatorId);
+		} catch (UserNotFoundException e1) {
+			throw new DealInsertException("No user found for this Deal.");
+		}
 		User proposed = new User();
-		proposed = userService.findUser(proposedId);
+		try {
+			proposed = userService.findUser(proposedId);
+		} catch (UserNotFoundException e1) {
+			throw new DealInsertException("No user found for this Deal.");
+		}
 		deal.setInitiator(initator);
 		deal.setProposed(proposed);
+		Status status = new Status();
+		status.setCode(statusString);
 		deal.setStatus(status);
 		
 		for (String soId : swapObjectsId) {
 			SwapObject so = new SwapObject();
-			so = itemService.findItem(Long.parseLong(soId));
+			try {
+				so = itemService.findItem(Long.parseLong(soId));
+			} catch (NumberFormatException | ItemNotFoundException e) {
+				throw new DealInsertException("Item Id problem.");
+			}
 			deal.addSwapObjects(so);
 		}
 
@@ -138,13 +161,24 @@ public class DealService {
 	/**
 	 * Update de la classe deal.
 	 */
-	public Deal updateDeal(Long id, Status status,Set<String> swapObjectsId) {
+	public Deal updateDeal(Long id, String statusString,Set<String> swapObjectsId) throws DealUpdateException{
 
-		Deal deal = findDeal(id);
+		Deal deal;
+		try {
+			deal = findDeal(id);
+		} catch (DealNotFoundException e1) {
+			throw new DealUpdateException("No deal found for this id");
+		}
+		Status status = new Status();
+		status.setCode(statusString);
 		deal.setStatus(status);
 		for (String soId : swapObjectsId) {
 			SwapObject so = new SwapObject();
-			so = itemService.findItem(Long.parseLong(soId));
+			try {
+				so = itemService.findItem(Long.parseLong(soId));
+			} catch (NumberFormatException | ItemNotFoundException e) {
+				throw new DealUpdateException("Item id problem.");
+			}
 			deal.addSwapObjects(so);
 		}
 

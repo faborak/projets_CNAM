@@ -1,0 +1,18 @@
+<div ng-controller="NewItemCtrl">
+
+    <form name="newItemForm" ng-submit="createItem()" novalidate>
+    <label>Nom : </label>
+    <input name="name" type="text" ng-model="data.name" required ng-minlength="2" ng-maxlength="20" placeholder="Nom"/>
+    <div ng-messages="newItemForm.name.$error" ng-messages-include="erreurs.html" ng-if="newItemForm.$submitted"></div>
+    
+    <label>Description : </label>
+    <input name="description" type="text" ng-model="data.description" ng-maxlength="30" placeholder="Description in a few words..."/>
+    <div ng-messages="newItemForm.description.$error" ng-messages-include="erreurs.html" ng-if="newItemForm.$submitted"></div>
+    
+    <label>Cost : </label>
+    <input name="cost" type="number" ng-model="data.cost" required placeholder="cost" />
+    <div ng-messages="newItemForm.cost.$error" ng-messages-include="erreurs.html" ng-if="myForm.$submitted"></div>
+    
+    <input type="submit" value="Envoyer" />
+</form>
+</div>

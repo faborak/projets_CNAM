@@ -1,6 +1,7 @@
 <div ng-controller="loginCtrl">
 
     <div id="loginview" ng-if="data.login">
+        <div data-onsuccess="onSignIn">bouton connection Facebook</div>
         <div class="g-signin2" data-onsuccess="onSignIn">bouton connection Google</div>
         </br>
         <label>OR</label>
@@ -44,7 +45,7 @@
             <td><button ng-click="authorize()" ng-disabled="data.user.mail.$invalid ">login</button></td>
             </br>
             <td><button ng-click="creationUser()">Inscription</button></td></br>
-            <td><span ng-show="data.creation.error.existingmail">Impossible de creer un nouveau compte avec mail.</span> </td>
+            <td><span ng-show="data.creation.error.existingmail">Impossible de creer un nouveau compte avec ce mail.</span> </td>
         </tr>
     </div>
 </div>
