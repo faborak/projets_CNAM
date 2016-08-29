@@ -1,11 +1,8 @@
 package com.myswap.services;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -89,23 +86,26 @@ public class ItemService {
 	 * Insertion d'un nouvel Item.
 	 * 
 	 */
-	public Item insertItem(String name, String description, String cost,
-			String userId, Set<String> dealsId) throws ItemInsertException {
+	public Item insertItem(String name, String description, String cost, String categoryCode, String userId) throws ItemInsertException {
 
 		Item item = new Item();
 
-		DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
+		//DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
 
+		Category category = new Category();
+		category.setCode(categoryCode);
+		
 		item.setName(name);
 		Date date = new Date();
 		item.setDateCreation(date);
 		item.setDateModification(date);
 		item.setDescription(description);
 		item.setCost(Float.parseFloat(cost));
+		item.setCategory(category);
 
 		User user = new User();
 		try {
-			user = userService.findUser(userId);
+			user = userService.findUser(Long.parseLong(userId));
 		} catch (UserNotFoundException e1) {
 			throw new ItemInsertException("User id is not found in database.");
 		}
@@ -113,15 +113,15 @@ public class ItemService {
 		item.setOwner(user);
 
 		// normalement, un nouvel objet n'est dans aucun Deal !
-		for (String dealId : dealsId) {
-			Deal deal = new Deal();
-			try {
-				deal = dealService.findDeal(Long.parseLong(dealId));
-			} catch (NumberFormatException | DealNotFoundException e) {
-				throw new ItemInsertException("Deal id problem.");
-			}
-			item.addDeal(deal);
-		}
+//		for (String dealId : dealsId) {
+//			Deal deal = new Deal();
+//			try {
+//				deal = dealService.findDeal(Long.parseLong(dealId));
+//			} catch (NumberFormatException | DealNotFoundException e) {
+//				throw new ItemInsertException("Deal id problem.");
+//			}
+//			item.addDeal(deal);
+//		}
 		
 		try {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -195,7 +195,7 @@ public class ItemService {
 
 		User user = new User();
 		try {
-			user = userService.findUser(userId);
+			user = userService.findUser(Long.parseLong(userId));
 		} catch (UserNotFoundException e1) {
 			throw new ItemUpdateException("No user found for this id.");
 		}
@@ -236,7 +236,7 @@ public class ItemService {
 	}
 	
 	/**
-	 * Remontée des catégories d'Item.
+	 * Remontï¿½e des catï¿½gories d'Item.
 	 * 
 	 */
 	public List<Category> findCategories() {
@@ -262,7 +262,7 @@ public class ItemService {
 	}
 	
 	/**
-	 * Recherche par critères.
+	 * Recherche par critï¿½res.
 	 * 
 	 */
 	public List<Item> findItemsByCriterias(String category, String costMin, String costMax, String keyword, long idReprise, int maxResult) throws ItemNotFoundException{
@@ -296,7 +296,7 @@ public class ItemService {
 				criteria.add(Restrictions.like("name", "%" + keyword + "%"));
 			}
 			
-			// limite le nombre de résultat par page
+			// limite le nombre de rï¿½sultat par page
 			criteria.setMaxResults(maxResult);
 
 			items = (List<Item>) criteria.list();
@@ -318,7 +318,7 @@ public class ItemService {
 	}
 	
 	public List<Item> findTendances() throws ItemNotFoundException {
-		// TODO table de mémorisation des tendances
+		// TODO table de mï¿½morisation des tendances
 		List<Item> items = new ArrayList<Item>();
 		
 		items = findItemsByCriterias("Informatique", "","", "", 1, 3);
@@ -339,7 +339,7 @@ public class ItemService {
 	}
 	
 	/**
-	 * Remontée des catégories d'Item.
+	 * Remontï¿½e des catï¿½gories d'Item.
 	 * 
 	 */
 	public ItemPicture addPicture(String picName, String picPath, long itemId) throws AddPictureException {

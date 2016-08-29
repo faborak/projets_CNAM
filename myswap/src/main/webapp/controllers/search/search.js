@@ -13,6 +13,7 @@ angular.module('searchControllers', ['ngRoute', 'requeteur'])
 
   $scope.setCategories = function(data){
 	  $scope.data.categories = data;
+	  $scope.data.selectedCategory = $scope.data.categories[1];
   }
   
   $scope.setTendances = function(data){
@@ -98,7 +99,7 @@ angular.module('searchControllers', ['ngRoute', 'requeteur'])
   
 });
 
-/* Modèles  */
+/* Modï¿½les  */
 /*
 function ListeItems() {
   var list = [];

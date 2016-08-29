@@ -43,7 +43,11 @@ public class UserService {
 			criteria.add(Restrictions.eqOrIsNull("email", email));
 
 			account = (Account) criteria.uniqueResult();
-			user = account.getUser();
+			
+			if(account != null){
+				user = account.getUser();
+			}	
+			
 		} catch (RuntimeException e) {
 			logger.error("RuntimeException in UserService/findUser : " + e.getMessage());
 		} finally {
@@ -301,6 +305,7 @@ public class UserService {
 
 			activity = (Activity) criteria.uniqueResult();
 			user = activity.getUser();
+			
 		} catch (RuntimeException e) {
 			logger.error("RuntimeException in UserService/findUser : " + e.getMessage());
 		} finally {

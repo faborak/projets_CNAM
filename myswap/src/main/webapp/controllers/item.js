@@ -2,21 +2,25 @@
 
 angular.module('itemCatControllers', ['ngRoute', 'requeteur'])
 
-.controller("ItemListCtrl", function($scope, $http, $location) {
+.controller("ItemListCtrl", function($scope, $http, $location, data) {
 
   $scope.data = {};
   $scope.data.search = "";
+  $scope.data.currentuser = {};
   $scope.data.items = [];
   $scope.data.itemsfinal = [];
 
-  var loadItems = function() {
-    $http({
-      method: 'get',
-      url: 'http://92.90.70.23:12345/myswap/rest/deal/getUserItems'
-    }).success(function(data) {
-      $scope.data.items = data;
-    });
+  var startPage = function() {
+	  var params = {
+		 "token": window.sessionStorage.getItem("token")
+	  };
+	  data.post('user/getCurrentUser', params, $scope.setCurrentUser);
   };
+  
+  $scope.setCurrentUser = function(data){
+	  $scope.data.currentuser = data;
+	  $scope.data.items = $scope.data.currentuser.wholeOfItems;
+  }
 
   function filterItems(scope) {
     if ($scope.data.search != "") {
@@ -46,7 +50,7 @@ angular.module('itemCatControllers', ['ngRoute', 'requeteur'])
   $scope.$watch($scope.search, filterItems);
 
   $scope.detail = function(itemId) {
-    $location.path('/items/' + itemId);
+    $location.path('/items-self/' + itemId);
   };
   
   $scope.newItem = function() {
@@ -55,59 +59,59 @@ angular.module('itemCatControllers', ['ngRoute', 'requeteur'])
 
 
   /* lancement de la recherche au départ de l'application */
-  /*
-	 * loadItems();
-	 *  /* Mock
+  
+  startPage();
+	 /* Mock
 	 */
-  $scope.data.items = [{
-    "IdSwapObjet": 1,
-    "name": "guitare acoustique",
-    "dateCreation": "12-06-2007",
-    "dateModification": "12-06-2007",
-    "description": "superbe guitare, très peu servie",
-    "pic": null,
-    "cost":122,
-    "owner": {
-      "id": 1,
-      "lastname": "henri"
-    },
-    "deals": [{
-      "id": 1,
-      "id": 2
-    }]
-  }, {
-    "IdSwapObjet": 2,
-    "name": "guitare électrique",
-    "dateCreation": "12-06-2007",
-    "dateModification": "12-06-2007",
-    "description": "guitare électrique ayant servi à moi, c'est dire !",
-    "pic": null,
-    "cost":305.5,
-    "owner": {
-      "id": 1,
-      "lastname": "charles"
-    },
-    "deals": [{
-      "id": 1,
-      "id": 2
-    }]
-  }, {
-    "IdSwapObjet": 3,
-    "name": "chaiqe de jardin",
-    "dateCreation": "12-06-2007",
-    "dateModification": "12-06-2007",
-    "description": "vieille chaise, quasi donnée",
-    "pic": null,
-    "cost":1.25,
-    "owner": {
-      "id": 1,
-      "lastname": "henri"
-    },
-    "deals": [{
-      "id": 1,
-      "id": 2
-    }]
-  }];
+//  $scope.data.items = [{
+//    "IdSwapObjet": 1,
+//    "name": "guitare acoustique",
+//    "dateCreation": "12-06-2007",
+//    "dateModification": "12-06-2007",
+//    "description": "superbe guitare, très peu servie",
+//    "pic": null,
+//    "cost":122,
+//    "owner": {
+//      "id": 1,
+//      "lastname": "henri"
+//    },
+//    "deals": [{
+//      "id": 1,
+//      "id": 2
+//    }]
+//  }, {
+//    "IdSwapObjet": 2,
+//    "name": "guitare électrique",
+//    "dateCreation": "12-06-2007",
+//    "dateModification": "12-06-2007",
+//    "description": "guitare électrique ayant servi à moi, c'est dire !",
+//    "pic": null,
+//    "cost":305.5,
+//    "owner": {
+//      "id": 1,
+//      "lastname": "charles"
+//    },
+//    "deals": [{
+//      "id": 1,
+//      "id": 2
+//    }]
+//  }, {
+//    "IdSwapObjet": 3,
+//    "name": "chaiqe de jardin",
+//    "dateCreation": "12-06-2007",
+//    "dateModification": "12-06-2007",
+//    "description": "vieille chaise, quasi donnée",
+//    "pic": null,
+//    "cost":1.25,
+//    "owner": {
+//      "id": 1,
+//      "lastname": "henri"
+//    },
+//    "deals": [{
+//      "id": 1,
+//      "id": 2
+//    }]
+//  }];
 
 })
 
@@ -203,17 +207,17 @@ angular.module('itemCatControllers', ['ngRoute', 'requeteur'])
 	$scope.data.description = '';
 	$scope.data.cost=0;
 	$scope.data.currentuser={};
+	$scope.data.categories = [];
+	$scope.data.selectedCategory = {};
 	
 	$scope.createItem = function(){
 		var today = new Date();
 		var params={
 			name:$scope.data.name,
-//			dateCreation:today,	
-//			dateModification:today,
 			description:$scope.data.description,
 			cost:$scope.data.cost,
 			userId:$scope.data.currentuser.id,
-			deals : []
+			category:$scope.data.selectedCategory.code
 		};
 		data.post('item/insert',params,$scope.changePage);
 	}
@@ -226,12 +230,22 @@ angular.module('itemCatControllers', ['ngRoute', 'requeteur'])
     $scope.setCurrentUser = function(data){
 	   $scope.data.currentuser = data;
     }
+    
+    $scope.setCategories = function(data){
+  	  $scope.data.categories = data;
+  	  $scope.data.selectedCategory = $scope.categories[1];
+    }
+    
+    $scope.categoriesFinal = function() {
+	    return $scope.data.categories;
+  };
 
     var startPage = function() {
 		var params = {
 			"token": window.sessionStorage.getItem("token")
 		};
 		data.post('user/getCurrentUser', params, $scope.setCurrentUser);
+		data.get('item/getCategories', '', $scope.setCategories);
     };
 
     startPage();

@@ -24,7 +24,6 @@ import com.myswap.utilitaires.Secured;
  * 
  */
 @Path("deal")
-@Secured
 public class DealRessource {
 
 	/**
@@ -57,11 +56,12 @@ public class DealRessource {
 	@POST
 	@Path("/insert")
 	@Consumes({ "application/json" })
+	@Secured
 	public Response insertDeal(@FormParam("initator") String initatorId, @FormParam("proposed") String proposedId,
 			 @FormParam("swapObjects") Set<String> swapObjectsId) {
 
 		Deal deal = null;
-		String status = "En cours de création";
+		String status = "En cours de crï¿½ation";
 		
 		try {
 			deal = dealService.insertDeal(initatorId, proposedId, status, swapObjectsId);
@@ -78,6 +78,7 @@ public class DealRessource {
 	 */
 	@DELETE
 	@Path("/delete/{id}")
+	@Secured
 	public void deleteDeal(@PathParam("id") long id) {
 
 		dealService.deleteDeal(id);
@@ -90,6 +91,7 @@ public class DealRessource {
 	@POST
 	@Path("/update")
 	@Consumes({ "application/json" })
+	@Secured
 	public Response updateDeal(@FormParam("id") Long id, @FormParam("status") String status,
 			@FormParam("swapObjects") Set<String> swapObjectsId) {
 

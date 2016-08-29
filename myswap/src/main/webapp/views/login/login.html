@@ -7,6 +7,7 @@
         <label>OR</label>
         </br>
         <tr>
+        	<div ng-if="data.error">Le couple email/mdp est faux.</div>
             <td><input ng-model="data.user.mail" type="email" name="user_email" placeholder=" Email " /></td>
             <td><span ng-show="data.user.mail.$invalid ">Le format de l'email n'est pas valide.</span> </td>
             <br>

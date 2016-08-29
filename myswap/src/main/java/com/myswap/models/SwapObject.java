@@ -1,6 +1,5 @@
 package com.myswap.models;
 
-import java.io.File;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,7 +17,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -31,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class SwapObject {
 
 	/**
-	 * Id du SwapObject. Clé primaire dans la table Swapobject. 
+	 * Id du SwapObject. Clï¿½ primaire dans la table Swapobject. 
 	 */
 	@Id
 	@GeneratedValue
@@ -74,7 +72,7 @@ public class SwapObject {
 	
 	/**
 	 * pour la sauvegarde en cascade, on utilise JPA (javax.peristance) et non pas hibernate
-	 * Toutes les cascades sont sous la responsabilité de l'objet équipe
+	 * Toutes les cascades sont sous la responsabilitï¿½ de l'objet ï¿½quipe
 	 * 
 	 */
     @ManyToOne (cascade=CascadeType.PERSIST)
@@ -86,7 +84,7 @@ public class SwapObject {
 	public User getOwner() {return owner;}
 	
 	/**
-	 * SwapObject porte la responsabilité de la liaison avec les deals
+	 * SwapObject porte la responsabilitï¿½ de la liaison avec les deals
 	 * 
 	 */
 	@ManyToMany()
@@ -100,7 +98,7 @@ public class SwapObject {
 	
 	/**
 	 * Les Pictures de l'item.
-	 * La responsabilité du mappage est confiée à ItemPicture, via l'annotation mappedBy.  
+	 * La responsabilitï¿½ du mappage est confiï¿½e ï¿½ ItemPicture, via l'annotation mappedBy.  
 	 */
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="itemRepresented")
 	@JsonBackReference

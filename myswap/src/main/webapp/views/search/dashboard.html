@@ -22,7 +22,7 @@
     <!-- /.container-fluid -->
   </nav>
 
-    <img src="data.user.pic" name="user_pic" id="user_pic" /> {{data.user.name}}
+    <img src={{data.user.userPicture.path}} name="user_pic" id="user_pic" /> {{data.user.name}}
     <td><button ng-click="detailUser(data.user.id)">Voir le profil</button></td>
     <td><button ng-click="modifierUser(data.user.id)">Modifier le profil</button></td>
 

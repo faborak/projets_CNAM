@@ -110,12 +110,12 @@ public class ItemRessource {
 	@Consumes("application/x-www-form-urlencoded")
 	@Secured
 	public Response insertItem(@FormParam("name") String name, @FormParam("description") String description,
-			@FormParam("cost") String cost, @FormParam("userId") String userId, @FormParam("deals") Set<String> dealsId) {
+			@FormParam("cost") String cost, @FormParam("userId") String userId, @FormParam("category") String category) {
 
 		Item item = null;
 		
 		try {
-			item = itemService.insertItem(name, description, cost, userId, dealsId);
+			item = itemService.insertItem(name, description, cost, category, userId);
 		} catch (ItemInsertException e) {
 			return Response.status(Response.Status.NO_CONTENT).build();
 		}
