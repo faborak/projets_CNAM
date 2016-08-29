@@ -29,14 +29,12 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 	UserService userService = new UserService();
 	Session session;
 
-	private static Logger logger = Logger.getLogger(AuthenticationFilter.class);
-	
 	static final long ONE_MINUTE_IN_MILLIS=60000;//millisecs
 	static final long LOGGING_TIME= 7 * ONE_MINUTE_IN_MILLIS;
 	
     @Override
     /**
-     * Recupère toutes les requêtes au serveur, et les valides avant l'accès aux web services.
+     * Recupï¿½re toutes les requï¿½tes au serveur, et les valides avant l'accï¿½s aux web services.
      */
     public void filter(ContainerRequestContext requestContext) throws IOException {
 

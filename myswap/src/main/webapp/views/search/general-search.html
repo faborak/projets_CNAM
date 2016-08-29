@@ -4,10 +4,12 @@
 			<div class="input-group">
 				<input type="text" class="form-control" aria-label="Text input with segmented button dropdown" placeholder="Chercher un objet" ng-model="data.keyword">
 				<div class="input-group-btn">
-					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button>
-					<ul class="dropdown-menu dropdown-menu-right" ng-repeat="a in categoriesFinal()"> 
+					<!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button>
+					 <ul class="dropdown-menu dropdown-menu-right" ng-repeat="a in categoriesFinal()"> 
 						<li>{{a.code}} test</li>
-					</ul>
+					</ul> -->
+					<select name="categories" size="18" ng-model="data.selectedCategory" ng-options="categorie.code for categorie in data.categories">
+					</select>
 					<button type="button" class="btn btn-default" ng-click="rechercher()">Rechercher !</button>
 				</div>
 				<!-- /btn-group -->

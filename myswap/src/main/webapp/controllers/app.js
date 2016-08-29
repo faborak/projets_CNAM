@@ -12,10 +12,11 @@ angular.module('myApp', [
   'swapCatControllers',
   'itemCatControllers',
   'profileControllers',
-  //'myApp.account',
+  
+  'searchControllers',
+  'dealsControllers',
+  
   'requeteur'
-  
-  
 ]).
 
 // declare all the routes for MySwap
@@ -23,11 +24,19 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
   $locationProvider.hashPrefix('!');
   $routeProvider
   	.when('/login', {
-	    templateUrl: 'views/login.html',
+	    templateUrl: 'views/login/login.html',
 	    controller: 'loginCtrl'
 	})
+	.when('/general-search', {
+      templateUrl: 'views/search/general-search.html',
+      controller: 'GeneralSearchCtrl'
+    })
+    .when('/searchresult/:keyword/:category?', {
+      templateUrl: 'views/search/search-result.html',
+      controller: 'SearchResultCtrl'
+    })
     .when('/dashboard', {
-      templateUrl: 'views/dashboard.html',
+      templateUrl: 'views/search/dashboard.html',
       controller: 'DashboardCtrl'
     })
     .when('/followswap', {
@@ -46,17 +55,25 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
       templateUrl: 'views/swaps/swap-detail.html',
       controller: 'SwapDetailCtrl'
     })
-      .when('/items', {
+    .when('/items', {
       templateUrl: 'views/items/items.html',
       controller: 'ItemListCtrl'
     })
-    .when('/items/:itemId', {
+    .when('/item/:itemId', {
       templateUrl: 'views/items/item-detail.html',
+      controller: 'SearchItemDetailCtrl'
+    })
+    .when('/items-self/:itemId', {
+      templateUrl: 'views/items/item-detail-self.html',
       controller: 'ItemDetailCtrl'
     })
     .when('/new-item', {
       templateUrl: 'views/items/new-item.html',
       controller: 'NewItemCtrl'
+    })
+    .when('/deal/newdeal/:itemId', {
+      templateUrl: 'views/deals/new-deal.html',
+      controller: 'NewDealCtrl'
     })
     .when('/profile-self', {
       templateUrl: 'views/user/profile-self.html',
@@ -70,7 +87,16 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
       templateUrl: 'views/user/profile-pics.html',
       controller: 'PicsCtrl'
     })
+    .when('/user/profile/:userId', {
+      templateUrl: 'views/search/profile.html',
+      controller: 'ProfileCtrl'
+    })
+    .when('/disconnected', {
+      templateUrl: 'views/login/disconnected.html',
+      controller: 'DisconnectedCtrl'
+    })
+    
     .otherwise({
-      redirectTo: '/dashboard'
+      redirectTo: '/general-search'
     });
 }]);

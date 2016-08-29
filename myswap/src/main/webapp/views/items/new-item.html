@@ -13,6 +13,9 @@
     <input name="cost" type="number" ng-model="data.cost" required placeholder="cost" />
     <div ng-messages="newItemForm.cost.$error" ng-messages-include="erreurs.html" ng-if="myForm.$submitted"></div>
     
-    <input type="submit" value="Envoyer" />
+    <select name="nom" size="1" ng-model="data.selectedCategory" ng-options="categorie.code for categorie in data.categories">
+	</select>
+    
+    <input type="submit" value="Ajouter l'objet" />
 </form>
 </div>

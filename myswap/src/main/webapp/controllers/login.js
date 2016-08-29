@@ -1,15 +1,17 @@
 'use strict';
 
-angular.module('login', ['ngRoute'])
+angular.module('login', ['ngRoute','requeteur'])
 
-.controller("loginCtrl", function($scope, $http, $httpParamSerializer) {
+.controller("loginCtrl", function($scope, $http, $location, data) {
 
-  //$scope.data = {}; => défini côté popup
-  $scope.data.user = {"mail" : "test1@gmail.com", "password":"password01", "nom":"", "prenom":""};
+  //$scope.data = {}; => dï¿½fini cï¿½tï¿½ popup
+  $scope.data.user = {"mail" : "usrint0001@gmail.com", "password":"password01", "nom":"", "prenom":"", "userPicture":[{"path":"test"}]};
   $scope.data.login= true;
   $scope.data.inscription = false;  
   $scope.data.creation = false;
-
+  $scope.data.error = false;
+  $scope.data.isLogged = false;
+  
   $scope.authorize = function() {
 	    $http({
 	        method: 'post',
@@ -28,9 +30,12 @@ angular.module('login', ['ngRoute'])
 	        $scope.data.token = data.token;
 	        window.sessionStorage.setItem("token", $scope.data.token);
 	        $scope.data.popup.close();
-	      });
+	      }).error(function(data, status, headers, config) {
+		        $scope.data.isLogged = false;
+		        $scope.data.error = true;
+		  });
 	    };
-  
+	    
   $scope.creationUser = function() {
     $http({
       method: 'post',
@@ -51,6 +56,19 @@ angular.module('login', ['ngRoute'])
       $scope.data.resultat = resultat.resultat;
     });
   };
+  
+  $scope.setLogged = function(data){
+	  $scope.userLogged = data.isLogged;
+  }
+  
+  var startPage = function() {
+	var params= {
+			token:sessionStorage.getItem("token")
+	}
+	data.post('authentication/islogged', params, $scope.setLogged);
+  };
+  
+//  startPage();
 
   $scope.pageCreation = function(){
     $scope.data.login = false;

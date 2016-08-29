@@ -22,7 +22,6 @@ import com.myswap.utilitaires.Secured;
  * 
  */
 @Path("comment")
-@Secured
 public class CommentRessource {
 
 	/**
@@ -55,6 +54,7 @@ public class CommentRessource {
 	@POST
 	@Path("/insert")
 	@Consumes({"application/json"})
+	@Secured
 	public Response insertComment(@FormParam("label") String label, @FormParam("mark") Integer mark,
 			@FormParam("noting") String notingId, @FormParam("noted") String notedId) {
 
@@ -76,6 +76,7 @@ public class CommentRessource {
 	 */
 	@DELETE
 	@Path("/delete/{id}")
+	@Secured
 	public void deleteComment(@PathParam("id") long id) {
 
 		commentService.deleteComment(id);
@@ -88,6 +89,7 @@ public class CommentRessource {
 	@POST
 	@Path("/update")
 	@Consumes({ "application/json" })
+	@Secured
 	public Response updateComment(@FormParam("id") Long id, @FormParam("label") String label, @FormParam("mark") Integer mark,
 			@FormParam("noting") String notingId, @FormParam("noted") String notedId) {
 
