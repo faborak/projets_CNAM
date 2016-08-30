@@ -88,7 +88,7 @@ public class SwapObject {
 	@ManyToMany()
 	@JoinTable(name = "Dealswap", joinColumns = @JoinColumn(name = "id_swap_object"),
               inverseJoinColumns = @JoinColumn(name = "id_deal"))
-	@JsonManagedReference
+	@JsonBackReference
 	private Set<Deal> deals = new HashSet<Deal>();
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	public Set<Deal> getDeals() {return deals;}

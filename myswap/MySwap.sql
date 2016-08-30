@@ -375,7 +375,6 @@ INSERT INTO `Info` (`id_user`, `school`, `job`,`about`) VALUES
 
 CREATE TABLE IF NOT EXISTS `Picture` (
   `id_picture` int(11) NOT NULL,
-  `name` varchar(30) COLLATE utf8_bin NOT NULL,
   `path` varchar(60) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='les pictures correspondent � une classe m�re Java.';
 
@@ -384,12 +383,12 @@ CREATE TABLE IF NOT EXISTS `Picture` (
 --
 
 INSERT INTO `Picture` (`id_picture`, `name`, `path`) VALUES
-(1, 'premier gisement de Bouzon', '1999-05-25'),
-(2, 'premier gisement de Hzk2', '2015-04-08'),
-(3, 'Bouzon 3', '2015-08-30'),
-(4, 'Bouzon 3', '2015-08-30'),
-(5, 'Bouzon 3', '2015-08-30'),
-(6, 'Bouzon 9', '2009-03-04');
+(1, '1999-05-25'),
+(2, '2015-04-08'),
+(3, '2015-08-30'),
+(4, '2015-08-30'),
+(5, '2015-08-30'),
+(6, '2009-03-04');
 
 -- --------------------------------------------------------
 

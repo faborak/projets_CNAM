@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @JsonAutoDetect
 public abstract class Picture implements Serializable{
 	/**
-	 * Id de la picture. Clé primaire dans la table Picture. 
+	 * Id de la picture. Clï¿½ primaire dans la table Picture. 
 	 */
 	@Id
 	@GeneratedValue
@@ -28,13 +28,13 @@ public abstract class Picture implements Serializable{
 	public void setIdPicture(Long i) {idPicture = i;}
 	public Long getIdPicture() {return idPicture;}
 
-	/**
-	 * Nom de la photo. 
-	 */
-	@Column
-	String name;
-	public void setName(String n) {name= n;}
-	public String getName() {return name;}
+//	/**
+//	 * Nom de la photo. 
+//	 */
+//	@Column
+//	String name;
+//	public void setName(String n) {name= n;}
+//	public String getName() {return name;}
 
 
 	/**

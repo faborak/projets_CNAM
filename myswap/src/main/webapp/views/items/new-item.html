@@ -24,10 +24,12 @@
 
 		<table>
 			<tr ng-repeat="src in pics()">
-				<td><img class="picture-normal" ng-src="{{src}}" alt="Description" /></td>
+				<td><img class="picture-normal" ng-src="{{src}}" alt={{src}} /></td>
 				<td><button ng-click="supprimer(src)">Supprimer</button></td>
 			</tr>
 		</table>
+
+		<input type="submit" value="Envoyer" />
 
 	</form>
 
@@ -40,4 +42,5 @@
 		<button ng-click="data.upload()">Submit</button>
 		<div ng-show="data.errorupload">Problème à l'upload.</div>
 	</div>
+	
 </div>
