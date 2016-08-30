@@ -6,7 +6,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @PrimaryKeyJoinColumn(name="id_picture")
@@ -19,7 +19,7 @@ public class UserPicture extends Picture {
 	 */
     @ManyToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_user")
-    @JsonManagedReference
+    @JsonBackReference
 	private User owner;
 	public void setOwner(User u) {owner = u;}
 	public User getOwner() {return owner;}	

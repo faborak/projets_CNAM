@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 public class Comment {
 
 	/**
-	 * Id du Comment. Clé primaire dans la table Comment. 
+	 * Id du Comment. ClÃ© primaire dans la table Comment. 
 	 */
 	@Id
 	@GeneratedValue
@@ -32,7 +32,7 @@ public class Comment {
 	public Long getIdComment() {return IdComment;}
 	
 	/**
-	 * Libellé du commentaire. 
+	 * LibellÃ© du commentaire. 
 	 */
 	@Column
 	String label;
@@ -48,7 +48,7 @@ public class Comment {
 	public Integer getMark() {return mark;}
 	
 	/**
-	 * user noté par le commentaire.
+	 * user notÃ© par le commentaire.
 	 */
     @ManyToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_noted_user")
