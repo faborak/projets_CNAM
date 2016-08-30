@@ -141,13 +141,13 @@ public class UserRessource {
 	@Path("/insertPicture")
 	@Consumes({ "application/json" })
 	@Secured
-	public Response insertItem(@FormParam("picName") String picName, @FormParam("picPath") String picPath,
+	public Response insertItem(@FormParam("picPath") String picPath,
 			@FormParam("userId") long userId) {
 
 		UserPicture userPicture = null;
 		
 		try {
-			userPicture = userService.addPicture(picName, picPath, userId);
+			userPicture = userService.addPicture(picPath, userId);
 		} catch (AddPictureException e) {
 			return Response.status(Response.Status.NO_CONTENT).build();
 		}

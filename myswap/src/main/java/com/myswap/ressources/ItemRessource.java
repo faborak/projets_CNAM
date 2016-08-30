@@ -20,6 +20,7 @@ import com.myswap.exceptions.ItemNotFoundException;
 import com.myswap.exceptions.ItemUpdateException;
 import com.myswap.models.Item;
 import com.myswap.models.ItemPicture;
+import com.myswap.models.SwapObject;
 import com.myswap.services.ItemService;
 import com.myswap.utilitaires.Secured;
 
@@ -76,13 +77,21 @@ public class ItemRessource {
 		return Response.ok(items).build();
 	}
 	
-//	@GET
-//	@Path("/getProposed")
-//	@Produces({ "application/json" })
-//	public Response findProposed() {
-//		
-//		return Response.ok(itemService.findProposed()).build();
-//	}
+	@GET
+	@Path("/getItemsByUser/{id}")
+	@Produces({ "application/json" })
+	public Response findItemsByUser(@PathParam("id") long id) {
+		
+		List<SwapObject> items = new ArrayList<SwapObject>();
+		
+		try {
+			items = itemService.findItemsByUser(id);
+		} catch (ItemNotFoundException e) {
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+		
+		return Response.ok(items).build();
+	}
 	
 	@POST
 	@Path("/getItemsByCriterias")
@@ -166,15 +175,16 @@ public class ItemRessource {
 	 */
 	@POST
 	@Path("/insertPicture")
-	@Consumes({ "application/json" })
+	@Produces("application/json")
+	@Consumes("application/x-www-form-urlencoded")
 	@Secured
-	public Response insertItem(@FormParam("picName") String picName, @FormParam("picPath") String picPath,
+	public Response insertItem(@FormParam("picPath") String picPath,
 			@FormParam("itemId") long itemId) {
 
 		ItemPicture itempicture = null;
 		
 		try {
-			itempicture = itemService.addPicture(picName, picPath, itemId);
+			itempicture = itemService.addPicture(picPath, itemId);
 		} catch (AddPictureException e) {
 			return Response.status(Response.Status.NO_CONTENT).build();
 		}

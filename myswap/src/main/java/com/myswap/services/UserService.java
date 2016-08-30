@@ -355,7 +355,7 @@ public class UserService {
 	 * @param userId
 	 * @return
 	 */
-	public UserPicture addPicture(String picName, String picPath, long userId)throws AddPictureException{
+	public UserPicture addPicture(String picPath, long userId)throws AddPictureException{
 	
 		User user = new User();
 		try {
@@ -366,7 +366,7 @@ public class UserService {
 	
 		UserPicture userPicture = new UserPicture();
 		userPicture.setOwner(user);
-		userPicture.setName(picName);
+//		userPicture.setName(picName);
 		userPicture.setPath(picPath);
 		
 		try {

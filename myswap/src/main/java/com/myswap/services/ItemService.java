@@ -22,6 +22,7 @@ import com.myswap.models.Category;
 import com.myswap.models.Deal;
 import com.myswap.models.Item;
 import com.myswap.models.ItemPicture;
+import com.myswap.models.SwapObject;
 import com.myswap.models.User;
 
 /**
@@ -81,6 +82,40 @@ public class ItemService {
 		}
 		
 		return item;
+	}
+	
+	
+	/**
+	* Methode de recherche par Id.
+	*/
+	public List<SwapObject> findItemsByUser(long id) throws ItemNotFoundException {
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		List<SwapObject> items = null;
+		Set<SwapObject> itemsSet= null;
+		User user = null;
+		
+		try {
+			Criteria criteria = session.createCriteria(User.class);
+
+			criteria.add(Restrictions.eqOrIsNull("id", id));
+
+			user = (User) criteria.uniqueResult();
+			
+			itemsSet = user.getWholeOfItems();
+			items = new ArrayList<SwapObject>(itemsSet);
+		} catch (RuntimeException e) {
+			logger.error("RuntimeException in ItemService/findItem : " + e.getMessage());
+		} finally {
+			session.close();
+		}
+		
+		if (items == null){
+			throw new ItemNotFoundException("no items for this user");
+		}
+		
+		return items;
 	}
 
 	/**
@@ -343,7 +378,7 @@ public class ItemService {
 	 * Remont�e des cat�gories d'Item.
 	 * 
 	 */
-	public ItemPicture addPicture(String picName, String picPath, long itemId) throws AddPictureException {
+	public ItemPicture addPicture(String picPath, long itemId) throws AddPictureException {
 	
 		Item item = new Item();
 		try {
@@ -354,7 +389,6 @@ public class ItemService {
 		
 		ItemPicture itemPicture = new ItemPicture();
 		itemPicture.setItemRepresented(item);
-		itemPicture.setName(picName);
 		itemPicture.setPath(picPath);
 		
 		try {
