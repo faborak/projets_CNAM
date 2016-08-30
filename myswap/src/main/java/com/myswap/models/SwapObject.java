@@ -71,8 +71,6 @@ public class SwapObject {
 	public String getDescription() {return description;}
 	
 	/**
-	 * pour la sauvegarde en cascade, on utilise JPA (javax.peristance) et non pas hibernate
-	 * Toutes les cascades sont sous la responsabilit� de l'objet �quipe
 	 * 
 	 */
     @ManyToOne (cascade=CascadeType.PERSIST)
@@ -101,10 +99,10 @@ public class SwapObject {
 	 * La responsabilit� du mappage est confi�e � ItemPicture, via l'annotation mappedBy.  
 	 */
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="itemRepresented")
-	@JsonBackReference
+	@JsonManagedReference
 	private Set<ItemPicture> itemPictures = new HashSet<ItemPicture>();
 	public void addItemPictures(ItemPicture f) {f.setItemRepresented(this); itemPictures.add(f);}
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	public Set<ItemPicture> getItemPictures () {return itemPictures ;}
 	
 	public  SwapObject() {} 

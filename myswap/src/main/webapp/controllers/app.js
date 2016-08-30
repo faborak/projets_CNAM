@@ -1,8 +1,6 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('myApp.index', ['ngRoute'])
-
 angular.module('myApp', [
   'ngRoute',
   'myApp.popup-dialog',
@@ -12,10 +10,10 @@ angular.module('myApp', [
   'swapCatControllers',
   'itemCatControllers',
   'profileControllers',
-  
   'searchControllers',
   'dealsControllers',
   
+  'convertbase64',
   'requeteur'
 ]).
 

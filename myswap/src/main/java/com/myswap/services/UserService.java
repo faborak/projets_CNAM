@@ -78,11 +78,11 @@ public class UserService {
 			criteria.add(Restrictions.eqOrIsNull("id", id));
 
 			user = (User) criteria.uniqueResult();
-			user.getWholeOfItems().size();
-			user.getCommentsOnUser().size();
-			user.getCommentsWriteds().size();
-			user.getDealsInitator().size();
-			user.getDealsProposed().size();
+//			user.getWholeOfItems().size();
+//			user.getCommentsOnUser().size();
+//			user.getCommentsWriteds().size();
+//			user.getDealsInitator().size();
+//			user.getDealsProposed().size();
 		} catch (RuntimeException e) {
 			logger.error("RuntimeException in UserService/findUser : " + e.getMessage());
 			//throw new UserNotFoundException("RuntimeException in UserService/findUser");

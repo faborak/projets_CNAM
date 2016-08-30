@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 05 Juillet 2016 à  15:38
+-- Gï¿½nï¿½rï¿½ le :  Mar 05 Juillet 2016 ï¿½ 15:38
 -- Version du serveur :  5.6.24
 -- Version de PHP :  5.6.8
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données :  `my_swap`
+-- Base de donnï¿½es :  `my_swap`
 --
 
 -- --------------------------------------------------------
@@ -114,11 +114,11 @@ CREATE TABLE IF NOT EXISTS `Comment` (
 --
 
 INSERT INTO `Comment` (`id_comment`, `id_noting_user`, `id_noted_user`, `label`, `mark`) VALUES
-(1, 1, 2, 'Moi, 1, pense à§a de 2.', 1),
-(2, 2, 3, 'Moi, 2, pense à§a de 3.', 2),
-(3, 3, 4, 'Moi, 3, pense à§a de 4.', 3),
-(4, 4, 5, 'Moi, 4, pense à§a de 5.', 4),
-(5, 5, 1, 'Moi, 5, pense à§a de 1.', 5);
+(1, 1, 2, 'Moi, 1, pense ï¿½a de 2.', 1),
+(2, 2, 3, 'Moi, 2, pense ï¿½a de 3.', 2),
+(3, 3, 4, 'Moi, 3, pense ï¿½a de 4.', 3),
+(4, 4, 5, 'Moi, 4, pense ï¿½a de 5.', 4),
+(5, 5, 1, 'Moi, 5, pense ï¿½a de 1.', 5);
 
 -- --------------------------------------------------------
 
@@ -133,18 +133,18 @@ CREATE TABLE IF NOT EXISTS `Deal` (
   `date_creation` date DEFAULT NULL,
   `date_modification` date DEFAULT NULL,
   `status` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Table principale des deals, i.e échanges non validés';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Table principale des deals, i.e Ã©changes non validÃ©s';
 
 --
 -- Contenu de la table `Deal`
 --
 
 INSERT INTO `Deal` (`id_deal`, `id_first_user`, `id_second_user`,`date_creation`, `date_modification`, `status`) VALUES
-(1, 1, 2, "2016-08-17","2016-08-17", 'En cours de création'),
-(2, 2, 3, "2016-08-17","2016-08-17", 'En cours de création'),
-(3, 3, 4, "2016-08-17","2016-08-17", 'Transaction refusée'),
-(4, 4, 5, "2016-08-17","2016-08-17", 'En cours de création'),
-(5, 5, 1, "2016-08-17","2016-08-17", 'En cours de création');
+(1, 1, 2, "2016-08-17","2016-08-17", 'En cours de crÃ©ation'),
+(2, 2, 3, "2016-08-17","2016-08-17", 'En cours de crÃ©ation'),
+(3, 3, 4, "2016-08-17","2016-08-17", 'Transaction refusÃ©e'),
+(4, 4, 5, "2016-08-17","2016-08-17", 'En cours de crÃ©ation'),
+(5, 5, 1, "2016-08-17","2016-08-17", 'En cours de crÃ©ation');
 
 -- --------------------------------------------------------
 
@@ -184,13 +184,13 @@ CREATE TABLE `Status` (
 --
 
 INSERT INTO `Status` (`code`) VALUES
-('En cours de création'),
+('En cours de crÃ©ation'),
 ('En attente d''acceptation'),
-('Transaction refusée'),
-('Transaction acceptée'),
-('Transaction mise à  jour par l''initiateur'),
-('Transaction mise à  jour par le proposed'),
-('Transaction validée');
+('Transaction refusÃ©e'),
+('Transaction acceptÃ©e'),
+('Transaction mise Ã  jour par l''initiateur'),
+('Transaction mise Ã  jour par le proposed'),
+('Transaction validÃ©e');
 
 -- --------------------------------------------------------
 
@@ -250,7 +250,7 @@ INSERT INTO `SwapObject` (`id_swap_object`, `name`, `date_creation`, `date_modif
 
 CREATE TABLE IF NOT EXISTS `Item` (
   `id_swap_object` int(11) NOT NULL,
-  `category` varchar(20) COLLATE utf8_bin NOT NULL,
+  `category` varchar(30) COLLATE utf8_bin NOT NULL,
   `cost` float(10) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -261,7 +261,7 @@ CREATE TABLE IF NOT EXISTS `Item` (
 INSERT INTO `Item` (`id_swap_object`, `category`, `cost`) VALUES
 (1, 'Informatique', 1.50),
 (2, 'Ameublement', 2.50),
-(3, 'Décoration', 3.50),
+(3, 'DÃ©coration', 3.50),
 (4, 'Montres / Bijous', 4.50),
 (5, 'Livres', 5.50);
 
@@ -270,7 +270,7 @@ INSERT INTO `Item` (`id_swap_object`, `category`, `cost`) VALUES
 -- Structure de la table `Category`
 --
 CREATE TABLE `Category` (
-  `code` varchar(20) COLLATE utf8_bin NOT NULL,
+  `code` varchar(30) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -279,24 +279,24 @@ CREATE TABLE `Category` (
 --
 
 INSERT INTO `Category` (`code`) VALUES
-('Véhicule'),
+('VÃ©hicule'),
 ('Informatique'),
 ('Consoles'),
 ('Image et son'),
-('Téléphonie'),
+('TÃ©lÃ©phonie'),
 ('Ameublement'),
-('Electroménager'),
-('Décoration'),
+('ElectromÃ©nager'),
+('DÃ©coration'),
 ('Linge de maison'),
 ('Bricolage / Jardinage'),
-('Vàªtements / chaussures'),
+('VÃ©tements / chaussures'),
 ('Montres / Bijous'),
-('Equipement bébé'),
+('Equipement bÃ©bÃ©'),
 ('CD / DVD'),
 ('Livres'),
 ('Instrument de musique'),
 ('Fourniture de bureau'),
-('Matéril professionnel');
+('MatÃ©reil professionnel');
 
 -- --------------------------------------------------------
 
@@ -361,11 +361,11 @@ CREATE TABLE IF NOT EXISTS `Info` (
 --
 
 INSERT INTO `Info` (`id_user`, `school`, `job`,`about`) VALUES
-(1, 'ecole de la vie', 'job de mes ràªves', 'Salut ! Je pourrais vous dire que moi c''est Freddy, mais non.'),
+(1, 'ecole de la vie', 'job de mes rï¿½ves', 'Salut ! Je pourrais vous dire que moi c''est Freddy, mais non.'),
 (2, 'CNAM',  'informaticien', 'about.'),
 (3, 'CNAM Paris',  'vendeur grande surface', 'about.'),
-(4, 'UPsud XI',  'marketing opérationnel', 'about.'),
-(5, 'Lycee Jean Moulin', 'Un boulot.', 'Mon long about que je vais résumer rapidement.');
+(4, 'UPsud XI',  'marketing opï¿½rationnel', 'about.'),
+(5, 'Lycee Jean Moulin', 'Un boulot.', 'Mon long about que je vais rï¿½sumer rapidement.');
 
 -- --------------------------------------------------------
 
@@ -377,7 +377,7 @@ CREATE TABLE IF NOT EXISTS `Picture` (
   `id_picture` int(11) NOT NULL,
   `name` varchar(30) COLLATE utf8_bin NOT NULL,
   `path` varchar(60) COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='les pictures correspondent à  une classe mère Java.';
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='les pictures correspondent ï¿½ une classe mï¿½re Java.';
 
 --
 -- Contenu de la table `Picture`
@@ -430,7 +430,7 @@ INSERT INTO `ItemPicture` (`id_picture`, `id_swap_object`) VALUES
 (6, 3);
 
 --
--- Index pour les tables exportées
+-- Index pour les tables exportï¿½es
 --
 
 --
@@ -518,7 +518,7 @@ ALTER TABLE `ItemPicture`
 	 
 
 --
--- AUTO_INCREMENT pour les tables exportées
+-- AUTO_INCREMENT pour les tables exportï¿½es
 --
 
 --

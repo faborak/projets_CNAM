@@ -67,6 +67,7 @@ public class ItemService {
 			item = (Item) criteria.uniqueResult();
 			// load the deals
 			item.getDeals().size();
+			item.getItemPictures().size();
 			// item.getOwner().getCommentsWriteds().size();
 			// item.getOwner().getCommentsOnUser().size();
 		} catch (RuntimeException e) {

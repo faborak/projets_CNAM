@@ -13,7 +13,7 @@ angular.module('requeteur', [])
         	callback(data);
         }).
         error(function(data, status, headers, config) {
-        	throw "Probleme dans l'appel à " + url + ", status : " + status;
+        	throw "Probleme dans l'appel Ã  " + url + ", status : " + status;
         });
     };
     
@@ -33,7 +33,7 @@ angular.module('requeteur', [])
             callback(data);
         }).
         error(function(data, status, headers, config) {
-        	throw "Probleme dans l'appel à " + url + ", status : " + status;
+        	throw "Probleme dans l'appel Ã  " + url + ", status : " + status;
         	if(status == '401'){
         		$location.path('/disconnected') ;
         	}
@@ -62,7 +62,7 @@ angular.module('requeteur', [])
         }).
         error(function(data, status, headers, config) {
 
-        	throw "Probleme dans l'appel à " + url + ", status : " + status;
+        	throw "Probleme dans l'appel Ã  " + url + ", status : " + status;
         });
     };
     
@@ -87,8 +87,10 @@ angular.module('requeteur', [])
            callback(data);
        }).
        error(function(data, status, headers, config) {
-
-       	throw "Probleme dans l'appel à " + url + ", status : " + status;
+	       	throw "Probleme dans l'appel Ã  " + url + ", status : " + status;
+	       	if(status == '401'){
+	    		$location.path('/disconnected') ;
+	    	}
        });
    };
 

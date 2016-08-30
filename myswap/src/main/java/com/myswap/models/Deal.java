@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 public class Deal {
 
 	/**
-	 * Id du Deal. Clé primaire dans la table Deal. 
+	 * Id du Deal. Clï¿½ primaire dans la table Deal. 
 	 */
 	@Id
 	@GeneratedValue
@@ -45,7 +45,7 @@ public class Deal {
 	public void setStatus(Status n) {status = n;}
 	public Status getStatus() {return status;}
 		
-	/** Propriété du Deal.
+	/** Propriï¿½tï¿½ du Deal.
 	 * 
 	 */
 	@Column(name = "date_creation")
@@ -53,7 +53,7 @@ public class Deal {
 	public void setDateCreation(Date d) {dateCreation = d;}
 	public Date getDateCreation() {return dateCreation;}
 	
-	/** Propriété du Deal.
+	/** Propriï¿½tï¿½ du Deal.
 	 * 
 	 */
 	@Column(name = "date_modification")
@@ -81,7 +81,7 @@ public class Deal {
 				balance = balance - item.getCost();
 			} else {
 			System.out.println("Exception a definir");
-				//throws new BalanceException("Problème de calcul de balance");
+				//throws new BalanceException("Problï¿½me de calcul de balance");
 		
 			}
 		}	
@@ -99,7 +99,7 @@ public class Deal {
 	public User getInitiator() {return initiator;}
 	
 	/**
-	 * user proposé pour le Deal.
+	 * user proposÃ© pour le Deal.
 	 */
     @ManyToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_second_user")
@@ -110,9 +110,9 @@ public class Deal {
 	public User getProposed() {return proposed;}
 	
 	/**
-	 *  Lien avec la table deals : pas de propriété portée par la table DealSwap,
-	 *  donc pas d'objet Java correspondant à la table
-	 *  la responsabilité est portée par SwapObject, qui porte l'inverseJoinColomn
+	 *  Lien avec la table deals : pas de propriÃ©tÃ© portÃ©e par la table DealSwap,
+	 *  donc pas d'objet Java correspondant Ã© la table
+	 *  la responsabilitÃ© est portÃ©e par SwapObject, qui porte l'inverseJoinColomn
 	 */
 	@ManyToMany(mappedBy = "deals")
 	@JsonBackReference

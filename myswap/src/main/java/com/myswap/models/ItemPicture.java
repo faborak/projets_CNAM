@@ -6,7 +6,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @PrimaryKeyJoinColumn(name="id_picture")
@@ -18,7 +18,7 @@ public class ItemPicture extends Picture {
 */
     @ManyToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_swap_object")
-    @JsonManagedReference
+    @JsonBackReference
 	private SwapObject itemRepresented;
 	public void setItemRepresented(SwapObject u) {itemRepresented = u;}
 	public SwapObject getItemRepresented() {return itemRepresented;}	

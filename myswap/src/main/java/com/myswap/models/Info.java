@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Info {
@@ -47,7 +47,7 @@ public class Info {
 	*/
     @OneToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_user")
-    @JsonManagedReference
+    @JsonBackReference
 	private User user;
 	public void setUser(User u) {user = u;}
 	public User getUser() {return user;}

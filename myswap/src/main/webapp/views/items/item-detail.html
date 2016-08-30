@@ -1,14 +1,21 @@
 <div ng-controller="SearchItemDetailCtrl">
 
 
-    <p>Detail de l'objet.</p>
-    <table>
-        <tr>
-            <td><label>Nom :</label> {{data.item.name}}</td>
-            <td><label>Date de creation :</label> {{data.item.dateCreation}}</td>
-            <td><label>Date de modification :</label> {{data.item.dateModification}}</td>
-        </tr>
+	<p>Detail de l'objet.</p>
+	<table>
+		<tr>
+			<td><label>Nom :</label> {{data.item.name}}</td>
+			<td><label>Date de creation :</label> {{data.item.dateCreation}}</td>
+			<td><label>Date de modification :</label>
+				{{data.item.dateModification}}</td>
+		</tr>
+	</table>
 
-    </table>
-    <button ng-click="startDeal()">Demarrer un swap !</button>
+	<div ng-repeat="a in item.itemPictures">
+		<div class="col-md-4">
+			<img class="picture-normal" ng-src="{{a.path}}">
+		</div>
+	</div>
+
+	<button ng-click="startDeal()">Demarrer un swap !</button>
 </div>

@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Adress {
@@ -51,11 +51,11 @@ public class Adress {
     public String getCity() {return city;}
 	
 	/**
-	 * user auquel est rattachée l'adresse.
+	 * user auquel est rattachï¿½e l'adresse.
 	 */
     @OneToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_user")
-    @JsonManagedReference
+    @JsonBackReference
 	private User user;
 	public void setUser(User u) {user = u;}
 	public User getUser() {return user;}
