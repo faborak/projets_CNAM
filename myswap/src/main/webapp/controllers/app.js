@@ -13,6 +13,7 @@ angular.module('myApp', [
   'searchControllers',
   'dealsControllers',
   
+  'business',
   'convertbase64',
   'requeteur'
 ]).
@@ -85,8 +86,8 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
       templateUrl: 'views/user/profile-pics.html',
       controller: 'PicsCtrl'
     })
-    .when('/user/profile/:userId', {
-      templateUrl: 'views/search/profile.html',
+    .when('/user/:userId', {
+      templateUrl: 'views/user/profile.html',
       controller: 'ProfileCtrl'
     })
     .when('/disconnected', {

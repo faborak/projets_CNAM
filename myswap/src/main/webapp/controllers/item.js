@@ -110,7 +110,8 @@ angular.module('itemCatControllers', [ 'ngRoute', 'requeteur' ])
 
 	$scope.data = {};
 	$scope.data.result = false;
-	$scope.data.item = [];
+	$scope.data.item = {};
+	$scope.data.owner = {};
 	$scope.userLogged = false;
 
 	$scope.setItem = function(data) {
@@ -118,6 +119,14 @@ angular.module('itemCatControllers', [ 'ngRoute', 'requeteur' ])
 			$scope.data.result = true;
 			$scope.data.item = data;
 		}
+	}
+	
+    $scope.showProfile = function(userId){
+	  $location.path('user/'+userId);
+    }
+	
+	$scope.setOwner = function(data) {
+		$scope.data.owner = data;
 	}
 
 	$scope.setLogged = function(data) {
@@ -127,11 +136,17 @@ angular.module('itemCatControllers', [ 'ngRoute', 'requeteur' ])
 	$scope.data.itemFinal = function() {
 		return $scope.data.item;
 	};
+	
+	$scope.data.pics = function() {
+		return $scope.data.item.itemPictures;
+	};
 
 	var startPage = function() {
 
-		data.get('item/get/' + $routeParams.itemId, '',
-				$scope.setItem);
+		data.get('item/get/' + $routeParams.itemId, '',	$scope.setItem);
+		
+		data.get('user/getUserByItem/'+ $routeParams.itemId, '', $scope.setOwner);
+		
 		var params = {
 			token : sessionStorage.getItem("token")
 		}

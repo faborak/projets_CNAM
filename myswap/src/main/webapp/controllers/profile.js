@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('profileControllers', ['ngRoute'])
+angular.module('profileControllers', ['ngRoute', 'requeteur'])
 
 .controller("SelfProfileCtrl", function($scope, $http, $location) {
 
@@ -39,8 +39,8 @@ angular.module('profileControllers', ['ngRoute'])
         "job": $scope.data.user.final.infos.job,
         "about": $scope.data.user.final.infos.about,
       }
-    }).success(function(resultat) {
-      //$scope.resultat = resultat;
+    }).success(function(data) {
+      $scope.data.user = data;
     });
   };
 
@@ -58,47 +58,8 @@ angular.module('profileControllers', ['ngRoute'])
     }
   };
 
-  /* lancement de la recherche au départ de l'application */
-  /*getCurrentUser();
-
-  /* Mock  */
-  $scope.data.user = {
-    "id": 1,
-    "name": "Jean-Philippe",
-    "lastname": "Larseur",
-    "pic": null,
-    "account": {
-      "phoneNumber": "0640223315",
-      "email": "test1@gmail.com",
-      "emailChecked": true,
-      "phoneChecked": true
-    },
-    "adress": {
-      "street": "9 place des mystères",
-      "zipcode": "77184",
-      "city": "Courbevoie",
-      "state": "Ile-de-France",
-      "country": "Emerainville"
-    },
-    "commentsOnUser": [{
-      "id": 1,
-      "label": "Bonne réception, réactif et agréable à l'écrit. Très bien !",
-      "mark": 5
-    }, {
-      "id": 2,
-      "label": "Réceptionné ce matin ! Top !",
-      "mark": 4
-    }],
-    "commentsWrited": [{
-      "id": 5,
-      "label": "Toujours super !",
-      "mark": 5
-    }, {
-      "id": 2,
-      "label": "Bien, mais un petit retard à signaler dans la livraison.",
-      "mark": 3
-    }]
-  }
+  /* lancement de la recherche au dï¿½part de l'application */
+  //getCurrentUser();
 
   $scope.data.user.final = $scope.data.user;
 
@@ -111,6 +72,7 @@ angular.module('profileControllers', ['ngRoute'])
 .controller("CommentsCtrl", function($scope, $http) {
 
   $scope.data = {};
+  $scope.data.user = {};
 
   var getCurrentUser = function() {
     $http({
@@ -128,51 +90,12 @@ angular.module('profileControllers', ['ngRoute'])
   // a enelever pour democker
   /*getCurrentUser();*/
 
-  $scope.data.user = {
-    "id": 1,
-    "name": "Jean-Philippe",
-    "lastname": "Larseur",
-    "pic": null,
-    "account": {
-      "phoneNumber": "0640223315",
-      "email": "test1@gmail.com",
-      "emailChecked": true,
-      "phoneChecked": true
-    },
-    "adress": {
-      "street": "9 place des mystères",
-      "zipcode": "77184",
-      "city": "Courbevoie",
-      "state": "Ile-de-France",
-      "country": "Emerainville"
-    },
-    "commentsOnUser": [{
-      "id": 1,
-      "label": "Bonne réception, réactif et agréable à l'écrit. Très bien !",
-      "mark": 5
-    }, {
-      "id": 2,
-      "label": "Réceptionné ce matin ! Top !",
-      "mark": 4
-    }],
-    "commentsWrited": [{
-      "id": 5,
-      "label": "Toujours super !",
-      "mark": 5
-    }, {
-      "id": 2,
-      "label": "Bien, mais un petit retard à signaler dans la livraison.",
-      "mark": 3
-    }]
-  }
-
-
-
 })
 
 .controller("PicsCtrl", function($scope, $http) {
 
   $scope.data = {};
+  $scope.data.user = {};
 
   var getCurrentUser = function() {
     $http({
@@ -187,28 +110,27 @@ angular.module('profileControllers', ['ngRoute'])
     return $scope.data.user.commentsOnUser;
   };
 
-  $scope.ajouter = function() {
-    var fichier = document.getElementById('fichier').files[0];
-    var lecture = new FileReader();
-    lecture.onloadend = function(evenement) {
-      var donnees = evenement.target.result;
-      //Traitez ici vos données binaires. Vous pouvez par exemple les envoyer à un autre niveau du framework avec $http ou $ressource
-    }
-    lecture.readAsBinaryString(fichier);
-  }
+//  $scope.ajouter = function() {
+//    var fichier = document.getElementById('fichier').files[0];
+//    var lecture = new FileReader();
+//    lecture.onloadend = function(evenement) {
+//      var donnees = evenement.target.result;
+//    }
+//    lecture.readAsBinaryString(fichier);
+//  }
 
   $scope.pics = function() {
     return $scope.data.user.pics;
   };
 
-  $scope.supprimer = function(src) {
-    for (var i = 0; i < $scope.data.user.pics.length; i += 1) {
-      if ($scope.data.user.pic[i] === src) {
-        $scope.data.user.pic[i].delete;
-        $scope.updateUser($scope.data.user);
-      }
-    }
-  };
+//  $scope.supprimer = function(src) {
+//    for (var i = 0; i < $scope.data.user.pics.length; i += 1) {
+//      if ($scope.data.user.pic[i] === src) {
+//        $scope.data.user.pic[i].delete;
+//        $scope.updateUser($scope.data.user);
+//      }
+//    }
+//  };
 
   $scope.updateUser = function() {
     $http({
@@ -236,44 +158,31 @@ angular.module('profileControllers', ['ngRoute'])
     });
   };
 
-  $scope.data.user = {
-    "id": 1,
-    "name": "Jean-Philippe",
-    "lastname": "Larseur",
-    "pics": [],
-    "account": {
-      "phoneNumber": "0640223315",
-      "email": "test1@gmail.com",
-      "emailChecked": true,
-      "phoneChecked": true
-    },
-    "adress": {
-      "street": "9 place des mystères",
-      "zipcode": "77184",
-      "city": "Courbevoie",
-      "state": "Ile-de-France",
-      "country": "Emerainville"
-    },
-    "commentsOnUser": [{
-      "id": 1,
-      "label": "Bonne réception, réactif et agréable à l'écrit. Très bien !",
-      "mark": 5
-    }, {
-      "id": 2,
-      "label": "Réceptionné ce matin ! Top !",
-      "mark": 4
-    }],
-    "commentsWrited": [{
-      "id": 5,
-      "label": "Toujours super !",
-      "mark": 5
-    }, {
-      "id": 2,
-      "label": "Bien, mais un petit retard à signaler dans la livraison.",
-      "mark": 3
-    }]
+})
+
+.controller("ProfileCtrl", function($scope, $routeParams, data) {
+
+  $scope.data = {};
+  $scope.data.result = false;
+  $scope.data.user = [];
+  
+  $scope.setUser = function(data){
+	  if (data.length !== 0){
+		  $scope.data.result = true;
+		  $scope.data.user = data;
+	  }	  
   }
+  
+  $scope.data.userFinal = function() {
+	  return $scope.data.user;
+  };
+  
+  var startPage = function() {
+	  
+	data.get('user/getById/' +$routeParams.userId, '', $scope.setUser);  
+	  		
+  };
 
-
+  startPage();
 
 });
