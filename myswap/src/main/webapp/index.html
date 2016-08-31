@@ -37,11 +37,11 @@
 <script src="controllers/item.js"></script>
 <script src="controllers/profile.js"></script>
 
-<script src="controllers/search/search.js"></script>
+<script src="controllers/search.js"></script>
 <script src="controllers/deal.js"></script>
 
 <script src="services/requeteur.js"></script>
-<script src="services/swapStatus.js"></script>
+<script src="services/business.js"></script>
 <script src="services/convert.js"></script>
 
 <script src="components/version/version.js"></script>
@@ -56,7 +56,7 @@
 	<div class="header-container">
 		<!-- <h1> -->
 			<a href="#!/index"> <img width="167" id="logo" height="110"
-				alt="My Swap" src="/content/images/logo-Swap.gif">
+				alt="My Swap" src="webapp/content/images/logo-Swap.gif">
 			</a> <span ng-controller="popup-dialogCtrl" class="pos-log-button">
 				<button type="button" ng-hide="data.isLogged"
 					class="btn btn-default" ng-click="clickToOpen()"
@@ -65,7 +65,7 @@
 				</button>
 				<span ng-show="data.isLogged" >
 					<div class="dropdown"> 
-					<img class="picture-small" ng-src="{{data.user.userPictures[1].path}}" alt={{data.user.name}} ng-click="myProfile()"/>
+					<img class="picture-small" ng-src="{{data.user.userPictures[0].path}}" alt={{data.user.name}} ng-click="myProfile()"/>
 						<div class="dropdown-content">
 							<p ng-click="mySwaps()">Mes swaps</p>
 							<p ng-click="myItems()">Mes objets</p>
@@ -82,17 +82,17 @@
 </header>
 
 <body>
-
 	<section class="main-content">
 	
 		<div ng-view></div>
 
 		<!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>-->
+  
+  </section>
 </body>
 
-</section>
+
 
 <footer>
 	<p class="footer-panel">Mentions legales</p>

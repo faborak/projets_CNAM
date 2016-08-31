@@ -2,11 +2,12 @@ angular.module('requeteur', [])
 
 .service('data', ['$http', function($http, $location) {
     "use strict";
-
+    var baseUrl = "http://www.localhost:8080/myswap/rest/";	
+    
     this.get = function(url, params, callback) {
         $http({
             method: 'GET',
-            url: 'http://www.localhost:8080/myswap/rest/' + url,
+            url: baseUrl + url,
             params : params
         }).
         success(function(data, status, headers, config) {
@@ -18,7 +19,6 @@ angular.module('requeteur', [])
     };
     
     this.getAuthorized = function(url, params, callback) {
-    	var baseUrl = "http://www.localhost:8080/myswap/rest/";	
         $http({
             method: 'GET',
             url: baseUrl + url,
@@ -41,7 +41,6 @@ angular.module('requeteur', [])
     };
 
     this.post = function(url, params, callback) {
-    	 var baseUrl = "http://www.localhost:8080/myswap/rest/";	
         $http({
             method: 'POST',
             url: baseUrl + url,
@@ -67,7 +66,6 @@ angular.module('requeteur', [])
     };
     
     this.postAuthorize = function(url, params, callback) {
-   	 var baseUrl = "http://www.localhost:8080/myswap/rest/";	
        $http({
            method: 'POST',
            url: baseUrl + url,
@@ -89,6 +87,26 @@ angular.module('requeteur', [])
        error(function(data, status, headers, config) {
 	       	throw "Probleme dans l'appel à " + url + ", status : " + status;
 	       	if(status == '401'){
+	    		$location.path('/disconnected') ;
+	    	}
+       });
+   };
+   
+   this.getCurrentUser = function(callback) {
+	   var params = {
+				"token" : window.sessionStorage.getItem("token")
+		};   
+	   
+       $http({
+           method: 'GET',
+           url: baseUrl + 'user/getCurrentUser',
+           params : params
+       }).
+       success(function(data, status, headers, config) {
+       	callback(data);
+       }).
+       error(function(data, status, headers, config) {
+    	   if(status == '401'){
 	    		$location.path('/disconnected') ;
 	    	}
        });
