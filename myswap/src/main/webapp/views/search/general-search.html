@@ -4,12 +4,6 @@
 			<div class="input-group">
 				<input type="text" class="form-control" aria-label="Text input with segmented button dropdown" placeholder="Chercher un objet" ng-model="data.keyword">
 				<div class="input-group-btn">
-					<!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button>
-					 <ul class="dropdown-menu dropdown-menu-right" ng-repeat="a in categoriesFinal()"> 
-						<li>{{a.code}} test</li>
-					</ul> -->
-					<select name="categories" size="18" ng-model="data.selectedCategory" ng-options="categorie.code for categorie in data.categories">
-					</select>
 					<button type="button" class="btn btn-default" ng-click="rechercher()">Rechercher !</button>
 				</div>
 				<!-- /btn-group -->
@@ -19,7 +13,11 @@
 		<!-- /.col-lg-6 -->
 	</div>
 	<!-- /.row -->
+	<select name="nom" size="1" ng-model="data.selectedCategory" ng-options="categorie.code for categorie in data.categories">
+	</select>
 </div>
+
+
 
 
 <div class="home-panel">
@@ -42,7 +40,6 @@
 			<div class="col-md-4">
 				<img width="167" height="110"  alt={{a.name}}
 					src={{a.itemPictures[1].path}} ng-click="itemDetail(a.idSwapObjet)"> {{a.IdSwapObjet}} {{a.cost}}
-				
 			</div>
 		</div>
 	</div>

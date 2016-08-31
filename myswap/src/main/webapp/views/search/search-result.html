@@ -4,7 +4,7 @@
     <td><button ng-click="detailUser(data.user.id)">Voir le profil</button></td>
     <td><button ng-click="modifierUser(data.user.id)">Modifier le profil</button></td>
 
-    <p>Vérifications</p>
+    <p>Vï¿½rifications</p>
     <p>{{data.mailchecked}}</p>
     <p>{{data.phonechecked}}</p> -->
 
@@ -21,11 +21,10 @@
 		</div>
 	</div>
 
-	<div class="home-panel" ng-hide="data.result">
-		<div>Aucun résultat ne correspond à vos criteres de recherche.
-			Peut-être que c'est le moment de proposer quelque chose ?</div>
-		<button class="btn btn-default" ng-click="retour()">Retour à
-			l'accueil</button>
+	<div class="central-message-panel" ng-hide="data.result">
+		<div>Aucun rÃ©sultat ne correspond Ã  vos criteres de recherche.
+			Peut-Ãªtre que c'est le moment de proposer quelque chose ?</div>
+		<button class="btn btn-default" ng-click="retour()">Retour Ã  l'accueil</button>
 	</div>
 
 </div>
