@@ -1,5 +1,7 @@
 package com.myswap.services;
 
+import javax.ws.rs.NotFoundException;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -7,12 +9,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
+import com.myswap.exceptions.AddPictureException;
 import com.myswap.exceptions.UserNotFoundException;
 import com.myswap.exceptions.UserUpdateException;
-import com.myswap.exceptions.AddPictureException;
 import com.myswap.models.Account;
 import com.myswap.models.Activity;
 import com.myswap.models.Adress;
+import com.myswap.models.Item;
 import com.myswap.models.User;
 import com.myswap.models.UserPicture;
 
@@ -78,14 +81,40 @@ public class UserService {
 			criteria.add(Restrictions.eqOrIsNull("id", id));
 
 			user = (User) criteria.uniqueResult();
-//			user.getWholeOfItems().size();
-//			user.getCommentsOnUser().size();
-//			user.getCommentsWriteds().size();
-//			user.getDealsInitator().size();
-//			user.getDealsProposed().size();
 		} catch (RuntimeException e) {
 			logger.error("RuntimeException in UserService/findUser : " + e.getMessage());
-			//throw new UserNotFoundException("RuntimeException in UserService/findUser");
+		} finally {
+			session.close();
+		}
+		
+		if(user == null){
+			throw new UserNotFoundException("no user for this token");
+		}
+
+		return user;
+	}
+	
+	/**
+	 * 
+	 * @param id : id de l'item a rechercher.
+	 * @return owner of the Item.
+	 * @throws UserNotFoundException
+	 */
+	public User findUserByItem(long id) throws UserNotFoundException {
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		Item item = null;
+		User user = null;
+		try {
+			Criteria criteria = session.createCriteria(Item.class);
+
+			criteria.add(Restrictions.eqOrIsNull("id", id));
+
+			item = (Item) criteria.uniqueResult();
+			user = item.getOwner();
+		} catch (RuntimeException e) {
+			logger.error("RuntimeException in UserService/findUser : " + e.getMessage());
 		} finally {
 			session.close();
 		}
