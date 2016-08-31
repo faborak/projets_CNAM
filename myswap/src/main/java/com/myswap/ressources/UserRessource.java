@@ -60,6 +60,22 @@ public class UserRessource {
 		return Response.ok(user).build();
 	}
 	
+	@GET
+	@Path("/getUserByItem/{id}")
+	@Produces({ "application/json" })
+	public Response findUserByItem(@PathParam("id") long id) {
+		
+		User user = null;
+		
+		try {
+			user = userService.findUserByItem(id);
+		} catch (UserNotFoundException e) {
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+
+		return Response.ok(user).build();
+	}
+	
 	@POST
 	@Path("/getCurrentUser")
 	@Consumes("application/x-www-form-urlencoded")
@@ -77,18 +93,6 @@ public class UserRessource {
 		return Response.ok(user).build();
 	}
 
-	/**
-	 * 
-	 * @param name
-	 * @param lastname
-	 * @param email
-	 * @param phoneNumber
-	 * @param street
-	 * @param state
-	 * @param zipcode
-	 * @param city
-	 * @return
-	 */
 	@POST
 	@Path("/insert")
 	@Consumes({ "application/json" })
@@ -101,18 +105,14 @@ public class UserRessource {
 		return Response.ok(userService.insertUser(name, lastname, email, phoneNumber, street, state, zipcode, city)).build();
 	}
 
-	@DELETE
-	@Path("/delete/{id}")
-	@Secured
-	public void deleteUser(long id) {
-		
-		userService.deleteUser(id);
-	}
+//	@DELETE
+//	@Path("/delete/{id}")
+//	@Secured
+//	public void deleteUser(long id) {
+//		
+//		userService.deleteUser(id);
+//	}
 
-	/**
-	 * Update de la classe user. TODO : un update en cascade via la classe User
-	 * sur account et adress est possible.
-	 */
 	@POST
 	@Path("/update")
 	@Consumes({ "application/json" })

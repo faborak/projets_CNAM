@@ -10,7 +10,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
+import com.myswap.exceptions.UserNotFoundException;
+import com.myswap.models.User;
 import com.myswap.services.AuthenticationService;
+import com.myswap.services.UserService;
 
 @Path("/authentication")
 public class AuthenticationRessource {
@@ -22,6 +25,7 @@ public class AuthenticationRessource {
 	 * Le AuthenticationService.
 	 */
 	AuthenticationService authenticationService = new AuthenticationService();
+	UserService userService = new UserService();
 
 	@POST
 	@Produces("application/json")
@@ -35,7 +39,18 @@ public class AuthenticationRessource {
 		if (token == null){
 			return Response.status(Response.Status.UNAUTHORIZED).build();
 		} else {
+			
+			User user = null;
+			
+			try {
+				user = userService.findUser(mail);
+			} catch (UserNotFoundException e) {
+				return Response.status(Response.Status.UNAUTHORIZED).build();
+			}
+			
+			reponse.put("user", user);
 			reponse.put("token", token);
+			
 			return Response.ok(reponse).build();
 		}
 	}
