@@ -4,7 +4,7 @@ angular.module('login', ['ngRoute','requeteur'])
 
 .controller("loginCtrl", function($scope, $http, $location, data) {
 
-  //$scope.data = {}; => d�fini c�t� popup
+  //$scope.data = {}; => défini côté popup
   $scope.data.user = {"mail" : "usrint0001@gmail.com", "password":"password01", "nom":"", "prenom":"", "userPicture":[{"path":"test"}]};
   $scope.data.login= true;
   $scope.data.inscription = false;  
@@ -28,6 +28,7 @@ angular.module('login', ['ngRoute','requeteur'])
 	      }).success(function(data, status, headers, config) {
 	        $scope.data.isLogged = true;
 	        $scope.data.token = data.token;
+	        $scope.data.user = data.user;
 	        window.sessionStorage.setItem("token", $scope.data.token);
 	        $scope.data.popup.close();
 	      }).error(function(data, status, headers, config) {
