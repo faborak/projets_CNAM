@@ -114,11 +114,11 @@ CREATE TABLE IF NOT EXISTS `Comment` (
 --
 
 INSERT INTO `Comment` (`id_comment`, `id_noting_user`, `id_noted_user`, `label`, `mark`) VALUES
-(1, 1, 2, 'Moi, 1, pense �a de 2.', 1),
-(2, 2, 3, 'Moi, 2, pense �a de 3.', 2),
-(3, 3, 4, 'Moi, 3, pense �a de 4.', 3),
-(4, 4, 5, 'Moi, 4, pense �a de 5.', 4),
-(5, 5, 1, 'Moi, 5, pense �a de 1.', 5);
+(1, 1, 2, 'Moi, 1, pense ça de 2.', 1),
+(2, 2, 3, 'Moi, 2, pense ça de 3.', 2),
+(3, 3, 4, 'Moi, 3, pense ça de 4.', 3),
+(4, 4, 5, 'Moi, 4, pense ça de 5.', 4),
+(5, 5, 1, 'Moi, 5, pense ça de 1.', 5);
 
 -- --------------------------------------------------------
 
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `Deal` (
   `id_second_user` int(11) NOT NULL,
   `date_creation` date DEFAULT NULL,
   `date_modification` date DEFAULT NULL,
-  `status` varchar(40) NOT NULL
+  `status` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Table principale des deals, i.e échanges non validés';
 
 --
@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `Deal` (
 INSERT INTO `Deal` (`id_deal`, `id_first_user`, `id_second_user`,`date_creation`, `date_modification`, `status`) VALUES
 (1, 1, 2, "2016-08-17","2016-08-17", 'En cours de création'),
 (2, 2, 3, "2016-08-17","2016-08-17", 'En cours de création'),
-(3, 3, 4, "2016-08-17","2016-08-17", 'Transaction refusée'),
+(3, 3, 4, "2016-08-17","2016-08-17", 'Transaction refusée par l''initiateur'),
 (4, 4, 5, "2016-08-17","2016-08-17", 'En cours de création'),
 (5, 5, 1, "2016-08-17","2016-08-17", 'En cours de création');
 
@@ -175,7 +175,7 @@ INSERT INTO `Swap` (`id_deal`, `date_reception_initiator`, `date_reception_propo
 -- Structure de la table `Status`
 --
 CREATE TABLE `Status` (
-  `code` varchar(40) COLLATE utf8_bin NOT NULL,
+  `code` varchar(45) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -185,8 +185,10 @@ CREATE TABLE `Status` (
 
 INSERT INTO `Status` (`code`) VALUES
 ('En cours de création'),
-('En attente d''acceptation'),
-('Transaction refusée'),
+('En attente d''acceptation par l''initiateur'),
+('En attente d''acceptation par le proposed'),
+('Transaction refusée par l''initiateur'),
+('Transaction refusée par le proposed'),
 ('Transaction acceptée'),
 ('Transaction mise à jour par l''initiateur'),
 ('Transaction mise à jour par le proposed'),
