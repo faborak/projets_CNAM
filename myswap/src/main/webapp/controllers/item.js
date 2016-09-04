@@ -101,7 +101,6 @@ angular.module('itemCatControllers', [ 'ngRoute', 'requeteur' ])
 		$location.path('/items');
 	}
 
-	// a enelever pour democker
 	startPage(); 
 
 })

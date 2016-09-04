@@ -69,7 +69,7 @@ angular.module('login', ['ngRoute','requeteur'])
 	data.post('authentication/islogged', params, $scope.setLogged);
   };
   
-//  startPage();
+  startPage();
 
   $scope.pageCreation = function(){
     $scope.data.login = false;
@@ -86,5 +86,11 @@ angular.module('login', ['ngRoute','requeteur'])
 })
 
 .controller("DisconnectedCtrl", function($scope, $http, $httpParamSerializer) {
+	
+	var startPage = function() {
+		sessionStorage.setItem('token', '');
+	  };
+	  
+   startPage();
 	
 });
