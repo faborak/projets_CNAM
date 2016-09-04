@@ -2,27 +2,28 @@
 
 angular.module('profileControllers', ['ngRoute', 'requeteur'])
 
-.controller("SelfProfileCtrl", function($scope, $http, $location) {
+.controller("SelfProfileCtrl", function($scope, data) {
 
   $scope.data = {};
   $scope.data.user = {};
   $scope.data.user.final = {};
 
-  var getCurrentUser = function() {
-    $http({
-      method: 'post',
-      url: 'http://92.90.70.23:12345/myswap/rest/user/getCurrentUser'
-    }).success(function(resultat) {
-      $scope.data.user = resultat;
-      $scope.data.user.final = resultat;
-    });
+  var startPage = function() {
+		var params = {
+			"token" : window.sessionStorage.getItem("token")
+		};
+		data.post('user/getCurrentUser', params, $scope.setCurrentUser);
   };
+  
+  $scope.setCurrentUser = function(data) {
+	$scope.data.currentuser = data;
+	$scope.data.user.final = $scope.data.user;
+	$scope.$watch($scope.data.user.final.account.phoneNumber, checkphone);
+	$scope.$watch($scope.data.user.final.account.mail, checkmail);
+  }
 
   $scope.updateUser = function() {
-    $http({
-      method: 'post',
-      url: 'http://92.90.70.23:12345/myswap/rest/user/updateUser',
-      params: {
+     var params = {
         "id": $scope.data.user.id,
         "name": $scope.data.user.final.name,
         "lastname": $scope.data.user.final.lastname,
@@ -39,12 +40,13 @@ angular.module('profileControllers', ['ngRoute', 'requeteur'])
         "job": $scope.data.user.final.infos.job,
         "about": $scope.data.user.final.infos.about,
       }
-    }).success(function(data) {
-      $scope.data.user = data;
-    });
+     data.postAuthorize('user/update/'+ $scope.data.currentuser.id, params, confirm);
   };
 
-
+  var confirm = function(data){
+	  $scope.data.currentuser = data;
+	  $scope.data.user.final = $scope.data.user;
+  }
 
   function checkphone(scope) {
     if ($scope.data.user.final.account.phoneNumber != $scope.data.user.account.phoneNumber) {
@@ -58,13 +60,8 @@ angular.module('profileControllers', ['ngRoute', 'requeteur'])
     }
   };
 
-  /* lancement de la recherche au d�part de l'application */
-  //getCurrentUser();
-
-  $scope.data.user.final = $scope.data.user;
-
-  $scope.$watch($scope.data.user.final.account.phoneNumber, checkphone);
-  $scope.$watch($scope.data.user.final.account.mail, checkmail);
+  /* lancement de la recherche au départ de l'application */
+  startPage(); 
 
 })
 
