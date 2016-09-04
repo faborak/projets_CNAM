@@ -1,22 +1,14 @@
 <div ng-controller="NewItemCtrl">
 
 	<form name="newItemForm" ng-submit="createItem()" novalidate>
-		<label>Nom : </label> <input name="name" type="text"
-			ng-bind="data.name" required ng-minlength="2" ng-maxlength="20"
-			placeholder="Nom" />
-		<div ng-messages="newItemForm.name.$error"
-			ng-messages-include="erreurs.html" ng-if="newItemForm.$submitted"></div>
+		<label>Nom : </label> <input name="name" type="text" ng-model="data.name" required ng-minlength="2" ng-maxlength="20" placeholder="Nom" />
+		<div ng-messages="newItemForm.name.$error" ng-messages-include="erreurs.html" ng-if="newItemForm.$submitted"></div>
 
-		<label>Description : </label> <input name="description" type="text"
-			ng-bind="data.description" ng-maxlength="30"
-			placeholder="Description in a few words..." />
-		<div ng-messages="newItemForm.description.$error"
-			ng-messages-include="erreurs.html" ng-if="newItemForm.$submitted"></div>
+		<label>Description : </label> <input name="description" type="text" ng-model="data.description" ng-maxlength="140" placeholder="Description in a few words..." />
+		<div ng-messages="newItemForm.description.$error" ng-messages-include="erreurs.html" ng-if="newItemForm.$submitted"></div>
 
-		<label>Cost : </label> <input name="cost" type="number"
-			ng-bind="data.cost" required placeholder="cost" />
-		<div ng-messages="newItemForm.cost.$error"
-			ng-messages-include="erreurs.html" ng-if="myForm.$submitted"></div>
+		<label>Cost : </label> <input name="cost" type="number" ng-model="data.cost" required placeholder="cost" />
+		<div ng-messages="newItemForm.cost.$error" ng-messages-include="erreurs.html" ng-if="newItemForm.$submitted"></div>
 
 		<select name="nom" size="1" ng-model="data.selectedCategory"
 			ng-options="categorie.code for categorie in data.categories">
@@ -24,7 +16,7 @@
 
 		<table>
 			<tr ng-repeat="src in pics()">
-				<td><img width="167" height="110" ng-src="{{src}}" alt={{src}} /></td>
+				<td><img class="picture-normal-responsive" ng-src="{{src}}" alt={{src}} /></td>
 				<td><button ng-click="supprimer(src)">Supprimer</button></td>
 			</tr>
 		</table>

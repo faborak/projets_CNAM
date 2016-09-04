@@ -1,14 +1,8 @@
 <div ng-controller="ProfileCtrl">
 
-<!--     <img src="data.user.pic" name="user_pic" id="user_pic" /> {{data.user.name}}
-    <td><button ng-click="detailUser(data.user.id)">Voir le profil</button></td>
-    <td><button ng-click="modifierUser(data.user.id)">Modifier le profil</button></td>
 
-    <p>Vérifications</p>
-    <p>{{data.mailchecked}}</p>
-    <p>{{data.phonechecked}}</p> -->
-
-     <img src={{data.user.userPicture[1].path}} name="user_pic" id="user_pic" />
+     <img class="picture-small-responsive" ng-src="{{data.user.userPictures[0].path}}" >
      <label>{{data.user.name}} {{data.user.lastname}} </label>
+     Ville : {{data.user.city}}
 
 </div>

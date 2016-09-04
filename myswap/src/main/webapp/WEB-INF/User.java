@@ -96,6 +96,7 @@ public class User {
 	 /**
 	 * Le compte de l'utilisateur.   
 	 */ 
+	 @JsonManagedReference
 	 @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
 	 private Account account;
 	 public void setAccount(Account a) {account = a;}
@@ -108,6 +109,14 @@ public class User {
 	 private Adress adress;
 	 public void setAdress(Adress a) {adress = a;}
 	 public Adress getAdress() {return this.adress;} 
+	 
+	  /**
+	 * Les infos de l'utilisateur.   
+	 */  
+	 @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+	 private Infos infos;
+	 public void setInfos(Infos a) {infos = a;}
+	 public Infos getInfos() {return this.infos;} 
 	  
 	 public  User() {} 
 }

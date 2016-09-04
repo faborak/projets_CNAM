@@ -39,14 +39,13 @@
 
     <table>
         <tr ng-repeat="a in swapsfinal()" id="listeSwaps">
-            <td><strong>{{a.status}}</strong></td>
+            <td><strong>{{a.libelleStatus}}</strong></td>
             </br>
-            <td><label>{{a.initiateur.name}} {{a.initiateur.lastname}} </label>
-                <!--<span>{{a.initiateur.pic}}-->
-                <!--<img ng-src="{{a.listItems.get[1].pics[1]}}" border="0" /> -->
-                <!--<span>{{a.proposed.pic}}-->
+            <td><label>{{a.initiator.name}} {{a.initiator.lastname}} </label>
+                <img class="picture-normal-responsive" ng-src={{a.initiator.userPictures[0].path}} ng-click="showProfile(a.initiator.id)">
+                <button ng-click="detail(a.idDeal)" >Afficher detail</button>
+                <img class="picture-normal-responsive" ng-src={{a.proposed.userPictures[0].path}} ng-click="showProfile(a.proposed.id)">
                 <label>{{a.proposed.name}} {{a.proposed.lastname}}</label></td>
-            <td><button ng-click="detail(a.id)">Afficher detail</button></td>
         </tr>
     </table>
 
