@@ -10,7 +10,7 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class Info {
+public class Infos {
 
     @Id
 	@Column(name = "id_user")
@@ -52,5 +52,5 @@ public class Info {
 	public void setUser(User u) {user = u;}
 	public User getUser() {return user;}
 	
-	public  Info() {} 
+	public  Infos() {} 
 }

@@ -72,7 +72,7 @@ angular.module('requeteur', [])
            headers: {
                'Accept': 'application/json',
                'Content-type': 'application/x-www-form-urlencoded',
-               'authorization': localStorage.getItem("token")
+               'Authorization': 'Bearer '+ window.sessionStorage.getItem("token")
            },
            transformRequest:function(obj) {
 	            var str = [];
