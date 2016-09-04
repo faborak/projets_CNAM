@@ -15,7 +15,7 @@
 		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 		<property name="cache.use_query_cache">false</property>
 		<mapping class="com.myswap.models.Account" />
-		<mapping class="com.myswap.models.Info" />
+		<mapping class="com.myswap.models.Infos" />
 		<mapping class="com.myswap.models.Adress" />
 		<mapping class="com.myswap.models.Activity" />
 		<mapping class="com.myswap.models.Comment" />

@@ -20,7 +20,7 @@ public class Swap {
 	public void setId(Long i) {id_deal = i;}
 	public Long getId() {return id_deal;}
 		
-	/** Propriété du Swap.
+	/** Propriï¿½tï¿½ du Swap.
 	 * 
 	 */
 	@Column(name = "date_reception_initiator")
@@ -28,7 +28,7 @@ public class Swap {
 	public void setDateReceptionInitiator(Date d) {dateReceptionInitiator = d;}
 	public Date getDateReceptionInitiator() {return dateReceptionInitiator;}
 	
-	/** Propriété du Swap.
+	/** Propriï¿½tï¿½ du Swap.
 	 * 
 	 */
 	@Column(name = "date_reception_proposed")
@@ -37,7 +37,7 @@ public class Swap {
 	public Date getDateReceptionProposed() {return dateReceptionProposed;}
 	
 	/** 
-	 * Propriété du Swap.
+	 * PropriÃ©tÃ© du Swap.
 	 */
 	@Column(name = "date_envoi_initiator")
 	private Date dateEnvoiInitiator;
@@ -45,7 +45,7 @@ public class Swap {
 	public Date getDateEnvoiInitiator() {return dateEnvoiInitiator;}
 	
 	/** 
-	 * Propriété du Swap.
+	 * PropriÃ©tÃ© du Swap.
 	 */
 	@Column(name = "date_envoi_proposed")
 	private Date dateEnvoiProposed;
@@ -70,7 +70,7 @@ public class Swap {
 	public Date getDateFinalProposed() {return dateFinalProposed;}
 	
 	/**
-	 * Deal auquel est rattaché le swap.
+	 * Deal auquel est rattachÃ© le swap.
 	 */
     @OneToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_deal")

@@ -1,6 +1,7 @@
 package com.myswap.models;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -45,7 +46,7 @@ public class Deal {
 	public void setStatus(Status n) {status = n;}
 	public Status getStatus() {return status;}
 		
-	/** Propri�t� du Deal.
+	/** Propriété du Deal.
 	 * 
 	 */
 	@Column(name = "date_creation")
@@ -53,7 +54,7 @@ public class Deal {
 	public void setDateCreation(Date d) {dateCreation = d;}
 	public Date getDateCreation() {return dateCreation;}
 	
-	/** Propri�t� du Deal.
+	/** Propriété du Deal.
 	 * 
 	 */
 	@Column(name = "date_modification")
@@ -115,8 +116,8 @@ public class Deal {
 	 *  la responsabilité est portée par SwapObject, qui porte l'inverseJoinColomn
 	 */
 	@ManyToMany(mappedBy = "deals")
-	@JsonBackReference
-	private Set<SwapObject> swapObjects;
+	@JsonManagedReference
+	private Set<SwapObject> swapObjects = new HashSet<SwapObject>();
 	public void addSwapObjects(SwapObject so) {so.addDeal(this); swapObjects.add(so);}
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	public Set<SwapObject> getSwapObjects() {return swapObjects;}

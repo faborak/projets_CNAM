@@ -35,7 +35,7 @@ public class Account {
     public String getEmail() {return email;}
     
 	/**
-	 * Email verifié par le user ou non.
+	 * Email verifiï¿½ par le user ou non.
 	 */
 	@Column
     private boolean emailchecked;
@@ -43,7 +43,7 @@ public class Account {
     public boolean getEmailChecked() {return emailchecked;}
     
 	/**
-	 * Telephone verifié par le user ou non.
+	 * Telephone verifiï¿½ par le user ou non.
 	 */
 	@Column
     private boolean phonechecked;
@@ -51,11 +51,11 @@ public class Account {
     public boolean getPhoneChecked() {return phonechecked;}
 	
 	/**
-	 * user auquel est rattaché l'account.
+	 * user auquel est rattachï¿½ l'account.
 	 */
     @OneToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn (name="id_user")
-    @JsonManagedReference
+    @JsonBackReference
 	private User user;
 	public void setUser(User u) {user = u;}
 	public User getUser() {return user;}
