@@ -10,7 +10,7 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li><a href="#!/dashboard">Tableau de bord</a></li>
-          <li><a href="#!/followswap">Suivre un echange<</a></li>
+          <li><a href="#!/followswap">Suivre un echange</a></li>
           <li class="active"><a href="#!/swaps">Swaps</a><span class="sr-only">(current)</span></li>
           <li><a href="#!/items">Mes objets</a></li>
           <li><a href="#!/profile-self">Profil</a></li>
@@ -22,13 +22,72 @@
     <!-- /.container-fluid -->
   </nav>
 
-        <p>Detail du swap.</p>
-        <tr>
-            <td><label>Id du swap :</label> {{data.swap.id}}</td>
-            <td><label>Date de creation :</label> {{data.swap.dateCreation}}</td>
-            <td><label>Date de modification :</label> {{data.swap.dateModification}}</td>
-            <td><label>Status :</label> {{data.swap.id}}</td>
-        </tr>
-        <button ng-click="retour()">Retour</button>
+            {{data.swap.libelleStatus}}
+            <p>{{data.LibelleTotal}}</p>
+<div class="deal-panel">
+        
+        <div class="deal-left-panel">
+        
+        	<div id="user_pic">
+				<img src={{data.currentuser.userPictures[0].path}}
+					class="picture-normal-responsive" alt={{data.currentuser.name}}
+					name="first_item_pic" id="first_item_pic"
+					ng-click=" userDetail(data.otheruser.id)" />
+			</div>
+			
+			<div ng-repeat="a in data.currentDealItemsFinal()">
+				<img class="picture-normal-responsive" alt={{a.name}}
+					src={{a.itemPictures[0].path}} ng-click="itemDetail(a.idSwapObjet)">
+				{{a.cost}}
+				<button class="btn btn-default" ng-if="data.modify"	ng-click="removeFromDeal(a.idSwapObjet)">Enlever</button>
+			</div>
+			
+			<div ng-hide="data.modify == false">
+				<h4>Items hors du Swap</h4>
+				
+				<div ng-repeat="a in data.currentItemsFinal()">
+					<img class="picture-normal-responsive" alt={{a.name}}
+						src={{a.itemPictures[0].path}} ng-click="itemDetail(a.idSwapObjet)">
+					{{a.cost}}
+					<button type="submit" class="btn btn-default"
+						ng-click="addToDeal(a.idSwapObjet)"  ng-show="data.modify">Ajouter</button>
+				</div>
+			</div>
+        
+		</div>
+
+		<div class="deal-right-panel">
+			<div id="otheruser_pic">
+				<img src={{data.otheruser.userPictures[0].path}} class="picture-normal-responsive" alt={{data.otheruser.name}} 
+					name="first_item_pic" id="first_item_pic" ng-click="userDetail(data.otheruser.id)" />
+			</div>
+
+			<div ng-repeat="a in data.otherDealItemsFinal()">
+				<img class="picture-normal-responsive" alt={{a.name}} src={{a.itemPictures[0].path}} ng-click="itemDetail(a.idSwapObjet)">
+				{{a.cost}}
+				<button class="btn btn-default" ng-click="removeFromDeal(a.idSwapObjet)" ng-show="data.modify">Enlever</button>
+			</div>
+			
+			<div ng-show="data.modify == true">
+				<h4 >Items hors du Swap</h4>
+	
+				<div ng-repeat="a in data.otherItemsFinal()">
+					<img class="picture-normal-responsive" alt={{a.name}} src={{a.itemPictures[0].path}} ng-click="itemDetail(a.idSwapObjet)">
+					{{a.cost}}
+					<button class="btn btn-default" ng-click="addToDeal(a.idSwapObjet)"  ng-show="data.modify">Ajouter</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+        
+        <button ng-click="accept()" ng-if="data.swap.libelleStatus == 'Ce swap vous parait-il ok ?' || data.swap.libelleStatus == 'Le swap a été mis à jour... Votre avis ?'" class="btn btn-default">Accepter</button>
+        <button ng-click="refuse()" ng-if="(data.swap.libelleStatus == 'Ce swap vous parait-il ok ?' || data.swap.libelleStatus == 'Le swap a été mis à jour... Votre avis ?') && data.modify==false" class="btn btn-default">Refuser</button>
+        <button ng-click="modify()" ng-if="(data.swap.libelleStatus == 'Ce swap vous parait-il ok ?' || data.swap.libelleStatus == 'Le swap a été mis à jour... Votre avis ?') && data.modify==false" class="btn btn-default">Modifier</button>
+        
+        <button ng-click="validate()" ng-if="data.swap.libelleStatus == 'Transaction acceptée en face. Si vous acceptez aussi, le swap va avoir lieu.'" class="btn btn-default">Valider le swap</button>
+        <button ng-click="refuse()" ng-if="data.swap.libelleStatus == 'Transaction acceptée en face. Si vous acceptez aussi, le swap va avoir lieu.'" class="btn btn-default">Refuser le swap</button>
+        
+        <button class="btn btn-default" ng-click="retour()">Retour</button>
 
 </div>
