@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Account {
@@ -35,7 +35,7 @@ public class Account {
     public String getEmail() {return email;}
     
 	/**
-	 * Email verifi� par le user ou non.
+	 * Email verifié par le user ou non.
 	 */
 	@Column
     private boolean emailchecked;
@@ -43,7 +43,7 @@ public class Account {
     public boolean getEmailChecked() {return emailchecked;}
     
 	/**
-	 * Telephone verifi� par le user ou non.
+	 * Telephone verifié par le user ou non.
 	 */
 	@Column
     private boolean phonechecked;
