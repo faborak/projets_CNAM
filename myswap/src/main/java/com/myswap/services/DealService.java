@@ -1,5 +1,8 @@
 package com.myswap.services;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -16,6 +19,7 @@ import com.myswap.exceptions.ItemNotFoundException;
 import com.myswap.exceptions.UserNotFoundException;
 import com.myswap.models.Deal;
 import com.myswap.models.Status;
+import com.myswap.models.Swap;
 import com.myswap.models.SwapObject;
 import com.myswap.models.User;
 
@@ -27,18 +31,24 @@ public class DealService {
 
 	private static Logger logger = Logger.getLogger(DealService.class);
 	private Session session;
-	
+
 	/**
 	 * UserService.
 	 */
 	private UserService userService = new UserService();
-	public void setUserService(UserService userService){this.userService = userService;}
-	
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
 	/**
 	 * ItemService.
 	 */
 	private ItemService itemService = new ItemService();
-	public void setItemService(ItemService itemService){this.itemService = itemService;}
+
+	public void setItemService(ItemService itemService) {
+		this.itemService = itemService;
+	}
 
 	public Deal findDeal(long id) throws DealNotFoundException {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -50,12 +60,7 @@ public class DealService {
 
 			criteria.add(Restrictions.eqOrIsNull("id", id));
 
-			// pour la pagination, on peut ajouter criteria.setMaxResults(10),
-			// etc, et utiliser une cl� de reprise � chaque appel.
-			// inutilis� dans le cadre de ce projet.
-
 			deal = (Deal) criteria.uniqueResult();
-			// load the items
 			deal.getSwapObjects().size();
 		} catch (RuntimeException e) {
 			logger.error("RuntimeException in DealService/findDeal : " + e.getMessage());
@@ -63,11 +68,50 @@ public class DealService {
 			session.close();
 		}
 
-		if (deal == null){
+		if (deal == null) {
 			throw new DealNotFoundException("No deal found for this id.");
 		}
-		
+
 		return deal;
+
+	}
+
+	public List<Deal> findDealByUser(long id) throws DealNotFoundException {
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		List<Deal> deals = new ArrayList<Deal>();
+		User user = null;
+
+		try {
+			Criteria criteria = session.createCriteria(User.class);
+
+			criteria.add(Restrictions.eqOrIsNull("id", id));
+
+			user = (User) criteria.uniqueResult();
+
+			for (Deal d : user.getDealsInitator()) {
+				d.getSwapObjects().size();
+			}
+
+			for (Deal d : user.getDealsProposed()) {
+				d.getSwapObjects().size();
+			}
+
+			deals.addAll(user.getDealsInitator());
+			deals.addAll(user.getDealsProposed());
+
+		} catch (RuntimeException e) {
+			logger.error("RuntimeException in DealService/findDeal : " + e.getMessage());
+		} finally {
+			session.close();
+		}
+
+		if (deals.size() == 0) {
+			throw new DealNotFoundException("No deal found for this id.");
+		}
+
+		return deals;
 
 	}
 
@@ -75,29 +119,30 @@ public class DealService {
 	 * Insertion d'un nouveau Deal.
 	 * 
 	 */
-	public Deal insertDeal(String initatorId, String proposedId,
-			String statusString, Set<String> swapObjectsId) throws DealInsertException {
+	public Deal insertDeal(String initatorId, String proposedId, Set<String> swapObjectsId) throws DealInsertException {
 
 		Deal deal = new Deal();
-		
+
 		User initator = new User();
 		try {
-			initator = userService.findUser(initatorId);
+			initator = userService.findUser(Long.parseLong(initatorId));
 		} catch (UserNotFoundException e1) {
 			throw new DealInsertException("No user found for this Deal.");
 		}
 		User proposed = new User();
 		try {
-			proposed = userService.findUser(proposedId);
+			proposed = userService.findUser(Long.parseLong(proposedId));
 		} catch (UserNotFoundException e1) {
 			throw new DealInsertException("No user found for this Deal.");
 		}
 		deal.setInitiator(initator);
 		deal.setProposed(proposed);
 		Status status = new Status();
-		status.setCode(statusString);
+		status.setCode("En attente d'acceptation");
 		deal.setStatus(status);
-		
+		deal.setDateCreation(new Date());
+		deal.setDateModification(new Date());
+
 		for (String soId : swapObjectsId) {
 			SwapObject so = new SwapObject();
 			try {
@@ -161,7 +206,7 @@ public class DealService {
 	/**
 	 * Update de la classe deal.
 	 */
-	public Deal updateDeal(Long id, String statusString,Set<String> swapObjectsId) throws DealUpdateException{
+	public Deal updateDeal(Long id, String statusString, Set<String> swapObjectsId) throws DealUpdateException {
 
 		Deal deal;
 		try {
@@ -188,6 +233,53 @@ public class DealService {
 
 			session.beginTransaction();
 
+			session.saveOrUpdate(deal);
+
+			session.getTransaction().commit();
+
+		} catch (RuntimeException e) {
+			if (session.getTransaction() != null) {
+				session.getTransaction().rollback();
+			}
+			logger.error("RuntimeException in DealService/updateDeal : " + e.getMessage());
+		} finally {
+			session.close();
+		}
+
+		return deal;
+	}
+
+	/**
+	 * Update de la classe deal.
+	 */
+	public Deal modifyStatus(Long id, String statusString) throws DealUpdateException {
+
+		Deal deal;
+		try {
+			deal = findDeal(id);
+		} catch (DealNotFoundException e1) {
+			throw new DealUpdateException("No deal found for this id");
+		}
+		Status status = new Status();
+		status.setCode(statusString);
+		deal.setStatus(status);
+		Swap swap = new Swap();
+
+		if (status.equals("Transaction validée")) {
+			swap.setDeal(deal);
+			deal.setSwap(swap);
+		}
+
+		try {
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+
+			session.beginTransaction();
+
+			// swap created if valited by both sides
+			if (status.equals("Transaction validée")) {
+				session.save(swap);
+			}
 			session.saveOrUpdate(deal);
 
 			session.getTransaction().commit();

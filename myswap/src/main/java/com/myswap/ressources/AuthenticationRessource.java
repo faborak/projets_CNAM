@@ -33,28 +33,28 @@ public class AuthenticationRessource {
 	@Path("/authenticate")
 	public Response authenticateUser(@FormParam("mail") String mail, @FormParam("password") String password) {
 
-		Map<String, Object> reponse =new HashMap<>();
+		Map<String, Object> reponse = new HashMap<>();
 		String token = authenticationService.authenticateUser(mail, password);
-		
-		if (token == null){
+
+		if (token == null) {
 			return Response.status(Response.Status.UNAUTHORIZED).build();
 		} else {
-			
+
 			User user = null;
-			
+
 			try {
 				user = userService.findUser(mail);
 			} catch (UserNotFoundException e) {
 				return Response.status(Response.Status.UNAUTHORIZED).build();
 			}
-			
+
 			reponse.put("user", user);
 			reponse.put("token", token);
-			
+
 			return Response.ok(reponse).build();
 		}
 	}
-	
+
 	@POST
 	@Produces("application/json")
 	@Consumes("application/x-www-form-urlencoded")
@@ -62,14 +62,10 @@ public class AuthenticationRessource {
 	public Response isLogged(@FormParam("token") String token) {
 
 		boolean isLogged = authenticationService.isLogged(token);
-		
-		if (isLogged == false){
-			return Response.status(Response.Status.UNAUTHORIZED).build();
-		} else {
-			Map<String, Object> reponse =new HashMap<>();
-			reponse.put("isLogged", isLogged);
-			return Response.ok(reponse).build();
-		}
+		Map<String, Object> reponse = new HashMap<>();
+		reponse.put("isLogged", isLogged);
+
+		return Response.ok(reponse).build();
 	}
 
 }

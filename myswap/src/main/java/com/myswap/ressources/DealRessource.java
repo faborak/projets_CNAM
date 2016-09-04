@@ -1,5 +1,6 @@
 package com.myswap.ressources;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.ws.rs.Consumes;
@@ -48,23 +49,36 @@ public class DealRessource {
 		return Response.ok(deal).build();
 
 	}
+	
+	@GET
+	@Path("/getByUser/{id}")
+	@Produces({ "application/json" })
+	public Response findDealByUser(@PathParam("id") long id) {
+		
+		List<Deal> deals = null;
+		
+		try {
+			deals = dealService.findDealByUser(id);
+		} catch (DealNotFoundException e) {
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+		
+		return Response.ok(deals).build();
 
-	/**
-	 * Insertion d'un nouveau Deal.
-	 * 
-	 */
+	}
+
 	@POST
 	@Path("/insert")
-	@Consumes({ "application/json" })
+	@Produces("application/json")
+	@Consumes("application/x-www-form-urlencoded")
 	@Secured
 	public Response insertDeal(@FormParam("initator") String initatorId, @FormParam("proposed") String proposedId,
 			 @FormParam("swapObjects") Set<String> swapObjectsId) {
 
 		Deal deal = null;
-		String status = "En cours de cr�ation";
 		
 		try {
-			deal = dealService.insertDeal(initatorId, proposedId, status, swapObjectsId);
+			deal = dealService.insertDeal(initatorId, proposedId, swapObjectsId);
 		} catch (DealInsertException e) {
 			return Response.status(Response.Status.NO_CONTENT).build();
 		}
@@ -90,7 +104,8 @@ public class DealRessource {
 	 */
 	@POST
 	@Path("/update")
-	@Consumes({ "application/json" })
+	@Produces("application/json")
+	@Consumes("application/x-www-form-urlencoded")
 	@Secured
 	public Response updateDeal(@FormParam("id") Long id, @FormParam("status") String status,
 			@FormParam("swapObjects") Set<String> swapObjectsId) {
@@ -99,6 +114,28 @@ public class DealRessource {
 		
 		try {
 			deal = dealService.updateDeal(id, status, swapObjectsId);
+		} catch (DealUpdateException e) {
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+		
+		return Response.ok(deal).build();		
+		
+	}
+	
+	/**
+	 * Update de la classe deal.
+	 */
+	@POST
+	@Path("/modifyStatus")
+	@Produces("application/json")
+	@Consumes("application/x-www-form-urlencoded")
+	@Secured
+	public Response ModifyStatus(@FormParam("id") Long id, @FormParam("status") String status) {
+
+		Deal deal = null;
+		
+		try {
+			deal = dealService.modifyStatus(id, status);
 		} catch (DealUpdateException e) {
 			return Response.status(Response.Status.NO_CONTENT).build();
 		}

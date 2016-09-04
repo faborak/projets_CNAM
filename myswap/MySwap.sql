@@ -140,11 +140,11 @@ CREATE TABLE IF NOT EXISTS `Deal` (
 --
 
 INSERT INTO `Deal` (`id_deal`, `id_first_user`, `id_second_user`,`date_creation`, `date_modification`, `status`) VALUES
-(1, 1, 2, "2016-08-17","2016-08-17", 'En cours de création'),
-(2, 2, 3, "2016-08-17","2016-08-17", 'En cours de création'),
+(1, 1, 2, "2016-08-17","2016-08-17", 'En attente d''acceptation par l''initiateur'),
+(2, 2, 3, "2016-08-17","2016-08-17", 'En attente d''acceptation par le proposed'),
 (3, 3, 4, "2016-08-17","2016-08-17", 'Transaction refusée par l''initiateur'),
-(4, 4, 5, "2016-08-17","2016-08-17", 'En cours de création'),
-(5, 5, 1, "2016-08-17","2016-08-17", 'En cours de création');
+(4, 4, 5, "2016-08-17","2016-08-17", 'En attente d''acceptation par l''initiateur'),
+(5, 5, 1, "2016-08-17","2016-08-17", 'En attente d''acceptation par le proposed');
 
 -- --------------------------------------------------------
 
@@ -189,7 +189,8 @@ INSERT INTO `Status` (`code`) VALUES
 ('En attente d''acceptation par le proposed'),
 ('Transaction refusée par l''initiateur'),
 ('Transaction refusée par le proposed'),
-('Transaction acceptée'),
+('Transaction acceptée par l''initiateur'),
+('Transaction acceptée par le proposed'),
 ('Transaction mise à jour par l''initiateur'),
 ('Transaction mise à jour par le proposed'),
 ('Transaction validée');
@@ -348,10 +349,10 @@ INSERT INTO `Activity` (`id_user`, `date`, `token`) VALUES
 (5, '2016-07-31 10:04:37', 'aaaaaabaab');
 
 --
--- Structure de la table `Info`
+-- Structure de la table `Infos`
 --
 
-CREATE TABLE IF NOT EXISTS `Info` (
+CREATE TABLE IF NOT EXISTS `Infos` (
   `id_user` int(11) NOT NULL,
   `school` varchar(30) NOT NULL,
   `job` varchar(30) NOT NULL,
@@ -362,7 +363,7 @@ CREATE TABLE IF NOT EXISTS `Info` (
 -- Contenu de la table `Info`
 --
 
-INSERT INTO `Info` (`id_user`, `school`, `job`,`about`) VALUES
+INSERT INTO `Infos` (`id_user`, `school`, `job`,`about`) VALUES
 (1, 'ecole de la vie', 'job de mes r�ves', 'Salut ! Je pourrais vous dire que moi c''est Freddy, mais non.'),
 (2, 'CNAM',  'informaticien', 'about.'),
 (3, 'CNAM Paris',  'vendeur grande surface', 'about.'),

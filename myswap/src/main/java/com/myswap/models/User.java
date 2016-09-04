@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @JsonIgnoreProperties ({"hibernateLazyInitializer", "handler", "fieldHandler"}) 
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id_user")
+//@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id_user")
 public class User {
 
     @Id
@@ -106,7 +106,7 @@ public class User {
 	 * Le compte de l'utilisateur.   
 	 */ 
 	 @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-	 @JsonBackReference
+	 @JsonManagedReference
 	 private Account account;
 	 public void setAccount(Account a) {account = a;}
 	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -137,10 +137,10 @@ public class User {
 	 */ 
 	 @OneToOne(mappedBy = "user")
 	 @JsonManagedReference
-	 private Info info;
-	 public void setInfo(Info a) {info = a;}
+	 private Infos infos;
+	 public void setInfo(Infos a) {infos = a;}
 	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	 public Info getInfo() {return this.info;}
+	 public Infos getInfos() {return this.infos;}
 		
 	 /**
 	  * Les Pictures de l'utilisateur.

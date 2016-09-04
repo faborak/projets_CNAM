@@ -140,6 +140,11 @@ public class ItemService {
 		item.setCategory(category);
 
 		User user = new User();
+		
+		if (userId == null){
+			throw new ItemInsertException("User id is null.");
+		}
+		
 		try {
 			user = userService.findUser(Long.parseLong(userId));
 		} catch (UserNotFoundException e1) {
