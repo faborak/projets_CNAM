@@ -5,8 +5,8 @@ angular.module('profileControllers', ['ngRoute', 'requeteur'])
 .controller("SelfProfileCtrl", function($scope, data) {
 
   $scope.data = {};
-  $scope.data.user = {};
-  $scope.data.user.final = {};
+  $scope.data.currentuser = {};
+  $scope.data.currentuser.final = {};
 
   var startPage = function() {
 		var params = {
@@ -17,46 +17,45 @@ angular.module('profileControllers', ['ngRoute', 'requeteur'])
   
   $scope.setCurrentUser = function(data) {
 	$scope.data.currentuser = data;
-	$scope.data.user.final = $scope.data.user;
-	$scope.$watch($scope.data.user.final.account.phoneNumber, checkphone);
-	$scope.$watch($scope.data.user.final.account.mail, checkmail);
+	$scope.data.currentuser.final = $scope.data.currentuser;
+	$scope.$watch($scope.data.currentuser.final.account.phoneNumber, checkphone);
+	$scope.$watch($scope.data.currentuser.final.account.mail, checkmail);
   }
 
   $scope.updateUser = function() {
      var params = {
-        "id": $scope.data.user.id,
-        "name": $scope.data.user.final.name,
-        "lastname": $scope.data.user.final.lastname,
-        "email": $scope.data.user.final.account.email,
-        "emailChecked": $scope.data.user.final.account.emailChecked,
-        "phoneNumber": $scope.data.user.final.account.phoneNumber,
-        "phoneChecked": $scope.data.user.final.account.phoneChecked,
-        "street": $scope.data.user.final.adress.street,
-        "state": $scope.data.user.final.adress.state,
-        "zipcode": $scope.data.user.final.adress.zipcode,
-        "city": $scope.data.user.final.adress.city,
-        "pics": $scope.data.user.final.pics,
-        "school": $scope.data.user.final.infos.school,
-        "job": $scope.data.user.final.infos.job,
-        "about": $scope.data.user.final.infos.about,
+        "id": $scope.data.currentuser.id,
+        "name": $scope.data.currentuser.final.name,
+        "lastname": $scope.data.currentuser.final.lastname,
+        "email": $scope.data.currentuser.final.account.email,
+        "emailChecked": $scope.data.currentuser.final.account.emailChecked,
+        "phoneNumber": $scope.data.currentuser.final.account.phoneNumber,
+        "phoneChecked": $scope.data.currentuser.final.account.phoneChecked,
+        "street": $scope.data.currentuser.final.adress.street,
+        "state": $scope.data.currentuser.final.adress.state,
+        "zipcode": $scope.data.currentuser.final.adress.zipcode,
+        "city": $scope.data.currentuser.final.adress.city,
+        "school": $scope.data.currentuser.final.infos.school,
+        "job": $scope.data.currentuser.final.infos.job,
+        "about": $scope.data.currentuser.final.infos.about,
       }
-     data.postAuthorize('user/update/'+ $scope.data.currentuser.id, params, confirm);
+     data.postAuthorize('user/update/', params, confirm);
   };
 
   var confirm = function(data){
 	  $scope.data.currentuser = data;
-	  $scope.data.user.final = $scope.data.user;
+	  $scope.data.currentuser.final = $scope.data.currentuser;
   }
 
   function checkphone(scope) {
-    if ($scope.data.user.final.account.phoneNumber != $scope.data.user.account.phoneNumber) {
-      $scope.data.user.final.account.phoneChecked = false;
+    if ($scope.data.currentuser.final.account.phoneNumber != $scope.data.currentuser.account.phoneNumber) {
+      $scope.data.currentuser.final.account.phoneChecked = false;
     }
   };
 
   function checkmail(scope) {
-    if ($scope.data.user.final.account.email != $scope.data.user.account.email) {
-      $scope.data.user.final.account.emailChecked = false;
+    if ($scope.data.currentuser.final.account.email != $scope.data.currentuser.account.email) {
+      $scope.data.currentuser.final.account.emailChecked = false;
     }
   };
 

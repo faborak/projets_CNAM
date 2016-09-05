@@ -22,36 +22,37 @@
     <!-- /.container-fluid -->
   </nav>
 
-    <section id="menu" class="user-left-panel">
-        <div class="list-group">
-            <a href="#!/profile-self" class="list-group-item active">
-                <h4 class="list-group-item-heading">Modifier le profil</h4>
-                <p class="list-group-item-text"></p>
-            </a>
-            <a href="#!/profile-pics" class="list-group-item active">
-                <h4 class="list-group-item-heading">Photos et vidéos</h4>
-                <p class="list-group-item-text"></p>
-            </a>
-            <a href="#!/profile-comments" class="list-group-item active">
-                <h4 class="list-group-item-heading">Commentaires</h4>
-                <p class="list-group-item-text"></p>
-            </a>
-        </div>
-    </section>
+
+	<div class="user-panel">
+		<section id="menu" class="user-left-panel">
+			<div class="list-group">
+				<a href="#!/profile-self" class="list-group-item active">
+					<h4 class="list-group-item-heading">Modifier le profil</h4>
+					<p class="list-group-item-text"></p>
+				</a> <a href="#!/profile-pics" class="list-group-item active">
+					<h4 class="list-group-item-heading">Photos et vidéos</h4>
+					<p class="list-group-item-text"></p>
+				</a> <a href="#!/profile-comments" class="list-group-item active">
+					<h4 class="list-group-item-heading">Commentaires</h4>
+					<p class="list-group-item-text"></p>
+				</a>
+			</div>
+		</section>
 
 
-    <section id="form_user_pics" class="user-right-panel">
+		<section id="form_user_pics" class="user-right-panel">
 
-        <table>
-            <tr ng-repeat="src in pics()" id="listeUserPics">
-                <img ng-src="{{src}}" alt="Description" />
-                <td><button ng-click="supprimer(src)">Supprimer</button></td>
-            </tr>
-        </table>
+			<table>
+				<tr ng-repeat="src in pics()" id="listeUserPics">
+					<img ng-src="{{src}}" alt="Description" />
+					<td><button ng-click="supprimer(src)">Supprimer</button></td>
+				</tr>
+			</table>
 
-        <input type=file id=fichier name=fichier/>
-        <button ng-click=ajouter()>Ajouter</button>
+			<input type=file id=fichier name=fichier />
+			<button ng-click=ajouter()>Ajouter</button>
 
-    </section>
+		</section>
+	</div>
 
 </div>

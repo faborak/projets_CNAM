@@ -51,14 +51,14 @@
 					<p>
 						<label class="text-right col-sm-3">Prénom</label>
 					<div class="col-sm-9">
-						<input type="text" ng-model="data.user.final.name"
+						<input type="text" ng-model="data.currentuser.final.name"
 							class="form-control" aria-describedby="sizing-addon2">
 					</div>
 					</p>
 					<p>
 						<label class="text-right col-sm-3">Nom</label>
 					<div class="col-sm-9">
-						<input type="text" ng-model="data.user.final.lastname"
+						<input type="text" ng-model="data.currentuser.final.lastname"
 							class="form-control" aria-describedby="sizing-addon2">
 					</div>
 					</p>
@@ -66,7 +66,7 @@
 					<p>
 						<label class="text-right col-sm-3">Sexe</label>
 					<div class="col-sm-9">
-						<input ng-model="data.user.final.sexe" class="form-control"
+						<input ng-model="data.currentuser.final.sexe" class="form-control"
 							aria-describedby="sizing-addon2">
 					</div>
 					</p>
@@ -74,7 +74,7 @@
 					<p>
 						<label class="text-right col-sm-3">Date de naissance</label>
 					<div class="col-sm-9">
-						<input ng-model="data.user.final.dateNaissance"
+						<input ng-model="data.currentuser.final.dateNaissance"
 							class="form-control" aria-describedby="sizing-addon2">
 					</div>
 					</p>
@@ -82,7 +82,7 @@
 					<p>
 						<label class="text-right col-sm-3">Telephone</label>
 					<div class="col-sm-9">
-						<input type="text" ng-model="data.user.final.account.phoneNumber"
+						<input type="text" ng-model="data.currentuser.final.account.phoneNumber"
 							class="form-control" aria-describedby="sizing-addon2">
 					</div>
 					</p>
@@ -90,7 +90,7 @@
 					<p>
 						<label class="text-right col-sm-3">Mail</label>
 					<div class="col-sm-9">
-						<input type="text" ng-model="data.user.final.account.email"
+						<input type="text" ng-model="data.currentuser.final.account.email"
 							class="form-control" aria-describedby="sizing-addon2">
 					</div>
 					</p>
@@ -98,7 +98,7 @@
 					<p>
 						<label class="text-right col-sm-3">Adresse</label>
 					<div class="col-sm-9">
-						<input ng-model="data.user.final.adress.street"
+						<input ng-model="data.currentuser.final.adress.street"
 							class="form-control" aria-describedby="sizing-addon2">
 					</div>
 					</p>
@@ -106,7 +106,7 @@
 					<p>
 						<label class="text-right col-sm-3">Code postal</label>
 					<div class="col-sm-9">
-						<input ng-model="data.user.final.adress.zipcode"
+						<input ng-model="data.currentuser.final.adress.zipcode"
 							class="form-control" aria-describedby="sizing-addon2">
 					</div>
 					</p>
@@ -114,7 +114,7 @@
 					<p>
 						<label class="text-right col-sm-3">Ville</label>
 					<div class="col-sm-9">
-						<input ng-model="data.user.final.adress.city" class="form-control"
+						<input ng-model="data.currentuser.final.adress.city" class="form-control"
 							aria-describedby="sizing-addon2">
 					</div>
 					</p>
@@ -122,7 +122,7 @@
 					<p>
 						<label class="text-right col-sm-3">Région</label>
 					<div class="col-sm-9">
-						<input ng-model="data.user.final.adress.state"
+						<input ng-model="data.currentuser.final.adress.state"
 							class="form-control" aria-describedby="sizing-addon2">
 					</div>
 					</p>
@@ -130,7 +130,7 @@
 					<p>
 						<label class="text-right col-sm-3">Pays</label>
 					<div class="col-sm-9">
-						<input ng-model="data.user.final.adress.country"
+						<input ng-model="data.currentuser.final.adress.country"
 							class="form-control" aria-describedby="sizing-addon2">
 					</div>
 					</p>
@@ -146,7 +146,7 @@
 					<p>
 						<label class="text-right col-sm-3">Ecole</label>
 					<div class="col-sm-9">
-						<input ng-model="data.user.final.infos.school"
+						<input ng-model="data.currentuser.final.infos.school"
 							class="form-control" aria-describedby="sizing-addon2">
 					</div>
 					</p>
@@ -154,7 +154,7 @@
 					<p>
 						<label class="text-right col-sm-3">Emploi</label>
 					<div class="col-sm-9">
-						<input ng-model="data.user.final.infos.job" class="form-control"
+						<input ng-model="data.currentuser.final.infos.job" class="form-control"
 							aria-describedby="sizing-addon2">
 					</div>
 					</p>
@@ -163,7 +163,7 @@
 						<label class="text-right col-sm-3">A propos</label>
 					<div class="col-sm-9">
 						<textarea cols="40" rows="5"
-							ng-model="data.user.final.infos.about"></textarea>
+							ng-model="data.currentuser.final.infos.about"></textarea>
 					</div>
 					</p>
 					</br>
@@ -174,8 +174,12 @@
 
 </div>
 
-<div class="btn-group" role="group" aria-label="...">
+
+<div class="central-row-button">
 	<button type="button" class="btn btn-default" ng-click=updateUser()>Enregistrer</button>
+</div>
+
+<div class="blanc-provisoire">
 </div>
 
 </div>
