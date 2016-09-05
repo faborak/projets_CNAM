@@ -118,14 +118,14 @@ public class UserRessource {
 	@Consumes({ "application/json" })
 	@Secured
 	public Response updateUser(@FormParam("name") String name, @FormParam("lastname") String lastname,
-			@FormParam("email") String email, @FormParam("phoneNumber") String phoneNumber,
-			@FormParam("street") String street, @FormParam("state") String state, @FormParam("zipcode") String zipcode,
-			@FormParam("city") String city) {
+			@FormParam("email") String email, @FormParam("emailChecked") boolean emailChecked, @FormParam("phoneNumber") String phoneNumber,
+			@FormParam("phoneChecked") boolean phoneChecked, @FormParam("street") String street, @FormParam("state") String state, @FormParam("zipcode") String zipcode,
+			@FormParam("city") String city, @FormParam("school") String school, @FormParam("job") String job, @FormParam("about") String about) {
 
 		User user = null;
 		
 		try {
-			user = userService.updateUser(name, lastname, email, phoneNumber, street, state, zipcode, city);
+			user = userService.updateUser(name, lastname, email, emailChecked, phoneNumber, phoneChecked, street, state, zipcode, city, school, job, about);
 		} catch (UserUpdateException e) {
 			return Response.status(Response.Status.NO_CONTENT).build();
 		}

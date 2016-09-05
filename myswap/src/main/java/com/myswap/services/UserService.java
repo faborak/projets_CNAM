@@ -15,6 +15,7 @@ import com.myswap.exceptions.UserUpdateException;
 import com.myswap.models.Account;
 import com.myswap.models.Activity;
 import com.myswap.models.Adress;
+import com.myswap.models.Infos;
 import com.myswap.models.Item;
 import com.myswap.models.User;
 import com.myswap.models.UserPicture;
@@ -265,8 +266,8 @@ public class UserService {
 	 * @param city
 	 * @return
 	 */
-	public User updateUser(String name, String lastname, String email, String phoneNumber, String street, String state,
-			String zipcode, String city) throws UserUpdateException{
+	public User updateUser(String name, String lastname, String email, boolean emailChecked, String phoneNumber, boolean phoneChecked, String street, String state,
+			String zipcode, String city, String school, String job, String about) throws UserUpdateException{
 
 		User user = null;
 		try {
@@ -277,8 +278,15 @@ public class UserService {
 
 		Account account = user.getAccount();
 		account.setPhoneNumber(phoneNumber);
+		account.setPhoneChecked(phoneChecked);
 		account.setEmail(email);
+		account.setEmailChecked(emailChecked);;
 
+		Infos infos = new Infos();
+		infos.setSchool(school);
+		infos.setJob(job);
+		infos.setAbout(about);
+		
 		Adress adress = user.getAdress();
 		adress.setStreet(street);
 		adress.setState(state);
@@ -289,6 +297,7 @@ public class UserService {
 		user.setLastname(lastname);
 		user.setAccount(account);
 		user.setAdress(adress);
+		user.setInfo(infos);
 
 		try {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -299,6 +308,7 @@ public class UserService {
 			session.saveOrUpdate(user);
 			session.saveOrUpdate(user.getAccount());
 			session.saveOrUpdate(user.getAdress());
+			session.saveOrUpdate(user.getInfos());
 
 			session.getTransaction().commit();
 
