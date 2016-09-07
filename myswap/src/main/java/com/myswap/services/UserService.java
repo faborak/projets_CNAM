@@ -10,6 +10,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
 import com.myswap.exceptions.AddPictureException;
+import com.myswap.exceptions.UserInsertException;
 import com.myswap.exceptions.UserNotFoundException;
 import com.myswap.exceptions.UserUpdateException;
 import com.myswap.models.Account;
@@ -47,18 +48,18 @@ public class UserService {
 			criteria.add(Restrictions.eqOrIsNull("email", email));
 
 			account = (Account) criteria.uniqueResult();
-			
-			if(account != null){
+
+			if (account != null) {
 				user = account.getUser();
-			}	
-			
+			}
+
 		} catch (RuntimeException e) {
 			logger.error("RuntimeException in UserService/findUser : " + e.getMessage());
 		} finally {
 			session.close();
 		}
-		
-		if(user == null){
+
+		if (user == null) {
 			throw new UserNotFoundException("no user for this token");
 		}
 
@@ -87,17 +88,18 @@ public class UserService {
 		} finally {
 			session.close();
 		}
-		
-		if(user == null){
+
+		if (user == null) {
 			throw new UserNotFoundException("no user for this token");
 		}
 
 		return user;
 	}
-	
+
 	/**
 	 * 
-	 * @param id : id de l'item a rechercher.
+	 * @param id
+	 *            : id de l'item a rechercher.
 	 * @return owner of the Item.
 	 * @throws UserNotFoundException
 	 */
@@ -119,8 +121,8 @@ public class UserService {
 		} finally {
 			session.close();
 		}
-		
-		if(user == null){
+
+		if (user == null) {
 			throw new UserNotFoundException("no user for this token");
 		}
 
@@ -139,9 +141,14 @@ public class UserService {
 	 * @param city
 	 * @return
 	 */
-	public User insertUser(String name, String lastname, String email, String phoneNumber, String street, String state,
-			String zipcode, String city) {
+	public User insertUser(String name, String lastname, String email, String password, String phoneNumber,
+			String street, String state, String zipcode, String city) throws UserInsertException {
 
+		if (email == null || email.equals("") || password == null || password.equals("")){
+			throw new UserInsertException("Email and password musn't be blank.");
+		}
+		
+		
 		Account account = new Account();
 		account.setPhoneNumber(phoneNumber);
 		account.setEmail(email);
@@ -157,6 +164,7 @@ public class UserService {
 		user.setLastname(lastname);
 		user.setAccount(account);
 		user.setAdress(adress);
+		user.setPassword(password);
 
 		try {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -164,15 +172,10 @@ public class UserService {
 
 			session.beginTransaction();
 
-			session.save(user);
+			session.persist(user);
 
-			Criteria criteria = session.createCriteria(User.class);
-
-			criteria.add(Restrictions.eqOrIsNull("email", email));
-			User usertemp = (User) criteria.list();
-
-			account.setId(usertemp.getId());
-			adress.setId(usertemp.getId());
+			account.setId(user.getId());
+			adress.setId(user.getId());
 
 			session.save(account);
 			session.save(adress);
@@ -201,14 +204,13 @@ public class UserService {
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 
-		// Suppression du user en base.
+		// Suppression du user en base, en cascade via les annotations PERSIST.
 		try {
 
-			Criteria userList = session.createCriteria(User.class).add(Restrictions.eqOrIsNull("id_user", id));
-			for (Object user : userList.list()) {
-				session.delete(user);
-			}
-
+			Criteria userList = session.createCriteria(User.class).add(Restrictions.eqOrIsNull("id", id));
+			Object user = userList.uniqueResult();
+			session.delete(user);
+			
 			session.getTransaction().commit();
 		} catch (RuntimeException e) {
 			if (session.getTransaction() != null)
@@ -217,41 +219,6 @@ public class UserService {
 		} finally {
 			session.close();
 		}
-
-		// Suppression de l'adresse en base.
-		try {
-
-			Criteria adressList = session.createCriteria(Adress.class).add(Restrictions.eqOrIsNull("id_user", id));
-			for (Object adress : adressList.list()) {
-				session.delete(adress);
-			}
-
-			session.getTransaction().commit();
-		} catch (RuntimeException e) {
-			if (session.getTransaction() != null)
-				session.getTransaction().rollback();
-			logger.error("RuntimeException in UserService/deleteUser : " + e.getMessage());
-		} finally {
-			session.close();
-		}
-
-		// Suppression de l'account en base.
-		try {
-
-			Criteria accountList = session.createCriteria(Account.class).add(Restrictions.eqOrIsNull("id_user", id));
-			for (Object account : accountList.list()) {
-				session.delete(account);
-			}
-
-			session.getTransaction().commit();
-		} catch (RuntimeException e) {
-			if (session.getTransaction() != null)
-				session.getTransaction().rollback();
-			logger.error("RuntimeException in UserService/deleteUser : " + e.getMessage());
-		} finally {
-			session.close();
-		}
-
 	}
 
 	/**
@@ -266,8 +233,9 @@ public class UserService {
 	 * @param city
 	 * @return
 	 */
-	public User updateUser(String name, String lastname, String email, boolean emailChecked, String phoneNumber, boolean phoneChecked, String street, String state,
-			String zipcode, String city, String school, String job, String about) throws UserUpdateException{
+	public User updateUser(String name, String lastname, String email, boolean emailChecked, String phoneNumber,
+			boolean phoneChecked, String street, String state, String zipcode, String city, String school, String job,
+			String about) throws UserUpdateException {
 
 		User user = null;
 		try {
@@ -280,13 +248,14 @@ public class UserService {
 		account.setPhoneNumber(phoneNumber);
 		account.setPhoneChecked(phoneChecked);
 		account.setEmail(email);
-		account.setEmailChecked(emailChecked);;
+		account.setEmailChecked(emailChecked);
+		;
 
 		Infos infos = new Infos();
 		infos.setSchool(school);
 		infos.setJob(job);
 		infos.setAbout(about);
-		
+
 		Adress adress = user.getAdress();
 		adress.setStreet(street);
 		adress.setState(state);
@@ -321,7 +290,7 @@ public class UserService {
 		} finally {
 			session.close();
 		}
-		
+
 		return user;
 	}
 
@@ -344,14 +313,14 @@ public class UserService {
 
 			activity = (Activity) criteria.uniqueResult();
 			user = activity.getUser();
-			
+
 		} catch (RuntimeException e) {
 			logger.error("RuntimeException in UserService/findUser : " + e.getMessage());
 		} finally {
 			session.close();
 		}
 
-		if(user == null){
+		if (user == null) {
 			throw new UserNotFoundException("no user for this token");
 		}
 		return user;
@@ -386,7 +355,7 @@ public class UserService {
 
 		return user;
 	}
-	
+
 	/**
 	 * 
 	 * @param picName
@@ -394,20 +363,20 @@ public class UserService {
 	 * @param userId
 	 * @return
 	 */
-	public UserPicture addPicture(String picPath, long userId)throws AddPictureException{
-	
+	public UserPicture addPicture(String picPath, long userId) throws AddPictureException {
+
 		User user = new User();
 		try {
 			user = findUser(userId);
 		} catch (UserNotFoundException e1) {
 			throw new AddPictureException("user not found for this picture");
 		}
-	
+
 		UserPicture userPicture = new UserPicture();
 		userPicture.setOwner(user);
-//		userPicture.setName(picName);
+		// userPicture.setName(picName);
 		userPicture.setPath(picPath);
-		
+
 		try {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
@@ -428,16 +397,16 @@ public class UserService {
 		} finally {
 			session.close();
 		}
-		
+
 		return userPicture;
-	}	
-	
+	}
+
 	/**
 	 * Delete des images dans la base.
 	 * 
 	 */
-	public void deletePicture(long pictureId){
-	
+	public void deletePicture(long pictureId) {
+
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -445,7 +414,8 @@ public class UserService {
 		// Suppression de la picture en base (delete en cascade sur User)
 		try {
 
-			Criteria userPicList = session.createCriteria(UserPicture.class).add(Restrictions.eqOrIsNull("id_picture", pictureId));
+			Criteria userPicList = session.createCriteria(UserPicture.class)
+					.add(Restrictions.eqOrIsNull("id_picture", pictureId));
 			for (Object userPicture : userPicList.list()) {
 				session.delete(userPicture);
 			}
@@ -458,6 +428,6 @@ public class UserService {
 		} finally {
 			session.close();
 		}
-	}	
+	}
 
 }
