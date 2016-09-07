@@ -105,7 +105,8 @@ public class User {
 	 /**
 	 * Le compte de l'utilisateur.   
 	 */ 
-	 @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	 @OneToOne(mappedBy = "user")
+//	 @OneToOne
 	 @JsonManagedReference
 	 private Account account;
 	 public void setAccount(Account a) {account = a;}
@@ -115,7 +116,8 @@ public class User {
 	  /**
 	 * L'adresse de l'utilisateur.   
 	 */  
-	 @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	 @OneToOne(mappedBy = "user")
+//	 @OneToOne
 	 @JsonManagedReference
 	 private Adress adress;
 	 public void setAdress(Adress a) {adress = a;}

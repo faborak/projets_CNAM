@@ -11,6 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import com.myswap.exceptions.AddPictureException;
+import com.myswap.exceptions.UserInsertException;
 import com.myswap.exceptions.UserNotFoundException;
 import com.myswap.exceptions.UserUpdateException;
 import com.myswap.models.User;
@@ -98,11 +99,15 @@ public class UserRessource {
 	@Consumes({ "application/json" })
 	@Secured
 	public Response insertUser(@FormParam("name") String name, @FormParam("lastname") String lastname,
-			@FormParam("email") String email, @FormParam("phoneNumber") String phoneNumber,
+			@FormParam("email") String email, @FormParam("password") String password, @FormParam("phoneNumber") String phoneNumber,
 			@FormParam("street") String street, @FormParam("state") String state, @FormParam("zipcode") String zipcode,
 			@FormParam("city") String city) {
 
-		return Response.ok(userService.insertUser(name, lastname, email, phoneNumber, street, state, zipcode, city)).build();
+		try {
+			return Response.ok(userService.insertUser(name, lastname, email, password, phoneNumber, street, state, zipcode, city)).build();
+		} catch (UserInsertException e) {
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
 	}
 
 //	@DELETE

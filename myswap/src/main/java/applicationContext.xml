@@ -19,7 +19,7 @@
 	<aop:aspectj-autoproxy />
 
 	<!-- ANNOTATIONS POUR MVC -->
-	<mvc:annotation-driven>
+	<!-- <mvc:annotation-driven>
 		<mvc:message-converters>
 			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 				<property name="objectMapper">
@@ -27,6 +27,6 @@
 				</property>
 			</bean>
 		</mvc:message-converters>
-	</mvc:annotation-driven>
+	</mvc:annotation-driven> -->
 
 </beans>	
