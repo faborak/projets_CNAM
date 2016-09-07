@@ -54,6 +54,7 @@ public class Adress {
 	 * user auquel est rattach�e l'adresse.
 	 */
     @OneToOne (cascade=CascadeType.PERSIST)
+//    @OneToOne
 	@JoinColumn (name="id_user")
     @JsonBackReference
 	private User user;

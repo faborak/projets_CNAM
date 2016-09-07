@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `Adress` (
   `id_user` int(11) NOT NULL,
   `street` varchar(30) COLLATE utf8_bin NOT NULL,
   `state` varchar(30) COLLATE utf8_bin NOT NULL,
-  `zipcode` int(6) NOT NULL,
+  `zipcode` varchar(10) NOT NULL,
   `city` varchar(30) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Adress from the users of the MySwap WebSite';
 
