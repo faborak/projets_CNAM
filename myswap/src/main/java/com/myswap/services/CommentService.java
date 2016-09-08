@@ -18,7 +18,6 @@ import com.myswap.models.User;
  * Classe effectuant le CRUD pour les objets de type Comment.
  * 
  */
-//@Secured
 public class CommentService {
 
 	private Session session;
@@ -53,6 +52,34 @@ public class CommentService {
 		
 		return comment;
 	}
+	
+	public List<Comment> findCommentByUser(long id) throws CommentNotFoundException {
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		List<Comment> comment = null;
+		User user = null;
+		try {
+			Criteria criteria = session.createCriteria(User.class);
+
+			criteria.add(Restrictions.eqOrIsNull("id", id));
+
+			user = (User) criteria.uniqueResult();
+			comments = user.getCommentsOnUser();
+			comments.addAll(user.getCommentsWrited());
+			
+		} catch (RuntimeException e) {
+			logger.error("RuntimeException in CommentService/findComment : " + e.getMessage());
+		} finally {
+			session.close();
+		}
+		
+		if (comments == null){
+			throw new CommentNotFoundException("no comment found for this id.");
+		}
+		
+		return comments;
+	}
 
     /**
      * 
@@ -63,6 +90,7 @@ public class CommentService {
      * @return
      * @throws CommentInsertException
      */
+	 @Secured
 	public Comment insertComment(String label, Integer mark,
 			 String notingId, String notedId) throws CommentInsertException{
 
@@ -112,6 +140,7 @@ public class CommentService {
 	 * 
 	 * @param id
 	 */
+	@Secured 
 	public void deleteComment(long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
@@ -145,8 +174,8 @@ public class CommentService {
      * @param notedId
      * @throws CommentUpdateException
      */
-	public Comment updateComment(Long id, String label, Integer mark,
-			String notingId, String notedId) throws CommentUpdateException {
+	@Secured 
+	public Comment updateComment(Long id, String label, Integer mark) throws CommentUpdateException {
 
 		Comment comment;
 		try {
