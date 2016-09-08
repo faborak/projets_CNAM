@@ -218,7 +218,7 @@ public class ItemService {
 	 * Update de la classe item.
 	 */
 	public Item updateItem(Long id, String name, String description,
-			String cost, String userId, Set<String> dealsId) throws ItemUpdateException {
+			String cost, Set<String> dealsId) throws ItemUpdateException {
 
 		Item item;
 		try {
@@ -227,21 +227,10 @@ public class ItemService {
 			throw new ItemUpdateException("No item found for this id.");
 		}
 
-//		DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.FRENCH);
-
 		item.setName(name);
 		item.setDateModification(new Date());
 		item.setDescription(description);
 		item.setCost(Float.parseFloat(cost));
-
-		User user = new User();
-		try {
-			user = userService.findUser(Long.parseLong(userId));
-		} catch (UserNotFoundException e1) {
-			throw new ItemUpdateException("No user found for this id.");
-		}
-
-		item.setOwner(user);
 
 		for (String dealId : dealsId) {
 			Deal deal = new Deal();

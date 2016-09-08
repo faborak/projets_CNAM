@@ -52,8 +52,12 @@ public class AuthenticationService{
 	private User authenticate(String mail, String password, User user) throws UserNotFoundException {
 		user = userService.findUser(mail);
 		if (user == null) {
-			logger.debug("User non trouve à l'authentication par mail/password : ");
+			logger.debug("User non trouve Ã  l'authentication par mail/password : ");
 			throw new UserNotFoundException("No usr for this mail.");
+		}
+		
+		if (user.getPassword() == password) {
+			throw new AuthenticateException("wrong password");
 		}
 
 		return user;
@@ -88,7 +92,7 @@ public class AuthenticationService{
 		return user.getActivity().getToken();
 	}
 
-	// Vérification token Google
+	// VÃ©rification token Google
 	// private String issueToken(User user) throws IOException {
 	// JsonFactory jsonFactory = new JacksonFactory();
 	// HttpTransport httpTransport = new NetHttpTransport();
@@ -135,7 +139,7 @@ public class AuthenticationService{
 	}
 
 	/**
-	 * génère une chaine de 30 caractères aléatoires
+	 * gÃ©nÃ¨re une chaine de 30 caractÃ¨res alÃ©atoires
 	 * 
 	 * @return la chaine, qui sert de token simple.
 	 */

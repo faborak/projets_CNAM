@@ -90,13 +90,13 @@ public class CommentRessource {
 	@Path("/update")
 	@Consumes({ "application/json" })
 	@Secured
-	public Response updateComment(@FormParam("id") Long id, @FormParam("label") String label, @FormParam("mark") Integer mark,
-			@FormParam("noting") String notingId, @FormParam("noted") String notedId) {
+	public Response updateComment(@FormParam("id") Long id, @FormParam("label") String label, @FormParam("mark") Integer mark
+			) {
 
 		Comment comment = null;
 		
 		try {
-			comment = commentService.updateComment(id, label, mark, notingId, notedId);
+			comment = commentService.updateComment(id, label, mark);
 		} catch (CommentUpdateException e) {
 			return Response.status(Response.Status.NO_CONTENT).build();
 		}
