@@ -138,10 +138,14 @@ public class DealService {
 		deal.setInitiator(initator);
 		deal.setProposed(proposed);
 		Status status = new Status();
-		status.setCode("En attente d'acceptation");
+		status.setCode("En attente d'acceptation par le proposed");
 		deal.setStatus(status);
 		deal.setDateCreation(new Date());
 		deal.setDateModification(new Date());
+
+		if (swapObjectsId == null) {
+			throw new DealInsertException("no swap objets in the deal.");
+		}
 
 		for (String soId : swapObjectsId) {
 			SwapObject so = new SwapObject();
@@ -188,7 +192,7 @@ public class DealService {
 		// Suppression du deal en base.
 		try {
 
-			Criteria dealList = session.createCriteria(Deal.class).add(Restrictions.eqOrIsNull("id_deal", id));
+			Criteria dealList = session.createCriteria(Deal.class).add(Restrictions.eqOrIsNull("id", id));
 			for (Object deal : dealList.list()) {
 				session.delete(deal);
 			}
@@ -260,14 +264,35 @@ public class DealService {
 		} catch (DealNotFoundException e1) {
 			throw new DealUpdateException("No deal found for this id");
 		}
-		Status status = new Status();
-		status.setCode(statusString);
-		deal.setStatus(status);
-		Swap swap = new Swap();
 
-		if (status.equals("Transaction validée")) {
-			swap.setDeal(deal);
-			deal.setSwap(swap);
+		
+		// status' lifecycle
+		Status status = new Status();
+		if ((deal.getStatus().getCode().equals("En attente d'acceptation par l'initiateur")
+				&& statusString.equals("En attente d'acceptation par le proposed"))
+				|| (deal.getStatus().getCode().equals("En attente d'acceptation par l'initiateur")
+						&& statusString.equals("Transaction acceptée par l'initiateur"))
+				|| (deal.getStatus().getCode().equals("En attente d'acceptation par le proposed")
+						&& statusString.equals("En attente d'acceptation par l'initiateur"))
+				|| (deal.getStatus().getCode().equals("En attente d'acceptation par le proposed")
+						&& statusString.equals("Transaction acceptée par le proposed"))
+				|| (deal.getStatus().getCode().equals("Transaction acceptée par l'initiateur")
+						&& statusString.equals("Transaction validée"))
+				|| (deal.getStatus().getCode().equals("Transaction acceptée par le proposed")
+						&& statusString.equals("Transaction validée"))
+				|| (deal.getStatus().getCode().equals("En attente d'acceptation par l'initiateur")
+						&& statusString.equals("Transaction refusée par l'initiateur"))
+				|| (deal.getStatus().getCode().equals("En attente d'acceptation par le proposed")
+						&& statusString.equals("Transaction refusée par le proposed"))
+				|| (deal.getStatus().getCode().equals("Transaction acceptée par l'initiateur")
+						&& statusString.equals("Transaction refusée par l'initiateur"))
+				|| (deal.getStatus().getCode().equals("Transaction acceptée par le porposed")
+						&& statusString.equals("TTransaction refusée par le proposed"))) {
+			
+			status.setCode(statusString);
+			deal.setStatus(status);
+		} else {
+			throw new DealUpdateException("Status problem");
 		}
 
 		try {
@@ -276,8 +301,11 @@ public class DealService {
 
 			session.beginTransaction();
 
-			// swap created if valited by both sides
+			// swap created if valided by both sides
 			if (status.equals("Transaction validée")) {
+				Swap swap = new Swap();
+				swap.setDeal(deal);
+				deal.setSwap(swap);
 				session.save(swap);
 			}
 			session.saveOrUpdate(deal);
