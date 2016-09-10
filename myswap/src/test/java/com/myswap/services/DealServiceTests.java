@@ -203,7 +203,7 @@ public final class DealServiceTests extends TestCase {
 		}
 
 		try {
-			dealService.modifyStatus(dealId, "Transaction mise à jour par le proposed");
+			dealService.modifyStatus(dealId, "Transaction acceptée par le proposed");
 		} catch (DealUpdateException e) {
 			fail("Update shouldn't have failed");
 		}

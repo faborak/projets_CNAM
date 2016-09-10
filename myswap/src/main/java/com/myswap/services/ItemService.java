@@ -46,7 +46,7 @@ public class ItemService {
 	/**
 	 * DealService.
 	 */
-	private DealService dealService = new DealService();
+	private DealService dealService;
 
 	public void setDealService(DealService dealService) {
 		this.dealService = dealService;
@@ -158,17 +158,6 @@ public class ItemService {
 
 		item.setOwner(user);
 
-		// normalement, un nouvel objet n'est dans aucun Deal !
-//		for (String dealId : dealsId) {
-//			Deal deal = new Deal();
-//			try {
-//				deal = dealService.findDeal(Long.parseLong(dealId));
-//			} catch (NumberFormatException | DealNotFoundException e) {
-//				throw new ItemInsertException("Deal id problem.");
-//			}
-//			item.addDeal(deal);
-//		}
-		
 		try {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
@@ -237,21 +226,19 @@ public class ItemService {
 		item.setDescription(description);
 		item.setCost(Float.parseFloat(cost));
 
-		for (String dealId : dealsId) {
-			Deal deal = new Deal();
-			try {
-				deal = dealService.findDeal(Long.parseLong(dealId));
-			} catch (NumberFormatException | DealNotFoundException e) {
-				throw new ItemUpdateException("Deal id problem.");
-			}
-			item.addDeal(deal);
-		}
-		
 		try {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
-
 			session.beginTransaction();
+			
+			for (String dealId : dealsId) {
+				
+				Deal deal = new Deal();
+				Criteria criteria = session.createCriteria(Deal.class);
+				criteria.add(Restrictions.eqOrIsNull("id", dealId));
+				deal = (Deal) criteria.uniqueResult();
+				item.addDeal(deal);
+			}
 
 			session.saveOrUpdate(item);
 
