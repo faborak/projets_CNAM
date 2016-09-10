@@ -30,19 +30,13 @@ public final class CommentServiceTests extends TestCase {
 		} catch (CommentNotFoundException e) {
 		}
 
-		// Finds an object with a null identifier
-		try {
-			commentService.findComment(null);
-			fail("Object with null id should not be found");
-		} catch (CommentNotFoundException e) {
-		}
 	}
 
 	public void testFindCommentByUserWithInvalidValues() throws Exception {
 
 		// Finds an object with a unknown identifier
 		try {
-			commentService.findCommentsByUser(-1);
+			commentService.findCommentsByUser(Long.parseLong("0"));
 			fail("Object with unknonw id should not be found");
 		} catch (CommentNotFoundException e) {
 		}
@@ -59,10 +53,10 @@ public final class CommentServiceTests extends TestCase {
 	public void testInsertDeleteComment() throws Exception {
 
 		// Creates an object
-		Comment comment = commentService.insertComment("name", "description", 1.0, "Informatique", 1);
+		Comment comment = commentService.insertComment("label", 5, "1", "2");
 
 		// Ensures that the object exists
-		long commentId = comment.getId();
+		long commentId = comment.getIdComment();
 		
 		comment = null;
 		
@@ -73,7 +67,7 @@ public final class CommentServiceTests extends TestCase {
 		}
 
 		// Cleans the test environment
-		commentService.deleteComment(comment.getId());
+		commentService.deleteComment(comment.getIdComment());
 
 		try {
 			commentService.findComment(commentId);
@@ -86,28 +80,21 @@ public final class CommentServiceTests extends TestCase {
 
         // Creates an object with a null parameter
         try {
-        	commentService.insertComment("label", null, 1, 2);
+        	commentService.insertComment("label", null, "1", "2");
             fail("Object with null parameter should not be created");
         } catch (CommentInsertException e) {
         }
 
-        // Creates an object with empty values
-        try {
-        	commentService.insertComment(new String(), 5, 1, 2);
-            fail("Object with empty values should not be created");
-        } catch (CommentInsertException e) {
-        }
-		
 		// Creates an object with invalid User
         try {
-        	commentService.insertComment("label", 5, 1, 0);
+        	commentService.insertComment("label", 5, "1", "0");
             fail("Object with invalid user should not be created");
         } catch (CommentInsertException e) {
         }
 		
 		// Creates an object with invalid User
         try {
-        	commentService.insertComment("label", 5, 0, 2);
+        	commentService.insertComment("label", 5, "0", "2");
             fail("Object with invalid user should not be created");
         } catch (CommentInsertException e) {
         }
@@ -116,10 +103,10 @@ public final class CommentServiceTests extends TestCase {
 	
 	public void testUpdatecomment() throws Exception {
 		
-		Comment comment = commentService.insertComment("label", 5, 1, 2);
+		Comment comment = commentService.insertComment("label", 5, "1", "2");
 
 		// Ensures that the object exists
-		long commentId = comment.getId();
+		long commentId = comment.getIdComment();
 		
 		comment = null;
 		

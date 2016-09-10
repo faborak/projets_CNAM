@@ -1,5 +1,8 @@
 package com.myswap.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -13,6 +16,7 @@ import com.myswap.exceptions.CommentUpdateException;
 import com.myswap.exceptions.UserNotFoundException;
 import com.myswap.models.Comment;
 import com.myswap.models.User;
+import com.myswap.utilitaires.Secured;
 
 /**
  * Classe effectuant le CRUD pour les objets de type Comment.
@@ -22,12 +26,15 @@ public class CommentService {
 
 	private Session session;
 	private static Logger logger = Logger.getLogger(CommentService.class);
-	
+
 	/**
 	 * UserService.
 	 */
 	private UserService userService = new UserService();
-	public void setUserService(UserService userService){this.userService = userService;}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 
 	public Comment findComment(long id) throws CommentNotFoundException {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -45,19 +52,19 @@ public class CommentService {
 		} finally {
 			session.close();
 		}
-		
-		if (comment == null){
+
+		if (comment == null) {
 			throw new CommentNotFoundException("no comment found for this id.");
 		}
-		
+
 		return comment;
 	}
-	
-	public List<Comment> findCommentByUser(long id) throws CommentNotFoundException {
+
+	public List<Comment> findCommentsByUser(long id) throws CommentNotFoundException {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 		session.beginTransaction();
-		List<Comment> comment = null;
+		List<Comment> comments = new ArrayList<Comment>();
 		User user = null;
 		try {
 			Criteria criteria = session.createCriteria(User.class);
@@ -65,48 +72,53 @@ public class CommentService {
 			criteria.add(Restrictions.eqOrIsNull("id", id));
 
 			user = (User) criteria.uniqueResult();
-			comments = user.getCommentsOnUser();
+			comments.addAll(user.getCommentsOnUser());
 			comments.addAll(user.getCommentsWrited());
-			
+
 		} catch (RuntimeException e) {
 			logger.error("RuntimeException in CommentService/findComment : " + e.getMessage());
 		} finally {
 			session.close();
 		}
-		
-		if (comments == null){
+
+		if (comments.isEmpty()) {
 			throw new CommentNotFoundException("no comment found for this id.");
 		}
-		
+
 		return comments;
 	}
 
-    /**
-     * 
-     * @param label
-     * @param mark
-     * @param notingId
-     * @param notedId
-     * @return
-     * @throws CommentInsertException
-     */
-	 @Secured
-	public Comment insertComment(String label, Integer mark,
-			 String notingId, String notedId) throws CommentInsertException{
+	/**
+	 * 
+	 * @param label
+	 * @param mark
+	 * @param notingId
+	 * @param notedId
+	 * @return
+	 * @throws CommentInsertException
+	 */
+	@Secured
+	public Comment insertComment(String label, Integer mark, String notingId, String notedId)
+			throws CommentInsertException {
 
 		Comment comment = new Comment();
 		comment.setLabel(label);
-		comment.setMark(mark);
-		
+
+		if (mark == null) {
+			throw new CommentInsertException("mark should not be null.");
+		} else {
+			comment.setMark(mark);
+		}
+
 		User noting = new User();
 		try {
-			noting = userService.findUser(notingId);
+			noting = userService.findUser(Long.parseLong(notingId));
 		} catch (UserNotFoundException e1) {
 			throw new CommentInsertException("No user for this id.");
 		}
 		User noted = new User();
 		try {
-			noted = userService.findUser(notedId);
+			noted = userService.findUser(Long.parseLong(notedId));
 		} catch (UserNotFoundException e1) {
 			throw new CommentInsertException("No user for this id.");
 		}
@@ -140,7 +152,7 @@ public class CommentService {
 	 * 
 	 * @param id
 	 */
-	@Secured 
+	@Secured
 	public void deleteComment(long id) {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		session = sessionFactory.openSession();
@@ -149,7 +161,7 @@ public class CommentService {
 		// Suppression du comment en base.
 		try {
 
-			Criteria commentList = session.createCriteria(Comment.class).add(Restrictions.eqOrIsNull("id_comment", id));
+			Criteria commentList = session.createCriteria(Comment.class).add(Restrictions.eqOrIsNull("id", id));
 			for (Object comment : commentList.list()) {
 				session.delete(comment);
 			}
@@ -165,16 +177,16 @@ public class CommentService {
 
 	}
 
-    /**
-     * 
-     * @param id
-     * @param label
-     * @param mark
-     * @param notingId
-     * @param notedId
-     * @throws CommentUpdateException
-     */
-	@Secured 
+	/**
+	 * 
+	 * @param id
+	 * @param label
+	 * @param mark
+	 * @param notingId
+	 * @param notedId
+	 * @throws CommentUpdateException
+	 */
+	@Secured
 	public Comment updateComment(Long id, String label, Integer mark) throws CommentUpdateException {
 
 		Comment comment;
@@ -185,17 +197,17 @@ public class CommentService {
 		}
 		comment.setLabel(label);
 		comment.setMark(mark);
-		User noting = new User();
-		User noted = new User();
-		try {
-			noting = userService.findUser(notingId);
-			noted = userService.findUser(notedId);
-		} catch (UserNotFoundException e1) {
-			throw new CommentUpdateException("No user for this Id.");
-		}
-		comment.setNoting(noting);
-		comment.setNoted(noted);
-		
+		// User noting = new User();
+		// User noted = new User();
+		// try {
+		// noting = userService.findUser(notingId);
+		// noted = userService.findUser(notedId);
+		// } catch (UserNotFoundException e1) {
+		// throw new CommentUpdateException("No user for this Id.");
+		// }
+		// comment.setNoting(noting);
+		// comment.setNoted(noted);
+
 		try {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
@@ -216,7 +228,7 @@ public class CommentService {
 		}
 
 		return comment;
-		
+
 	}
 
 }

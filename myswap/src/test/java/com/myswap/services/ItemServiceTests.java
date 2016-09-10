@@ -1,5 +1,8 @@
 package com.myswap.services;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.myswap.exceptions.ItemInsertException;
 import com.myswap.exceptions.ItemNotFoundException;
 import com.myswap.models.Item;
@@ -53,10 +56,10 @@ public final class ItemServiceTests extends TestCase {
 	public void testInsertDeleteItem() throws Exception {
 
 		// Creates an object
-		Item item = itemService.insertItem("name", "description", "1.0", "Informatique", 1);
+		Item item = itemService.insertItem("name", "description", "1.0", "Informatique", "1");
 
 		// Ensures that the object exists
-		long itemId = item.getId();
+		long itemId = item.getIdSwapObjet();
 		
 		item = null;
 		
@@ -67,7 +70,7 @@ public final class ItemServiceTests extends TestCase {
 		}
 
 		// Cleans the test environment
-		itemService.deleteItem(item.getId());
+		itemService.deleteItem(item.getIdSwapObjet());
 
 		try {
 			itemService.findItem(itemId);
@@ -80,21 +83,21 @@ public final class ItemServiceTests extends TestCase {
 
         // Creates an object with a null parameter
         try {
-        	itemService.insertItem(null, null, null, null, null, null, null, null, null);
+        	itemService.insertItem(null, null, null, null, null);
             fail("Object with null parameter should not be created");
         } catch (ItemInsertException e) {
         }
 
         // Creates an object with empty values
         try {
-        	itemService.insertItem(new String(), new String(), 1.0, new String(), 1);
+        	itemService.insertItem(new String(), new String(), new String(), new String(), new String());
             fail("Object with empty values should not be created");
         } catch (ItemInsertException e) {
         }
 		
 		// Creates an object with invalid User
         try {
-        	itemService.insertItem("name", "description", 1.0, "Informatique", 0);
+        	itemService.insertItem("name", "description", "1.0", "Informatique", "0");
             fail("Object with invalid user should not be created");
         } catch (ItemInsertException e) {
         }
@@ -103,10 +106,10 @@ public final class ItemServiceTests extends TestCase {
 	
 	public void testUpdateitem() throws Exception {
 		
-		Item item = itemService.insertItem("name", "description", 1.0, "Informatique", 1);
+		Item item = itemService.insertItem("name", "description", "1.0", "Informatique", "1");
 
 		// Ensures that the object exists
-		long itemId = item.getId();
+		long itemId = item.getIdSwapObjet();
 		
 		item = null;
 		
@@ -119,9 +122,9 @@ public final class ItemServiceTests extends TestCase {
 		}
 		
 		Set<String> dealsId = new HashSet<String>();
-		dealsId.add(1);
+		dealsId.add("1");
 		
-		itemService.updateItem(itemId, "name", "description", 2.0, dealsId);
+		itemService.updateItem(itemId, "name", "description", "2.0", dealsId);
 		
 		try {
 			item = itemService.findItem(itemId);

@@ -1,8 +1,6 @@
 package com.myswap.services;
 
-import com.myswap.exceptions.UserInsertException;
 import com.myswap.exceptions.UserNotFoundException;
-import com.myswap.exceptions.AuthenticatetException;
 import com.myswap.models.User;
 
 import junit.framework.TestCase;
@@ -13,7 +11,7 @@ public final class AuthenticationServiceTests extends TestCase {
 		super(s);
 	}
 
-	UserService userService = new ItemService();
+	UserService userService = new UserService();
 	AuthenticationService authenticationService = new AuthenticationService();
 
 	public void testAuthentication() throws Exception {
@@ -44,24 +42,23 @@ public final class AuthenticationServiceTests extends TestCase {
 	public void testAuthenticationWithInvalidValues() throws Exception {
 
         // authenticate with a wrong password
-        try {
-        	authenticationService.authenticateUser("emailDeTest@test.fr", "wordpass");
-            fail("Object with null parameter should not be created");
-        } catch (AuthenticateException e) {
+		String token = null;
+		
+        token = authenticationService.authenticateUser("emailDeTest@test.fr", "wordpass");
+        if (token != null){
+        	fail("wrong parameters shouldn't generate a token");
         }
 
         // Creates an object with emptypassword
-        try {
-        	authenticationService.authenticateUser("emailDeTest@test.fr", "");
-            fail("Object with null parameter should not be created");
-        } catch (AuthenticateException e) {
+        token = 	authenticationService.authenticateUser("emailDeTest@test.fr", "");
+        if (token != null){
+        	fail("wrong parameters shouldn't generate a token");
         }
-		
+        
 		// Creates an object with mail
-        try {
-        	authenticationService.authenticateUser("", "password");
-            fail("Object with null parameter should not be created");
-        } catch (UserNotFoundException e) {
+        token = 	authenticationService.authenticateUser("", "password");
+        if (token != null){
+        	fail("wrong parameters shouldn't generate a token");
         }
 
     }
