@@ -46,7 +46,7 @@ public class ItemService {
 	/**
 	 * DealService.
 	 */
-	private DealService dealService;
+	private DealService dealService = new DealService();
 
 	public void setDealService(DealService dealService) {
 		this.dealService = dealService;
@@ -136,7 +136,12 @@ public class ItemService {
 		item.setDateCreation(date);
 		item.setDateModification(date);
 		item.setDescription(description);
-		item.setCost(Float.parseFloat(cost));
+		if (cost == null || cost.equals("")){
+			throw new ItemInsertException("cost id is null.");
+		} else {
+			item.setCost(Float.parseFloat(cost));
+		}
+		
 		item.setCategory(category);
 
 		User user = new User();
@@ -198,7 +203,7 @@ public class ItemService {
 		// Suppression du item en base.
 		try {
 
-			Criteria itemList = session.createCriteria(Item.class).add(Restrictions.eqOrIsNull("id_item", id));
+			Criteria itemList = session.createCriteria(Item.class).add(Restrictions.eqOrIsNull("id", id));
 			for (Object item : itemList.list()) {
 				session.delete(item);
 			}

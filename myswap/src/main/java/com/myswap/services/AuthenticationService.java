@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import com.myswap.exceptions.AuthenticateException;
 import com.myswap.exceptions.UserNotFoundException;
 import com.myswap.models.Activity;
 import com.myswap.models.User;
@@ -44,12 +45,12 @@ public class AuthenticationService{
 			// Return the token on the response
 			return token;
 
-		} catch (UserNotFoundException | IOException e) {
+		} catch (UserNotFoundException | IOException | AuthenticateException e) {
 			return null;
 		}
 	}
 
-	private User authenticate(String mail, String password, User user) throws UserNotFoundException {
+	private User authenticate(String mail, String password, User user) throws UserNotFoundException, AuthenticateException {
 		user = userService.findUser(mail);
 		if (user == null) {
 			logger.debug("User non trouve à l'authentication par mail/password : ");

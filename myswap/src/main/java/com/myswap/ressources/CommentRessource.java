@@ -1,5 +1,7 @@
 package com.myswap.ressources;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -44,6 +46,23 @@ public class CommentRessource {
 		}
 		
 		return Response.ok(comment).build();
+		
+	}
+	
+	@GET
+	@Path("/getByUser/{id}")
+	@Produces({ "application/json" })
+	public Response findCommentByUser(@PathParam("id") long id) {
+		
+		List<Comment> comments = null;
+		
+		try {
+			comments = commentService.findCommentsByUser(id);
+		} catch (CommentNotFoundException e) {
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+		
+		return Response.ok(comments).build();
 		
 	}
 
