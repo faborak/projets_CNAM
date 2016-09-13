@@ -96,8 +96,8 @@ public class UserRessource {
 
 	@POST
 	@Path("/insert")
-	@Consumes({ "application/json" })
-	@Secured
+	@Consumes("application/x-www-form-urlencoded")
+	@Produces({ "application/json" })
 	public Response insertUser(@FormParam("name") String name, @FormParam("lastname") String lastname,
 			@FormParam("email") String email, @FormParam("password") String password, @FormParam("phoneNumber") String phoneNumber,
 			@FormParam("street") String street, @FormParam("state") String state, @FormParam("zipcode") String zipcode,
@@ -110,17 +110,17 @@ public class UserRessource {
 		}
 	}
 
-//	@DELETE
-//	@Path("/delete/{id}")
-//	@Secured
-//	public void deleteUser(long id) {
-//		
-//		userService.deleteUser(id);
-//	}
+	@DELETE
+	@Path("/delete/{id}")
+	public void deleteUser(long id) {
+		
+		userService.deleteUser(id);
+	}
 
 	@POST
 	@Path("/update")
-	@Consumes({ "application/json" })
+	@Consumes("application/x-www-form-urlencoded")
+	@Produces({ "application/json" })
 	@Secured
 	public Response updateUser(@FormParam("name") String name, @FormParam("lastname") String lastname,
 			@FormParam("email") String email, @FormParam("emailChecked") boolean emailChecked, @FormParam("phoneNumber") String phoneNumber,
@@ -144,7 +144,8 @@ public class UserRessource {
 	 */
 	@POST
 	@Path("/insertPicture")
-	@Consumes({ "application/json" })
+	@Consumes("application/x-www-form-urlencoded")
+	@Produces({ "application/json" })
 	@Secured
 	public Response insertItem(@FormParam("picPath") String picPath,
 			@FormParam("userId") long userId) {
