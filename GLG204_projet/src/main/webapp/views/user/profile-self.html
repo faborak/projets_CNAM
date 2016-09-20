@@ -1,0 +1,185 @@
+<div ng-controller="SelfProfileCtrl"class "container">
+
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header"></div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="#!/dashboard">Tableau de bord</a></li>
+					<li><a href="#!/followswap">Suivre un echange</a></li>
+					<li><a href="#!/swaps">Swaps</a></li>
+					<li><a href="#!/items">Mes objets</a></li>
+					<li class="active"><a href="#!/profile-self">Profil</a><span
+						class="sr-only">(current)</span></li>
+					<li><a href="#!/account">Compte</a></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+
+	<div class="user-panel">
+
+		<div class="user-left-panel">
+			<div class="list-group">
+				<a href="#!/profile-self" class="list-group-item active">
+					<h4 class="list-group-item-heading">Modifier le profil</h4>
+					<p class="list-group-item-text"></p>
+				</a> <a href="#!/profile-pics" class="list-group-item active">
+					<h4 class="list-group-item-heading">Photos et vidéos</h4>
+					<p class="list-group-item-text"></p>
+				</a> <a href="#!/profile-comments" class="list-group-item active">
+					<h4 class="list-group-item-heading">Commentaires</h4>
+					<p class="list-group-item-text"></p>
+				</a>
+			</div>
+		</div>
+
+
+		<div class="user-right-panel">
+		
+			<div class="panel panel-success">
+				<div class="panel-heading">
+					<h3 class="panel-title">Obligatoire</h3>
+				</div>
+				<div class="panel-body">
+					<p>
+						<label class="text-right col-sm-3">Prénom</label>
+					<div class="col-sm-9">
+						<input type="text" ng-model="data.currentuser.final.name"
+							class="form-control" aria-describedby="sizing-addon2">
+					</div>
+					</p>
+					<p>
+						<label class="text-right col-sm-3">Nom</label>
+					<div class="col-sm-9">
+						<input type="text" ng-model="data.currentuser.final.lastname"
+							class="form-control" aria-describedby="sizing-addon2">
+					</div>
+					</p>
+					</br>
+					<p>
+						<label class="text-right col-sm-3">Sexe</label>
+					<div class="col-sm-9">
+						<input ng-model="data.currentuser.final.sexe" class="form-control"
+							aria-describedby="sizing-addon2">
+					</div>
+					</p>
+					</br>
+					<p>
+						<label class="text-right col-sm-3">Date de naissance</label>
+					<div class="col-sm-9">
+						<input ng-model="data.currentuser.final.dateNaissance"
+							class="form-control" aria-describedby="sizing-addon2">
+					</div>
+					</p>
+					</br>
+					<p>
+						<label class="text-right col-sm-3">Telephone</label>
+					<div class="col-sm-9">
+						<input type="text" ng-model="data.currentuser.final.account.phoneNumber"
+							class="form-control" aria-describedby="sizing-addon2">
+					</div>
+					</p>
+					</br>
+					<p>
+						<label class="text-right col-sm-3">Mail</label>
+					<div class="col-sm-9">
+						<input type="text" ng-model="data.currentuser.final.account.email"
+							class="form-control" aria-describedby="sizing-addon2">
+					</div>
+					</p>
+					</br>
+					<p>
+						<label class="text-right col-sm-3">Adresse</label>
+					<div class="col-sm-9">
+						<input ng-model="data.currentuser.final.adress.street"
+							class="form-control" aria-describedby="sizing-addon2">
+					</div>
+					</p>
+					</br>
+					<p>
+						<label class="text-right col-sm-3">Code postal</label>
+					<div class="col-sm-9">
+						<input ng-model="data.currentuser.final.adress.zipcode"
+							class="form-control" aria-describedby="sizing-addon2">
+					</div>
+					</p>
+					</br>
+					<p>
+						<label class="text-right col-sm-3">Ville</label>
+					<div class="col-sm-9">
+						<input ng-model="data.currentuser.final.adress.city" class="form-control"
+							aria-describedby="sizing-addon2">
+					</div>
+					</p>
+					</br>
+					<p>
+						<label class="text-right col-sm-3">Région</label>
+					<div class="col-sm-9">
+						<input ng-model="data.currentuser.final.adress.state"
+							class="form-control" aria-describedby="sizing-addon2">
+					</div>
+					</p>
+					</br>
+					<p>
+						<label class="text-right col-sm-3">Pays</label>
+					<div class="col-sm-9">
+						<input ng-model="data.currentuser.final.adress.country"
+							class="form-control" aria-describedby="sizing-addon2">
+					</div>
+					</p>
+					</br>
+				</div>
+			</div>
+
+			<div class="panel panel-success">
+				<div class="panel-heading">
+					<h3 class="panel-title">Facultatif</h3>
+				</div>
+				<div class="panel-body">
+					<p>
+						<label class="text-right col-sm-3">Ecole</label>
+					<div class="col-sm-9">
+						<input ng-model="data.currentuser.final.infos.school"
+							class="form-control" aria-describedby="sizing-addon2">
+					</div>
+					</p>
+					</br>
+					<p>
+						<label class="text-right col-sm-3">Emploi</label>
+					<div class="col-sm-9">
+						<input ng-model="data.currentuser.final.infos.job" class="form-control"
+							aria-describedby="sizing-addon2">
+					</div>
+					</p>
+					</br>
+					<p>
+						<label class="text-right col-sm-3">A propos</label>
+					<div class="col-sm-9">
+						<textarea cols="40" rows="5"
+							ng-model="data.currentuser.final.infos.about"></textarea>
+					</div>
+					</p>
+					</br>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+<div class="central-row-button">
+	<button type="button" class="btn btn-default" ng-click=updateUser()>Enregistrer</button>
+</div>
+
+<div class="blanc-provisoire">
+</div>
+
+</div>

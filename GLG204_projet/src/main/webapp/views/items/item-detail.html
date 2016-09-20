@@ -1,0 +1,31 @@
+<div ng-controller="SearchItemDetailCtrl">
+
+	<div class="item-detail-panel">
+
+	<div ng-repeat="a in data.pics()">
+		<div class="col-md-4">
+			<img class="picture-big-responsive" ng-src="{{a.path}}">
+		</div>
+	</div>
+	
+	<div class="picture-row">
+
+		<img class="picture-small-responsive"
+			ng-src="{{data.owner.userPictures[0].path}}"
+			ng-click="showProfile(data.owner.id)">
+		<div class="sub-picture-row">
+
+			<h3>{{data.item.name}}</h3>
+			<p>{{data.item.description}}</p>
+		</div>
+
+	</div>
+
+	<div class="central-row-button">
+		<button class="btn btn-default" ng-click="startDeal()" ng-disabled="data.isLogged == false">Demarrer un swap !</button>
+	</div>
+	</div>
+	
+	<div class="blanc-provisoire">
+</div>
+</div>

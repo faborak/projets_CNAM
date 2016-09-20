@@ -1,0 +1,54 @@
+<div class="home-top"></div>
+
+<div class="home-search-bar">
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="input-group">
+				<input type="text" class="form-control"
+					aria-label="Text input with segmented button dropdown"
+					placeholder="Chercher un objet" ng-model="data.keyword">
+				<div class="input-group-btn">
+					<button type="button" class="btn btn-default"
+						ng-click="rechercher()">Rechercher !</button>
+				</div>
+				<!-- /btn-group -->
+			</div>
+			<!-- /input-group -->
+		</div>
+		<!-- /.col-lg-6 -->
+	</div>
+	<!-- /.row -->
+	<select name="nom" size="1" ng-model="data.selectedCategory"
+		ng-options="categorie.code for categorie in data.categories">
+	</select>
+</div>
+
+<div class="home-panel">
+	<p class="text-center">Tendances du moment</p>
+	<div class="row">
+		<div ng-repeat="a in tendancesfinal()">
+			<div class="col-md-4">
+				<img class="picture-normal-responsive"
+					ng-src="{{a.itemPictures[0].path}}" alt={{a.name}}
+					ng-click="itemDetail(a.idSwapObjet)">
+				<!-- class="img-responsive" -->
+				{{a.idSwapObjet}} {{a.cost}} {{a.owner.name}}
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="home-panel">
+	<p class="text-center">Specialement pour vous</p>
+	<div class="row">
+		<div ng-repeat="a in proposedfinal()">
+			<div class="col-md-4">
+				<img width="167" height="110" alt={{a.name}}
+					src={{a.itemPictures[0].path}} ng-click="itemDetail(a.idSwapObjet)">
+				{{a.IdSwapObjet}} {{a.cost}}
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="blanc-provisoire"></div>

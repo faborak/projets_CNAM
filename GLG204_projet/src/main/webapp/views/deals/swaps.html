@@ -1,0 +1,55 @@
+<div ng-controller="SwapListCtrl">
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="#!/dashboard">Tableau de bord</a></li>
+          <li><a href="#!/followswap">Suivre un echange</a></li>
+          <li class="active"><a href="#!/swaps">Swaps</a><span class="sr-only">(current)</span></li>
+          <li><a href="#!/items">Mes objets</a></li>
+          <li><a href="#!/profile-self">Profil</a></li>
+          <li><a href="#!/account">Compte</a></li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- 
+
+    <p>Suivez vos Swaps en cours.</p>
+
+    <div class="row">
+        <!-- /.col-lg-6 -->
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="text" ng-model="data.search" name="rechercheSwaps" class="form-control" placeholder="Entrer votre recherche ici">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Go!</button>
+                </span>
+            </div>
+            <!-- /input-group -->
+        </div>
+        <!-- /.col-lg-6 -->
+    </div>
+
+    <table>
+        <tr ng-repeat="a in swapsfinal()" id="listeSwaps">
+            <td><strong>{{a.libelleStatus}}</strong></td>
+            </br>
+            <td><label>{{a.initiator.name}} {{a.initiator.lastname}} </label>
+                <img class="picture-normal-responsive" ng-src={{a.initiator.userPictures[0].path}} ng-click="showProfile(a.initiator.id)">
+                <button ng-click="detail(a.idDeal)" >Afficher detail</button>
+                <img class="picture-normal-responsive" ng-src={{a.proposed.userPictures[0].path}} ng-click="showProfile(a.proposed.id)">
+                <label>{{a.proposed.name}} {{a.proposed.lastname}}</label></td>
+        </tr>
+    </table>
+
+</div>
+
+<div class="blanc-provisoire">
+</div>

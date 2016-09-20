@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" class="no-js">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Echanges de biens entre particuliers</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="bower_components/html5-boilerplate/dist/css/normalize.css">
+<link rel="stylesheet"
+	href="bower_components/html5-boilerplate/dist/css/main.css">
+<link rel="stylesheet" href="content/css/app.css">
+<link rel="stylesheet"
+	href="bower_components/ng-dialog/css/ngDialog.css">
+<link rel="stylesheet" href="content/css/bootstrap.min.css">
+
+<script
+	src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<!-- <script src="bower_components/angular-ui-bootstrap/dist/ui-bootstrap.js"></script> -->
+<!-- <script src="bower_components/angular-material/angular-material.min.js"></script> -->
+<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+<script src="bower_components/ng-dialog/js/ngDialog.js"></script>
+<!-- <script src="bower_components/ng-imgur/module/Imgur.js"></script> -->
+<!--<script src="bower_components/angular-aria/angular-aria.min.js"></script>
+  <script src="bower_components/angular-messages/angular-messages.min.js"></script>
+  <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js"></script>-->
+
+<script src="controllers/app.js"></script>
+<script src="controllers/popup-dialog.js"></script>
+<script src="controllers/login.js"></script>
+<script src="controllers/dashboard.js"></script>
+<script src="controllers/followswap.js"></script>
+<script src="controllers/swaps.js"></script>
+<script src="controllers/item.js"></script>
+<script src="controllers/profile.js"></script>
+
+<script src="controllers/search.js"></script>
+<script src="controllers/deal.js"></script>
+
+<script src="services/requeteur.js"></script>
+<script src="services/business.js"></script>
+<script src="services/convert.js"></script>
+
+<script src="components/version/version.js"></script>
+<script src="components/version/version-directive.js"></script>
+<script src="components/version/interpolate-filter.js"></script>
+</head>
+
+
+
+<header id="header" role="banner">
+	<a href="#menu" class="nav-trigger"></a>
+	<div class="header-container">
+		<div>
+			<a href="#!/index"> <img width="167" id="logo" height="110"
+				alt="My Swap"
+				src="http://rlv.zcache.fr/alphabet_stylise_s_dans_des_couleurs_grises_sticker_carre-rf8cdf1fe88784d8887942bc5bb69d754_v9wf3_8byvr_324.jpg">
+			</a>
+		</div>
+		<div ng-controller="popup-dialogCtrl" class="pos-log-button">
+			<button type="button" ng-hide="data.isLogged" class="btn btn-default"
+				ng-click="clickToOpen()" aria-label="Right Align">
+				<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+			</button>
+			<div ng-show="data.isLogged">
+				<div ng-show="data.hasPicture">
+					<div class="dropdown">
+						<img class="picture-small-responsive"
+							ng-src="{{data.user.userPictures[0].path}}"
+							alt={{data.user.name}} ng-click="myProfile()">
+						<div class="dropdown-content">
+							<p ng-click="mySwaps()">Mes swaps</p>
+							<p ng-click="myItems()">Mes objets</p>
+							<p ng-click="myProfile()">Modifier le profil</p>
+							<p ng-click="myAccount()">Paramètres du compte</p>
+							<p ng-click="logout()">Déconnexion</p>
+						</div>
+					</div>
+				</div>
+				<div ng-hide="data.hasPicture">
+					<div class="dropdown">
+						<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+						<div class="dropdown-content">
+							<p ng-click="mySwaps()">Mes swaps</p>
+							<p ng-click="myItems()">Mes objets</p>
+							<p ng-click="myProfile()">Modifier le profil</p>
+							<p ng-click="myAccount()">Paramètres du compte</p>
+							<p ng-click="logout()">Déconnexion</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- </h1> -->
+	</div>
+</header>
+
+<body>
+	<section class="main-content">
+
+		<div ng-view></div>
+
+		<!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>-->
+
+	</section>
+</body>
+
+
+
+<footer>
+	<p class="footer-panel">Mentions legales</p>
+</footer>
+
+</html>

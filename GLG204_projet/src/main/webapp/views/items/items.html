@@ -1,0 +1,58 @@
+<div ng-controller="ItemListCtrl">
+
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header"></div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="#!/dashboard">Tableau de bord</a></li>
+					<li><a href="#!/followswap">Suivre un echange</a></li>
+					<li><a href="#!/swaps">Swaps</a></li>
+					<li class="active"><a href="#!/items">Mes objets<span
+							class="sr-only">(current)</span></a></li>
+					<li><a href="#!/profile-self">Profil</a></li>
+					<li><a href="#!/account">Compte</a></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+
+	<div class="search-item-bar">
+		<div class="row">
+			<!-- /.col-lg-6 -->
+			<div class="col-lg-6">
+				<div class="input-group">
+					<input type="text" ng-model="data.search" name="rechercheItems"
+						class="form-control"
+						placeholder="Entrez une date, un nom, un prix..."> <span
+						class="input-group-btn">
+						<button class="btn btn-default" type="button">Go!</button>
+					</span>
+				</div>
+				<!-- /input-group -->
+			</div>
+			<!-- /.col-lg-6 -->
+		</div>
+	</div>
+
+	<div id="listeItems" class="liste-item-full">
+		<div ng-repeat="a in itemsfinal()">
+			<img width="167" height="110" ng-src="{{a.itemPictures[0].path}}"
+				alt={{a.name}} ng-click="detail(a.idSwapObjet)"> {{a.name}}
+			{{a.cost}}
+		</div>
+	</div>
+
+	<div class="central-row-button">
+		<button type="submit" class="btn btn-default" ng-click="newItem()">Ajouter
+			un nouvel objet a echanger</button>
+	</div>
+
+	<div class="blanc-provisoire"></div>
+</div>
