@@ -1,0 +1,28 @@
+<div ng-controller="ProfileCtrl">
+
+
+	<img class="picture-small-responsive"
+		ng-src="{{data.user.userPictures[0].path}}"> {{data.user.name}}
+	{{data.user.lastname}} Ville : {{data.user.adress.city}}
+
+	<div id="listeItems" class="liste-item-full">
+		<div ng-repeat="a in itemsfinal()">
+			<img width="167" height="110" ng-src="{{a.itemPictures[0].path}}"
+				alt={{a.name}} ng-click="detail(a.idSwapObjet)"> {{a.name}}
+			{{a.cost}}
+		</div>
+	</div>
+
+	<div ng-repeat="a in data.commentsOnUser" id="commentsList">
+		{{a.mark}} {{a.label}}
+		<div id="otheruser_pic">
+			<img src={{a.noting.userPictures[0].path}}
+				class="picture-normal-responsive" alt={{a.noting.name}}
+				name="first_item_pic" id="first_item_pic"
+				ng-click="userDetail(a.noting.id)" />
+		</div>
+	</div>
+
+	<div class="blanc-provisoire"></div>
+
+</div>

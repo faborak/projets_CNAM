@@ -1,0 +1,33 @@
+<div ng-controller="SearchResultCtrl">
+
+	<!-- <img src="data.user.pic" name="user_pic" id="user_pic" /> {{data.user.name}}
+    <td><button ng-click="detailUser(data.user.id)">Voir le profil</button></td>
+    <td><button ng-click="modifierUser(data.user.id)">Modifier le profil</button></td>
+
+    <p>V�rifications</p>
+    <p>{{data.mailchecked}}</p>
+    <p>{{data.phonechecked}}</p> -->
+
+	<div class="home-panel" ng-show="data.result">
+		<div class="row">
+			<div ng-repeat="a in itemsFinal()">
+				<div class="col-md-4">
+					<img width="167" height="110" src={{a.itemPictures[1].path}}
+						alt={{a.name}} ng-click="itemDetail(a.IdSwapObjet)">
+					<!-- class="img-responsive" -->
+					{{a.idSwapObjet}} {{a.cost}} {{a.owner.name}}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="central-message-panel" ng-hide="data.result">
+		<div>Aucun résultat ne correspond à vos criteres de recherche.
+			Peut-être que c'est le moment de proposer quelque chose ?</div>
+		<button class="btn btn-default" ng-click="retour()">Retour à l'accueil</button>
+	</div>
+
+</div>
+
+<div class="blanc-provisoire">
+</div>

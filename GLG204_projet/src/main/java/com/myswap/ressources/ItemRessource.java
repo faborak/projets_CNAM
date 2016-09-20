@@ -1,0 +1,187 @@
+
+package com.myswap.ressources;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
+
+import com.myswap.exceptions.AddPictureException;
+import com.myswap.exceptions.ItemInsertException;
+import com.myswap.exceptions.ItemNotFoundException;
+import com.myswap.exceptions.ItemUpdateException;
+import com.myswap.models.Item;
+import com.myswap.models.ItemPicture;
+import com.myswap.models.SwapObject;
+import com.myswap.services.ItemService;
+import com.myswap.utilitaires.Secured;
+
+/**
+ * 
+ * @author myswap
+ * Rest WevService for items in myswap.
+ */
+@Path("item")
+public class ItemRessource {
+
+	private ItemService itemService = new ItemService();
+	public void setItemService(ItemService itemService){this.itemService = itemService;}
+
+	@GET
+	@Path("/get/{id}")
+	@Produces({ "application/json" })
+	public Response findItem(@PathParam("id") long id) {
+		
+		Item item = null;
+		
+		try {
+			item = itemService.findItem(id);
+		} catch (ItemNotFoundException e) {
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+		
+		return Response.ok(item).build();
+	}
+	
+	@GET
+	@Path("/getCategories")
+	@Produces({ "application/json" })
+	public Response findCategories() {
+		
+		return Response.ok(itemService.findCategories()).build();
+	}
+	
+	@GET
+	@Path("/getTendances")
+	@Produces({ "application/json" })
+	public Response findTendances() {
+		
+		List<Item> items = new ArrayList<Item>();
+		
+		try {
+			items = itemService.findTendances();
+		} catch (ItemNotFoundException e) {
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+		
+		return Response.ok(items).build();
+	}
+	
+	@GET
+	@Path("/getItemsByUser/{id}")
+	@Produces({ "application/json" })
+	public Response findItemsByUser(@PathParam("id") long id) {
+		
+		List<SwapObject> items = new ArrayList<SwapObject>();
+		
+		try {
+			items = itemService.findItemsByUser(id);
+		} catch (ItemNotFoundException e) {
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+		
+		return Response.ok(items).build();
+	}
+	
+	@POST
+	@Path("/getItemsByCriterias")
+	@Produces({ "application/json" })
+	public Response findItemsByCriterias(@FormParam("category") String category, @FormParam("costMin")  String costMin,  @FormParam("costMax")  String costMax, @FormParam("keyword")  String keyword, @FormParam("idReprise")  long idReprise, @FormParam("maxResult") int maxResult) {
+		
+		List<Item> items = new ArrayList<Item>();
+		
+		try {
+			items = itemService.findItemsByCriterias(category, costMin, costMax, keyword, idReprise, maxResult);
+		} catch (ItemNotFoundException e) {
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+		
+		return Response.ok(items).build();
+	}
+
+	@POST
+	@Path("/insert")
+	@Produces("application/json")
+	@Consumes("application/x-www-form-urlencoded")
+	@Secured
+	public Response insertItem(@FormParam("name") String name, @FormParam("description") String description,
+			@FormParam("cost") String cost, @FormParam("userId") String userId, @FormParam("category") String category) {
+
+		Item item = null;
+		
+		try {
+			item = itemService.insertItem(name, description, cost, category, userId);
+		} catch (ItemInsertException e) {
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+		
+		return Response.ok(item).build();
+		
+
+	}
+
+	@DELETE
+	@Path("/delete/{id}")
+	@Secured
+	public void deleteItem(@PathParam("id") long id) {
+		itemService.deleteItem(id);
+
+	}
+
+	@POST
+	@Path("/update")
+	@Produces("application/json")
+	@Consumes("application/x-www-form-urlencoded")
+	@Secured
+	public Response updateItem(@FormParam("id") Long id, @FormParam("name") String name, @FormParam("description") String description,
+			@FormParam("cost") String cost, @FormParam("deals") Set<String> dealsId) {
+
+		Item item = null;
+		
+		try {
+			item = itemService.updateItem(id, name, description, cost, dealsId);
+		} catch (ItemUpdateException e) {
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+		
+		return Response.ok(item).build();
+		
+	}
+	
+	@POST
+	@Path("/insertPicture")
+	@Produces("application/json")
+	@Consumes("application/x-www-form-urlencoded")
+	@Secured
+	public Response insertItem(@FormParam("picPath") String picPath,
+			@FormParam("itemId") long itemId) {
+
+		ItemPicture itempicture = null;
+		
+		try {
+			itempicture = itemService.addPicture(picPath, itemId);
+		} catch (AddPictureException e) {
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+		
+		return Response.ok(itempicture).build();
+		
+	}
+	
+	@DELETE
+	@Path("/deletePicture/{id}")
+	@Secured
+	public void deleteItemPicture(@PathParam("id") long pictureId) {
+		itemService.deletePicture(pictureId);
+	}
+
+}

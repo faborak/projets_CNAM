@@ -1,0 +1,72 @@
+<div ng-controller="NewDealCtrl">
+
+	<div class="deal-panel">
+
+		<h3>Montant total : {{data.total}}</h3>
+
+		<div class="deal-left-panel">
+			<div id="user_pic">
+				<img src={{data.currentuser.userPictures[0].path}}
+					class="picture-normal-responsive" alt={{data.currentuser.name}}
+					name="first_item_pic" id="first_item_pic"
+					ng-click=" userDetail(data.currentuser.id)" />
+			</div>
+
+			<div ng-repeat="a in data.currenDealtItemsFinal()">
+				<img class="picture-normal-responsive" alt={{a.name}}
+					src={{a.itemPictures[0].path}} ng-click="itemDetail(a.idSwapObjet)">
+				{{a.cost}}
+				<button type="submit" class="btn btn-default"
+					ng-click="removeFromDeal(a.idSwapObjet)">Enlever</button>
+			</div>
+
+			<h4>Items hors du Swap</h4>
+
+			<div ng-repeat="a in data.currentItemsFinal()">
+				<img class="picture-normal-responsive" alt={{a.name}}
+					src={{a.itemPictures[0].path}} ng-click="itemDetail(a.idSwapObjet)">
+				{{a.cost}}
+				<button type="submit" class="btn btn-default"
+					ng-click="addToDeal(a.idSwapObjet)">Ajouter</button>
+			</div>
+		</div>
+
+		<div class="deal-right-panel">
+
+			<div id="otheruser_pic">
+				<img src={{data.otheruser.userPictures[0].path}}
+					class="picture-normal-responsive" alt={{data.otheruser.name}}
+					name="first_item_pic" id="first_item_pic"
+					ng-click="userDetail(data.otheruser.id)" />
+			</div>
+
+			<div ng-repeat="a in data.otherDealItemsFinal()">
+				<img class="picture-normal-responsive" alt={{a.name}}
+					src={{a.itemPictures[0].path}} ng-click="itemDetail(a.idSwapObjet)">
+				{{a.cost}}
+				<button type="submit" class="btn btn-default"
+					ng-click="removeFromDeal(a.idSwapObjet)">Enlever</button>
+			</div>
+
+			<h4>Items hors du Swap</h4>
+
+			<div ng-repeat="a in data.otherItemsFinal()">
+				<img class="picture-normal-responsive" alt={{a.name}}
+					src={{a.itemPictures[0].path}} ng-click="itemDetail(a.idSwapObjet)">
+				{{a.cost}}
+				<button type="submit" class="btn btn-default"
+					ng-click="addToDeal(a.idSwapObjet)">Ajouter</button>
+			</div>
+
+		</div>
+	</div>
+
+    <div class="central-row-button">
+	<button type="submit" class="btn btn-default" ng-click="createDeal()">Proposer
+		le Swap !</button>
+     </div>
+     
+	<div class="blanc-provisoire"></div>
+	
+
+</div>
